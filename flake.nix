@@ -17,6 +17,7 @@
 
       hostDefaults.modules = [
         ./modules
+        ./modules/options.nix
 
         home-manager.nixosModules.home-manager
         {
@@ -27,7 +28,6 @@
 
       hosts.nixos-dev.modules = [
         ./hosts/nixos-dev.nix
-        # ./config/users.nix
       ];
 
       outputsBuilder = channels: with channels.nixpkgs; {
