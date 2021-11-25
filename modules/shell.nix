@@ -11,6 +11,10 @@ in
 
   config = mkIf cfg.enable {
     home-manager.users.${config.user.name} = {
+      home.packages = with pkgs; [
+        git
+      ];
+
       programs.starship.enable = true;
       programs.starship.enableZshIntegration = true;
 
