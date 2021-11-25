@@ -9,13 +9,13 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   fileSystems."/" = {
-    device = "/dev/disk/by-partlabel/";
+    device = "/dev/disk/by-label/ROOT";
     fsType = "btrfs";
     options = [ "subvol=nixos" "compress=zstd" "autodefrag" "noatime" ];
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-partlabel/";
+    device = "/dev/disk/by-label/ROOT";
     fsType = "btrfs";
     options = [ "subvol=home" "compress=zstd" "autodefrag" "noatime" ];
   };
@@ -24,6 +24,10 @@
     device = "/dev/disk/by-label/EFI";
     fsType = "vfat";
   };
+
+  swapDevices = [
+    { device = "/dev/disk/by-label/SWAP"; }
+  ];
 
   networking.useDHCP = false;
   networking.interfaces.enp6s18.useDHCP = true;
