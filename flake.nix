@@ -3,8 +3,6 @@
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     utils.url = github:gytis-ivaskevicius/flake-utils-plus;
 
-    devshell.url = github:numtide/devshell;
-
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -12,28 +10,34 @@
   };
 
   outputs = inputs@{ self, utils, home-manager, ... }:
-    # let
-    #   suites = import ./suites.nix { inherit utils; };
-    # in
-    # with suites.nixosModules;
     utils.lib.mkFlake {
       inherit self inputs;
-      # inherit (suites) nixosModules;
 
       channelsConfig.allowUnfree = true;
+ 
+      hostDefaults.channelName = "unstable";
 
       hostDefaults.modules = [
+        ./modules
+
         home-manager.nixosModules.home-manager
-        ./modules/shared-configuration.nix
-        ./config/users.nix
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+        }
       ];
 
       hosts.nixos-dev.modules = [
         ./hosts/nixos-dev.nix
+        # ./config/users.nix
       ];
 
-      outputBuilder = channels: with channels.nixpkgs; {
-        devShell = mkShell {};
+      outputsBuilder = channels: with channels.nixpkgs; {
+        devShell = mkShell {
+          buildInputs = [
+            nixpkgs-fmt
+          ];
+        };
       };
     };
 }

@@ -24,4 +24,12 @@
   networking.interfaces.enp1s0.useDHCP = true;
 
   services.qemuGuest.enable = true;
+
+  user = {
+    name = "kid";
+  };
+
+  modules = {
+    shell.enable = true;
+  };
 }
