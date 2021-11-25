@@ -1,5 +1,5 @@
 {
-  import = [
+  imports = [
     ./system.nix
     ./shell.nix
   ];
