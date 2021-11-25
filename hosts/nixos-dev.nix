@@ -33,4 +33,6 @@
 
   networking.useDHCP = false;
   networking.interfaces.enp6s18.useDHCP = true;
+
+  services.qemuGuest.enable = true;
 }
