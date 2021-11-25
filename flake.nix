@@ -14,8 +14,6 @@
       inherit self inputs;
 
       channelsConfig.allowUnfree = true;
- 
-      hostDefaults.channelName = "unstable";
 
       hostDefaults.modules = [
         ./modules
