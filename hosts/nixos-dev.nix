@@ -3,11 +3,6 @@
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
-  boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "sr_mod" "virtio_blk" ];
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   fileSystems."/" = {
     device = "/dev/disk/by-label/ROOT";
     fsType = "btrfs";
@@ -28,6 +23,13 @@
   swapDevices = [
     { device = "/dev/disk/by-label/SWAP"; }
   ];
+
+  boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "sr_mod" "virtio_blk" ];
+  boot.initrd.kernelModules = [];
+  boot.extraModulePackages = [];
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.useDHCP = false;
   networking.interfaces.enp6s18.useDHCP = true;
