@@ -25,10 +25,15 @@
       hostDefaults.modules = [
         home-manager.nixosModules.home-manager
         ./modules/shared-configuration.nix
+        ./config/users.nix
       ];
 
       hosts.nixos-dev.modules = [
         ./hosts/nixos-dev.nix
       ];
+
+      outputBuilder = channels: with channels.nixpkgs; {
+        devShell = mkShell {};
+      };
     };
 }
