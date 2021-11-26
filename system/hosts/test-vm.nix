@@ -25,6 +25,5 @@
   virtualisation = {
     useBootLoader = true;
     useEFIBoot = true;
-    writableStoreUseTmpfs = true;
   };
 }

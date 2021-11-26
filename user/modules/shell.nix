@@ -3,11 +3,19 @@
     git
   ];
 
+  programs.htop.enable = true;
+  programs.htop.settings = {
+    show_program_path = 0;
+  };
+
   programs.starship.enable = true;
   programs.starship.enableZshIntegration = true;
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+
+  programs.fzf.enable = true;
+  programs.fzf.enableZshIntegration = true;
 
   programs.zsh = {
     enable = true;

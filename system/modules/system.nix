@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "Europe/Brussels";
@@ -10,8 +10,4 @@
     autoOptimiseStore = true;
     gc.automatic = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    git
-  ];
 }

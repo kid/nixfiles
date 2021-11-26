@@ -1,7 +1,7 @@
 {
   description = "Home Manager flake";
   inputs = {
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/master";
   };
 
   outputs = inputs @ { self, home-manager, ... }:

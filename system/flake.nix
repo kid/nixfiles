@@ -4,7 +4,8 @@
     utils.url = github:gytis-ivaskevicius/flake-utils-plus;
 
     home-manager = {
-      url = github:nix-community/home-manager;
+      # url = github:nix-community/home-manager/master;
+      url = github:moinessim/home-manager/nix-2.4-nix-darwin-modules;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -23,7 +24,6 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.kid = import ../user/home.nix;
         }
       ];
 
