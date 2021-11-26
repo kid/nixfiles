@@ -15,11 +15,6 @@
 
       channelsConfig.allowUnfree = true;
 
-      # channels.nixpkgs.overlaysBuilder = channels: [
-      #   # self.overlay
-      #   home-manager.overlay
-      # ];
-
       hostDefaults.modules = [
         ./modules
         ./modules/options.nix
@@ -28,6 +23,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.users.kid = import ../user/home.nix;
         }
       ];
 
@@ -49,8 +45,6 @@
             nixpkgs-fmt
           ];
         };
-
-        homeConfigurations.foo = {};
       };
     };
 }

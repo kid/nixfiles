@@ -13,8 +13,6 @@ with lib.modules;
   };
 
   config = {
-    nix.allowedUsers = [ "@wheel" ];
-    nix.trustedUsers = [ "root" "@wheel" ];
     users.extraUsers.${config.user.name} = {
       shell = pkgs.zsh;
       isNormalUser = true;

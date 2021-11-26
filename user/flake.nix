@@ -15,9 +15,7 @@
           system = "x86_64-linux";
           homeDirectory = "/home/${username}";
 
-          configuration.imports = [
-            ./modules/shell.nix
-          ];
+          configuration = import ./home.nix;
         };
       };
     };
