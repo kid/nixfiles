@@ -13,10 +13,6 @@
     fsType = "vfat";
   };
 
-  boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "sr_mod" "virtio_blk" ];
-  boot.initrd.kernelModules = [];
-  boot.extraModulePackages = [];
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

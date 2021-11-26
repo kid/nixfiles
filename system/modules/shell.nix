@@ -13,6 +13,7 @@ in
     home-manager.users.${config.user.name} = {
       home.packages = with pkgs; [
         git
+        # home-manager
       ];
 
       programs.starship.enable = true;

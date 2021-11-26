@@ -1,6 +1,7 @@
 { modulesPath, ... }: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
+    (modulesPath + "/virtualisation/qemu-vm.nix")
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -17,7 +18,13 @@
     name = "kid";
   };
 
-  modules = {
-    shell.enable = true;
+  # modules = {
+  #   shell.enable = true;
+  # };
+
+  virtualisation = {
+    useBootLoader = true;
+    useEFIBoot = true;
+    writableStoreUseTmpfs = true;
   };
 }

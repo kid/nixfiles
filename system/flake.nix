@@ -15,6 +15,11 @@
 
       channelsConfig.allowUnfree = true;
 
+      # channels.nixpkgs.overlaysBuilder = channels: [
+      #   # self.overlay
+      #   home-manager.overlay
+      # ];
+
       hostDefaults.modules = [
         ./modules
         ./modules/options.nix
@@ -30,12 +35,22 @@
         ./hosts/nixos-dev.nix
       ];
 
+      hosts.test-vm.modules = [
+        ./hosts/test-vm.nix
+        {
+          services.openssh.enable = true;
+        }
+      ];
+
       outputsBuilder = channels: with channels.nixpkgs; {
         devShell = mkShell {
           buildInputs = [
+            fup-repl
             nixpkgs-fmt
           ];
         };
+
+        homeConfigurations.foo = {};
       };
     };
 }
