@@ -4,7 +4,7 @@
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
 
-  console = {
-    earlySetup = true;
-  };
+  # console = {
+  #   earlySetup = true;
+  # };
 }

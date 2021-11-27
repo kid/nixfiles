@@ -1,12 +1,14 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [
+    gh
     git
+    htop
   ];
 
   programs.htop.enable = true;
-  programs.htop.settings = {
-    show_program_path = 0;
-  };
+
+  programs.exa.enable = true;
+  programs.exa.enableAliases = true;
 
   programs.starship.enable = true;
   programs.starship.enableZshIntegration = true;
@@ -19,6 +21,7 @@
 
   programs.zsh = {
     enable = true;
+    dotDir = ".config/zsh";
     zplug = {
       enable = true;
       plugins = [
@@ -27,6 +30,7 @@
         { name = "plugins/fancy-ctrl-z"; tags = [ from:oh-my-zsh ]; }
         { name = "Aloxaf/fzf-tab"; }
         { name = "agkozak/zsh-z"; }
+        { name = "jeffreytse/zsh-vi-mode"; }
       ];
     };
   };
