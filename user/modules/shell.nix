@@ -24,16 +24,17 @@
     dotDir = ".config/zsh";
     localVariables = {
       ZVM_VI_INSERT_ESCAPE_BINDKEY = "jk";
+      ZVM_INIT_MODE = "sourcing";
     };
     zplug = {
       enable = true;
       plugins = [
+        { name = "jeffreytse/zsh-vi-mode"; }
         { name = "zsh-users/zsh-autosuggestions"; }
         { name = "zsh-users/zsh-syntax-highlighting"; tags = [ defer:2 ]; }
         { name = "plugins/fancy-ctrl-z"; tags = [ from:oh-my-zsh ]; }
         { name = "Aloxaf/fzf-tab"; }
         { name = "agkozak/zsh-z"; }
-        { name = "jeffreytse/zsh-vi-mode"; }
       ];
     };
   };
