@@ -3,6 +3,8 @@
     gh
     git
     htop
+    fd
+    ripgrep
   ];
 
   programs.htop.enable = true;
