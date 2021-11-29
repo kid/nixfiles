@@ -42,18 +42,18 @@
       # , taffybar-kid
     , ...
     }:
-    let username = "kid";
-    in
-    utils.lib.mkFlake {
-      inherit self inputs;
-
-      # nix.generateRegistryFromInputs = true;
-
-      sharedOverlays = [ neovim-nightly-overlay.overlay ]
+    let 
+      username = "kid";
+      overlays = [ neovim-nightly-overlay.overlay ]
         ++ xmonad-kid.overlays
         # ++ xmobar-kid.overlays 
         # ++ taffybar-kid.overlays
         ;
+    in
+    utils.lib.mkFlake {
+      inherit self inputs;
+
+      sharedOverlays = overlays;
 
       channelsConfig.allowUnfree = true;
 
@@ -90,11 +90,25 @@
       ];
 
       homeConfigurations = {
-        kid = home-manager.lib.homeManagerConfiguration {
+        "${username}@arch-nix" = home-manager.lib.homeManagerConfiguration {
           inherit username;
           system = "x86_64-linux";
           homeDirectory = "/home/${username}";
-          configuration.imports = [ ./user/home.nix ];
+          configuration.nixpkgs.overlays = overlays;
+          configuration.imports = [ 
+            ./user/modules/shell.nix
+            ./user/modules/editor.nix
+          ];
+        };
+        "${username}@lenovo" = home-manager.lib.homeManagerConfiguration {
+          inherit username;
+          system = "x86_64-linux";
+          homeDirectory = "/home/${username}";
+          configuration.nixpkgs.overlays = overlays;
+          configuration.imports = [ 
+            ./user/modules/shell.nix
+            ./user/modules/editor.nix
+          ];
         };
       };
 
