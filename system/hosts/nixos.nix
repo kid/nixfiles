@@ -1,4 +1,4 @@
-{ modulesPath, ... }: {
+{ modulesPath, pkgs, ... }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -35,5 +35,13 @@
   services.resolved.enable = true;
   services.resolved.dnssec = "false";
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
+    displayManager = {
+      setupCommands = ''
+        ${pkgs.xorg.xrandr}/bin/xrandr --output DP-4 --scale 1x1 --mode 3840x1600 --rate 119.98 --pos 0x480 --primary
+        ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --scale 1x1 --mode 2560x1440 --rate 119.98 --pos 3840x0 --rotate left
+      '';
+    };
+  };
 }

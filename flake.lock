@@ -362,11 +362,11 @@
         "xmonad-contrib": "xmonad-contrib"
       },
       "locked": {
-        "lastModified": 1638029093,
-        "narHash": "sha256-nye0J+atIJa32fy75D27iX1LP//mcL416x7+9uYSLUs=",
+        "lastModified": 1638035165,
+        "narHash": "sha256-DRls9brXbnkjxJs6oIbFxnqbV3+zutpWlojl7O7IPtE=",
         "owner": "kid",
         "repo": "xmonad",
-        "rev": "3b9673f0be080775c14dec1fbc1555d19f96f82c",
+        "rev": "0aa1ab1a5a2f8f2065e118258d95b4a668de0092",
         "type": "github"
       },
       "original": {

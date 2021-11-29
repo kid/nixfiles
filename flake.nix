@@ -18,9 +18,30 @@
       url = github:kid/xmonad;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # xmobar-kid = {
+    #   url = path:./configs/xmobar;
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
+    # taffybar-kid = {
+    #   url = path:./configs/taffybar;
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
-  outputs = inputs@{ self, nixpkgs, utils, home-manager, nixos-hardware, neovim-nightly-overlay, xmonad-kid,... }:
+  outputs =
+    inputs@{ self
+    , nixpkgs
+    , utils
+    , home-manager
+    , nixos-hardware
+    , neovim-nightly-overlay
+    , xmonad-kid
+      # , xmobar-kid
+      # , taffybar-kid
+    , ...
+    }:
     let username = "kid";
     in
     utils.lib.mkFlake {
@@ -28,7 +49,11 @@
 
       # nix.generateRegistryFromInputs = true;
 
-      sharedOverlays = [ neovim-nightly-overlay.overlay ] ++ xmonad-kid.overlays;
+      sharedOverlays = [ neovim-nightly-overlay.overlay ]
+        ++ xmonad-kid.overlays
+        # ++ xmobar-kid.overlays 
+        # ++ taffybar-kid.overlays
+        ;
 
       channelsConfig.allowUnfree = true;
 
@@ -57,6 +82,7 @@
         nixos-hardware.nixosModules.common-cpu-amd
         ./system/hosts/nixos.nix
         ./system/modules/desktop.nix
+        ./system/modules/games.nix
       ];
 
       hosts.test-vm.modules = [

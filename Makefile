@@ -9,10 +9,13 @@ nixos:
 build:
 	nixos-rebuild build --flake ".#"
 
+build-local:
+	nixos-rebuild build --flake ".#" \
+		--override-input "xmonad-kid" "path:../xmonad"
+
 switch:
 	sudo nixos-rebuild switch --flake ".#"
 
 switch-local:
 	sudo nixos-rebuild switch --flake ".#" \
-		--override-input "xmonad-kid" "path:../xmonad" \
-		--override-input "taffybar-kid" "path:./configs/taffybar"
+		--override-input "xmonad-kid" "path:../xmonad"

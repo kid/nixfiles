@@ -6,3 +6,12 @@ if [ "$(xrandr --listmonitors | head -n1 | cut -d ' ' -f 2)" != "1" ]; then
 fi
 
 exec dbus-launch xmonad-kid
+
+# have() { type "$1" > /dev/null 2>&1; }
+#
+# if [ ! "$DBUS_SESSION_BUS_ADDRESS" ] && have dbus-launch; then
+#   exec dbus-launch --exit-with-session ~/.xinitrc "$@" || exit
+# fi
+#
+# taffybar-kid &
+# exec xmonad-kid
