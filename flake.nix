@@ -90,10 +90,11 @@
       ];
 
       homeConfigurations = {
-        nixos = home-manager.lib.homeManagerConfiguration {
+        kid = home-manager.lib.homeManagerConfiguration {
           inherit username;
+          system = "x86_64-linux";
           homeDirectory = "/home/${username}";
-          configuration = import ./user/home.nix;
+          configuration.imports = [ ./user/home.nix ];
         };
       };
 
