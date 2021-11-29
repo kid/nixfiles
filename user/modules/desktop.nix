@@ -18,7 +18,7 @@
     xclip
     kitty
     rofi
-    (chromium.override {
+    (google-chrome-beta.override {
       commandLineArgs = [
         "--enable-features=WebUIDarkMode"
         "--force-dark-mode"
@@ -35,7 +35,7 @@
 
   xdg.mimeApps = {
     enable = true;
-    defaultApplications = let browser = "chromium-browser.desktop"; in
+    defaultApplications = let browser = "google-chrome-beta.desktop"; in
       {
         "text/html" = browser;
         "x-scheme-handler/http" = browser;
