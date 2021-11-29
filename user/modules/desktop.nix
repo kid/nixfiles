@@ -26,18 +26,11 @@
     })
     _1password-gui
     tdesktop # telegram
-    # trayer
-    # polybar
-    # haskellPackages.xmonad
+    polybar-xmonad
+    haskellPackages.xmonad
     haskellPackages.xmonad-kid
-    # haskellPackages.xmobar
-    # haskellPackages.xmobar-kid
-    # haskellPackages.taffybar-kid
     xorg.xmessage
     picom-next
-    # eww
-    # gtk-engine-murrine
-    gnome3.gnome-themes-extra
   ];
 
   xdg.mimeApps = {
