@@ -44,4 +44,15 @@
         "x-scheme-handler/unknown" = browser;
       };
   };
+
+  programs.rofi = {
+    enable = true;
+    extraConfig = {
+      modi = "drun,window,ssh";
+    };
+
+    font = "FiraCode Nerd Font 11";
+    theme = "gruvbox-dark";
+    terminal = "kitty";
+  };
 }
