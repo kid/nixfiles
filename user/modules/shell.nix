@@ -20,6 +20,8 @@
 
   programs.fzf.enable = true;
   programs.fzf.enableZshIntegration = true;
+  programs.fzf.defaultCommand = "fd --type f";
+  programs.fzf.fileWidgetCommand = "fd --type f";
 
   programs.zsh = {
     enable = true;
@@ -29,6 +31,12 @@
       ZVM_VI_INSERT_ESCAPE_BINDKEY = "jk";
       ZVM_INIT_MODE = "sourcing";
     };
+    history = {
+      expireDuplicatesFirst = true;
+      extended = true;
+      ignoreDups = true;
+      share = false;
+    };
     zplug = {
       enable = true;
       plugins = [
@@ -36,7 +44,7 @@
         { name = "zsh-users/zsh-autosuggestions"; }
         { name = "zsh-users/zsh-syntax-highlighting"; tags = [ defer:2 ]; }
         { name = "plugins/fancy-ctrl-z"; tags = [ from:oh-my-zsh ]; }
-        { name = "Aloxaf/fzf-tab"; }
+        { name = "Aloxaf/fzf-tab"; tags = [ "defer:1" ]; }
         { name = "agkozak/zsh-z"; }
       ];
     };
