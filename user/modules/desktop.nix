@@ -26,6 +26,7 @@
     })
     _1password-gui
     tdesktop # telegram
+    leftwm
     polybar
     polybar-xmonad
     haskellPackages.xmonad

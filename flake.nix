@@ -19,15 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # xmobar-kid = {
-    #   url = path:./configs/xmobar;
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
-    # taffybar-kid = {
-    #   url = path:./configs/taffybar;
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    leftwm = {
+      url = github:leftwm/leftwm;
+      flake = false;
+    };
   };
 
   outputs =
@@ -38,24 +33,35 @@
     , nixos-hardware
     , neovim-nightly-overlay
     , xmonad-kid
-      # , xmobar-kid
-      # , taffybar-kid
+    , leftwm
     , ...
     }:
-    let 
+    let
       username = "kid";
-      overlays = [ neovim-nightly-overlay.overlay ]
-        ++ xmonad-kid.overlays
-        # ++ xmobar-kid.overlays 
-        # ++ taffybar-kid.overlays
-        ;
+      overlay = final: prev: {
+        leftwm = prev.leftwm.overrideAttrs (old: rec {
+          src = leftwm;
+          cargoBuildFlags = [ "--features=journald" ];
+          buildInputs = old.buildInputs ++ [ final.systemd ];
+          postInstall = old.postInstall + ''
+            for p in $out/bin/leftwm*; do
+              patchelf --set-rpath "${final.lib.makeLibraryPath [(prev.lib.getLib final.systemd)]}" $p
+            done
+          '';
+          nativeBuildInputs = old.nativeBuildInputs ++ [ final.pkg-config ];
+        });
+      };
+      overlays = [ overlay neovim-nightly-overlay.overlay ] ++ xmonad-kid.overlays;
     in
     utils.lib.mkFlake {
       inherit self inputs;
 
       sharedOverlays = overlays;
 
-      channelsConfig.allowUnfree = true;
+      channelsConfig = {
+        allowBroken = true;
+        allowUnfree = true;
+      };
 
       channels.nixpkgs.inputs = nixpkgs;
 
@@ -95,7 +101,7 @@
           system = "x86_64-linux";
           homeDirectory = "/home/${username}";
           configuration.nixpkgs.overlays = overlays;
-          configuration.imports = [ 
+          configuration.imports = [
             ./user/modules/shell.nix
             ./user/modules/editor.nix
           ];
@@ -105,7 +111,7 @@
           system = "x86_64-linux";
           homeDirectory = "/home/${username}";
           configuration.nixpkgs.overlays = overlays;
-          configuration.imports = [ 
+          configuration.imports = [
             ./user/modules/shell.nix
             ./user/modules/editor.nix
           ];
