@@ -409,11 +409,11 @@
         "xmonad-dbus": "xmonad-dbus"
       },
       "locked": {
-        "lastModified": 1638435018,
-        "narHash": "sha256-jmOeUOT21fA9rnDr42tmsw5vVYJW/VHHS6/ykileQ60=",
+        "lastModified": 1638451931,
+        "narHash": "sha256-4ntB9X+7OusJVBQ/MEsuR4Y+2eP8pJYOuKJdshxg19o=",
         "owner": "kid",
         "repo": "xmonad",
-        "rev": "1b288d2920af806509dd15ed88366fdef1b05209",
+        "rev": "11fae48f82680864f3ff9463310ead3bec3b13b1",
         "type": "github"
       },
       "original": {
