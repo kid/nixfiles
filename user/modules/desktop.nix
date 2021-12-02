@@ -26,11 +26,13 @@
     })
     _1password-gui
     tdesktop # telegram
+    polybar
     polybar-xmonad
     haskellPackages.xmonad
+    haskellPackages.xmonad-dbus
     haskellPackages.xmonad-kid
     xorg.xmessage
-    picom-next
+    feh
   ];
 
   xdg.mimeApps = {
