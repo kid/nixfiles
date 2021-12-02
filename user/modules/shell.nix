@@ -37,6 +37,9 @@
       ignoreDups = true;
       share = false;
     };
+    initExtra = ''
+      setopt inc_append_history
+    '';
     zplug = {
       enable = true;
       plugins = [
