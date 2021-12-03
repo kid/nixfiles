@@ -1,130 +1,139 @@
 {
+  nixConfig.extra-experimental-features = "nix-command flakes";
+  nixConfig.extra-substituters = "https://nrdxp.cachix.org https://nix-community.cachix.org";
+  nixConfig.extra-trusted-public-keys = "nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
+
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-    utils.url = github:gytis-ivaskevicius/flake-utils-plus;
-    nixos-hardware.url = github:NixOS/nixos-hardware/master;
+    nixpkgs.url = github:nixos/nixpkgs/release-21.11;
+    latest.url = github:nixos/nixpkgs/nixos-unstable;
 
-    neovim-nightly-overlay = {
-      url = github:nix-community/neovim-nightly-overlay;
+    nixos-hardware.url = github:nixos/nixos-hardware;
+
+    fu.url = github:numtide/flake-utils;
+    fup.url = github:gytis-ivaskevicius/flake-utils-plus;
+    fup.inputs.flake-utils.follows = "fu";
+
+    hm.url = github:nix-community/home-manager/release-21.05;
+    hm.inputs.nixpkgs.follows = "nixpkgs";
+
+    devshell.url = github:numtide/devshell;
+    neovim-nightly-overlay.url = github:nix-community/neovim-nightly-overlay;
+    rnix-lsp = {
+      url = github:nix-community/rnix-lsp;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "fu";
     };
 
-    home-manager = {
-      url = github:nix-community/home-manager/master;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    xmonad-kid = {
-      url = github:kid/xmonad;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    leftwm = {
-      url = github:leftwm/leftwm;
-      flake = false;
-    };
+    xmonad.url = github:xmonad/xmonad;
+    xmonad-contrib.url = github:xmonad/xmonad-contrib;
+    xmonad-contrib.inputs.xmonad.follows = "xmonad";
+    xmonad-kid.url = github:kid/xmonad;
+    xmonad-kid.inputs.xmonad.follows = "xmonad";
+    xmonad-kid.inputs.xmonad-contrib.follows = "xmonad-contrib";
   };
 
-  outputs =
-    inputs@{ self
-    , nixpkgs
-    , utils
-    , home-manager
-    , nixos-hardware
-    , neovim-nightly-overlay
-    , xmonad-kid
-    , leftwm
-    , ...
-    }:
+  outputs = inputs @ { self, nixpkgs, fup, ... }:
     let
+      inherit (fup.lib) exportOverlays exportPackages exportModules;
       username = "kid";
-      overlay = final: prev: {
-        leftwm = prev.leftwm.overrideAttrs (old: rec {
-          src = leftwm;
-          cargoBuildFlags = [ "--features=journald" ];
-          buildInputs = old.buildInputs ++ [ final.systemd ];
-          postInstall = old.postInstall + ''
-            for p in $out/bin/leftwm*; do
-              patchelf --set-rpath "${final.lib.makeLibraryPath [(prev.lib.getLib final.systemd)]}" $p
-            done
-          '';
-          nativeBuildInputs = old.nativeBuildInputs ++ [ final.pkg-config ];
-        });
+
+      shared = [
+        ./home/cli.nix
+      ];
+
+      hmModules = {
+        inherit shared;
+        arch-nix = shared;
+        nixos = shared ++ [
+          ./user/modules/fonts.nix
+          ./user/modules/desktop.nix
+        ];
       };
-      overlays = [ overlay neovim-nightly-overlay.overlay ] ++ xmonad-kid.overlays;
     in
-    utils.lib.mkFlake {
+    fup.lib.mkFlake {
       inherit self inputs;
 
-      sharedOverlays = overlays;
+      channelsConfig.allowUnfree = true;
+      # Channel specific overlays. 
+      # channels.nixpkgs.overlaysBuilder = channels: [
+      #   (final: prev: { })
+      # ];
 
-      channelsConfig = {
-        allowBroken = true;
-        allowUnfree = true;
+      # Propagates to channels.<name>.overlaysBuilder
+      sharedOverlays = [
+        self.overlay
+        inputs.devshell.overlay
+        inputs.neovim-nightly-overlay.overlay
+        inputs.xmonad.overlay
+        inputs.xmonad-contrib.overlay
+        inputs.xmonad-kid.overlay
+      ];
+
+      nixosModules = exportModules [
+        ./system/hosts/nixos.nix
+      ];
+
+      overlay = import ./overlays { inherit inputs; };
+      overlays = exportOverlays {
+        inherit (self) pkgs;
+        inputs = (builtins.removeAttrs inputs ["xmonad" "xmonad-contrib"]);
       };
 
-      channels.nixpkgs.inputs = nixpkgs;
+      outputsBuilder = channels: {
+        packages = exportPackages self.overlays channels;
+        devShell = channels.nixpkgs.devshell.mkShell {
+          packages = with channels.nixpkgs; [ 
+            gnumake
+            nixpkgs-fmt 
+            rnix-lsp
+          ];
+          name = "nixfiles";
+        };
+      };
 
-      hostDefaults.channelName = "nixpkgs";
       hostDefaults.modules = [
-        ./system/modules
-        ./system/modules/options.nix
+        ./modules/minimal.nix
+        inputs.hm.nixosModule
         {
-          services.openssh.enable = true;
-        }
-        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+          };
           user.name = username;
         }
-        home-manager.nixosModules.home-manager
+      ];
+
+      hosts = {
+        nixos.modules = [
+          inputs.nixos-hardware.nixosModules.common-pc
+          inputs.nixos-hardware.nixosModules.common-pc-ssd
+          inputs.nixos-hardware.nixosModules.common-cpu-amd
+          ./system/hosts/nixos.nix
+          ./system/modules/desktop.nix
+          ./system/modules/games.nix
+          { home-manager.users."${username}".imports = hmModules.nixos; }
+        ];
+      };
+
+      homeConfigurations =
+        let
+          configuration = { };
+          extraSpecialArgs = { inherit inputs self; };
+          homeDirectory = "/home/${username}";
+          generateHome = inputs.hm.lib.homeManagerConfiguration;
+          system = "x86_64-linux";
+          pkgs = self.pkgs.${system}.nixpkgs;
+        in
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-        }
-      ];
+          cli = generateHome {
+            inherit system username homeDirectory extraSpecialArgs pkgs configuration;
+            extraModules = [ ./home/cli.nix ];
+          };
 
-      hosts.nixos.modules = [
-        nixos-hardware.nixosModules.common-pc
-        nixos-hardware.nixosModules.common-pc-ssd
-        nixos-hardware.nixosModules.common-cpu-amd
-        ./system/hosts/nixos.nix
-        ./system/modules/desktop.nix
-        ./system/modules/games.nix
-      ];
-
-      hosts.test-vm.modules = [
-        ./system/hosts/test-vm.nix
-      ];
-
-      homeConfigurations = {
-        "${username}@arch-nix" = home-manager.lib.homeManagerConfiguration {
-          inherit username;
-          system = "x86_64-linux";
-          homeDirectory = "/home/${username}";
-          configuration.nixpkgs.overlays = overlays;
-          configuration.imports = [
-            ./user/modules/shell.nix
-            ./user/modules/editor.nix
-          ];
+          "${username}@arch-nix" = generateHome {
+            inherit system username homeDirectory extraSpecialArgs pkgs configuration;
+            extraModules = hmModules.arch-nix;
+          };
         };
-        "${username}@lenovo" = home-manager.lib.homeManagerConfiguration {
-          inherit username;
-          system = "x86_64-linux";
-          homeDirectory = "/home/${username}";
-          configuration.nixpkgs.overlays = overlays;
-          configuration.imports = [
-            ./user/modules/shell.nix
-            ./user/modules/editor.nix
-          ];
-        };
-      };
-
-      outputsBuilder = channels: with channels.nixpkgs; {
-        devShell = mkShell {
-          buildInputs = [
-            fup-repl
-            nixpkgs-fmt
-          ];
-        };
-      };
     };
 }

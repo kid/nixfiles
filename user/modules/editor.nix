@@ -1,6 +1,8 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     neovim-nightly
+
+    # TODO move these into a "dev" module
     sumneko-lua-language-server
     efm-langserver
     rnix-lsp
@@ -11,7 +13,6 @@
   home.sessionVariables.EDITOR = "nvim";
 
   home.sessionVariables.MANPAGER = "nvim +Man!";
-  home.sessionVariables.MANWIDTH = "999";
 
   programs.zsh.localVariables.ZVM_VI_EDITOR = "nvim";
 }
