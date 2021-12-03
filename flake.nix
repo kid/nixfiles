@@ -43,10 +43,8 @@
 
       hmModules = {
         inherit shared;
-        arch-nix = shared;
-        nixos = shared ++ [
-          ./home/profiles/desktop.nix
-        ];
+        arch-nix = shared ++ [ ./home/profiles/minimal.nix ];
+        nixos = shared ++ [ ./home/profiles/desktop.nix ];
       };
     in
     fup.lib.mkFlake {
