@@ -1,7 +1,7 @@
 {
   imports = [
     ./cli.nix
-    ./user/modules/fonts.nix
-    ./user/modules/desktop.nix
+    ./fonts.nix
+    ./desktop.nix
   ];
 }

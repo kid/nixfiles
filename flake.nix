@@ -45,8 +45,8 @@
         inherit shared;
         arch-nix = shared;
         nixos = shared ++ [
-          ./user/modules/fonts.nix
-          ./user/modules/desktop.nix
+          ./home/fonts.nix
+          ./home/desktop.nix
         ];
       };
     in
@@ -70,27 +70,28 @@
       ];
 
       nixosModules = exportModules [
-        ./system/hosts/nixos.nix
+        ./hosts/nixos.nix
       ];
 
       overlay = import ./overlays { inherit inputs; };
       overlays = exportOverlays {
         inherit (self) pkgs;
-        inputs = (builtins.removeAttrs inputs ["xmonad" "xmonad-contrib"]);
+        inputs = (builtins.removeAttrs inputs [ "xmonad" "xmonad-contrib" ]);
       };
 
       outputsBuilder = channels: {
         packages = exportPackages self.overlays channels;
         devShell = channels.nixpkgs.devshell.mkShell {
-          packages = with channels.nixpkgs; [ 
+          packages = with channels.nixpkgs; [
             gnumake
-            nixpkgs-fmt 
+            nixpkgs-fmt
             rnix-lsp
           ];
           name = "nixfiles";
         };
       };
 
+      hostDefaults.channelName = "latest";
       hostDefaults.modules = [
         ./modules/minimal.nix
         inputs.hm.nixosModule
@@ -108,16 +109,18 @@
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
           inputs.nixos-hardware.nixosModules.common-cpu-amd
-          ./system/hosts/nixos.nix
-          ./system/modules/desktop.nix
-          ./system/modules/games.nix
+          ./hosts/nixos.nix
+          ./modules/desktop.nix
+          ./modules/games.nix
           { home-manager.users."${username}".imports = hmModules.nixos; }
         ];
       };
 
       homeConfigurations =
         let
-          configuration = { };
+          configuration = {
+            programs.home-manager.enable = true;
+          };
           extraSpecialArgs = { inherit inputs self; };
           homeDirectory = "/home/${username}";
           generateHome = inputs.hm.lib.homeManagerConfiguration;

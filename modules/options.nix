@@ -19,7 +19,5 @@ with lib.modules;
       extraGroups = [ "audio" "video" "wheel" ];
       initialPassword = "foo";
     };
-
-    home-manager.users.${config.user.name} = import ../../user/home.nix;
   };
 }

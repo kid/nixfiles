@@ -1,9 +1,11 @@
 # Minimal config for servers
 {
   imports = [
-    ../user/modules/shell.nix
-    ../user/modules/editor.nix
+    ./shell.nix
+    ./editor.nix
   ];
+
+  xdg.enable = true;
 
   # Client side SSH configuration
   programs.ssh = {
