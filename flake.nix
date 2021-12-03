@@ -38,15 +38,14 @@
       username = "kid";
 
       shared = [
-        ./home/cli.nix
+        ./home
       ];
 
       hmModules = {
         inherit shared;
         arch-nix = shared;
         nixos = shared ++ [
-          ./home/fonts.nix
-          ./home/desktop.nix
+          ./home/profiles/desktop.nix
         ];
       };
     in
@@ -130,7 +129,7 @@
         {
           cli = generateHome {
             inherit system username homeDirectory extraSpecialArgs pkgs configuration;
-            extraModules = [ ./home/cli.nix ];
+            extraModules = [ ./home/profiles/cli.nix ];
           };
 
           "${username}@arch-nix" = generateHome {
