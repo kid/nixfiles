@@ -25,6 +25,7 @@
       ];
     })
     _1password-gui
+    discord-canary
     tdesktop # telegram
     polybar
     polybar-xmonad
