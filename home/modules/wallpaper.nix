@@ -15,7 +15,7 @@ in
         PartOf = [ "graphical-session.target" ];
       };
 
-      Install = { WantedBy = ["graphical-session.target"]; };
+      Install = { WantedBy = [ "graphical-session.target" ]; };
 
       Service = {
         Type = "oneshot";

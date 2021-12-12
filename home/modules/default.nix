@@ -1,3 +1,3 @@
 {
-  imports = [./wallpaper.nix];
+  imports = [ ./wallpaper.nix ];
 }
