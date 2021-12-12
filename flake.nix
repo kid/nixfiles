@@ -24,6 +24,12 @@
       inputs.utils.follows = "fu";
     };
 
+    rust-overlay = {
+      url = github:oxalica/rust-overlay;
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "fu";
+    };
+
     xmonad.url = github:xmonad/xmonad;
     xmonad-contrib.url = github:xmonad/xmonad-contrib;
     xmonad-contrib.inputs.xmonad.follows = "xmonad";
@@ -64,6 +70,7 @@
         inputs.xmonad.overlay
         inputs.xmonad-contrib.overlay
         inputs.xmonad-kid.overlay
+        inputs.rust-overlay.overlay
       ];
 
       nixosModules = exportModules [
