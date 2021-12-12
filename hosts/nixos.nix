@@ -9,6 +9,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   fileSystems."/" =
     {
       device = "/dev/disk/by-uuid/46740fe8-a0ea-4b77-9dfc-525bc2293a2b";
