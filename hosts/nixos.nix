@@ -10,40 +10,36 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/ab2da971-5083-4e48-88a8-20a4b0509933";
+    { device = "/dev/disk/by-label/linux";
       fsType = "btrfs";
       options = [ "subvol=@nixos/root" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/ab2da971-5083-4e48-88a8-20a4b0509933";
+    { device = "/dev/disk/by-label/linux";
       fsType = "btrfs";
       options = [ "subvol=@nixos/nix" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/ab2da971-5083-4e48-88a8-20a4b0509933";
+    { device = "/dev/disk/by-label/linux";
       fsType = "btrfs";
       options = [ "subvol=@nixos/persist" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/ab2da971-5083-4e48-88a8-20a4b0509933";
+    { device = "/dev/disk/by-label/linux";
       fsType = "btrfs";
       options = [ "subvol=@nixos/log" "compress=zstd" "noatime" ];
       neededForBoot = true;
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/ab2da971-5083-4e48-88a8-20a4b0509933";
+    { device = "/dev/disk/by-label/linux";
       fsType = "btrfs";
-      options = [ "subvol=@home" ];
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/98A4-DE7E";
-      fsType = "vfat";
+      options = [ "subvol=@home" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/boot" =
