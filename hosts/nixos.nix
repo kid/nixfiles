@@ -12,10 +12,34 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/46740fe8-a0ea-4b77-9dfc-525bc2293a2b";
+    { device = "/dev/disk/by-label/linux";
       fsType = "btrfs";
-      options = [ "subvol=nixos" ];
+      options = [ "subvol=@nixos/root" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-label/linux";
+      fsType = "btrfs";
+      options = [ "subvol=@nixos/nix" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/persist" =
+    { device = "/dev/disk/by-label/linux";
+      fsType = "btrfs";
+      options = [ "subvol=@nixos/persist" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-label/linux";
+      fsType = "btrfs";
+      options = [ "subvol=@nixos/log" "compress=zstd" "noatime" ];
+      neededForBoot = true;
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-label/linux";
+      fsType = "btrfs";
+      options = [ "subvol=@home" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/boot" =
