@@ -13,7 +13,7 @@
     fup.url = github:gytis-ivaskevicius/flake-utils-plus;
     fup.inputs.flake-utils.follows = "fu";
 
-    hm.url = github:nix-community/home-manager/release-21.05;
+    hm.url = github:nix-community/home-manager/release-21.11;
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
     devshell.url = github:numtide/devshell;

@@ -1,13 +1,15 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
     # TODO theses 2 belongs in a "dev" module
-    gh
     git
 
     htop
     fd
     ripgrep
   ];
+
+  programs.gh.enable = true;
+  programs.gh.settings.git_protocol = "ssh";
 
   programs.htop.enable = true;
 
