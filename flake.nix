@@ -86,12 +86,31 @@
       outputsBuilder = channels: {
         packages = exportPackages self.overlays channels;
         devShell = channels.nixpkgs.devshell.mkShell {
+          name = "nixfiles";
+
           packages = with channels.nixpkgs; [
             gnumake
             nixpkgs-fmt
             rnix-lsp
+            fd
           ];
-          name = "nixfiles";
+
+          commands = [
+            {
+              name = "fmt";
+              help = "Check Nix formatting";
+              command = "nixpkgs-fmt \${@} $PRJ_ROOT";
+            }
+            {
+              name = "evalnix";
+              help = "Check Nix parsing";
+              command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
+            }
+            {
+              name = "switch";
+              command = "sudo nixos-rebuild switch --flake .";
+            }
+          ];
         };
       };
 
