@@ -15,4 +15,12 @@ if [ "$(xrandr --listmonitors | head -n1 | cut -d ' ' -f 2)" != "1" ]; then
 	xrandr --output DP-2 --scale 1x1 --mode 2560x1440 --rate 144 --pos 3840x0 --rotate left
 fi
 
-exec xmonad-kid
+case "${1:-leftwm}" in
+
+	xmonad) exec xmonad-kid ;;
+
+	leftwm) exec leftwm &>/tmp/leftwm.log ;;
+
+	*) exec $1 ;;
+
+esac
