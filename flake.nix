@@ -4,8 +4,7 @@
   nixConfig.extra-trusted-public-keys = "nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/release-21.11;
-    latest.url = github:nixos/nixpkgs/nixos-unstable;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
 
     nixos-hardware.url = github:nixos/nixos-hardware;
 
@@ -13,7 +12,7 @@
     fup.url = github:gytis-ivaskevicius/flake-utils-plus;
     fup.inputs.flake-utils.follows = "fu";
 
-    hm.url = github:nix-community/home-manager/release-21.11;
+    hm.url = github:nix-community/home-manager;
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
     devshell.url = github:numtide/devshell;
@@ -36,6 +35,9 @@
     xmonad-kid.url = github:kid/xmonad;
     xmonad-kid.inputs.xmonad.follows = "xmonad";
     xmonad-kid.inputs.xmonad-contrib.follows = "xmonad-contrib";
+
+    leftwm.url = github:kid/leftwm/allthethings;
+    leftwm.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ { self, nixpkgs, fup, ... }:
@@ -57,20 +59,17 @@
       inherit self inputs;
 
       channelsConfig.allowUnfree = true;
-      # Channel specific overlays. 
-      # channels.nixpkgs.overlaysBuilder = channels: [
-      #   (final: prev: { })
-      # ];
 
       # Propagates to channels.<name>.overlaysBuilder
       sharedOverlays = [
-        self.overlay
+        # self.overlay
         inputs.devshell.overlay
         inputs.neovim-nightly-overlay.overlay
         inputs.xmonad.overlay
         inputs.xmonad-contrib.overlay
         inputs.xmonad-kid.overlay
         inputs.rust-overlay.overlay
+        inputs.leftwm.overlay
       ];
 
       nixosModules = exportModules [
@@ -114,7 +113,6 @@
         };
       };
 
-      hostDefaults.channelName = "latest";
       hostDefaults.modules = [
         ./modules/minimal.nix
         inputs.hm.nixosModule
