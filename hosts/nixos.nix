@@ -13,40 +13,36 @@
 
   boot.tmpOnTmpfs = true;
 
+  boot.initrd.supportedFilesystems = ["zfs"];
+  boot.zfs.devNodes = "/dev/disk/by-id";
+
   fileSystems."/" =
     {
-      device = "/dev/disk/by-label/linux";
-      fsType = "btrfs";
-      options = [ "subvol=@nixos/root" "compress=zstd" "noatime" ];
+      device = "zfs/SYSTEM/root";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+  fileSystems."/var" =
+    {
+      device = "zfs/SYSTEM/var";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      neededForBoot = true;
     };
 
   fileSystems."/nix" =
     {
-      device = "/dev/disk/by-label/linux";
-      fsType = "btrfs";
-      options = [ "subvol=@nixos/nix" "compress=zstd" "noatime" ];
-    };
-
-  fileSystems."/persist" =
-    {
-      device = "/dev/disk/by-label/linux";
-      fsType = "btrfs";
-      options = [ "subvol=@nixos/persist" "compress=zstd" "noatime" ];
-    };
-
-  fileSystems."/var/log" =
-    {
-      device = "/dev/disk/by-label/linux";
-      fsType = "btrfs";
-      options = [ "subvol=@nixos/log" "compress=zstd" "noatime" ];
-      neededForBoot = true;
+      device = "zfs/LOCAL/nix";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
     };
 
   fileSystems."/home" =
     {
-      device = "/dev/disk/by-label/linux";
-      fsType = "btrfs";
-      options = [ "subvol=@home" "compress=zstd" "noatime" ];
+      device = "rpool/USER/home";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
     };
 
   fileSystems."/boot" =
@@ -61,6 +57,7 @@
     }
   ];
 
+  networking.hostId = "9371deb4";
   networking.useDHCP = false;
   networking.useNetworkd = true;
   networking.interfaces.enp5s0.useDHCP = true;
