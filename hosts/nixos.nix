@@ -21,6 +21,7 @@
       device = "zfs/SYSTEM/root";
       fsType = "zfs";
       options = [ "zfsutil" ];
+      neededForBoot = true;
     };
 
   fileSystems."/var" =
