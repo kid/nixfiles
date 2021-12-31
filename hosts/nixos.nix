@@ -19,7 +19,7 @@
 
   fileSystems."/" =
     {
-      device = "zfs/SYSTEM/root";
+      device = "rpool/SYSTEM/root";
       fsType = "zfs";
       options = [ "zfsutil" ];
       neededForBoot = true;
@@ -27,7 +27,7 @@
 
   fileSystems."/var" =
     {
-      device = "zfs/SYSTEM/var";
+      device = "rpool/SYSTEM/var";
       fsType = "zfs";
       options = [ "zfsutil" ];
       neededForBoot = true;
@@ -35,7 +35,7 @@
 
   fileSystems."/nix" =
     {
-      device = "zfs/LOCAL/nix";
+      device = "rpool/LOCAL/nix";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };
