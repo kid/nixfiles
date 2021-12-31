@@ -37,6 +37,7 @@ keybind = [
   { modifier = ["modkey", "Shift"], key = "j", command = "MoveWindowDown" },
   { modifier = ["modkey", "Shift"], key = "m", command = "MoveWindowTop", value = "true" },
 
+  { modifier = ["modkey"], key = "Return", command = "ToggleFullScreen" },
   { modifier = ["modkey"], key = "slash", command = "RotateTag" },
   { modifier = ["modkey"], key = "backslash", command = "NextLayout" },
   { modifier = ["modkey", "Shift"], key = "backslash", command = "PreviousLayout" },
