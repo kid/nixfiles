@@ -6,6 +6,7 @@
     htop
     fd
     ripgrep
+    jq
   ];
 
   programs.gh.enable = true;
