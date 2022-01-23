@@ -17,7 +17,7 @@ keybind = [
   { modifier = ["modkey"], key = "t", command = "Execute", value = "kitty" },
   { modifier = ["modkey"], key = "p", command = "Execute", value = "rofi -show" },
   { modifier = ["modkey"], key = "b", command = "Execute", value = "google-chrome-beta" },
-  { modifier = ["modkey", "Shift"], key = "p", command = "Execute", value = "google-chrome-beta --incognito" },
+  { modifier = ["modkey", "Shift"], key = "b", command = "Execute", value = "google-chrome-beta --incognito" },
 
   { modifier = ["modkey", "Shift"], key = "w", command = "CloseWindow" },
 
