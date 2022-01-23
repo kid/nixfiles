@@ -1,4 +1,4 @@
-{ modulesPath, pkgs, ... }: {
+{ config, modulesPath, pkgs, ... }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -9,12 +9,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   boot.kernelParams = [ "boot.shell_on_fail" ];
 
   boot.tmpOnTmpfs = true;
 
   boot.initrd.supportedFilesystems = ["zfs"];
+  boot.zfs.enableUnstable = true;
   boot.zfs.devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
 
   fileSystems."/" =
