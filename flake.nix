@@ -4,7 +4,9 @@
   nixConfig.extra-trusted-public-keys = "nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    # nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    # until https://nixpk.gs/pr-tracker.html?pr=159074 gets into nixos-unstable
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable-small;
 
     nixos-hardware.url = github:nixos/nixos-hardware;
 
@@ -16,28 +18,42 @@
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
     devshell.url = github:numtide/devshell;
+    devshell.inputs.nixpkgs.follows = "nixpkgs";
+    devshell.inputs.flake-utils.follows = "fu";
+
+
     neovim-nightly-overlay.url = github:nix-community/neovim-nightly-overlay;
+    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
+
     rnix-lsp = {
       url = github:nix-community/rnix-lsp;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "fu";
+      inputs.naersk.follows = "naersk";
     };
 
-    rust-overlay = {
-      url = github:oxalica/rust-overlay;
+    # rust-overlay = {
+    #   url = github:oxalica/rust-overlay;
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.utils.follows = "fu";
+    # };
+
+    fenix = {
+      url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "fu";
     };
 
-    xmonad.url = github:xmonad/xmonad;
-    xmonad-contrib.url = github:xmonad/xmonad-contrib;
-    xmonad-contrib.inputs.xmonad.follows = "xmonad";
-    xmonad-kid.url = github:kid/xmonad;
-    xmonad-kid.inputs.xmonad.follows = "xmonad";
-    xmonad-kid.inputs.xmonad-contrib.follows = "xmonad-contrib";
+    naersk = {
+      url = "github:nix-community/naersk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     leftwm.url = github:kid/leftwm/allthethings;
     leftwm.inputs.nixpkgs.follows = "nixpkgs";
+    leftwm.inputs.flake-utils.follows = "fu";
+    leftwm.inputs.fenix.follows = "fenix";
+    leftwm.inputs.naersk.follows = "naersk";
+
   };
 
   outputs = inputs @ { self, nixpkgs, fup, ... }:
@@ -62,14 +78,11 @@
 
       # Propagates to channels.<name>.overlaysBuilder
       sharedOverlays = [
-        # self.overlay
         inputs.devshell.overlay
         inputs.neovim-nightly-overlay.overlay
-        inputs.xmonad.overlay
-        inputs.xmonad-contrib.overlay
-        inputs.xmonad-kid.overlay
-        inputs.rust-overlay.overlay
+        # inputs.rust-overlay.overlay
         inputs.leftwm.overlay
+        inputs.fenix.overlay
       ];
 
       nixosModules = exportModules [
@@ -108,6 +121,10 @@
             {
               name = "switch";
               command = "sudo nixos-rebuild switch --flake .";
+            }
+            {
+              name = "switch-local";
+              command = "sudo nixos-rebuild switch --flake . --option binary-caches ''";
             }
           ];
         };
