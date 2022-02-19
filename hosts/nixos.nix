@@ -14,7 +14,7 @@
 
   boot.tmpOnTmpfs = true;
 
-  boot.initrd.supportedFilesystems = ["zfs"];
+  boot.initrd.supportedFilesystems = [ "zfs" ];
   boot.zfs.enableUnstable = true;
   boot.zfs.devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
 
