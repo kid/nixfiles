@@ -28,10 +28,6 @@
     discord-canary
     tdesktop # telegram
     polybar
-    polybar-xmonad
-    haskellPackages.xmonad
-    haskellPackages.xmonad-dbus
-    haskellPackages.xmonad-kid
     xorg.xmessage
     feh
     leftwm
@@ -99,4 +95,6 @@
   };
 
   services.wallpaper.enable = true;
+
+  xsession.enable = true;
 }

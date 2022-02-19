@@ -18,4 +18,4 @@ switch:
 
 switch-local:
 	sudo nixos-rebuild switch --flake ".#" \
-		--override-input "xmonad-kid" "path:../xmonad"
+		--override-input "leftwm" "path:../leftwm"
