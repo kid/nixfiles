@@ -31,6 +31,8 @@
     xorg.xmessage
     feh
     leftwm
+    nfs-utils
+    pmount
   ];
 
   xdg.mimeApps = {
