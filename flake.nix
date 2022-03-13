@@ -46,7 +46,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    leftwm.url = github:kid/leftwm/allthethings;
+    leftwm.url = github:leftwm/leftwm;
     leftwm.inputs.nixpkgs.follows = "nixpkgs";
     leftwm.inputs.flake-utils.follows = "fu";
     leftwm.inputs.fenix.follows = "fenix";

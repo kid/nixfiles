@@ -146,16 +146,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1645264585,
-        "narHash": "sha256-VtP0jAGgVl7P69ndO3CsJVtF9/OpUOKN+8Vf3/84aSQ=",
-        "owner": "kid",
+        "lastModified": 1646901095,
+        "narHash": "sha256-ux6akpEo4gy4iJHbU+YAyQmQUU/Vg1vz2KUNv08BIyw=",
+        "owner": "leftwm",
         "repo": "leftwm",
-        "rev": "53b6a8ad1377e8ba54a77b557a351f62fa532f5b",
+        "rev": "c3de436a3349b1b53dce5d774fe3328802621b88",
         "type": "github"
       },
       "original": {
-        "owner": "kid",
-        "ref": "allthethings",
+        "owner": "leftwm",
         "repo": "leftwm",
         "type": "github"
       }
