@@ -4,9 +4,7 @@
   nixConfig.extra-trusted-public-keys = "nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
-    # nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-    # until https://nixpk.gs/pr-tracker.html?pr=159074 gets into nixos-unstable
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable-small;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
 
     nixos-hardware.url = github:nixos/nixos-hardware;
 
@@ -53,7 +51,6 @@
     leftwm.inputs.flake-utils.follows = "fu";
     leftwm.inputs.fenix.follows = "fenix";
     leftwm.inputs.naersk.follows = "naersk";
-
   };
 
   outputs = inputs @ { self, nixpkgs, fup, ... }:
