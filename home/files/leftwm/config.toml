@@ -12,6 +12,7 @@ scratchpad = []
 disable_current_tag_swap = false
 focus_behaviour = "Sloppy"
 focus_new_windows = true
+insert_behavior = "AfterCurrent"
 
 keybind = [
   { modifier = ["modkey"], key = "t", command = "Execute", value = "kitty" },
