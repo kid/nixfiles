@@ -15,10 +15,12 @@
     hm.url = github:nix-community/home-manager;
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
+    darwin.url = github:lnl7/nix-darwin/master;
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     devshell.url = github:numtide/devshell;
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     devshell.inputs.flake-utils.follows = "fu";
-
 
     neovim-nightly-overlay.url = github:nix-community/neovim-nightly-overlay;
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
@@ -53,7 +55,7 @@
     leftwm.inputs.naersk.follows = "naersk";
   };
 
-  outputs = inputs @ { self, nixpkgs, fup, ... }:
+  outputs = inputs @ { self, nixpkgs, fup, darwin, ... }:
     let
       inherit (fup.lib) exportOverlays exportPackages exportModules;
       username = "kid";
@@ -172,6 +174,38 @@
             inherit system username homeDirectory extraSpecialArgs pkgs configuration;
             extraModules = hmModules.arch-nix;
           };
+
+          "${username}@mbp" = generateHome {
+            inherit system username extraSpecialArgs pkgs configuration;
+            homeDirectory = "/Users/${username}";
+            extraModules = [
+              # home-manager.darwinModules.home-manager
+            ];
+          };
         };
+
+      darwinConfigurations.mbp = darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
+        inputs = { inherit darwin nixpkgs; };
+        modules = [
+          {
+            services.nix-daemon.enable = true;
+            programs.zsh.enable = true;
+            programs.fish.enable = true;
+          }
+        ];
+      };
+
+      darwinConfigurations.Arnauds-MacBook-Pro = darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        inputs = { inherit darwin nixpkgs; };
+        modules = [
+          {
+            services.nix-daemon.enable = true;
+            programs.zsh.enable = true;
+            programs.fish.enable = true;
+          }
+        ];
+      };
     };
 }
