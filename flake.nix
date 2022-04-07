@@ -130,27 +130,39 @@
       };
 
       hostDefaults.modules = [
-        ./modules/minimal.nix
-        inputs.hm.nixosModule
         {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
           };
-          user.name = username;
+          # user.name = username;
         }
       ];
 
       hosts = {
         nixos.modules = [
+          ./modules/minimal.nix
+          inputs.hm.nixosModule
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
           inputs.nixos-hardware.nixosModules.common-cpu-amd
           ./hosts/nixos.nix
           ./modules/desktop.nix
           ./modules/games.nix
+          { user.name = username; }
           { home-manager.users."${username}".imports = hmModules.nixos; }
         ];
+        BRUS-73864-Y47D2M27VX = {
+          builder = darwin.lib.darwinSystem;
+          output = "darwinConfigurations";
+          system = "aarch64-darwin";
+          modules = [
+            # darwin.darwinModules.simple
+            inputs.hm.darwinModules.home-manager
+            ./modules/darwin
+            ./profiles/work.nix
+          ];
+        };
       };
 
       homeConfigurations =
@@ -175,37 +187,11 @@
             extraModules = hmModules.arch-nix;
           };
 
-          "${username}@BRUS-73864-C02WW0NYHTDH" = generateHome {
-            inherit system username extraSpecialArgs pkgs configuration;
+          "$(username}@Arnauds-MacBook-Pro" = generateHome {
+            inherit username extraSpecialArgs pkgs configuration;
             homeDirectory = "/Users/${username}";
-            extraModules = [
-              # home-manager.darwinModules.home-manager
-            ];
+            system = "aarch64-darwin";
           };
         };
-
-      darwinConfigurations.BRUS-73864-C02WW0NYHTDH = darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
-        inputs = { inherit darwin nixpkgs; };
-        modules = [
-          {
-            services.nix-daemon.enable = true;
-            programs.zsh.enable = true;
-            programs.fish.enable = true;
-          }
-        ];
-      };
-
-      darwinConfigurations.Arnauds-MacBook-Pro = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        inputs = { inherit darwin nixpkgs; };
-        modules = [
-          {
-            services.nix-daemon.enable = true;
-            programs.zsh.enable = true;
-            programs.fish.enable = true;
-          }
-        ];
-      };
     };
 }
