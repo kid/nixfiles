@@ -77,6 +77,7 @@
 
       # Propagates to channels.<name>.overlaysBuilder
       sharedOverlays = [
+        self.overlay
         inputs.devshell.overlay
         inputs.neovim-nightly-overlay.overlay
         # inputs.rust-overlay.overlay

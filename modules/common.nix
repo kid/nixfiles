@@ -14,6 +14,13 @@
     useUserPackages = true;
   };
 
+  environment = {
+    systemPackages = with pkgs; [
+      watch
+      # coreutils-full
+    ];
+  };
+
   # environment = {
   #   shells = with pkgs; [ zsh ];
   # };

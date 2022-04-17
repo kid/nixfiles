@@ -5,11 +5,13 @@
     ];
     brews = [
       "displayplacer"
+      "webp"
     ];
     casks = [
       "1password-beta"
-      "scroll-reverser"
       "docker"
+      "scroll-reverser"
+      "spotify"
     ];
   };
 }
