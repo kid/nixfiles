@@ -188,7 +188,7 @@
             extraModules = hmModules.arch-nix;
           };
 
-          "$(username}@Arnauds-MacBook-Pro" = generateHome {
+          "$(username}@BRUS-73864-Y47D2M27VX" = generateHome {
             inherit username extraSpecialArgs pkgs configuration;
             homeDirectory = "/Users/${username}";
             system = "aarch64-darwin";
