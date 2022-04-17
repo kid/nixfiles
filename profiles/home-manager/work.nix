@@ -17,6 +17,8 @@
     kubernetes-helm
     nodejs
     nodePackages.typescript-language-server
+    fly
+    jsonnet
     yamllint
   ];
 }
