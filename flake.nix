@@ -1,7 +1,15 @@
 {
-  nixConfig.extra-experimental-features = "nix-command flakes";
-  nixConfig.extra-substituters = "https://nrdxp.cachix.org https://nix-community.cachix.org";
-  nixConfig.extra-trusted-public-keys = "nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
+  nixConfig = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+    ];
+
+    trusted-public-keys = [
+"cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
@@ -32,12 +40,6 @@
       inputs.naersk.follows = "naersk";
     };
 
-    # rust-overlay = {
-    #   url = github:oxalica/rust-overlay;
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.utils.follows = "fu";
-    # };
-
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,16 +61,6 @@
     let
       inherit (fup.lib) exportOverlays exportPackages exportModules;
       username = "kid";
-
-      shared = [
-        ./home
-      ];
-
-      hmModules = {
-        inherit shared;
-        arch-nix = shared ++ [ ./home/profiles/minimal.nix ];
-        nixos = shared ++ [ ./home/profiles/desktop.nix ];
-      };
     in
     fup.lib.mkFlake {
       inherit self inputs;
@@ -80,7 +72,6 @@
         self.overlay
         inputs.devshell.overlay
         inputs.neovim-nightly-overlay.overlay
-        # inputs.rust-overlay.overlay
         inputs.leftwm.overlay
         inputs.fenix.overlay
       ];
@@ -130,35 +121,23 @@
         };
       };
 
-      hostDefaults.modules = [
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-          };
-          # user.name = username;
-        }
-      ];
-
       hosts = {
         nixos.modules = [
-          ./modules/minimal.nix
           inputs.hm.nixosModule
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
           inputs.nixos-hardware.nixosModules.common-cpu-amd
           ./hosts/nixos.nix
-          ./modules/desktop.nix
-          ./modules/games.nix
-          { user.name = username; }
-          { home-manager.users."${username}".imports = hmModules.nixos; }
+          ./modules/nixos
+          ./modules/nixos/desktop.nix
+          ./modules/nixos/games.nix
+          ./profiles/desktop.nix
         ];
         BRUS-73864-Y47D2M27VX = {
           builder = darwin.lib.darwinSystem;
           output = "darwinConfigurations";
           system = "aarch64-darwin";
           modules = [
-            # darwin.darwinModules.simple
             inputs.hm.darwinModules.home-manager
             ./modules/darwin
             ./profiles/work.nix
@@ -178,16 +157,6 @@
           pkgs = self.pkgs.${system}.nixpkgs;
         in
         {
-          cli = generateHome {
-            inherit system username homeDirectory extraSpecialArgs pkgs configuration;
-            extraModules = [ ./home/profiles/cli.nix ];
-          };
-
-          "${username}@arch-nix" = generateHome {
-            inherit system username homeDirectory extraSpecialArgs pkgs configuration;
-            extraModules = hmModules.arch-nix;
-          };
-
           "$(username}@BRUS-73864-Y47D2M27VX" = generateHome {
             inherit username extraSpecialArgs pkgs configuration;
             homeDirectory = "/Users/${username}";

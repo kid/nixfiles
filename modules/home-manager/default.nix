@@ -1,8 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    # ../../home/cli.nix 
-    ../../home/editor.nix
+    ./editor.nix
     ./cli.nix
     ./git.nix
     ./ssh.nix

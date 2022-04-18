@@ -2,7 +2,7 @@
 {
   home.sessionVariables = {
     # https://github.com/nix-community/home-manager/issues/423
-    TERMINFO_DIRS =  "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+    TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
   };
 
   programs.kitty = {

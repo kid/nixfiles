@@ -3,6 +3,7 @@
   programs.steam.enable = true;
   environment.systemPackages = with pkgs; [
     legendary-gl
+    lutris
 
     # wine-staging (version with experimental features)
     wineWowPackages.staging

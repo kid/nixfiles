@@ -1,0 +1,31 @@
+{ config, pkgs, ... }:
+{
+  imports = [ ../common.nix ];
+
+  users = {
+    defaultUserShell = pkgs.zsh;
+    mutableUsers = false;
+    users = {
+      "${config.user.name}" = {
+        isNormalUser = true;
+        createHome = true;
+        useDefaultShell = true;
+        extraGroups = [ "audio" "video" "wheel" ];
+        initialPassword = "foo";
+      };
+    };
+  };
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  time.timeZone = "Europe/Brussels";
+
+  security.sudo.wheelNeedsPassword = false;
+
+  # For autocompletion of system packages
+  environment.pathsToLink = [ "/share/zsh" ];
+
+  services.openssh.enable = true;
+  services.openssh.useDns = true;
+
+  boot.loader.systemd-boot.configurationLimit = 5;
+}
