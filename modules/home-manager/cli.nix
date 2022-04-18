@@ -18,7 +18,7 @@
   programs.exa.enable = true;
   programs.exa.enableAliases = true;
 
-  # programs.starship.enable = true;
+  programs.starship.enable = true;
   programs.starship.enableZshIntegration = true;
 
   programs.direnv.enable = true;
@@ -30,7 +30,7 @@
   programs.fzf.fileWidgetCommand = "fd --type f";
 
   programs.zsh = {
-    # enable = true;
+    enable = true;
     autocd = true;
     dotDir = ".config/zsh";
     localVariables = {
