@@ -25,7 +25,8 @@
   #   shells = with pkgs; [ zsh ];
   # };
 
-  programs.zsh.enable = true;
+  # We should not need this, but if we remove it, Darwin PATH is wrong
+  # programs.zsh.enable = true;
 
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
