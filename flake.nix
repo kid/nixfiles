@@ -50,7 +50,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    leftwm.url = github:leftwm/leftwm;
+    leftwm.url = github:kid/leftwm/display-name;
     leftwm.inputs.nixpkgs.follows = "nixpkgs";
     leftwm.inputs.flake-utils.follows = "fu";
     leftwm.inputs.fenix.follows = "fenix";
