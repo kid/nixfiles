@@ -131,6 +131,7 @@
           ./modules/nixos
           ./modules/nixos/desktop.nix
           ./modules/nixos/games.nix
+          ./modules/nixos/podman.nix
           ./profiles/desktop.nix
         ];
         BRUS-73864-Y47D2M27VX = {
