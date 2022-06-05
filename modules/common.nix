@@ -21,12 +21,13 @@
     ];
   };
 
-  # environment = {
-  #   shells = with pkgs; [ zsh ];
-  # };
+  programs.zsh = {
+    enable = true;
 
-  # We should not need this, but if we remove it, Darwin PATH is wrong
-  programs.zsh.enable = pkgs.stdenvNoCC.isDarwin;
+    # Don't run compinit as home-manager will already take care of it, otherwise this cause a slow start
+    enableGlobalCompInit = false;
+  };
+
 
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
