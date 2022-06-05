@@ -26,7 +26,7 @@
   # };
 
   # We should not need this, but if we remove it, Darwin PATH is wrong
-  # programs.zsh.enable = true;
+  programs.zsh.enable = pkgs.stdenvNoCC.isDarwin;
 
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
