@@ -19,7 +19,7 @@ in
 
       Service = {
         Type = "oneshot";
-        ExecStart = "${pkgs.feh}/bin/feh --randomize --no-fehbg --bg-fill ${../../home/wallpapers}";
+        ExecStart = "${pkgs.feh}/bin/feh --randomize --no-fehbg --bg-fill ${./wallpapers}";
       };
     };
   };

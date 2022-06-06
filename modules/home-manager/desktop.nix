@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
 {
-  home.file.".xinitrc".source = ../../home/files/xinitrc.sh;
-  xdg.configFile."xmobar/gruvbox-dark.xmobarrc".source = ../../home/files/gruvbox-dark.xmobarrc;
-  xresources.extraConfig = builtins.readFile ../../home/files/gruvbox-dark.xresources;
+  home.file.".xinitrc".source = ./files/xinitrc.sh;
+  xdg.configFile."xmobar/gruvbox-dark.xmobarrc".source = ./files/gruvbox-dark.xmobarrc;
+  xresources.extraConfig = builtins.readFile ./files/gruvbox-dark.xresources;
 
-  programs.zsh.profileExtra = builtins.readFile ../../home/files/zprofile.sh;
+  programs.zsh.profileExtra = builtins.readFile ./files/zprofile.sh;
 
   gtk = {
     enable = true;
