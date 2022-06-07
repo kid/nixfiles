@@ -21,11 +21,13 @@
     ];
   };
 
-  # environment = {
-  #   shells = with pkgs; [ zsh ];
-  # };
+  programs.zsh = {
+    enable = true;
 
-  programs.zsh.enable = true;
+    # Don't run compinit as home-manager will already take care of it, otherwise this cause a slow start
+    enableGlobalCompInit = false;
+  };
+
 
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
