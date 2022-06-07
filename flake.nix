@@ -18,16 +18,14 @@
     nixos-hardware.url = github:nixos/nixos-hardware;
 
     fu.url = github:numtide/flake-utils;
-    # fup.url = github:gytis-ivaskevicius/flake-utils-plus;
-    # https://github.com/gytis-ivaskevicius/flake-utils-plus/issues/113
-    fup.url = github:gytis-ivaskevicius/flake-utils-plus/pull/117/head;
+    fup.url = github:gytis-ivaskevicius/flake-utils-plus;
     fup.inputs.flake-utils.follows = "fu";
 
     hm.url = github:nix-community/home-manager;
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
     darwin.url = github:lnl7/nix-darwin/master;
-    # darwin.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     devshell.url = github:numtide/devshell;
     devshell.inputs.nixpkgs.follows = "nixpkgs";
