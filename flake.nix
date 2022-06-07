@@ -6,13 +6,14 @@
     ];
 
     trusted-public-keys = [
-"cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    # nixpkgs-darwin-stable.url = github:nixos/nixpkgs/nixpkgs-21.11-darwin;
 
     nixos-hardware.url = github:nixos/nixos-hardware;
 
@@ -57,7 +58,7 @@
     leftwm.inputs.naersk.follows = "naersk";
   };
 
-  outputs = inputs @ { self, nixpkgs, fup, darwin, ... }:
+  outputs = inputs @ { self, fup, darwin, ... }:
     let
       inherit (fup.lib) exportOverlays exportPackages exportModules;
       username = "kid";
@@ -152,7 +153,6 @@
             programs.home-manager.enable = true;
           };
           extraSpecialArgs = { inherit inputs self; };
-          homeDirectory = "/home/${username}";
           generateHome = inputs.hm.lib.homeManagerConfiguration;
           system = "x86_64-linux";
           pkgs = self.pkgs.${system}.nixpkgs;

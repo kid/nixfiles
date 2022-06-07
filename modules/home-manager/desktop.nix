@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.file.".xinitrc".source = ../../home/files/xinitrc.sh;
   xdg.configFile."xmobar/gruvbox-dark.xmobarrc".source = ../../home/files/gruvbox-dark.xmobarrc;
