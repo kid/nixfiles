@@ -1,6 +1,6 @@
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, ... }:
 {
-  imports = [ ./primary.nix ./nix.nix ];
+  imports = [ ./primary.nix ];
 
   user = {
     home = "${if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"}/${config.user.name}";

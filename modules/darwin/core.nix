@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   environment = {
     loginShell = pkgs.zsh;
@@ -10,9 +10,16 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
-  nix.extraOptions = ''
-    extra-platforms = x86_64-darwin aarch64-darwin
-  '';
+  nix = {
+    extraOptions = ''
+      extra-platforms = x86_64-darwin aarch64-darwin
+    '';
+
+    generateRegistryFromInputs = true;
+    generateNixPathFromInputs = true;
+
+    linkInputs = true;
+  };
 
   # https://github.com/LnL7/nix-darwin/issues/158
   # programs.zsh.shellInit = ''export OLD_NIX_PATH="$NIX_PATH";'';
@@ -25,5 +32,10 @@
   #   fi
   # '';
 
-  fonts.enableFontDir = true;
+  fonts.fontDir.enable = true;
+
+  environment.variables = {
+    # https://github.com/nix-community/home-manager/issues/423
+    TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+  };
 }
