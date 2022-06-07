@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.file.".xinitrc".source = ./files/xinitrc.sh;
   xdg.configFile."xmobar/gruvbox-dark.xmobarrc".source = ./files/gruvbox-dark.xmobarrc;
@@ -33,6 +33,9 @@
     leftwm
     nfs-utils
     pmount
+
+    # CLI calculator with full units support
+    nodePackages.insect
   ];
 
   xdg.mimeApps = {

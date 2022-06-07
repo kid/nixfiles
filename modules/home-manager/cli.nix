@@ -1,18 +1,19 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
-    # TODO theses 2 belongs in a "dev" module
-    git
-
-    htop
     fd
-    ripgrep
+    htop
     jq
+    ripgrep
+    helix
   ];
 
   programs.gh.enable = true;
   programs.gh.settings.git_protocol = "ssh";
 
   programs.htop.enable = true;
+
+  programs.bat.enable = true;
+  programs.bat.config.theme = "gruvbox-dark";
 
   programs.exa.enable = true;
   programs.exa.enableAliases = true;
@@ -45,6 +46,9 @@
     initExtra = ''
       setopt inc_append_history
     '';
+    shellAliases = {
+      ssh = "kitty +kitten ssh";
+    };
     zplug = {
       enable = true;
       plugins = [

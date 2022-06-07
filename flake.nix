@@ -1,10 +1,19 @@
 {
-  nixConfig.extra-experimental-features = "nix-command flakes";
-  nixConfig.extra-substituters = "https://nrdxp.cachix.org https://nix-community.cachix.org";
-  nixConfig.extra-trusted-public-keys = "nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
+  nixConfig = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+    ];
+
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    # nixpkgs-darwin-stable.url = github:nixos/nixpkgs/nixpkgs-21.11-darwin;
 
     nixos-hardware.url = github:nixos/nixos-hardware;
 
@@ -15,10 +24,12 @@
     hm.url = github:nix-community/home-manager;
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
+    darwin.url = github:lnl7/nix-darwin/master;
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     devshell.url = github:numtide/devshell;
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     devshell.inputs.flake-utils.follows = "fu";
-
 
     neovim-nightly-overlay.url = github:nix-community/neovim-nightly-overlay;
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
@@ -30,12 +41,6 @@
       inputs.naersk.follows = "naersk";
     };
 
-    # rust-overlay = {
-    #   url = github:oxalica/rust-overlay;
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.utils.follows = "fu";
-    # };
-
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,27 +51,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    leftwm.url = github:leftwm/leftwm;
+    leftwm.url = github:kid/leftwm/display-name;
     leftwm.inputs.nixpkgs.follows = "nixpkgs";
     leftwm.inputs.flake-utils.follows = "fu";
     leftwm.inputs.fenix.follows = "fenix";
     leftwm.inputs.naersk.follows = "naersk";
   };
 
-  outputs = inputs @ { self, nixpkgs, fup, ... }:
+  outputs = inputs @ { self, fup, darwin, ... }:
     let
       inherit (fup.lib) exportOverlays exportPackages exportModules;
       username = "kid";
-
-      shared = [
-        ./home
-      ];
-
-      hmModules = {
-        inherit shared;
-        arch-nix = shared ++ [ ./home/profiles/minimal.nix ];
-        nixos = shared ++ [ ./home/profiles/desktop.nix ];
-      };
     in
     fup.lib.mkFlake {
       inherit self inputs;
@@ -75,9 +70,9 @@
 
       # Propagates to channels.<name>.overlaysBuilder
       sharedOverlays = [
+        self.overlay
         inputs.devshell.overlay
         inputs.neovim-nightly-overlay.overlay
-        # inputs.rust-overlay.overlay
         inputs.leftwm.overlay
         inputs.fenix.overlay
       ];
@@ -127,28 +122,29 @@
         };
       };
 
-      hostDefaults.modules = [
-        ./modules/minimal.nix
-        inputs.hm.nixosModule
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-          };
-          user.name = username;
-        }
-      ];
-
       hosts = {
         nixos.modules = [
+          inputs.hm.nixosModule
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
           inputs.nixos-hardware.nixosModules.common-cpu-amd
           ./hosts/nixos.nix
-          ./modules/desktop.nix
-          ./modules/games.nix
-          { home-manager.users."${username}".imports = hmModules.nixos; }
+          ./modules/nixos
+          ./modules/nixos/desktop.nix
+          ./modules/nixos/games.nix
+          ./modules/nixos/podman.nix
+          ./profiles/desktop.nix
         ];
+        BRUS-73864-Y47D2M27VX = {
+          builder = darwin.lib.darwinSystem;
+          output = "darwinConfigurations";
+          system = "aarch64-darwin";
+          modules = [
+            inputs.hm.darwinModules.home-manager
+            ./modules/darwin
+            ./profiles/work.nix
+          ];
+        };
       };
 
       homeConfigurations =
@@ -157,20 +153,15 @@
             programs.home-manager.enable = true;
           };
           extraSpecialArgs = { inherit inputs self; };
-          homeDirectory = "/home/${username}";
           generateHome = inputs.hm.lib.homeManagerConfiguration;
           system = "x86_64-linux";
           pkgs = self.pkgs.${system}.nixpkgs;
         in
         {
-          cli = generateHome {
-            inherit system username homeDirectory extraSpecialArgs pkgs configuration;
-            extraModules = [ ./home/profiles/cli.nix ];
-          };
-
-          "${username}@arch-nix" = generateHome {
-            inherit system username homeDirectory extraSpecialArgs pkgs configuration;
-            extraModules = hmModules.arch-nix;
+          "$(username}@BRUS-73864-Y47D2M27VX" = generateHome {
+            inherit username extraSpecialArgs pkgs configuration;
+            homeDirectory = "/Users/${username}";
+            system = "aarch64-darwin";
           };
         };
     };
