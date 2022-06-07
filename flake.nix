@@ -6,25 +6,28 @@
     ];
 
     trusted-public-keys = [
-"cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    # nixpkgs-darwin-stable.url = github:nixos/nixpkgs/nixpkgs-21.11-darwin;
 
     nixos-hardware.url = github:nixos/nixos-hardware;
 
     fu.url = github:numtide/flake-utils;
-    fup.url = github:gytis-ivaskevicius/flake-utils-plus;
+    # fup.url = github:gytis-ivaskevicius/flake-utils-plus;
+    # https://github.com/gytis-ivaskevicius/flake-utils-plus/issues/113
+    fup.url = github:gytis-ivaskevicius/flake-utils-plus/pull/117/head;
     fup.inputs.flake-utils.follows = "fu";
 
     hm.url = github:nix-community/home-manager;
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
     darwin.url = github:lnl7/nix-darwin/master;
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    # darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     devshell.url = github:numtide/devshell;
     devshell.inputs.nixpkgs.follows = "nixpkgs";
@@ -57,7 +60,7 @@
     leftwm.inputs.naersk.follows = "naersk";
   };
 
-  outputs = inputs @ { self, nixpkgs, fup, darwin, ... }:
+  outputs = inputs @ { self, fup, darwin, ... }:
     let
       inherit (fup.lib) exportOverlays exportPackages exportModules;
       username = "kid";
@@ -151,7 +154,6 @@
             programs.home-manager.enable = true;
           };
           extraSpecialArgs = { inherit inputs self; };
-          homeDirectory = "/home/${username}";
           generateHome = inputs.hm.lib.homeManagerConfiguration;
           system = "x86_64-linux";
           pkgs = self.pkgs.${system}.nixpkgs;

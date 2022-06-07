@@ -21,4 +21,8 @@
     jsonnet
     yamllint
   ];
+
+  programs.zsh.shellAliases = {
+    k = "kubectl";
+  };
 }

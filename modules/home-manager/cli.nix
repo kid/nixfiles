@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     fd
     htop
@@ -46,6 +46,9 @@
     initExtra = ''
       setopt inc_append_history
     '';
+    shellAliases = {
+      ssh = "kitty +kitten ssh";
+    };
     zplug = {
       enable = true;
       plugins = [
