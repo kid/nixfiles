@@ -2,6 +2,8 @@
 {
   imports = [ ../common.nix ../nix.nix ];
 
+  system.stateVersion = "22.11";
+
   users = {
     defaultUserShell = pkgs.zsh;
     mutableUsers = false;

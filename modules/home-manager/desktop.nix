@@ -24,7 +24,7 @@
         "--force-dark-mode"
       ];
     })
-    _1password-gui
+    # _1password-gui
     discord-canary
     tdesktop # telegram
     polybar
@@ -49,6 +49,8 @@
         "x-scheme-handler/unknown" = browser;
       };
   };
+
+  programs._1password-gui.enable = true;
 
   programs.rofi = {
     enable = true;
