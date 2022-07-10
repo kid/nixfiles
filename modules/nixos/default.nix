@@ -30,4 +30,9 @@
   services.openssh.useDns = true;
 
   boot.loader.systemd-boot.configurationLimit = 5;
+
+
+  environment.systemPackages = with pkgs; [
+    lm_sensors
+  ];
 }
