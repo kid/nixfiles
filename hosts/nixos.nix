@@ -10,6 +10,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  boot.kernelModules = [ "nct6775" ];
   boot.kernelParams = [ "boot.shell_on_fail" ];
 
   boot.tmpOnTmpfs = true;
