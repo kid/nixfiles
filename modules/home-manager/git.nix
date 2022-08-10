@@ -16,6 +16,7 @@
       ll = "log --decorate --numstat";
       lg = "log --decorate --graph --abbrev-commit --date=relative --all";
       st = "status -s";
+      diffn = "diff --no-ext-diff";
     };
 
     extraConfig = {
