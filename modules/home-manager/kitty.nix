@@ -13,6 +13,9 @@
     };
 
     settings = {
+      # We already configure ControlMasters outside of kitty
+      share_connections = "no";
+    
       enable_audio_bell = "no";
       enabled_layouts = "tall:bias=50;full_size=1;mirrored=false";
 
