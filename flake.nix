@@ -100,11 +100,21 @@
             }
             {
               name = "switch";
+              command = "
+                case $OSTYPE in
+                  darwin*)  switch-darwin ;;
+                  linux*)   switch-nixos ;;
+                  *)        echo \"unknown: $OSTYPE\"; exit 1 ;;
+                esac
+              ";
+            }
+            {
+              name = "switch-nixos";
               command = "sudo nixos-rebuild switch --flake .";
             }
             {
-              name = "switch-local";
-              command = "sudo nixos-rebuild switch --flake . --option binary-caches ''";
+              name = "switch-darwin";
+              command = "TERM=xterm-256color darwin-rebuild switch --flake .";
             }
           ];
         };
