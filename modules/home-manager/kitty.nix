@@ -14,6 +14,7 @@
 
     settings = {
       enable_audio_bell = "no";
+      enabled_layouts = "tall:bias=50;full_size=1;mirrored=false";
 
       background = "#282828";
       foreground = "#ebdbb2";
@@ -41,6 +42,14 @@
       # LightGrey + White";
       color7 = "#a89984";
       color15 = "#ebdbb2";
+    };
+
+    keybindings = {
+      "kitty_mod+enter" = "launch --cwd=current";
+      "kitty_mod+h" = "neighboring_window left";
+      "kitty_mod+l" = "neighboring_window right";
+      "kitty_mod+j" = "neighboring_window down";
+      "kitty_mod+k" = "neighboring_window up";
     };
   };
 }
