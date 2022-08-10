@@ -55,6 +55,7 @@
       inherit self inputs;
 
       channelsConfig.allowUnfree = true;
+      channelsConfig.allowBroken = true;
 
       # Propagates to channels.<name>.overlaysBuilder
       sharedOverlays = [
