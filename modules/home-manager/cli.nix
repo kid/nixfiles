@@ -47,7 +47,7 @@
       setopt inc_append_history
     '';
     shellAliases = {
-      ssh = "kitty +kitten ssh";
+      ssh = "TERM=xterm-256color ssh";
     };
     zplug = {
       enable = true;
