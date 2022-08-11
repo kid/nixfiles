@@ -65,6 +65,7 @@
   networking.useDHCP = false;
   networking.useNetworkd = true;
   networking.interfaces.enp5s0.useDHCP = true;
+  networking.firewall.enable = false;
 
   services.resolved.enable = true;
   services.resolved.dnssec = "false";
