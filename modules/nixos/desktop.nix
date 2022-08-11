@@ -42,4 +42,8 @@
 
   # Why do we need this again?
   programs.dconf.enable = true;
+
+  programs._1password-gui = {
+    enable = true;
+  };
 }
