@@ -33,9 +33,7 @@
     leftwm
     nfs-utils
     pmount
-
-    # CLI calculator with full units support
-    nodePackages.insect
+    pulsemixer
   ];
 
   xdg.mimeApps = {

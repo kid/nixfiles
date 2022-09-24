@@ -17,6 +17,8 @@
   environment = {
     systemPackages = with pkgs; [
       watch
+      libqalculate
+      dig
       # coreutils-full
     ];
   };

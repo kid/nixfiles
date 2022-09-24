@@ -1,5 +1,9 @@
-*** References / Inpiration
+* Nixos Flake
 
+** TODO https://github.com/guibou/nixGL
+
+** References / Inpiration
+ 
   - https://www.reddit.com/r/NixOS/comments/mqw0cl/comment/gumt5ij
   - https://discourse.nixos.org/t/how-do-you-share-flake-between-nixos-and-macos/14910/3
   - https://github.com/freezeboy/flake-example
