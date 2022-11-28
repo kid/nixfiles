@@ -61,11 +61,18 @@
     }
   ];
 
-  networking.hostId = "9371deb4";
-  networking.useDHCP = false;
-  networking.useNetworkd = true;
-  networking.interfaces.enp5s0.useDHCP = true;
-  networking.firewall.enable = false;
+  networking = {
+    hostId = "9371deb4";
+    useDHCP = false;
+    useNetworkd = true;
+    bridges = {
+      br0 = {
+        interfaces = ["enp5s0"];
+      };
+    };
+    interfaces.br0.useDHCP = true;
+    firewall.enable = false;
+  };
 
   services.resolved.enable = true;
   services.resolved.dnssec = "false";
