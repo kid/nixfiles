@@ -29,11 +29,6 @@
       inputs.naersk.follows = "naersk";
     };
 
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     naersk = {
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,8 +36,6 @@
 
     leftwm.url = github:kid/leftwm/display-name;
     leftwm.inputs.nixpkgs.follows = "nixpkgs";
-    leftwm.inputs.flake-utils.follows = "fu";
-    leftwm.inputs.fenix.follows = "fenix";
     leftwm.inputs.naersk.follows = "naersk";
   };
 
@@ -63,7 +56,6 @@
         inputs.devshell.overlay
         inputs.neovim-nightly-overlay.overlay
         inputs.leftwm.overlay
-        inputs.fenix.overlay
       ];
 
       nixosModules = exportModules [
@@ -73,7 +65,6 @@
       overlay = import ./overlays { inherit inputs; };
       overlays = exportOverlays {
         inherit (self) pkgs;
-        inputs = (builtins.removeAttrs inputs [ "xmonad" "xmonad-contrib" ]);
       };
 
       outputsBuilder = channels: {
