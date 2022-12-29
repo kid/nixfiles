@@ -7,6 +7,7 @@
 
   virtualisation.libvirtd = {
     enable = true;
+    allowedBridges = ["br0"];
   };
 
   programs.dconf.enable = true;
