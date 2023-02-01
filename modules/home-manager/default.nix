@@ -8,11 +8,12 @@
     ./kitty.nix
   ];
 
-  programs.home-manager = {
-    enable = true;
+  programs = {
+    home-manager.enable = true;
+    gpg.enable = true;
   };
 
   xdg.enable = true;
 
-  home.stateVersion = "22.11";
+  home.stateVersion = "22.05";
 }

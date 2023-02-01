@@ -9,7 +9,7 @@
     fup.url = github:gytis-ivaskevicius/flake-utils-plus;
     fup.inputs.flake-utils.follows = "fu";
 
-    hm.url = github:nix-community/home-manager;
+    hm.url = github:nix-community/home-manager/release-22.05;
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
     darwin.url = github:lnl7/nix-darwin/master;
