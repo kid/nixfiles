@@ -54,5 +54,10 @@
       "kitty_mod+j" = "neighboring_window down";
       "kitty_mod+k" = "neighboring_window up";
     };
+
+    extraConfig = ''
+      # Disable opening of URL with simple click
+      mouse_map left click ungrabbed no-op
+    '';
   };
 }
