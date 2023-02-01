@@ -127,7 +127,7 @@
           ./modules/nixos/podman.nix
           ./profiles/desktop.nix
         ];
-        BRUS-73864-Y47D2M27VX = {
+        M-Y47D2M27VX = {
           builder = darwin.lib.darwinSystem;
           output = "darwinConfigurations";
           system = "aarch64-darwin";
@@ -150,7 +150,7 @@
           pkgs = self.pkgs.${system}.nixpkgs;
         in
         {
-          "$(username}@BRUS-73864-Y47D2M27VX" = generateHome {
+          "${username}@M-Y47D2M27VX" = generateHome {
             inherit username extraSpecialArgs pkgs configuration;
             homeDirectory = "/Users/${username}";
             system = "aarch64-darwin";
