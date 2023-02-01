@@ -1,11 +1,12 @@
 {
   homebrew = {
     enable = true;
-    autoUpdate = false;
     brewPrefix = "/opt/homebrew/bin";
+    onActivation = {
+      autoUpdate = false;
+    };
     global = {
       brewfile = true;
-      noLock = true;
     };
     taps = [
       "homebrew/bundle"
