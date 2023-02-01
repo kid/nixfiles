@@ -11,15 +11,21 @@
   };
 
   home.packages = with pkgs; [
+    awscli
     kubectl
     kubectx
     kubie
     kubernetes-helm
-    nodejs
+    terraform-ls
+    nodejs-18_x
     nodePackages.typescript-language-server
-    fly
-    jsonnet
     yamllint
+    go
+    gopls
+    golangci-lint
+    argocd
+    sops
+    age
   ];
 
   programs.zsh.shellAliases = {
