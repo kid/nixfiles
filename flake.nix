@@ -19,8 +19,12 @@
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     devshell.inputs.flake-utils.follows = "fu";
 
-    neovim-nightly-overlay.url = github:nix-community/neovim-nightly-overlay;
-    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay = {
+      url = github:nix-community/neovim-nightly-overlay;
+      # From https://github.com/nix-community/neovim-nightly-overlay/issues/164
+      # Pin to a nixpkgs revision that doesn't have NixOS/nixpkgs#208103 yet
+      inputs.nixpkgs.url = "github:nixos/nixpkgs?rev=fad51abd42ca17a60fc1d4cb9382e2d79ae31836";
+    };
 
     rnix-lsp = {
       url = github:nix-community/rnix-lsp;
@@ -69,7 +73,7 @@
       };
 
       outputsBuilder = channels: {
-        packages = exportPackages self.overlays channels;
+        # packages = exportPackages self.overlays channels;
         devShell = channels.nixpkgs.devshell.mkShell {
           name = "nixfiles";
 
