@@ -66,7 +66,6 @@
       overlay = import ./overlays { inherit inputs; };
       overlays = exportOverlays {
         inherit (self) pkgs;
-        inputs = (builtins.removeAttrs inputs [ "xmonad" "xmonad-contrib" ]);
       };
 
       outputsBuilder = channels: {
@@ -125,6 +124,7 @@
           ./modules/nixos/desktop.nix
           ./modules/nixos/games.nix
           ./modules/nixos/podman.nix
+          ./modules/nixos/virtualization.nix
           ./profiles/desktop.nix
         ];
         mbp = {
