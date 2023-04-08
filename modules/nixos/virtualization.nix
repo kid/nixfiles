@@ -7,7 +7,11 @@
 
   virtualisation.libvirtd = {
     enable = true;
-    allowedBridges = ["br0"];
+    allowedBridges = [ "br0" ];
+    qemu = {
+      runAsRoot = false;
+      ovmf.enable = true;
+    };
   };
 
   programs.dconf.enable = true;
