@@ -107,7 +107,7 @@
             }
             {
               name = "switch-nixos";
-              command = "sudo nixos-rebuild switch --flake .";
+              command = "sudo nixos-rebuild switch --flake . && sudo bootctl set-default @saved";
             }
             {
               name = "switch-darwin";
