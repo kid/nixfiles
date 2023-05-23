@@ -1,33 +1,34 @@
 {
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-    # nixpkgs-darwin-stable.url = github:nixos/nixpkgs/nixpkgs-21.11-darwin;
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixos-hardware.url = github:nixos/nixos-hardware;
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    fu.url = github:numtide/flake-utils;
-    fup.url = github:gytis-ivaskevicius/flake-utils-plus;
+    fu.url = "github:numtide/flake-utils";
+    fup.url = "github:gytis-ivaskevicius/flake-utils-plus";
     fup.inputs.flake-utils.follows = "fu";
 
-    hm.url = github:nix-community/home-manager/release-22.05;
+    hm.url = "github:nix-community/home-manager";
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
-    darwin.url = github:lnl7/nix-darwin/master;
+    darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    devshell.url = github:numtide/devshell;
+    devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
-    devshell.inputs.flake-utils.follows = "fu";
 
     neovim-nightly-overlay = {
-      url = github:nix-community/neovim-nightly-overlay;
-      # From https://github.com/nix-community/neovim-nightly-overlay/issues/164
-      # Pin to a nixpkgs revision that doesn't have NixOS/nixpkgs#208103 yet
-      inputs.nixpkgs.url = "github:nixos/nixpkgs?rev=fad51abd42ca17a60fc1d4cb9382e2d79ae31836";
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     rnix-lsp = {
-      url = github:nix-community/rnix-lsp;
+      url = "github:nix-community/rnix-lsp";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "fu";
       inputs.naersk.follows = "naersk";
@@ -38,7 +39,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    leftwm.url = github:kid/leftwm/display-name;
+    leftwm.url = "github:kid/leftwm/display-name";
     leftwm.inputs.nixpkgs.follows = "nixpkgs";
     leftwm.inputs.flake-utils.follows = "fu";
     leftwm.inputs.naersk.follows = "naersk";
@@ -46,7 +47,7 @@
 
   outputs = inputs @ { self, fup, darwin, ... }:
     let
-      inherit (fup.lib) exportOverlays exportPackages exportModules;
+      inherit (fup.lib) exportOverlays exportModules;
       username = "kid";
     in
     fup.lib.mkFlake {
@@ -58,9 +59,13 @@
       # Propagates to channels.<name>.overlaysBuilder
       sharedOverlays = [
         self.overlay
-        inputs.devshell.overlay
+        inputs.devshell.overlays.default
+        inputs.nil.overlays.default
         inputs.neovim-nightly-overlay.overlay
         inputs.leftwm.overlay
+        (self: super: {
+          fcitx-engines = self.fcitx5;
+        })
       ];
 
       nixosModules = exportModules [
