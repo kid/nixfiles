@@ -13,7 +13,7 @@
   boot.kernelModules = [ "nct6775" ];
   boot.kernelParams = [ "boot.shell_on_fail" ];
 
-  boot.tmpOnTmpfs = true;
+  boot.tmp.useTmpfs = true;
 
   boot.initrd.supportedFilesystems = [ "zfs" ];
   boot.zfs.enableUnstable = true;

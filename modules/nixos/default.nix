@@ -27,7 +27,6 @@
   environment.pathsToLink = [ "/share/zsh" ];
 
   services.openssh.enable = true;
-  services.openssh.useDns = true;
 
   boot.loader.systemd-boot.configurationLimit = 5;
 
