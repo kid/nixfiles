@@ -67,11 +67,18 @@
     useNetworkd = true;
     bridges = {
       br0 = {
-        interfaces = ["enp5s0"];
+        interfaces = [ "enp5s0" ];
       };
     };
-    interfaces.br0.useDHCP = true;
     firewall.enable = false;
+  };
+
+  systemd.network.networks."40-br0" = {
+    name = "br0";
+    DHCP = "ipv4";
+    dhcpV4Config = {
+      UseDomains = true;
+    };
   };
 
   services.resolved.enable = true;
