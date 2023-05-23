@@ -26,6 +26,7 @@
       push = {
         default = "simple";
         followTags = true;
+        autoSetupRemote = true;
       };
       pull = {
         rebase = true;
