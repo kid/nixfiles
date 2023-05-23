@@ -32,7 +32,7 @@
 
   powerManagement = {
     enable = true;
-    cpuFreqGovernor = "powersave";
+    # cpuFreqGovernor = "schedutil";
     powertop.enable = false;
   };
 

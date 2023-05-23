@@ -123,6 +123,7 @@
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
           inputs.nixos-hardware.nixosModules.common-cpu-amd
+          inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
           ./hosts/nixos.nix
           ./modules/nixos
           ./modules/nixos/desktop.nix
