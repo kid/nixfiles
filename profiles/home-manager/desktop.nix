@@ -11,6 +11,12 @@
     winbox
     screen
     minicom
+    go
+    nil
+    rnix-lsp
+    nodejs
+    unzip
+    cargo
   ];
 
   programs.zsh.shellAliases = {
