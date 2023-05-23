@@ -88,8 +88,8 @@
     videoDrivers = [ "nvidia" ];
     displayManager = {
       setupCommands = ''
-        ${pkgs.xorg.xrandr}/bin/xrandr --output DP-4 --scale 1x1 --mode 3840x1600 --rate 144 --pos 0x0 --primary
-        ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --scale 1x1 --mode 2560x1440 --rate 144 --pos 3840x-480 --rotate left
+        ${pkgs.xorg.xrandr}/bin/xrandr --listmonitors | grep DP-4 && ${pkgs.xorg.xrandr}/bin/xrandr --output DP-4 --scale 1x1 --mode 3840x1600 --rate 144 --pos 0x0 --primary
+        ${pkgs.xorg.xrandr}/bin/xrandr --listmonitors | grep DP-2 && ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --scale 1x1 --mode 2560x1440 --rate 144 --pos 3840x-480 --rotate left
       '';
     };
   };
