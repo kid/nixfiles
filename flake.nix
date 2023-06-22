@@ -135,6 +135,7 @@
           ./modules/nixos/games.nix
           ./modules/nixos/podman.nix
           ./modules/nixos/virtualization.nix
+          ./modules/nixos/printing.nix
           ./profiles/desktop.nix
         ];
         mbp = {
