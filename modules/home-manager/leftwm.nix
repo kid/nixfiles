@@ -1,4 +1,10 @@
 {
+  xsession.enable = true;
+
+  programs.zsh.profileExtra = builtins.readFile ./files/zprofile.sh;
+
+  home.file.".xinitrc".source = ./files/xinitrc.sh;
+
   home.file.".config/leftwm/config.toml".source = ./files/leftwm/config.toml;
   home.file.".config/leftwm/themes/current/up".source = ./files/leftwm/up;
   home.file.".config/leftwm/themes/current/down".source = ./files/leftwm/down;
