@@ -34,6 +34,8 @@
     nfs-utils
     pmount
     pulsemixer
+    portfolio
+    freecad
   ];
 
   xdg.mimeApps = {
