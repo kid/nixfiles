@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    qemu_full
+    qemu_kvm
     virt-manager
   ];
 
