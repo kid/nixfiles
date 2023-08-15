@@ -43,6 +43,10 @@
     leftwm.inputs.nixpkgs.follows = "nixpkgs";
     leftwm.inputs.flake-utils.follows = "fu";
     leftwm.inputs.naersk.follows = "naersk";
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-contrib.url = "github:hyprwm/contrib";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
   };
 
   outputs = inputs @ { self, fup, darwin, ... }:
@@ -60,6 +64,9 @@
       sharedOverlays = [
         self.overlay
         inputs.devshell.overlays.default
+        inputs.hyprland.overlays.default
+        inputs.hyprland-contrib.overlays.default
+        inputs.hyprpaper.overlays.default
         inputs.nil.overlays.default
         inputs.neovim-nightly-overlay.overlay
         inputs.leftwm.overlay
@@ -129,6 +136,7 @@
           inputs.nixos-hardware.nixosModules.common-pc-ssd
           inputs.nixos-hardware.nixosModules.common-cpu-amd
           inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+          inputs.hyprland.nixosModules.default
           ./hosts/nixos.nix
           ./modules/nixos
           ./modules/nixos/desktop.nix
@@ -136,7 +144,13 @@
           ./modules/nixos/podman.nix
           ./modules/nixos/virtualization.nix
           ./modules/nixos/printing.nix
-          ./profiles/desktop.nix
+          # ./profiles/desktop.nix
+          ./profiles/hyprland.nix
+          # {
+          #   hm.imports = [
+          #     inputs.hyprland.homeManagerModules.default
+          #   ];
+          # }
         ];
         M-Y47D2M27VX = {
           builder = darwin.lib.darwinSystem;
@@ -168,4 +182,13 @@
           };
         };
     };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://hyprland.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
+  };
 }

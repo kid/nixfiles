@@ -14,3 +14,6 @@
   - https://github.com/vi-tality/neovitality
   - https://github.com/syberant/nix-config
   - https://github.com/Gerschtli/nix-config
+  
+  - https://github.com/fufexan/dotfiles/tree/main eww / hyprland config, use flake-parts
+  - https://github.com/notusknot/dotfiles-nix/blob/main/flake.nix#L29C13-L29C13 mkSystem function

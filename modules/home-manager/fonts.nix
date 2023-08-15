@@ -5,5 +5,7 @@
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
     font-awesome
+
+    lexend
   ];
 }
