@@ -32,7 +32,7 @@
 
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       material-symbols
 
       noto-fonts
@@ -43,7 +43,7 @@
       (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; })
     ];
 
-    enableDefaultFonts = false;
+    enableDefaultPackages = false;
 
     fontconfig.defaultFonts = {
       serif = [ "Noto Serif" "Noto Color Emoji" ];
