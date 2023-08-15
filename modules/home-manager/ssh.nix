@@ -3,8 +3,8 @@
   programs.ssh = {
     enable = true;
     compression = true;
-    controlMaster = "auto";
-    controlPersist = "10m";
+    # controlMaster = "auto";
+    # controlPersist = "10m";
     forwardAgent = true;
   };
 }

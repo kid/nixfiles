@@ -1,13 +1,27 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   xdg.configFile."xmobar/gruvbox-dark.xmobarrc".source = ./files/gruvbox-dark.xmobarrc;
   xresources.extraConfig = builtins.readFile ./files/gruvbox-dark.xresources;
 
   gtk = {
     enable = true;
+
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+
+    font = {
+      name = "Roboto";
+      package = pkgs.roboto;
+    };
+
     theme = {
-      name = "gruvbox-dark";
-      package = pkgs.gruvbox-dark-gtk;
+      name = "Gruvbox-Dark-BL";
+      package = pkgs.gruvbox-gtk-theme;
+    };
+  };
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
     };
   };
 
@@ -15,6 +29,7 @@
     xclip
     kitty
     rofi
+    firefox
     (google-chrome-beta.override {
       commandLineArgs = [
         "--enable-features=WebUIDarkMode"
@@ -96,6 +111,6 @@
     };
   };
 
-  services.wallpaper.enable = true;
+  # services.wallpaper.enable = true;
 
 }
