@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     sops
-    azure-cli
+    # azure-cli
     kubectl
     kubectx
     kustomize

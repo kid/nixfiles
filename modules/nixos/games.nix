@@ -1,6 +1,11 @@
 { pkgs, ... }:
 {
-  programs.steam.enable = true;
+  programs.gamescope.enable = true;
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+  };
+
   environment.systemPackages = with pkgs; [
     legendary-gl
     lutris
@@ -14,5 +19,7 @@
     vulkan-tools
     vulkan-loader
     vulkan-validation-layers
+
+    xorg.xrandr
   ];
 }
