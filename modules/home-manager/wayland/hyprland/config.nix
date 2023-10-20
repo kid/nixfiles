@@ -19,6 +19,7 @@ in
     env = __GLX_VENDOR_LIBRARY_NAME,nvidia
     env = __GL_GSYNC_ALLOWED,1
     env = __GL_VRR_ALLOWED,1
+    env = WLR_NO_ATOMIC,1
     env = WLR_NO_HARDWARE_CURSORS,1
 
     exec = hyprctl setcursor ${pointer.name} ${toString pointer.size}

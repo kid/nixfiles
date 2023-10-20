@@ -96,7 +96,7 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    open = true;
+    open = false;
     # nvidiaSettings = true;
   };
 
