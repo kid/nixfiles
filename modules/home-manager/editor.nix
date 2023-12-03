@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    neovim-nightly
+    neovim
 
     # required for building treesitter modules
     gcc

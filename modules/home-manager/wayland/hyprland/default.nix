@@ -38,9 +38,10 @@
     # for eww
     jaq
 
-    libsForQt5.polkit-kde-agent
+    # libsForQt5.polkit-kde-agent
     libsForQt5.kwallet
     libsForQt5.kwallet-pam
+    polkit_gnome
   ];
 
   home.pointerCursor = {
@@ -69,9 +70,26 @@
         TimeoutStopSec = 10;
       };
     };
-    polkit-kde-authentication-agent-1 = {
+    # polkit-kde-authentication-agent-1 = {
+    #   Unit = {
+    #     Description = "polkit-kde-authentication-agent-1";
+    #     After = [ "graphical-session.target" ];
+    #     Wants = [ "graphical-session.target" ];
+    #   };
+    #   Install = {
+    #     WantedBy = [ "graphical-session.target" ];
+    #   };
+    #   Service = {
+    #     Type = "simple";
+    #     ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+    #     Restart = "on-failure";
+    #     RestartSec = 1;
+    #     TimeoutStopSec = 10;
+    #   };
+    # };
+    polkit-gnome-authentication-agent-1 = {
       Unit = {
-        Description = "polkit-kde-authentication-agent-1";
+        Description = "polkit-gnome-authentication-agent-1";
         After = [ "graphical-session.target" ];
         Wants = [ "graphical-session.target" ];
       };
@@ -80,7 +98,7 @@
       };
       Service = {
         Type = "simple";
-        ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         Restart = "on-failure";
         RestartSec = 1;
         TimeoutStopSec = 10;

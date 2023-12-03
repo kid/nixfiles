@@ -30,14 +30,18 @@
     kitty
     rofi
     firefox
-    (google-chrome-beta.override {
-      commandLineArgs = [
-        "--enable-features=WebUIDarkMode"
-        "--force-dark-mode"
-      ];
-    })
+    # (google-chrome-beta.override {
+    #   commandLineArgs = [
+    #     "--enable-features=WebUIDarkMode"
+    #     "--force-dark-mode"
+    #   ];
+    # })
+    chromium
     # _1password-gui
-    discord-canary
+    discord
+    # discord-canary
+    webcord
+    vesktop
     tdesktop # telegram
     polybar
     xorg.xmessage
@@ -48,11 +52,12 @@
     pulsemixer
     portfolio
     freecad
+    prusa-slicer
   ];
 
   xdg.mimeApps = {
     enable = true;
-    defaultApplications = let browser = "google-chrome-beta.desktop"; in
+    defaultApplications = let browser = "chromium.desktop"; in
       {
         "text/html" = browser;
         "x-scheme-handler/http" = browser;

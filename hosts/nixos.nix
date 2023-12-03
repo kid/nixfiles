@@ -1,24 +1,30 @@
-{ config, modulesPath, pkgs, ... }: {
+{ config, modulesPath, pkgs, ... }:
+let
+  kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+in
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.resumeDevice = "/dev/disk/by-label/swap";
+  boot = {
+    inherit kernelPackages;
+    initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+    resumeDevice = "/dev/disk/by-label/swap";
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  boot.kernelModules = [ "nct6775" ];
-  boot.kernelParams = [ "boot.shell_on_fail" ];
+    kernelModules = [ "nct6775" ];
+    kernelParams = [ "boot.shell_on_fail" "modset=1" "fbdev=1" "hdmi_deepcolor=1" ];
 
-  boot.tmp.useTmpfs = true;
+    tmp.useTmpfs = true;
 
-  boot.initrd.supportedFilesystems = [ "zfs" ];
-  boot.zfs.enableUnstable = true;
-  boot.zfs.devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
+    initrd.supportedFilesystems = [ "zfs" ];
+    zfs.enableUnstable = true;
+    zfs.devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
 
+  };
   fileSystems."/" =
     {
       device = "rpool/SYSTEM/root";
@@ -96,7 +102,8 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    open = false;
+    open = true;
+    # package = kernelPackages.nvidiaPackages.beta;
     # nvidiaSettings = true;
   };
 
@@ -104,5 +111,8 @@
     driSupport32Bit = true;
     extraPackages32 = with pkgs.pkgsi686Linux; [ libva pipewire ];
     setLdLibraryPath = true;
+    extraPackages = with pkgs; [
+      vulkan-validation-layers
+    ];
   };
 }

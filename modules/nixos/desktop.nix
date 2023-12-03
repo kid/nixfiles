@@ -4,6 +4,8 @@
 
   services.upower.enable = true;
 
+  security.polkit.enable = true;
+
   # recommended for pipewire
   security.rtkit.enable = true;
 
@@ -21,6 +23,7 @@
 
   programs._1password-gui = {
     enable = true;
+    polkitPolicyOwners = [ config.user.name ];
   };
 
   powerManagement = {

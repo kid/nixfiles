@@ -2,7 +2,7 @@
 
 current_layout=$(hyprctl getoption general:layout -j | jaq -r '.str')
 
-declare -a layouts=(master dwindle)
+declare -a layouts=(master dwindle hy3)
 count=${#layouts[@]}
 for ((i = 0; i < count; i++)); do
 	if [[ $current_layout == "${layouts[$i - 1]}" ]]; then

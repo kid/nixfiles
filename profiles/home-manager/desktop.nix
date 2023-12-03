@@ -5,8 +5,8 @@
     # azure-cli
     kubectl
     kubectx
-    kustomize
-    kustomize-sops
+    # kustomize
+    # kustomize-sops
     certbot-full
     winbox
     screen

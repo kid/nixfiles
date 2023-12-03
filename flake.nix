@@ -17,8 +17,13 @@
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
 
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly-overlay = {
+    #   url = "github:nix-community/neovim-nightly-overlay";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
+    neovim = {
+      url = "github:neovim/neovim/stable?dir=contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -47,6 +52,11 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib.url = "github:hyprwm/contrib";
     hyprpaper.url = "github:hyprwm/hyprpaper";
+
+    hy3 = {
+      url = "github:outfoxxed/hy3";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs = inputs @ { self, fup, darwin, ... }:
@@ -68,7 +78,8 @@
         inputs.hyprland-contrib.overlays.default
         inputs.hyprpaper.overlays.default
         inputs.nil.overlays.default
-        inputs.neovim-nightly-overlay.overlay
+        inputs.neovim.overlay
+        # inputs.neovim-nightly-overlay.overlay
         inputs.leftwm.overlay
         (self: super: {
           fcitx-engines = self.fcitx5;
@@ -130,28 +141,35 @@
       };
 
       hosts = {
-        nixos.modules = [
-          inputs.hm.nixosModule
-          inputs.nixos-hardware.nixosModules.common-pc
-          inputs.nixos-hardware.nixosModules.common-pc-ssd
-          inputs.nixos-hardware.nixosModules.common-cpu-amd
-          inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-          inputs.hyprland.nixosModules.default
-          ./hosts/nixos.nix
-          ./modules/nixos
-          ./modules/nixos/desktop.nix
-          ./modules/nixos/games.nix
-          ./modules/nixos/podman.nix
-          ./modules/nixos/virtualization.nix
-          ./modules/nixos/printing.nix
-          # ./profiles/desktop.nix
-          ./profiles/hyprland.nix
-          # {
-          #   hm.imports = [
-          #     inputs.hyprland.homeManagerModules.default
-          #   ];
-          # }
-        ];
+        nixos = {
+          specialArgs = { inherit inputs; };
+          modules = [
+            inputs.hm.nixosModule
+            inputs.nixos-hardware.nixosModules.common-pc
+            inputs.nixos-hardware.nixosModules.common-pc-ssd
+            inputs.nixos-hardware.nixosModules.common-cpu-amd
+            inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+            inputs.hyprland.nixosModules.default
+            ./hosts/nixos.nix
+            ./modules/nixos
+            ./modules/nixos/desktop.nix
+            ./modules/nixos/games.nix
+            ./modules/nixos/podman.nix
+            ./modules/nixos/containerd.nix
+            ./modules/nixos/virtualization.nix
+            ./modules/nixos/printing.nix
+            # ./profiles/desktop.nix
+            ./profiles/hyprland.nix
+            # {
+            #   hm.extraSpecialArgs = { inherit inputs; };
+            # }
+            # {
+            #   hm.imports = [
+            #     inputs.hyprland.homeManagerModules.default
+            #   ];
+            # }
+          ];
+        };
         M-Y47D2M27VX = {
           builder = darwin.lib.darwinSystem;
           output = "darwinConfigurations";
