@@ -15,8 +15,8 @@
   programs.bat.enable = true;
   programs.bat.config.theme = "gruvbox-dark";
 
-  programs.exa.enable = true;
-  programs.exa.enableAliases = true;
+  programs.eza.enable = true;
+  programs.eza.enableAliases = true;
 
   programs.starship.enable = true;
   programs.starship.enableZshIntegration = true;

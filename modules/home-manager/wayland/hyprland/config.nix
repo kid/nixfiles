@@ -4,7 +4,7 @@ let
 in
 {
   wayland.windowManager.hyprland.extraConfig = ''
-    env = XCURSOR_SIZE,24
+    # env = XCURSOR_SIZE,24
 
     env = GDK_BACKEND,wayland,x11
     env = QT_QPA_PLATFORM,wayland;xcb
@@ -18,8 +18,8 @@ in
     env = LIBVA_DRIVER_NAME,nvidia
     env = __GLX_VENDOR_LIBRARY_NAME,nvidia
     env = __GL_GSYNC_ALLOWED,1
-    env = __GL_VRR_ALLOWED,1
-    env = WLR_NO_ATOMIC,1
+    # env = __GL_VRR_ALLOWED,1
+    env = WLR_DRM_NO_ATOMIC,1
     env = WLR_NO_HARDWARE_CURSORS,1
 
     exec = hyprctl setcursor ${pointer.name} ${toString pointer.size}
@@ -28,28 +28,38 @@ in
     exec-once = dunst
     exec-once = wl-paste --type text --watch cliphist store #Stores only text data
     exec-once = wl-paste --type image --watch cliphist store #Stores only image data
+    exec-once = [workspace 9 silent] discord
     exec-once = telegram-desktop
-    exec-once = discordcanary
+    # exec-once = discordcanary
 
+    monitor=HDMI-A-1, disable
     monitor=DP-3, 3840x1600@120, 0x0, 1, bitdepth, 10
 
-    windowrulev2  =workspace 9  silent,class:^(discord)$
+    windowrulev2 = workspace 9  silent,class:^(discord)$
     windowrulev2 = workspace 10 silent,class:^(org.telegram.desktop)$
-    windowrulev2 = float, class:^(org.telegram.desktop)$,title:^(Media viewer)$
+    windowrulev2 = tile,class:^.+-winbox64.exe$
+    windowrulev2 = float,class:^(org.telegram.desktop)$,title:^(Media viewer)$
 
     bind = SUPER, T, exec, kitty
     bind = SUPER, P, exec, rofi -show
-    bind = SUPER, B, exec, google-chrome-beta --enable-features=UseOzonePlatform --ozone-platform=wayland
-    bind = SUPER_SHIFT, B, exec, google-chrome-beta --enable-features=UseOzonePlatform --ozone-platform=wayland --incognito
+    # bind = SUPER, B, exec, google-chrome-beta --enable-features=UseOzonePlatform --ozone-platform=wayland
+    bind = SUPER, B, exec, chromium -ozone-platform=wayland
+    # bind = SUPER_SHIFT, B, exec, google-chrome-beta --enable-features=UseOzonePlatform --ozone-platform=wayland --incognito
+    bind = SUPER_SHIFT, B, exec, chromium --ozone-platform=wayland --incognito
     bind = SUPER_SHIFT, Q, exec, ~/.config/hypr/scripts/quit.sh
     bind = SUPER, backslash, layoutmsg, togglesplit
     bind = SUPER_SHIFT, backslash, exec, ~/.config/hypr/scripts/switch-layout.sh
     bind = SUPER, W, killactive
     bind = SUPER, F, fullscreen
-    bind = SUPER, J, cyclenext
-    bind = SUPER, K, cyclenext, prev
-    bind = SUPER_SHIFT, J, swapnext
-    bind = SUPER_SHIFT, K, swapnext, prev
+    bind = SUPER, space, togglefloating
+    # bind = SUPER, J, cyclenext
+    # bind = SUPER, K, cyclenext, prev
+    bind = SUPER, J, layoutmsg, cyclenext
+    bind = SUPER, K, layoutmsg, cycleprev
+    # bind = SUPER_SHIFT, J, swapnext
+    # bind = SUPER_SHIFT, K, swapnext, prev
+    bind = SUPER_SHIFT, J, layoutmsg, swapnext
+    bind = SUPER_SHIFT, K, layoutmsg, swapprev
     bind = SUPER, M, layoutmsg, focusmaster
     bind = SUPER_SHIFT, M, layoutmsg, swapwithmaster
     bind = SUPER, H, layoutmsg, orientationprev
@@ -97,8 +107,15 @@ in
     bind=,escape,submap,reset
     submap=reset
 
+    # Super + LMB move window
+    bindm=SUPER,mouse:272,movewindow
+    # Super + LMB move window
+    bindm=SUPER,mouse:273,resizewindow
+
+
     general {
-      layout = dwindle
+      allow_tearing = true
+      layout = master
       col.active_border = rgb(8ec07c)
       col.inactive_border = rgb(282828)
     }
@@ -119,8 +136,15 @@ in
       # allow_small_split = true
       no_gaps_when_only = true
       new_is_master = false
-      orientation = center
-      mfact = 0.4
+      new_on_top = true
+      # orientation = center
+      # mfact = 0.6
     }  
+
+    plugin {
+      hy3 {
+        no_gaps_when_only = true
+      }
+    }
   '';
 }

@@ -3,6 +3,7 @@
     ./eww
     ./swaybg.nix
     ./hyprland
+    ./sway.nix
   ];
 
   programs.eww-hyprland.enable = true;
