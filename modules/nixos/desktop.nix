@@ -32,10 +32,6 @@
     powertop.enable = false;
   };
 
-  hardware.nvidia.powerManagement = {
-    enable = true;
-  };
-
   hardware.bluetooth = {
     enable = true;
     settings = {

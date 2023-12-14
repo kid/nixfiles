@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 let
   regreet-run = pkgs.writeShellScriptBin "regreet-run" ''
-    export WLR_NO_HARDWARE_CURSORS=1
-    export GBM_BACKEND=nvidia-drm
-    export LIBVA_DRIVER_NAME=nvidia
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __GL_GSYNC_ALLOWED=1
+    # export WLR_NO_HARDWARE_CURSORS=1
+    # export GBM_BACKEND=nvidia-drm
+    # export LIBVA_DRIVER_NAME=nvidia
+    # export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    # export __GL_GSYNC_ALLOWED=1
     export __GL_VRR_ALLOWED=1
 
     ${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -d -s -- ${lib.getExe config.programs.regreet.package}

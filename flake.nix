@@ -67,8 +67,11 @@
     fup.lib.mkFlake {
       inherit self inputs;
 
-      channelsConfig.allowUnfree = true;
-      channelsConfig.allowBroken = true;
+      channelsConfig = {
+        allowUnfree = true;
+        allowBroken = true;
+        permittedInsecurePackages = [ "xpdf-4.04" ];
+      };
 
       # Propagates to channels.<name>.overlaysBuilder
       sharedOverlays = [
@@ -149,6 +152,9 @@
             inputs.nixos-hardware.nixosModules.common-pc-ssd
             inputs.nixos-hardware.nixosModules.common-cpu-amd
             inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+            inputs.nixos-hardware.nixosModules.common-gpu-amd
+            { hardware.amdgpu.amdvlk = true; }
+            { hardware.amdgpu.loadInInitrd = true; }
             inputs.hyprland.nixosModules.default
             ./hosts/nixos.nix
             ./modules/nixos
