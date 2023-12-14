@@ -14,13 +14,13 @@ in
     env = XDG_SESSION_DESKTOP,Hyprland
     env = XDG_SESSION_TYPE,wayland
 
-    env = GBM_BACKEND,nvidia-drm
-    env = LIBVA_DRIVER_NAME,nvidia
-    env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-    env = __GL_GSYNC_ALLOWED,1
-    # env = __GL_VRR_ALLOWED,1
+    # env = GBM_BACKEND,nvidia-drm
+    # env = LIBVA_DRIVER_NAME,nvidia
+    # env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+    # env = __GL_GSYNC_ALLOWED,1
+    env = __GL_VRR_ALLOWED,1
     env = WLR_DRM_NO_ATOMIC,1
-    env = WLR_NO_HARDWARE_CURSORS,1
+    # env = WLR_NO_HARDWARE_CURSORS,1
 
     exec = hyprctl setcursor ${pointer.name} ${toString pointer.size}
 
@@ -28,17 +28,17 @@ in
     exec-once = dunst
     exec-once = wl-paste --type text --watch cliphist store #Stores only text data
     exec-once = wl-paste --type image --watch cliphist store #Stores only image data
-    exec-once = [workspace 9 silent] discord
-    exec-once = telegram-desktop
+    exec-once = [workspace 9  silent] discord
+    exec-once = [workspace 10 silent] telegram-desktop
     # exec-once = discordcanary
 
-    monitor=HDMI-A-1, disable
-    monitor=DP-3, 3840x1600@120, 0x0, 1, bitdepth, 10
+    monitor=HDMI-A-1,3840x2160@120,0x0,1,bitdepth,10,vrr,1
 
-    windowrulev2 = workspace 9  silent,class:^(discord)$
-    windowrulev2 = workspace 10 silent,class:^(org.telegram.desktop)$
+    # windowrulev2 = workspace 9  silent,class:^(discord)$
+    # windowrulev2 = workspace 10 silent,class:^(org.telegram.desktop)$
     windowrulev2 = tile,class:^.+-winbox64.exe$
     windowrulev2 = float,class:^(org.telegram.desktop)$,title:^(Media viewer)$
+    # windowrulev2 = immediate,class:^(steam_app_\d+)$
 
     bind = SUPER, T, exec, kitty
     bind = SUPER, P, exec, rofi -show
@@ -65,7 +65,7 @@ in
     bind = SUPER, H, layoutmsg, orientationprev
     bind = SUPER, L, layoutmsg, orientationnext
     bind = SUPER, I, layoutmsg, addmaster
-    bind = SUPER, D, layoutmsg, removemaster
+    bind = SUPER, U, layoutmsg, removemaster
     bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
 
     # Switch workspaces with mainMod + [0-9]
@@ -120,6 +120,18 @@ in
       col.inactive_border = rgb(282828)
     }
 
+    misc {
+      disable_hyprland_logo = true
+      disable_splash_rendering = true
+      # vfr = 0
+      vrr = 1
+    }
+
+    input {
+      follow_mouse = 1
+      mouse_refocus = false
+    }
+
     dwindle {
       # always split to the right
       force_split = 2
@@ -133,12 +145,13 @@ in
     }
 
     master {
-      # allow_small_split = true
+      allow_small_split = true
       no_gaps_when_only = true
       new_is_master = false
-      new_on_top = true
-      # orientation = center
-      # mfact = 0.6
+      new_on_top = false
+      orientation = bottom
+      always_center_master = true
+      mfact = 0.65
     }  
 
     plugin {

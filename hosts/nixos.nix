@@ -16,7 +16,8 @@ in
     loader.efi.canTouchEfiVariables = true;
 
     kernelModules = [ "nct6775" ];
-    kernelParams = [ "boot.shell_on_fail" "modset=1" "fbdev=1" "hdmi_deepcolor=1" ];
+    # kernelParams = [ "boot.shell_on_fail" "modset=1" "fbdev=1" "hdmi_deepcolor=1" ];
+    kernelParams = [ "boot.shell_on_fail" "amdgpu.freesync_video=1" ];
 
     tmp.useTmpfs = true;
 
@@ -91,7 +92,7 @@ in
   services.resolved.dnssec = "false";
 
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
+    # videoDrivers = [ "nvidia" ];
     # displayManager = {
     #   setupCommands = ''
     #     ${pkgs.xorg.xrandr}/bin/xrandr --listmonitors | grep DP-4 && ${pkgs.xorg.xrandr}/bin/xrandr --output DP-4 --scale 1x1 --mode 3840x1600 --rate 144 --pos 0x0 --primary
@@ -99,20 +100,20 @@ in
     #   '';
     # };
   };
+  #
+  # hardware.nvidia = {
+  #   modesetting.enable = true;
+  #   open = true;
+  #   # package = kernelPackages.nvidiaPackages.beta;
+  #   # nvidiaSettings = true;
+  # };
 
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = true;
-    # package = kernelPackages.nvidiaPackages.beta;
-    # nvidiaSettings = true;
-  };
-
-  hardware.opengl = {
-    driSupport32Bit = true;
-    extraPackages32 = with pkgs.pkgsi686Linux; [ libva pipewire ];
-    setLdLibraryPath = true;
-    extraPackages = with pkgs; [
-      vulkan-validation-layers
-    ];
-  };
+  # hardware.opengl = {
+  #   driSupport32Bit = true;
+  #   extraPackages32 = with pkgs.pkgsi686Linux; [ libva pipewire ];
+  #   setLdLibraryPath = true;
+  #   extraPackages = with pkgs; [
+  #     vulkan-validation-layers
+  #   ];
+  # };
 }
