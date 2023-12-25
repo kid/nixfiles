@@ -3,7 +3,7 @@
   virtualisation = {
     podman = {
       enable = true;
-      dockerCompat = true;
+      dockerCompat = false;
       extraPackages = [ pkgs.zfs ];
     };
 

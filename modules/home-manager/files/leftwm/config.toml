@@ -23,11 +23,11 @@ keybind = [
   ], key = "p", command = "Execute", value = "rofi -show" },
   { modifier = [
     "modkey",
-  ], key = "b", command = "Execute", value = "google-chrome-beta" },
+  ], key = "b", command = "Execute", value = "chromium" },
   { modifier = [
     "modkey",
     "Shift",
-  ], key = "b", command = "Execute", value = "google-chrome-beta --incognito" },
+  ], key = "b", command = "Execute", value = "chromium --incognito" },
 
   { modifier = [
     "modkey",

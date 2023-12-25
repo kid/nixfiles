@@ -12,7 +12,7 @@
         isNormalUser = true;
         createHome = true;
         useDefaultShell = true;
-        extraGroups = [ "audio" "video" "wheel" "libvirtd" ];
+        extraGroups = [ "audio" "video" "wheel" "libvirtd" "docker" ];
         initialPassword = "foo";
       };
     };

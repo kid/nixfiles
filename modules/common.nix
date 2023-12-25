@@ -45,6 +45,16 @@
 
     enableDefaultPackages = false;
 
+    fontconfig = {
+      subpixel.rgba = "none";
+      subpixel.lcdfilter = "none";
+
+      hinting.enable = true;
+      # hinting.autohint = true;
+      hinting.style = "full";
+    };
+
+
     fontconfig.defaultFonts = {
       serif = [ "Noto Serif" "Noto Color Emoji" ];
       sansSerif = [ "Noto Sans" "Noto Color Emoji" ];

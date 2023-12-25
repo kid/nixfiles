@@ -53,6 +53,8 @@
     hyprland-contrib.url = "github:hyprwm/contrib";
     hyprpaper.url = "github:hyprwm/hyprpaper";
 
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+
     hy3 = {
       url = "github:outfoxxed/hy3";
       inputs.hyprland.follows = "hyprland";
@@ -87,6 +89,7 @@
         (self: super: {
           fcitx-engines = self.fcitx5;
         })
+        inputs.nixpkgs-wayland.overlay
       ];
 
       nixosModules = exportModules [
@@ -153,15 +156,16 @@
             inputs.nixos-hardware.nixosModules.common-cpu-amd
             inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
             inputs.nixos-hardware.nixosModules.common-gpu-amd
-            { hardware.amdgpu.amdvlk = true; }
+            # { hardware.amdgpu.amdvlk = true; }
             { hardware.amdgpu.loadInInitrd = true; }
             inputs.hyprland.nixosModules.default
             ./hosts/nixos.nix
             ./modules/nixos
             ./modules/nixos/desktop.nix
             ./modules/nixos/games.nix
-            ./modules/nixos/podman.nix
-            ./modules/nixos/containerd.nix
+            # ./modules/nixos/podman.nix
+            # ./modules/nixos/containerd.nix
+            ./modules/nixos/docker.nix
             ./modules/nixos/virtualization.nix
             ./modules/nixos/printing.nix
             # ./profiles/desktop.nix
