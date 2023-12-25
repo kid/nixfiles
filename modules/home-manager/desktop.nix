@@ -53,6 +53,9 @@
     portfolio
     freecad
     prusa-slicer
+    alacritty
+    wlr-randr
+    glxinfo
   ];
 
   xdg.mimeApps = {
@@ -82,7 +85,8 @@
   programs.kitty = {
     enable = true;
     font = {
-      name = "FiraCode Nerd Font";
+      # name = "FiraCode Nerd Font";
+      name = "JetBrainsMono Nerd Font";
       size = 11;
     };
 

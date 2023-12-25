@@ -17,7 +17,8 @@ in
 
     kernelModules = [ "nct6775" ];
     # kernelParams = [ "boot.shell_on_fail" "modset=1" "fbdev=1" "hdmi_deepcolor=1" ];
-    kernelParams = [ "boot.shell_on_fail" "amdgpu.freesync_video=1" ];
+    # kernelParams = [ "boot.shell_on_fail" "amdgpu.freesync_video=1" ];
+    kernelParams = [ "boot.shell_on_fail" ];
 
     tmp.useTmpfs = true;
 
@@ -91,29 +92,31 @@ in
   services.resolved.enable = true;
   services.resolved.dnssec = "false";
 
-  services.xserver = {
-    # videoDrivers = [ "nvidia" ];
-    # displayManager = {
-    #   setupCommands = ''
-    #     ${pkgs.xorg.xrandr}/bin/xrandr --listmonitors | grep DP-4 && ${pkgs.xorg.xrandr}/bin/xrandr --output DP-4 --scale 1x1 --mode 3840x1600 --rate 144 --pos 0x0 --primary
-    #     ${pkgs.xorg.xrandr}/bin/xrandr --listmonitors | grep DP-2 && ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --scale 1x1 --mode 2560x1440 --rate 144 --pos 3840x-480 --rotate left
-    #   '';
-    # };
-  };
-  #
-  # hardware.nvidia = {
-  #   modesetting.enable = true;
-  #   open = true;
-  #   # package = kernelPackages.nvidiaPackages.beta;
-  #   # nvidiaSettings = true;
-  # };
+  # services.xserver.videoDrivers = ["amdgpu"];
+  services.xserver.videoDrivers = ["modesetting" "amdgpu"];
 
-  # hardware.opengl = {
-  #   driSupport32Bit = true;
-  #   extraPackages32 = with pkgs.pkgsi686Linux; [ libva pipewire ];
-  #   setLdLibraryPath = true;
-  #   extraPackages = with pkgs; [
-  #     vulkan-validation-layers
-  #   ];
-  # };
+  hardware.opengl = {
+    enable = true;
+    # driSupport32Bit = true;
+    # extraPackages32 = with pkgs.pkgsi686Linux; [ libva pipewire ];
+    setLdLibraryPath = true;
+    extraPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl 
+    ];
+  };
+
+  environment.systemPackages = [ pkgs.vulkan-validation-layers ];
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
+
+  boot.loader.systemd-boot.extraEntries = {
+    "archlinux.conf" = ''
+      title   Arch Linux
+      linux   /vmlinuz-linux-zen
+      initrd  /initramfs-linux-zen.img
+      options root="LABEL=archlinux" rw
+    '';
+  };
 }

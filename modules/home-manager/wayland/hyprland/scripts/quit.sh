@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+pkill -u "$(whoami)" chromium
 pkill -u "$(whoami)" chrome
 
 sleep 2
