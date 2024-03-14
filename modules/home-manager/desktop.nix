@@ -54,8 +54,9 @@
     freecad
     prusa-slicer
     alacritty
-    wlr-randr
+    # wlr-randr
     glxinfo
+    deltachat-desktop
   ];
 
   xdg.mimeApps = {

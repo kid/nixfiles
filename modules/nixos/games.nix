@@ -1,12 +1,36 @@
 { pkgs, ... }:
 {
-  programs.gamescope.enable = true;
+  programs.gamescope = {
+    enable = true;
+    capSysNice = false;
+    # package = pkgs.gamescope-wsi;
+  };
   programs.steam = {
     enable = true;
     gamescopeSession.enable = true;
   };
+  # chaotic.steam.extraCompatPackages = with pkgs; [
+  # ];
+
+  # nixpkgs.config.packageOverrides = pkgs: {
+  #   steam = pkgs.steam.override {
+  #     extraPkgs = pkgs: with pkgs; [
+  #       xorg.libXcursor
+  #       xorg.libXi
+  #       xorg.libXinerama
+  #       xorg.libXScrnSaver
+  #       libpng
+  #       libpulseaudio
+  #       libvorbis
+  #       stdenv.cc.cc.lib
+  #       libkrb5
+  #       keyutils
+  #     ];
+  #   };
+  # };
 
   environment.systemPackages = with pkgs; [
+    gamemode
     legendary-gl
     lutris
 
@@ -19,7 +43,14 @@
     vulkan-tools
     vulkan-loader
     vulkan-validation-layers
+    vulkan-hdr-layer
 
     xorg.xrandr
+
+    ckan # mod manager for ksp
+    steam-run
+    protontricks
+    mangohud
+    dxvk
   ];
 }

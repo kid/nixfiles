@@ -24,6 +24,15 @@ stdenv.mkDerivation {
     addToSearchPath XDG_DATA_DIRS @out@/share
   '';
 
+  # Include absolute paths to layer libraries in their associated
+  # layer definition json files.
+  preFixup = ''
+    for f in "$out"/share/vulkan/explicit_layer.d/*.json "$out"/share/vulkan/implicit_layer.d/*.json; do
+      jq <"$f" >tmp.json ".layer.library_path = \"$out/lib/\" + .layer.library_path"
+      mv tmp.json "$f"
+    done
+  '';
+
   meta = with lib; {
     description = "Layers providing Vulkan HDR";
     homepage = "https://github.com/Zamundaaa/VK_hdr_layer";

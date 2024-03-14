@@ -13,9 +13,6 @@
     ../modules/home-manager/wayland
     # ../modules/home-manager/wayland/hyprland
     ./home-manager/desktop.nix
-    {
-      wayland.windowManager.hyprland.plugins = [ inputs.hy3.packages.${pkgs.system}.hy3 ];
-    }
   ];
 
   user.name = "kid";
@@ -35,6 +32,15 @@
   # };
 
   # xdg.portal.enable = true;
+  # xdg.portal.wlr.enable
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gtk
+    ];
+  };
   # xdg.portal.extraPortals = [ pkgs.xdg-desktop-gtk ];
 
   # Use wayland where possible (electron)

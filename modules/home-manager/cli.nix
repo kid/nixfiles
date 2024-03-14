@@ -10,6 +10,7 @@
 
   programs.gh.enable = true;
   programs.gh.settings.git_protocol = "ssh";
+  programs.gh.settings.version = 1;
 
   programs.htop.enable = true;
 

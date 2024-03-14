@@ -43,6 +43,8 @@
     };
   };
 
+  services.blueman.enable = true;
+
   # environment.etc = {
   #   "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
   #     bluez_monitor.properties = {
@@ -54,5 +56,15 @@
   #   '';
   # };
 
-  environment.systemPackages = with pkgs; [ pwvucontrol pavucontrol ];
+  environment.systemPackages = with pkgs; [
+    pwvucontrol
+    pavucontrol
+    xboxdrv
+    # vulkan-tools
+    # vulkan-loader
+    # vulkan-validation-layers
+    # vulkan-hdr-layer
+  ];
+
+  programs.nix-ld.enable = true;
 }
