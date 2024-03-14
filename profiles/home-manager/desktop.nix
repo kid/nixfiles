@@ -7,7 +7,7 @@
     kubectx
     # kustomize
     # kustomize-sops
-    certbot-full
+    # certbot-full
     winbox
     screen
     minicom

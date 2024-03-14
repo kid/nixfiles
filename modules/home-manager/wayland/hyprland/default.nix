@@ -53,23 +53,23 @@
   };
 
   systemd.user.services = {
-    kwallet = {
-      Unit = {
-        Description = "kwallet";
-        After = [ "graphical-session.target" ];
-        Wants = [ "graphical-session.target" ];
-      };
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.libsForQt5.kwallet}/bin/kwalletd5";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
+    # kwallet = {
+    #   Unit = {
+    #     Description = "kwallet";
+    #     After = [ "graphical-session.target" ];
+    #     Wants = [ "graphical-session.target" ];
+    #   };
+    #   Install = {
+    #     WantedBy = [ "graphical-session.target" ];
+    #   };
+    #   Service = {
+    #     Type = "simple";
+    #     ExecStart = "${pkgs.libsForQt5.kwallet}/bin/kwalletd5";
+    #     Restart = "on-failure";
+    #     RestartSec = 1;
+    #     TimeoutStopSec = 10;
+    #   };
+    # };
     # polkit-kde-authentication-agent-1 = {
     #   Unit = {
     #     Description = "polkit-kde-authentication-agent-1";

@@ -43,7 +43,7 @@ in
     # monitor=HDMI-A-1,3840x2160@120,0x0,1,bitdepth,10,vrr,1
     # Working:
     # monitor=,preferred,auto,1,vrr,1,bitdepth,10
-    monitor=,preferred,auto,1,vrr,1,bitdepth,8
+    # monitor=,preferred,auto,1,vrr,1,bitdepth,8
     # monitor=,highrr,auto,1
 
     bind = SUPER, T, exec, kitty
@@ -131,11 +131,15 @@ in
       disable_splash_rendering = true
       # vfr = 0
       vrr = 1
+      # wake monitor on key press
+      key_press_enables_dpms = true
     }
 
     input {
       follow_mouse = 1
       mouse_refocus = false
+      sensitivity = 0.5
+      accel_profile = "flat"
     }
 
     xwayland {
@@ -164,10 +168,10 @@ in
       mfact = 0.65
     }  
 
-    plugin {
-      hy3 {
-        no_gaps_when_only = true
-      }
-    }
+    # plugin {
+    #   hy3 {
+    #     no_gaps_when_only = true
+    #   }
+    # }
   '';
 }

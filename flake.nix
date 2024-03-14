@@ -53,12 +53,14 @@
     hyprland-contrib.url = "github:hyprwm/contrib";
     hyprpaper.url = "github:hyprwm/hyprpaper";
 
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
-    hy3 = {
-      url = "github:outfoxxed/hy3";
-      inputs.hyprland.follows = "hyprland";
-    };
+    # hy3 = {
+    #   url = "github:outfoxxed/hy3";
+    #   inputs.hyprland.follows = "hyprland";
+    # };
+
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
   outputs = inputs @ { self, fup, darwin, ... }:
@@ -75,9 +77,26 @@
         permittedInsecurePackages = [ "xpdf-4.04" ];
       };
 
+      # channels.default.input.nixpkgs.config.packageOverrides = pkgs: {
+      #   steam = pkgs.steam.override {
+      #     extraPkgs = pkgs: with pkgs; [
+      #       xorg.libXcursor
+      #       xorg.libXi
+      #       xorg.libXinerama
+      #       xorg.libXScrnSaver
+      #       libpng
+      #       libpulseaudio
+      #       libvorbis
+      #       stdenv.cc.cc.lib
+      #       libkrb5
+      #       keyutils
+      #     ];
+      #   };
+      # };
+
       # Propagates to channels.<name>.overlaysBuilder
       sharedOverlays = [
-        self.overlay
+        # self.overlay
         inputs.devshell.overlays.default
         inputs.hyprland.overlays.default
         inputs.hyprland-contrib.overlays.default
@@ -86,20 +105,37 @@
         inputs.neovim.overlay
         # inputs.neovim-nightly-overlay.overlay
         inputs.leftwm.overlay
-        (self: super: {
-          fcitx-engines = self.fcitx5;
+        (final: prev: {
+          fcitx-engines = final.fcitx5;
+          vulkan-hdr-layer = prev.callPackage ./pkgs/vulkan-hdr-layer.nix { };
+          steam = prev.steam.override {
+            extraPkgs = pkgs: with pkgs; [
+              xorg.libXcursor
+              xorg.libXi
+              xorg.libXinerama
+              xorg.libXScrnSaver
+              libpng
+              libpulseaudio
+              libvorbis
+              stdenv.cc.cc.lib
+              libkrb5
+              keyutils
+            ];
+          };
         })
-        inputs.nixpkgs-wayland.overlay
+        # inputs.nixpkgs-wayland.overlay
+        # outputs.overlays.additions
       ];
 
       nixosModules = exportModules [
         ./hosts/nixos.nix
       ];
 
-      overlay = import ./overlays { inherit inputs; };
+      # overlay = import ./overlays { inherit inputs; };
       overlays = exportOverlays {
         inherit (self) pkgs;
       };
+      # overlays = import ./overlays { inherit inputs; };
 
       outputsBuilder = channels: {
         # packages = exportPackages self.overlays channels;
@@ -159,6 +195,7 @@
             # { hardware.amdgpu.amdvlk = true; }
             { hardware.amdgpu.loadInInitrd = true; }
             inputs.hyprland.nixosModules.default
+            inputs.chaotic.nixosModules.default
             ./hosts/nixos.nix
             ./modules/nixos
             ./modules/nixos/desktop.nix
