@@ -9,8 +9,8 @@
     enable = true;
     font = {
       # name = "FiraCode Nerd Font";
-      name = "JetBrainsMono Nerd Font";
-      size = 11;
+      # name = "JetBrainsMono Nerd Font";
+      # size = 11;
     };
 
     settings = {

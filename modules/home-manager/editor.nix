@@ -8,7 +8,6 @@
     # TODO move these into a "dev" module
     sumneko-lua-language-server
     efm-langserver
-    rnix-lsp
     shellcheck
     shfmt
   ];

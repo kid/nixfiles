@@ -1,8 +1,8 @@
 { config, modulesPath, pkgs, ... }:
 let
 
-  kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  # kernelPackages = pkgs.linuxKernel.packages.linux_hdr;
+  # kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  kernelPackages = pkgs.linuxPackages_cachyos;
 in
 {
   imports = [
@@ -12,8 +12,8 @@ in
   boot = {
     inherit kernelPackages;
 
-    consoleLogLevel = 0;
-    initrd.verbose = false;
+    # consoleLogLevel = 0;
+    # initrd.verbose = false;
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
     resumeDevice = "/dev/disk/by-label/swap";
 
@@ -132,7 +132,7 @@ in
     extraPackages = with pkgs; [
       vaapiVdpau
       libvdpau-va-gl
-      # vulkan-hdr-layer
+      vulkan-hdr-layer
     ];
   };
 
