@@ -32,13 +32,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rnix-lsp = {
-      url = "github:nix-community/rnix-lsp";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "fu";
-      inputs.naersk.follows = "naersk";
-    };
-
     naersk = {
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,6 +45,8 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib.url = "github:hyprwm/contrib";
     hyprpaper.url = "github:hyprwm/hyprpaper";
+
+    stylix.url = "github:danth/stylix";
 
     # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
@@ -145,7 +140,6 @@
           packages = with channels.nixpkgs; [
             gnumake
             nixpkgs-fmt
-            rnix-lsp
             fd
           ];
 
@@ -192,6 +186,7 @@
             inputs.nixos-hardware.nixosModules.common-cpu-amd
             inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
             inputs.nixos-hardware.nixosModules.common-gpu-amd
+            inputs.stylix.nixosModules.stylix
             # { hardware.amdgpu.amdvlk = true; }
             { hardware.amdgpu.loadInInitrd = true; }
             inputs.hyprland.nixosModules.default
@@ -223,6 +218,7 @@
           system = "aarch64-darwin";
           modules = [
             inputs.hm.darwinModules.home-manager
+            inputs.stylix.darwinModules.stylix
             ./modules/darwin
             ./profiles/work.nix
           ];
@@ -238,10 +234,13 @@
           generateHome = inputs.hm.lib.homeManagerConfiguration;
           system = "x86_64-linux";
           pkgs = self.pkgs.${system}.nixpkgs;
+          modules = [
+            inputs.stylix.homeManagerModules.stylix
+          ];
         in
         {
           "${username}@M-Y47D2M27VX" = generateHome {
-            inherit username extraSpecialArgs pkgs configuration;
+            inherit username extraSpecialArgs pkgs configuration modules;
             homeDirectory = "/Users/${username}";
             system = "aarch64-darwin";
           };

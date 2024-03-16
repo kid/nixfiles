@@ -6,24 +6,24 @@
   gtk = {
     enable = true;
 
-    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+    # gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
-    font = {
-      name = "Roboto";
-      package = pkgs.roboto;
-    };
+    # font = {
+    #   name = "Roboto";
+    #   package = pkgs.roboto;
+    # };
 
-    theme = {
-      name = "Gruvbox-Dark-BL";
-      package = pkgs.gruvbox-gtk-theme;
-    };
+    # theme = {
+    #   name = "Gruvbox-Dark-BL";
+    #   package = pkgs.gruvbox-gtk-theme;
+    # };
   };
 
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-    };
-  };
+  # dconf.settings = {
+  #   "org/gnome/desktop/interface" = {
+  #     color-scheme = "prefer-dark";
+  #   };
+  # };
 
   home.packages = with pkgs; [
     xclip
@@ -77,8 +77,8 @@
       modi = "drun,window,ssh";
     };
 
-    font = "FiraCode Nerd Font 11";
-    theme = "gruvbox-dark";
+    # font = "FiraCode Nerd Font 11";
+    # theme = "gruvbox-dark";
     terminal = "kitty";
   };
 
@@ -87,7 +87,7 @@
     enable = true;
     font = {
       # name = "FiraCode Nerd Font";
-      name = "JetBrainsMono Nerd Font";
+      # name = "JetBrainsMono Nerd Font";
       size = 11;
     };
 

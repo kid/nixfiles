@@ -3,7 +3,7 @@
   programs.gamescope = {
     enable = true;
     capSysNice = false;
-    # package = pkgs.gamescope-wsi;
+    package = pkgs.gamescope_git;
   };
   programs.steam = {
     enable = true;
@@ -28,6 +28,8 @@
   #     ];
   #   };
   # };
+
+  programs.noisetorch.enable = true;
 
   environment.systemPackages = with pkgs; [
     gamemode
