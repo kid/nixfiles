@@ -1,10 +1,10 @@
 {
   imports = [
     ./eww
-    ./swaybg.nix
+    # ./swaybg.nix
     ./hyprland
     ./sway.nix
-    ./kanshi.nix
+    # ./kanshi.nix
   ];
 
   programs.eww-hyprland.enable = true;
