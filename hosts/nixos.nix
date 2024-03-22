@@ -2,7 +2,7 @@
 let
 
   # kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  kernelPackages = pkgs.linuxPackages_cachyos;
+  # kernelPackages = pkgs.linuxPackages_cachyos;
 in
 {
   imports = [
@@ -10,7 +10,7 @@ in
   ];
 
   boot = {
-    inherit kernelPackages;
+    # inherit kernelPackages;
 
     # consoleLogLevel = 0;
     # initrd.verbose = false;
@@ -38,7 +38,7 @@ in
   chaotic = {
     hdr = {
       enable = true;
-      # specialisation.enable = false;
+      specialisation.enable = false;
     };
     # mesa-git.enable = true;
   };

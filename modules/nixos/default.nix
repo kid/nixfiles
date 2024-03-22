@@ -28,8 +28,8 @@
 
   services.openssh.enable = true;
 
-  boot.loader.systemd-boot.configurationLimit = 5;
-
+  boot.loader.systemd-boot.configurationLimit = 10;
+  boot.loader.systemd-boot.consoleMode = "auto";
 
   environment.systemPackages = with pkgs; [
     lm_sensors
