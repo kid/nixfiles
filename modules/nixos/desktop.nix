@@ -57,7 +57,6 @@
   # };
 
   environment.systemPackages = with pkgs; [
-    pwvucontrol
     pavucontrol
     xboxdrv
     # vulkan-tools
