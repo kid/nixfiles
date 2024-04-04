@@ -12,7 +12,7 @@
         isNormalUser = true;
         createHome = true;
         useDefaultShell = true;
-        extraGroups = [ "audio" "video" "wheel" "libvirtd" "docker" ];
+        extraGroups = [ "audio" "video" "wheel" "libvirtd" "incus-admin" "docker" ];
         initialPassword = "foo";
       };
     };
