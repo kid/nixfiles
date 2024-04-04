@@ -25,7 +25,7 @@
   # TODO move all of this:
 
   home.packages = with pkgs; [
-    hyprprop
+    # hyprprop
 
     cliphist
     dunst
