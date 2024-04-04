@@ -6,12 +6,17 @@
   ];
 
   virtualisation.libvirtd = {
-    enable = true;
+    enable = false;
     allowedBridges = [ "br0" ];
     qemu = {
       runAsRoot = false;
       ovmf.enable = true;
     };
+  };
+
+  virtualisation.incus = {
+    enable = true;
+    socketActivation = true;
   };
 
   programs.dconf.enable = true;
