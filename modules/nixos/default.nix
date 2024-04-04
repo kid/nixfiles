@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ self, config, pkgs, ... }:
 {
   imports = [ ../common.nix ../nix.nix ];
 
@@ -40,4 +40,21 @@
     image = ../home-manager/wallpapers/gruvbox-dark-rainbow.png;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
   };
+
+  system.activationScripts.diff = {
+    supportsDryActivation = true;
+    text = ''
+      if [[ -e /run/current-system ]]; then
+        echo "--- diff to current-system"
+        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${config.nix.package}/bin diff /run/current-system "$systemConfig"
+        echo "---"
+      fi
+    '';
+  };
+
+  # always keep a reference to the source flake that generated each generations
+  # environment.etc."current-nixos".source = ./.;
+
+  # system.nixos.label = concatStringsSep "-" ((sort (x: y: x < y) cfg.tags) ++ [ "${cfg.version}.${self.sourceInfo.shortRev or "dirty"}" ]);
+  system.nixos.label = (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags)) + "${config.system.nixos.version}.${self.sourceInfo.shortRev or "dirty"}";
 }

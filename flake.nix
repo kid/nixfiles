@@ -178,7 +178,7 @@
 
       hosts = {
         nixos = {
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit self inputs; };
           modules = [
             inputs.hm.nixosModule
             inputs.nixos-hardware.nixosModules.common-pc
