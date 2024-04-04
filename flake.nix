@@ -72,22 +72,22 @@
         permittedInsecurePackages = [ "xpdf-4.04" ];
       };
 
-      # channels.default.input.nixpkgs.config.packageOverrides = pkgs: {
-      #   steam = pkgs.steam.override {
-      #     extraPkgs = pkgs: with pkgs; [
-      #       xorg.libXcursor
-      #       xorg.libXi
-      #       xorg.libXinerama
-      #       xorg.libXScrnSaver
-      #       libpng
-      #       libpulseaudio
-      #       libvorbis
-      #       stdenv.cc.cc.lib
-      #       libkrb5
-      #       keyutils
-      #     ];
-      #   };
-      # };
+      channels.default.input.nixpkgs.config.packageOverrides = pkgs: {
+        steam = pkgs.steam.override {
+          extraPkgs = pkgs: with pkgs; [
+            xorg.libXcursor
+            xorg.libXi
+            xorg.libXinerama
+            xorg.libXScrnSaver
+            libpng
+            libpulseaudio
+            libvorbis
+            stdenv.cc.cc.lib
+            libkrb5
+            keyutils
+          ];
+        };
+      };
 
       # Propagates to channels.<name>.overlaysBuilder
       sharedOverlays = [
