@@ -18,6 +18,14 @@
     pulse.enable = true;
     # Should be the default?
     wireplumber.enable = true;
+    extraConfig.pipewire."92-low-latency" = {
+      context.properties = {
+        default.clock.rate = 48000;
+        default.clock.quantum = 32;
+        default.clock.min-quantum = 32;
+        default.clock.max-quantum = 32;
+      };
+    };
   };
 
   # Why do we need this again?
