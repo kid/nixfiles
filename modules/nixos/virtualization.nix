@@ -3,6 +3,8 @@
   environment.systemPackages = with pkgs; [
     qemu_kvm
     virt-manager
+    zstd
+    wget
   ];
 
   virtualisation.libvirtd = {
@@ -17,6 +19,7 @@
   virtualisation.incus = {
     enable = true;
     socketActivation = true;
+    ui.enable = true;
   };
 
   programs.dconf.enable = true;
