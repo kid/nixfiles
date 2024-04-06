@@ -118,8 +118,13 @@ in
     };
   };
 
-  services.resolved.enable = true;
-  services.resolved.dnssec = "false";
+  services.resolved = {
+    enable = true;
+    dnssec = "false";
+    extraConfig = ''
+      DNSStubListener=no
+    '';
+  };
 
   # services.xserver.videoDrivers = ["amdgpu"];
   services.xserver.videoDrivers = [ "modesetting" "amdgpu" ];
