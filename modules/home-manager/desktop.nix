@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, inputs, ... }:
 {
   xdg.configFile."xmobar/gruvbox-dark.xmobarrc".source = ./files/gruvbox-dark.xmobarrc;
   xresources.extraConfig = builtins.readFile ./files/gruvbox-dark.xresources;
@@ -29,7 +29,6 @@
     xclip
     kitty
     rofi
-    firefox
     # (google-chrome-beta.override {
     #   commandLineArgs = [
     #     "--enable-features=WebUIDarkMode"
@@ -61,7 +60,7 @@
 
   xdg.mimeApps = {
     enable = true;
-    defaultApplications = let browser = "chromium.desktop"; in
+    defaultApplications = let browser = "firefox.desktop"; in
       {
         "text/html" = browser;
         "x-scheme-handler/http" = browser;
@@ -69,6 +68,33 @@
         "x-scheme-handler/about" = browser;
         "x-scheme-handler/unknown" = browser;
       };
+  };
+
+  programs.firefox = {
+    enable = true;
+    profiles.kid = {
+      extensions = with inputs.firefox-addons.packages.x86_64-linux; [
+        # improved-tube
+        sponsorblock
+        # onepassword-password-manager
+        ublock-origin
+      ];
+      search.force = true;
+      search.engines = {
+        "Nix Packages" = {
+          urls = [{
+            template = "https://search.nixos.org/packages";
+            params = [
+              { name = "type"; value = "packages";}
+              { name = "query"; value = "{searchTerms}";}
+            ];
+          }];
+
+          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          definedAliases = ["@np"];
+        };
+      };
+    };
   };
 
   programs.rofi = {
