@@ -102,6 +102,8 @@
           definedAliases = [ "@np" ];
         };
       };
+
+      settings = { "browser.sessionstore.restore_on_demand" = false; };
     };
   };
 
