@@ -6,9 +6,9 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    fu.url = "github:numtide/flake-utils";
-    fup.url = "github:gytis-ivaskevicius/flake-utils-plus";
-    fup.inputs.flake-utils.follows = "fu";
+    # fu.url = "github:numtide/flake-utils";
+    # fup.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    # fup.inputs.flake-utils.follows = "fu";
 
     hm.url = "github:nix-community/home-manager";
     hm.inputs.nixpkgs.follows = "nixpkgs";
@@ -52,6 +52,7 @@
     # hyprpaper.url = "github:hyprwm/hyprpaper";
 
     stylix.url = "github:danth/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
@@ -61,9 +62,10 @@
     # };
 
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    chaotic.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
-    # firefox-addons = {
+    nur.inputs.nixpkgs.follows = "nixpkgs"; # firefox-addons = {
     #   url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
