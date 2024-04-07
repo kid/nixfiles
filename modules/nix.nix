@@ -28,9 +28,8 @@
       options = "--delete-older-than 14d";
     };
 
-    generateRegistryFromInputs = true;
-    generateNixPathFromInputs = true;
-
-    linkInputs = true;
+    # generateRegistryFromInputs = true;
+    # generateNixPathFromInputs = true;
+    # linkInputs = true;
   };
 }
