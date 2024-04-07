@@ -56,6 +56,12 @@
     # };
 
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
+
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ { self, fup, darwin, ... }:
@@ -202,9 +208,9 @@
             ./modules/nixos/printing.nix
             # ./profiles/desktop.nix
             ./profiles/hyprland.nix
-            # {
-            #   hm.extraSpecialArgs = { inherit inputs; };
-            # }
+            {
+              home-manager.extraSpecialArgs = { inherit inputs; };
+            }
             # {
             #   hm.imports = [
             #     inputs.hyprland.homeManagerModules.default
