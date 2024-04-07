@@ -27,29 +27,29 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    neovim = {
-      url = "github:neovim/neovim/stable?dir=contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # neovim = {
+    #   url = "github:neovim/neovim/stable?dir=contrib";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nil = {
+    #   url = "github:oxalica/nil";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
-    naersk = {
-      url = "github:nix-community/naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # naersk = {
+    #   url = "github:nix-community/naersk";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
-    leftwm.url = "github:kid/leftwm/display-name";
-    leftwm.inputs.nixpkgs.follows = "nixpkgs";
-    leftwm.inputs.flake-utils.follows = "fu";
-    leftwm.inputs.naersk.follows = "naersk";
+    # leftwm.url = "github:kid/leftwm/display-name";
+    # leftwm.inputs.nixpkgs.follows = "nixpkgs";
+    # leftwm.inputs.flake-utils.follows = "fu";
+    # leftwm.inputs.naersk.follows = "naersk";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-contrib.url = "github:hyprwm/contrib";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
+    # hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland-contrib.url = "github:hyprwm/contrib";
+    # hyprpaper.url = "github:hyprwm/hyprpaper";
 
     stylix.url = "github:danth/stylix";
 
@@ -132,10 +132,10 @@
                 };
                 overlays = [
                   inputs.nur.overlay
-                  inputs.nil.overlays.default
-                  inputs.neovim.overlay
+                  # inputs.nil.overlays.default
+                  # inputs.neovim.overlay
                   # inputs.neovim-nightly-overlay.overlay
-                  inputs.leftwm.overlay
+                  # inputs.leftwm.overlay
                   (final: prev: {
                     # fcitx-engines = final.fcitx5;
                     vulkan-hdr-layer =
@@ -167,8 +167,10 @@
             inputs.nixos-hardware.nixosModules.common-gpu-amd
             inputs.stylix.nixosModules.stylix
             # { hardware.amdgpu.amdvlk = true; }
-            { hardware.amdgpu.loadInInitrd = true; }
-            inputs.hyprland.nixosModules.default
+            {
+              hardware.amdgpu.loadInInitrd = true;
+            }
+            # inputs.hyprland.nixosModules.default
             inputs.chaotic.nixosModules.default
             ./hosts/nixos.nix
             ./modules/nixos
@@ -180,7 +182,8 @@
             ./modules/nixos/virtualization.nix
             ./modules/nixos/printing.nix
             # ./profiles/desktop.nix
-            ./profiles/hyprland.nix
+            # ./profiles/hyprland.nix
+            ./profiles/plasma6.nix
             { home-manager.extraSpecialArgs = { inherit inputs; }; }
           ];
         };
