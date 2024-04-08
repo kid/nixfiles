@@ -58,6 +58,7 @@
     deltachat-desktop
   ];
 
+  xdg.configFile."mimeapps.list".force = true;
   xdg.mimeApps = {
     enable = true;
     defaultApplications = let browser = "firefox.desktop";
