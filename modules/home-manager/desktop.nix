@@ -73,6 +73,13 @@
 
   programs.firefox = {
     enable = true;
+    policies = {
+      DisableTelemetry = true;
+      DisableFirefoxStudies = true;
+      DontCheckDefaultBrowser = true;
+      DisablePocket = true;
+      SearchBar = "unified";
+    };
     profiles.kid = {
       # extensions = with inputs.firefox-addons.packages.x86_64-linux; [
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
