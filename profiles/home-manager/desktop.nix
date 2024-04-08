@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     sops
     # azure-cli
@@ -18,7 +17,5 @@
     cargo
   ];
 
-  programs.zsh.shellAliases = {
-    k = "kubectl";
-  };
+  programs.zsh.shellAliases = { k = "kubectl"; };
 }

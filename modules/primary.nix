@@ -1,5 +1,4 @@
-{ config, lib, options, ... }:
-{
+{ config, lib, options, ... }: {
   options = {
     user = lib.mkOption {
       description = "Primary user configuration";

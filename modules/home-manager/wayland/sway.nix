@@ -1,8 +1,6 @@
 { lib, pkgs, ... }:
-let
-  modifier = "Mod4";
-in
-{
+let modifier = "Mod4";
+in {
   wayland.windowManager.sway = {
     enable = true;
     config = {
@@ -25,9 +23,7 @@ in
     };
   };
 
-  home.packages = with pkgs; [
-    waybar
-  ];
+  home.packages = with pkgs; [ waybar ];
 
   home.sessionVariables = {
     GDK_BACKEND = "wayland";

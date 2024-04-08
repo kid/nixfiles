@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.sessionVariables = {
     # https://github.com/nix-community/home-manager/issues/423
     TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
@@ -16,7 +15,7 @@
     settings = {
       # We already configure ControlMasters outside of kitty
       share_connections = "no";
-    
+
       enable_audio_bell = "no";
       enabled_layouts = "tall:bias=50;full_size=1;mirrored=false";
 

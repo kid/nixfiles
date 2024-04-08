@@ -19,32 +19,18 @@
     };
 
     extraConfig = {
-      fetch = {
-        prune = true;
-      };
+      fetch = { prune = true; };
       push = {
         default = "simple";
         followTags = true;
         autoSetupRemote = true;
       };
-      pull = {
-        rebase = true;
-      };
-      merge = {
-        ff = "only";
-      };
-      mergetool = {
-        keepBackup = false;
-      };
-      rebase = {
-        autosquash = true;
-      };
-      rerere = {
-        enabled = true;
-      };
-      init = {
-        defaultBranch = "main";
-      };
+      pull = { rebase = true; };
+      merge = { ff = "only"; };
+      mergetool = { keepBackup = false; };
+      rebase = { autosquash = true; };
+      rerere = { enabled = true; };
+      init = { defaultBranch = "main"; };
     };
   };
 }

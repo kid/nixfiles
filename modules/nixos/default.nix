@@ -1,5 +1,4 @@
-{ self, config, pkgs, ... }:
-{
+{ self, config, pkgs, ... }: {
   imports = [ ../common.nix ../nix.nix ];
 
   system.stateVersion = "22.11";
@@ -12,7 +11,8 @@
         isNormalUser = true;
         createHome = true;
         useDefaultShell = true;
-        extraGroups = [ "audio" "video" "wheel" "libvirtd" "incus-admin" "docker" ];
+        extraGroups =
+          [ "audio" "video" "wheel" "libvirtd" "incus-admin" "docker" ];
         initialPassword = "foo";
       };
     };
@@ -31,14 +31,12 @@
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.systemd-boot.consoleMode = "auto";
 
-  environment.systemPackages = with pkgs; [
-    lm_sensors
-    dnsutils
-  ];
+  environment.systemPackages = with pkgs; [ lm_sensors dnsutils ];
 
   stylix = {
     image = ../home-manager/wallpapers/gruvbox-dark-rainbow.png;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+    base16Scheme =
+      "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
   };
 
   system.activationScripts.diff = {
@@ -56,5 +54,7 @@
   # environment.etc."current-nixos".source = ./.;
 
   # system.nixos.label = concatStringsSep "-" ((sort (x: y: x < y) cfg.tags) ++ [ "${cfg.version}.${self.sourceInfo.shortRev or "dirty"}" ]);
-  system.nixos.label = (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags)) + "${config.system.nixos.version}.${self.sourceInfo.shortRev or "dirty"}";
+  system.nixos.label = (builtins.concatStringsSep "-"
+    (builtins.sort (x: y: x < y) config.system.nixos.tags))
+    + "${config.system.nixos.version}.${self.sourceInfo.shortRev or "dirty"}";
 }
