@@ -8,10 +8,11 @@ let
     # export __GL_GSYNC_ALLOWED=1
     export __GL_VRR_ALLOWED=1
 
-    ${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -d -s -- ${lib.getExe config.programs.regreet.package}
+    ${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -d -s -- ${
+      lib.getExe config.programs.regreet.package
+    }
   '';
-in
-{
+in {
   environment.systemPackages = with pkgs; [
     gruvbox-gtk-theme
     bibata-cursors

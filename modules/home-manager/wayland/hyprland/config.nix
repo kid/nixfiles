@@ -1,8 +1,6 @@
 { config, ... }:
-let
-  pointer = config.home.pointerCursor;
-in
-{
+let pointer = config.home.pointerCursor;
+in {
   wayland.windowManager.hyprland.extraConfig = ''
     # env = XCURSOR_SIZE,24
 

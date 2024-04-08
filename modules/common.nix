@@ -1,9 +1,10 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   imports = [ ./primary.nix ];
 
   user = {
-    home = "${if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"}/${config.user.name}";
+    home = "${
+        if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"
+      }/${config.user.name}";
     shell = pkgs.zsh;
   };
 
@@ -30,7 +31,6 @@
     enableCompletion = false;
   };
 
-
   fonts = {
     packages = with pkgs; [
       material-symbols
@@ -53,7 +53,6 @@
       # hinting.autohint = true;
       hinting.style = "full";
     };
-
 
     fontconfig.defaultFonts = {
       serif = [ "Noto Serif" "Noto Color Emoji" ];

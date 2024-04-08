@@ -1,26 +1,19 @@
-{ pkgs, lib, ... }:
-{
-  imports = [
-    ./config.nix
-  ];
+{ pkgs, lib, ... }: {
+  imports = [ ./config.nix ];
 
   wayland.windowManager.hyprland.enable = true;
 
   xdg.configFile.hypr = {
     source = lib.cleanSourceWith {
       filter = name: _type:
-        let
-          baseName = baseNameOf (toString name);
-        in
-          !(lib.hasSuffix ".nix" baseName);
+        let baseName = baseNameOf (toString name);
+        in !(lib.hasSuffix ".nix" baseName);
 
       src = lib.cleanSource ./.;
     };
 
     recursive = true;
   };
-
-
 
   # TODO move all of this:
 
@@ -93,12 +86,11 @@
         After = [ "graphical-session.target" ];
         Wants = [ "graphical-session.target" ];
       };
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
+      Install = { WantedBy = [ "graphical-session.target" ]; };
       Service = {
         Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        ExecStart =
+          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         Restart = "on-failure";
         RestartSec = 1;
         TimeoutStopSec = 10;

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   programs.git = {
     includes = [{
       condition = "gitdir:~/Code/wave2/";
@@ -28,7 +27,5 @@
     age
   ];
 
-  programs.zsh.shellAliases = {
-    k = "kubectl";
-  };
+  programs.zsh.shellAliases = { k = "kubectl"; };
 }

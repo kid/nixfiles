@@ -48,23 +48,28 @@
     initExtra = ''
       setopt inc_append_history
     '';
-    shellAliases = {
-      ssh = "TERM=xterm-256color ssh";
-    };
+    shellAliases = { ssh = "TERM=xterm-256color ssh"; };
     zplug = {
       enable = true;
       plugins = [
         { name = "jeffreytse/zsh-vi-mode"; }
         { name = "zsh-users/zsh-autosuggestions"; }
-        { name = "zsh-users/zsh-syntax-highlighting"; tags = [ "defer:2" ]; }
-        { name = "plugins/fancy-ctrl-z"; tags = [ "from:oh-my-zsh" ]; }
-        { name = "Aloxaf/fzf-tab"; tags = [ "defer:1" ]; }
+        {
+          name = "zsh-users/zsh-syntax-highlighting";
+          tags = [ "defer:2" ];
+        }
+        {
+          name = "plugins/fancy-ctrl-z";
+          tags = [ "from:oh-my-zsh" ];
+        }
+        {
+          name = "Aloxaf/fzf-tab";
+          tags = [ "defer:1" ];
+        }
         { name = "agkozak/zsh-z"; }
       ];
     };
   };
-
-
 
   programs.lf = {
     enable = true;
@@ -76,4 +81,4 @@
       set cleaner ${./files/lf/kitty_clean.sh}
     '';
   };
-} 
+}

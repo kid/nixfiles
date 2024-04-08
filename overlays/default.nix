@@ -1,6 +1,5 @@
 # { inputs, ... }:
-{ ... }:
-{
+{ ... }: {
   additions = final: _prev: import ../pkgs { pkgs = final; };
   # leftwm = prev.leftwm.overrideAttrs (old: rec {
   #   version = "48936034967d36cad600df28ce0907cf602503d1";

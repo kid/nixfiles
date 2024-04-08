@@ -1,5 +1,4 @@
-{ inputs, pkgs, ... }:
-{
+{ inputs, pkgs, ... }: {
   imports = [
     ../modules/nixos/leftwm.nix
     ../modules/nixos/wayland
@@ -36,19 +35,12 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-      xdg-desktop-portal-gtk
-    ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
   };
   # xdg.portal.extraPortals = [ pkgs.xdg-desktop-gtk ];
 
   # Use wayland where possible (electron)
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  environment.systemPackages = with pkgs; [
-    hyprland
-    wayland
-    wdisplays
-  ];
+  environment.systemPackages = with pkgs; [ hyprland wayland wdisplays ];
 }

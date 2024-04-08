@@ -19,8 +19,7 @@ let
       eww open $w
     done
   '';
-in
-{
+in {
   options.programs.eww-hyprland = {
     enable = lib.mkEnableOption "Eww Hyprland config";
 
@@ -45,19 +44,15 @@ in
     xdg.configFile.eww = {
       source = lib.cleanSourceWith {
         filter = name: _type:
-          let
-            baseName = baseNameOf (toString name);
-          in
-            !(lib.hasSuffix ".nix" baseName); # && (baseName != "_colors.scss");
+          let baseName = baseNameOf (toString name);
+          in !(lib.hasSuffix ".nix"
+            baseName); # && (baseName != "_colors.scss");
         src = lib.cleanSource ./.;
       };
 
       recursive = true;
 
-      onChange =
-        if cfg.autoReload
-        then reload_script.outPath
-        else "";
+      onChange = if cfg.autoReload then reload_script.outPath else "";
     };
 
     systemd.user.services.eww = {

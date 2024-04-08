@@ -1,3 +1,1 @@
-{
-  virtualisation.containerd.enable = true;
-}
+{ virtualisation.containerd.enable = true; }

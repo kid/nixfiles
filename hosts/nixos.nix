@@ -3,18 +3,16 @@ let
 
   # kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # kernelPackages = pkgs.linuxPackages_cachyos;
-in
-{
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+in {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
     # inherit kernelPackages;
 
     # consoleLogLevel = 0;
     # initrd.verbose = false;
-    initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+    initrd.availableKernelModules =
+      [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
     resumeDevice = "/dev/disk/by-label/swap";
 
     loader.systemd-boot.enable = true;
@@ -30,7 +28,8 @@ in
     supportedFilesystems = [ "zfs" "ntfs" ];
     initrd.supportedFilesystems = [ "zfs" ];
     # zfs.enableUnstable = true;
-    zfs.devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
+    zfs.devNodes =
+      "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
 
     # plymouth.enable = true;
   };
@@ -56,66 +55,51 @@ in
 
   # programs.steam.gamescopeSession.args = [ "-O" "DP-3" "-r" "138" ];
 
-  fileSystems."/" =
-    {
-      device = "rpool/SYSTEM/root";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-      neededForBoot = true;
-    };
+  fileSystems."/" = {
+    device = "rpool/SYSTEM/root";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/var" =
-    {
-      device = "rpool/SYSTEM/var";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-      neededForBoot = true;
-    };
+  fileSystems."/var" = {
+    device = "rpool/SYSTEM/var";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/nix" =
-    {
-      device = "rpool/LOCAL/nix";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+  fileSystems."/nix" = {
+    device = "rpool/LOCAL/nix";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
 
-  fileSystems."/home" =
-    {
-      device = "rpool/USER/home";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+  fileSystems."/home" = {
+    device = "rpool/USER/home";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-label/EFI";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/EFI";
+    fsType = "vfat";
+  };
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-label/swap";
-    }
-  ];
+  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
   networking = {
     hostId = "9371deb4";
     useDHCP = false;
     useNetworkd = true;
-    bridges = {
-      br0 = {
-        interfaces = [ "enp5s0" ];
-      };
-    };
+    bridges = { br0 = { interfaces = [ "enp5s0" ]; }; };
     firewall.enable = false;
   };
 
   systemd.network.networks."40-br0" = {
     name = "br0";
     DHCP = "ipv4";
-    dhcpV4Config = {
-      UseDomains = true;
-    };
+    dhcpV4Config = { UseDomains = true; };
   };
 
   services.resolved = {
@@ -134,24 +118,16 @@ in
     # driSupport32Bit = true;
     # extraPackages32 = with pkgs.pkgsi686Linux; [ libva pipewire ];
     setLdLibraryPath = true;
-    extraPackages = with pkgs; [
-      vaapiVdpau
-      libvdpau-va-gl
-      vulkan-hdr-layer
-    ];
+    extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl vulkan-hdr-layer ];
   };
-
 
   # environment.sessionVariables.VK_LAYER_PATH = "${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d";
 
-  environment.systemPackages = [
-    pkgs.vulkan-validation-layers
-    pkgs.vulkan-hdr-layer
-  ];
+  environment.systemPackages =
+    [ pkgs.vulkan-validation-layers pkgs.vulkan-hdr-layer ];
 
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
+  systemd.tmpfiles.rules =
+    [ "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}" ];
 
   boot.loader.systemd-boot.extraEntries = {
     "archlinux.conf" = ''
@@ -163,7 +139,6 @@ in
   };
 
   services.hardware.openrgb.enable = true;
-
 
   services = {
     fwupd.enable = true;
