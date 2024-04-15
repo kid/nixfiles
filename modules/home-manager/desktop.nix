@@ -89,8 +89,10 @@
         onepassword-password-manager
       ];
       search.force = true;
+
       search.engines = {
         "Nix Packages" = {
+          definedAliases = [ "@np" ];
           urls = [{
             template = "https://search.nixos.org/packages";
             params = [
@@ -108,10 +110,42 @@
               }
             ];
           }];
-
           icon =
             "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = [ "@np" ];
+        };
+
+        "Nix Options" = {
+          definedAliases = [ "@no" ];
+          urls = [{
+            template = "https://search.nixos.org/options";
+            params = [
+              {
+                name = "type";
+                value = "options";
+              }
+              {
+                name = "channel";
+                value = "unstable";
+              }
+              {
+                name = "query";
+                value = "{searchTerms}";
+              }
+            ];
+          }];
+          icon =
+            "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        };
+
+        "RottenTomatoes" = {
+          definedAliases = [ "@rt" ];
+          urls = [{
+            template = "https://www.rottentomatoes.com/search";
+            params = [{
+              name = "search";
+              value = "{searchTerms}";
+            }];
+          }];
         };
       };
 
