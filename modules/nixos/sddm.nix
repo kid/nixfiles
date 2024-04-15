@@ -1,6 +1,5 @@
 { config, ... }: {
-  services.xserver = {
-    enable = true;
+  services = {
     displayManager = {
       autoLogin = {
         enable = true;
@@ -11,7 +10,7 @@
         wayland.enable = true;
       };
     };
-  };
 
-  services.desktopManager.plasma6.enable = true;
+    desktopManager.plasma6.enable = true;
+  };
 }
