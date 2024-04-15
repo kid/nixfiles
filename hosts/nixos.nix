@@ -90,17 +90,17 @@ in {
 
   networking = {
     hostId = "9371deb4";
-    useDHCP = false;
+    useDHCP = true;
     useNetworkd = true;
-    bridges = { br0 = { interfaces = [ "enp5s0" ]; }; };
+    # bridges = { br0 = { interfaces = [ "enp5s0" ]; }; };
     firewall.enable = false;
   };
 
-  systemd.network.networks."40-br0" = {
-    name = "br0";
-    DHCP = "ipv4";
-    dhcpV4Config = { UseDomains = true; };
-  };
+  # systemd.network.networks."40-br0" = {
+  #   name = "br0";
+  #   DHCP = "ipv4";
+  #   dhcpV4Config = { UseDomains = true; };
+  # };
 
   services.resolved = {
     enable = true;

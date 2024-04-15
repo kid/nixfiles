@@ -1,5 +1,13 @@
 { pkgs, ... }: {
-  environment.systemPackages = with pkgs; [ qemu_kvm virt-manager zstd wget ];
+  environment.systemPackages = with pkgs; [
+    qemu_kvm
+    virt-manager
+    zstd
+    wget
+    openvswitch
+  ];
+
+  virtualisation.vswitch.enable = true;
 
   virtualisation.libvirtd = {
     enable = false;
