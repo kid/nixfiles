@@ -6,10 +6,6 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    # fu.url = "github:numtide/flake-utils";
-    # fup.url = "github:gytis-ivaskevicius/flake-utils-plus";
-    # fup.inputs.flake-utils.follows = "fu";
-
     hm.url = "github:nix-community/home-manager";
     hm.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -22,53 +18,13 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    # neovim-nightly-overlay = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
-    # neovim = {
-    #   url = "github:neovim/neovim/stable?dir=contrib";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
-    # nil = {
-    #   url = "github:oxalica/nil";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
-    # naersk = {
-    #   url = "github:nix-community/naersk";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
-    # leftwm.url = "github:kid/leftwm/display-name";
-    # leftwm.inputs.nixpkgs.follows = "nixpkgs";
-    # leftwm.inputs.flake-utils.follows = "fu";
-    # leftwm.inputs.naersk.follows = "naersk";
-
-    # hyprland.url = "github:hyprwm/Hyprland";
-    # hyprland-contrib.url = "github:hyprwm/contrib";
-    # hyprpaper.url = "github:hyprwm/hyprpaper";
-
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
-
-    # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-
-    # hy3 = {
-    #   url = "github:outfoxxed/hy3";
-    #   inputs.hyprland.follows = "hyprland";
-    # };
 
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     chaotic.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
-    nur.inputs.nixpkgs.follows = "nixpkgs"; # firefox-addons = {
-    #   url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
   };
 
   outputs = inputs@{ self, flake-parts, ... }:
