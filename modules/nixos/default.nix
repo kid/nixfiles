@@ -1,5 +1,5 @@
 { self, config, pkgs, ... }: {
-  imports = [ ../common.nix ../nix.nix ];
+  imports = [ ../common.nix ../stylix.nix ../nix.nix ];
 
   system.stateVersion = "22.11";
 
