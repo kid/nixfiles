@@ -35,7 +35,7 @@
 
       perSystem = { config, pkgs, ... }: {
         devshells.default = {
-          packages = with pkgs; [ gnumake config.treefmt.build.wrapper fd ];
+          packages = with pkgs; [ gnumake config.treefmt.build.wrapper fd nil ];
 
           commands = [
             {
