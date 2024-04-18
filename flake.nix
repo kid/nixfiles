@@ -25,6 +25,8 @@
     chaotic.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
+
+    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
   };
 
   outputs = inputs@{ self, flake-parts, ... }:
@@ -152,6 +154,17 @@
             inputs.stylix.darwinModules.stylix
             ./modules/darwin
             ./profiles/work.nix
+            ({ pkgs, ... }: {
+              nixpkgs = {
+                config = {
+                  allowBroken = true;
+                  allowUnfree = true;
+                };
+                overlays =
+                  [ inputs.nur.overlay inputs.nixpkgs-firefox-darwin.overlay ];
+              };
+              hm.programs.firefox.package = pkgs.firefox-bin;
+            })
           ];
         };
       };

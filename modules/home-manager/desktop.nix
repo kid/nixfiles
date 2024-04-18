@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, ... }: {
   xdg.configFile."xmobar/gruvbox-dark.xmobarrc".source =
     ./files/gruvbox-dark.xmobarrc;
   xresources.extraConfig = builtins.readFile ./files/gruvbox-dark.xresources;
@@ -71,88 +71,6 @@
     };
   };
 
-  programs.firefox = {
-    enable = true;
-    policies = {
-      DisableTelemetry = true;
-      DisableFirefoxStudies = true;
-      DontCheckDefaultBrowser = true;
-      DisablePocket = true;
-      SearchBar = "unified";
-    };
-    profiles.kid = {
-      # extensions = with inputs.firefox-addons.packages.x86_64-linux; [
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        sponsorblock
-        ublock-origin
-        improved-tube
-        onepassword-password-manager
-      ];
-      search.force = true;
-
-      search.engines = {
-        "Nix Packages" = {
-          definedAliases = [ "@np" ];
-          urls = [{
-            template = "https://search.nixos.org/packages";
-            params = [
-              {
-                name = "type";
-                value = "packages";
-              }
-              {
-                name = "channel";
-                value = "unstable";
-              }
-              {
-                name = "query";
-                value = "{searchTerms}";
-              }
-            ];
-          }];
-          icon =
-            "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        };
-
-        "Nix Options" = {
-          definedAliases = [ "@no" ];
-          urls = [{
-            template = "https://search.nixos.org/options";
-            params = [
-              {
-                name = "type";
-                value = "options";
-              }
-              {
-                name = "channel";
-                value = "unstable";
-              }
-              {
-                name = "query";
-                value = "{searchTerms}";
-              }
-            ];
-          }];
-          icon =
-            "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        };
-
-        "RottenTomatoes" = {
-          definedAliases = [ "@rt" ];
-          urls = [{
-            template = "https://www.rottentomatoes.com/search";
-            params = [{
-              name = "search";
-              value = "{searchTerms}";
-            }];
-          }];
-        };
-      };
-
-      settings = { "browser.sessionstore.restore_on_demand" = false; };
-    };
-  };
-
   programs.rofi = {
     enable = true;
     extraConfig = { modi = "drun,window,ssh"; };
@@ -161,46 +79,4 @@
     # theme = "gruvbox-dark";
     terminal = "kitty";
   };
-
-  # TODO put this somewhere else
-  programs.kitty = {
-    enable = true;
-    font = {
-      # name = "FiraCode Nerd Font";
-      # name = "JetBrainsMono Nerd Font";
-      size = 11;
-    };
-
-    # settings = {
-    #   background = "#282828";
-    #   foreground = "#ebdbb2";
-    #
-    #   color0 = "#282828";
-    #   color8 = "#928374";
-    #   # DarkRed + Red";
-    #   color1 = "#cc241d";
-    #   color9 = "#fb4934";
-    #   # DarkGreen + Green";
-    #   color2 = "#98971a";
-    #   color10 = "#b8bb26";
-    #   # DarkYellow + Yellow";
-    #   color3 = "#d79921";
-    #   color11 = "#fabd2f";
-    #   # DarkBlue + Blue";
-    #   color4 = "#458588";
-    #   color12 = "#83a598";
-    #   # DarkMagenta + Magenta";
-    #   color5 = "#b16286";
-    #   color13 = "#d3869b";
-    #   # DarkCyan + Cyan";
-    #   color6 = "#689d6a";
-    #   color14 = "#8ec07c";
-    #   # LightGrey + White";
-    #   color7 = "#a89984";
-    #   color15 = "#ebdbb2";
-    # };
-  };
-
-  # services.wallpaper.enable = true;
-
 }

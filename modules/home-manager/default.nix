@@ -1,5 +1,15 @@
-{ pkgs, ... }: {
-  imports = [ ./editor.nix ./cli.nix ./git.nix ./ssh.nix ./kitty.nix ];
+{ pkgs, ... }:
+let fontSize = 14;
+in {
+  imports = [
+    ./fonts.nix
+    ./editor.nix
+    ./cli.nix
+    ./git.nix
+    ./ssh.nix
+    ./kitty.nix
+    ./firefox.nix
+  ];
 
   programs = {
     home-manager.enable = true;
@@ -7,6 +17,12 @@
   };
 
   programs.wezterm.enable = true;
+  programs.wezterm.enableZshIntegration = true;
+  programs.wezterm.extraConfig = ''
+    return {
+      command_palette_font_size = ${builtins.toString fontSize},
+    }
+  '';
 
   xdg.enable = true;
 
@@ -19,7 +35,7 @@
         name = "FiraCode Nerd Font";
         package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
       };
-      sizes.terminal = 11;
+      sizes.terminal = fontSize;
     };
     polarity = "dark";
   };
