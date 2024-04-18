@@ -9,13 +9,14 @@
 
   nix = {
     extraOptions = ''
+      experimental-features = nix-command flakes
       extra-platforms = x86_64-darwin aarch64-darwin
     '';
 
-    generateRegistryFromInputs = true;
-    generateNixPathFromInputs = true;
+    # generateRegistryFromInputs = true;
+    # generateNixPathFromInputs = true;
 
-    linkInputs = true;
+    # linkInputs = true;
   };
 
   fonts.fontDir.enable = true;
