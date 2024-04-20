@@ -39,15 +39,10 @@
       "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
   };
 
-  system.activationScripts.diff = {
-    supportsDryActivation = true;
-    text = ''
-      if [[ -e /run/current-system ]]; then
-        echo "--- diff to current-system"
-        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${config.nix.package}/bin diff /run/current-system "$systemConfig"
-        echo "---"
-      fi
-    '';
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    flake = "/home/${config.user.name}/Code/nixfiles";
   };
 
   # always keep a reference to the source flake that generated each generations

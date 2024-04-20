@@ -1,7 +1,6 @@
-{ pkgs, ... }:
-let fontSize = 14;
-in {
+{ config, pkgs, ... }: {
   imports = [
+    ./stylix.nix
     ./fonts.nix
     ./editor.nix
     ./cli.nix
@@ -16,27 +15,19 @@ in {
     gpg.enable = true;
   };
 
-  programs.wezterm.enable = true;
-  programs.wezterm.enableZshIntegration = true;
-  programs.wezterm.extraConfig = ''
-    return {
-      command_palette_font_size = ${builtins.toString fontSize},
-    }
-  '';
+  programs.wezterm = {
+    enable = true;
+    enableZshIntegration = true;
+    extraConfig = ''
+      return {
+        command_palette_font_size = ${
+          builtins.toString config.stylix.fonts.sizes.terminal
+        },
+      }
+    '';
+  };
 
   xdg.enable = true;
 
   home.stateVersion = "22.05";
-
-  stylix = {
-    image = ./wallpapers/gruvbox-dark-rainbow.png;
-    fonts = {
-      monospace = {
-        name = "FiraCode Nerd Font";
-        package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
-      };
-      sizes.terminal = fontSize;
-    };
-    polarity = "dark";
-  };
 }

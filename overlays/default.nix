@@ -1,6 +1,10 @@
-# { inputs, ... }:
-{ ... }: {
+{ inputs, ... }: {
   additions = final: _prev: import ../pkgs { pkgs = final; };
+
+  stable-packages = final: _prev: {
+    stable = import inputs.nixpkgs-stable { system = final.system; };
+  };
+
   # leftwm = prev.leftwm.overrideAttrs (old: rec {
   #   version = "48936034967d36cad600df28ce0907cf602503d1";
   #

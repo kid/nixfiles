@@ -1,13 +1,13 @@
 { config, modulesPath, pkgs, ... }:
 let
 
-  # kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # kernelPackages = pkgs.linuxPackages_cachyos;
 in {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
-    # inherit kernelPackages;
+    inherit kernelPackages;
 
     # consoleLogLevel = 0;
     # initrd.verbose = false;
@@ -36,23 +36,23 @@ in {
 
   chaotic = {
     hdr = {
-      enable = true;
+      # enable = true;
       specialisation.enable = false;
     };
     # mesa-git.enable = true;
   };
 
-  services.xserver.xrandrHeads = [
-    {
-      output = "HDMI-1";
-      monitorConfig = ''Option "Enable" "false"'';
-    }
-    {
-      output = "DP-3";
-      primary = true;
-    }
-  ];
-
+  # services.xserver.xrandrHeads = [
+  #   {
+  #     output = "HDMI-1";
+  #     monitorConfig = ''Option "Enable" "false"'';
+  #   }
+  #   {
+  #     output = "DP-3";
+  #     primary = true;
+  #   }
+  # ];
+  #
   # programs.steam.gamescopeSession.args = [ "-O" "DP-3" "-r" "138" ];
 
   fileSystems."/" = {
@@ -92,15 +92,15 @@ in {
     hostId = "9371deb4";
     useDHCP = true;
     useNetworkd = true;
-    # bridges = { br0 = { interfaces = [ "enp5s0" ]; }; };
+    bridges = { br0 = { interfaces = [ "enp5s0" ]; }; };
     firewall.enable = false;
   };
 
-  # systemd.network.networks."40-br0" = {
-  #   name = "br0";
-  #   DHCP = "ipv4";
-  #   dhcpV4Config = { UseDomains = true; };
-  # };
+  systemd.network.networks."40-br0" = {
+    name = "br0";
+    DHCP = "ipv4";
+    dhcpV4Config = { UseDomains = true; };
+  };
 
   services.resolved = {
     enable = true;
