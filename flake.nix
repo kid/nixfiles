@@ -18,6 +18,9 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -31,12 +34,21 @@
 
   outputs = inputs@{ self, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ inputs.devshell.flakeModule inputs.treefmt-nix.flakeModule ];
+      imports = [
+        inputs.devshell.flakeModule
+        inputs.treefmt-nix.flakeModule
+        inputs.pre-commit-hooks-nix.flakeModule
+      ];
 
       systems = [ "x86_64-linux" "aarch64-darwin" ];
 
       perSystem = { config, pkgs, ... }: {
-        devshells.default = {
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [ gnumake config.treefmt.build.wrapper fd nil ];
+          shellHook = config.pre-commit.installationScript;
+        };
+        devshells.old = {
+
           packages = with pkgs; [ gnumake config.treefmt.build.wrapper fd nil ];
 
           commands = [
@@ -72,12 +84,15 @@
             }
           ];
         };
+
         treefmt = {
           projectRootFile = "flake.nix";
           # build.check = true;
           flakeFormatter = true;
           programs.nixfmt.enable = true;
         };
+
+        pre-commit.check.enable = true;
       };
       flake = {
         nixosConfigurations.nixos = inputs.nixpkgs.lib.nixosSystem {
