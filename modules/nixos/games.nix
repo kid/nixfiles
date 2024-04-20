@@ -3,7 +3,6 @@
     enable = true;
     capSysNice = false;
     # package = pkgs.gamescope_git;
-
   };
   programs.steam = {
     enable = true;
