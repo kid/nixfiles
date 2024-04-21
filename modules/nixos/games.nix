@@ -40,10 +40,10 @@
     # winetricks and other programs depending on wine need to use the same wine version
     # (winetricks.override { wine = wineWowPackages.staging; })
 
-    vulkan-tools
-    vulkan-loader
-    vulkan-validation-layers
-    vulkan-hdr-layer
+    # vulkan-tools
+    # vulkan-loader
+    # vulkan-validation-layers
+    # vulkan-hdr-layer
 
     xorg.xrandr
 

@@ -1,8 +1,8 @@
 { config, modulesPath, pkgs, ... }:
 let
 
-  kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  # kernelPackages = pkgs.linuxPackages_cachyos;
+  # kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  kernelPackages = pkgs.linuxPackages_cachyos;
 in {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
@@ -23,7 +23,7 @@ in {
     # kernelParams = [ "boot.shell_on_fail" "amdgpu.freesync_video=1" ];
     kernelParams = [ "boot.shell_on_fail" "quiet" "udev.log_level=0" ];
 
-    tmp.useTmpfs = true;
+    # tmp.useTmpfs = true;
 
     supportedFilesystems = [ "zfs" "ntfs" ];
     initrd.supportedFilesystems = [ "zfs" ];
@@ -118,13 +118,13 @@ in {
     # driSupport32Bit = true;
     # extraPackages32 = with pkgs.pkgsi686Linux; [ libva pipewire ];
     setLdLibraryPath = true;
-    extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl vulkan-hdr-layer ];
+    extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl ];
   };
 
   # environment.sessionVariables.VK_LAYER_PATH = "${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d";
 
-  environment.systemPackages =
-    [ pkgs.vulkan-validation-layers pkgs.vulkan-hdr-layer ];
+  # environment.systemPackages =
+  #   [ pkgs.vulkan-validation-layers pkgs.vulkan-hdr-layer ];
 
   systemd.tmpfiles.rules =
     [ "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}" ];
