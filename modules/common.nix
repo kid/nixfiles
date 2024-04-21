@@ -1,10 +1,9 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   imports = [ ./primary.nix ];
 
   user = {
-    home = "${
-        if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"
-      }/${config.user.name}";
+    home = "${if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"}/${config.user.name}";
     shell = pkgs.zsh;
   };
 

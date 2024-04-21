@@ -5,11 +5,13 @@
     # systemdTarget = "";
     profiles = {
       default = {
-        outputs = [{
-          criteria = "HDMI-A-1";
-          mode = "3840x2160@60Hz";
-          adaptiveSync = true;
-        }];
+        outputs = [
+          {
+            criteria = "HDMI-A-1";
+            mode = "3840x2160@60Hz";
+            adaptiveSync = true;
+          }
+        ];
       };
       displayport = {
         outputs = [

@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     fd
     htop
@@ -48,7 +49,9 @@
     initExtra = ''
       setopt inc_append_history
     '';
-    shellAliases = { ssh = "TERM=xterm-256color ssh"; };
+    shellAliases = {
+      ssh = "TERM=xterm-256color ssh";
+    };
     zplug = {
       enable = true;
       plugins = [

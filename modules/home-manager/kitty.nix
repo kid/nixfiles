@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.sessionVariables = {
     # https://github.com/nix-community/home-manager/issues/423
     TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";

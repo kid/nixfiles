@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.gamescope = {
     enable = true;
     capSysNice = false;
@@ -8,8 +9,8 @@
     enable = true;
     gamescopeSession.enable = true;
     package = pkgs.steam.override {
-      extraPkgs = pkgs:
-        with pkgs; [
+      extraPkgs =
+        pkgs: with pkgs; [
           xorg.libXcursor
           xorg.libXi
           xorg.libXinerama

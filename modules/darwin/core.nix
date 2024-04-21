@@ -1,5 +1,8 @@
-{ pkgs, ... }: {
-  environment = { loginShell = pkgs.zsh; };
+{ pkgs, ... }:
+{
+  environment = {
+    loginShell = pkgs.zsh;
+  };
 
   # auto manage nixbld users with nix darwin
   nix.configureBuildUsers = true;

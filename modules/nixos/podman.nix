@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   virtualisation = {
     podman = {
       enable = true;
@@ -10,6 +11,8 @@
     #   driver = "zfs";
     # };
 
-    oci-containers = { backend = "podman"; };
+    oci-containers = {
+      backend = "podman";
+    };
   };
 }

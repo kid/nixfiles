@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   imports = [
     ./stylix.nix
     ./fonts.nix
@@ -20,9 +21,7 @@
     enableZshIntegration = true;
     extraConfig = ''
       return {
-        command_palette_font_size = ${
-          builtins.toString config.stylix.fonts.sizes.terminal
-        },
+        command_palette_font_size = ${builtins.toString config.stylix.fonts.sizes.terminal},
       }
     '';
   };
