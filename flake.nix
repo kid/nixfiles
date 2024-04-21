@@ -168,6 +168,7 @@
         };
         darwinConfigurations.M-Y47D2M27VX = inputs.darwin.lib.darwinSystem {
           system = "aarch64-darwin";
+          specialArgs = { inherit self inputs; };
           modules = [ ./hosts/mbp.nix ];
         };
       };
