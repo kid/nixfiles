@@ -116,8 +116,8 @@
                   # inputs.leftwm.overlay
                   (final: prev: {
                     # fcitx-engines = final.fcitx5;
-                    vulkan-hdr-layer =
-                      prev.callPackage ./pkgs/vulkan-hdr-layer.nix { };
+                    # vulkan-hdr-layer =
+                    #   prev.callPackage ./pkgs/vulkan-hdr-layer.nix { };
                     # steam = prev.steam.override {
                     #   extraPkgs = pkgs: with pkgs; [
                     #     xorg.libXcursor
