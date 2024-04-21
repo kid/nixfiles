@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, ... }: {
   imports = [
     ./stylix.nix
     ./fonts.nix

@@ -15,5 +15,5 @@
   };
   hm.programs.firefox.package = pkgs.firefox-bin;
 
-  stylix.fonts.sizes.terminal = 14;
+  hm.stylix.fonts.sizes.terminal = 12;
 })

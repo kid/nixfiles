@@ -2,14 +2,21 @@
   homebrew = {
     enable = true;
     brewPrefix = "/opt/homebrew/bin";
-    onActivation = { autoUpdate = false; };
-    global = { brewfile = true; };
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+      cleanup = "uninstall";
+    };
+    global = {
+      brewfile = true;
+      autoUpdate = true;
+    };
     taps = [
       "homebrew/bundle"
-      "homebrew/cask"
+      # "homebrew/cask"
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
-      "homebrew/core"
+      # "homebrew/core"
       "homebrew/services"
     ];
   };

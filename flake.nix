@@ -168,6 +168,7 @@
         };
         darwinConfigurations.mbp = inputs.darwin.lib.darwinSystem {
           system = "aarch64-darwin";
+          specialArgs = { inherit self inputs; };
           modules = [ ./hosts/mbp.nix ];
         };
       };
