@@ -1,4 +1,11 @@
-{ config, lib, options, inputs, ... }: {
+{
+  config,
+  lib,
+  options,
+  inputs,
+  ...
+}:
+{
   options = {
     user = lib.mkOption {
       description = "Primary user configuration";
@@ -13,7 +20,9 @@
   };
 
   config = {
-    home-manager.extraSpecialArgs = { inherit inputs; };
+    home-manager.extraSpecialArgs = {
+      inherit inputs;
+    };
     home-manager.users.${config.user.name} = lib.mkAliasDefinitions options.hm;
     users.users.${config.user.name} = lib.mkAliasDefinitions options.user;
   };

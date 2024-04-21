@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.xserver.windowManager.qtile = {
     enable = true;
     backend = "wayland";

@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   services.getty.autologinUser = config.user.name;
 
   services.upower.enable = true;
@@ -43,7 +44,11 @@
 
   hardware.bluetooth = {
     enable = true;
-    settings = { General = { Enable = "Source,Sink,Media,Socket"; }; };
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+      };
+    };
   };
 
   services.blueman.enable = true;

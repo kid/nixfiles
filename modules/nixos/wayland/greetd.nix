@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   regreet-run = pkgs.writeShellScriptBin "regreet-run" ''
     # export WLR_NO_HARDWARE_CURSORS=1
@@ -8,11 +13,10 @@ let
     # export __GL_GSYNC_ALLOWED=1
     export __GL_VRR_ALLOWED=1
 
-    ${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -d -s -- ${
-      lib.getExe config.programs.regreet.package
-    }
+    ${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -d -s -- ${lib.getExe config.programs.regreet.package}
   '';
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     gruvbox-gtk-theme
     bibata-cursors
@@ -34,10 +38,8 @@ in {
   services.greetd = {
     enable = true;
     settings.default_session.command = "${lib.getExe regreet-run}";
-
   };
 
   # services.gnome.gnome-keyring.enable = true;
   # security.pam.services.greetd.enableGnomeKeyring = true;
 }
-

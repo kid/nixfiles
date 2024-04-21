@@ -1,4 +1,5 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+{
   imports = [
     # ../modules/nixos/wayland
     ../modules/nixos/wine.nix

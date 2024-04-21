@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-let cfg = config.services.wallpaper;
-in {
+let
+  cfg = config.services.wallpaper;
+in
+{
   options.services.wallpaper.enable = mkEnableOption "Wallaper";
 
   config = mkIf cfg.enable {
@@ -13,13 +20,13 @@ in {
         PartOf = [ "graphical-session.target" ];
       };
 
-      Install = { WantedBy = [ "graphical-session.target" ]; };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
 
       Service = {
         Type = "oneshot";
-        ExecStart = "${pkgs.feh}/bin/feh --randomize --no-fehbg --bg-fill ${
-            ./wallpapers
-          }";
+        ExecStart = "${pkgs.feh}/bin/feh --randomize --no-fehbg --bg-fill ${./wallpapers}";
       };
     };
   };

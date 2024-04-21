@@ -1,9 +1,15 @@
-{ config, modulesPath, pkgs, ... }:
+{
+  config,
+  modulesPath,
+  pkgs,
+  ...
+}:
 let
 
   # kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   kernelPackages = pkgs.linuxPackages_cachyos;
-in {
+in
+{
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
@@ -11,8 +17,14 @@ in {
 
     # consoleLogLevel = 0;
     # initrd.verbose = false;
-    initrd.availableKernelModules =
-      [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+    initrd.availableKernelModules = [
+      "nvme"
+      "xhci_pci"
+      "ahci"
+      "usb_storage"
+      "usbhid"
+      "sd_mod"
+    ];
     resumeDevice = "/dev/disk/by-label/swap";
 
     loader.systemd-boot.enable = true;
@@ -21,15 +33,21 @@ in {
     kernelModules = [ "nct6775" ];
     # kernelParams = [ "boot.shell_on_fail" "modset=1" "fbdev=1" "hdmi_deepcolor=1" ];
     # kernelParams = [ "boot.shell_on_fail" "amdgpu.freesync_video=1" ];
-    kernelParams = [ "boot.shell_on_fail" "quiet" "udev.log_level=0" ];
+    kernelParams = [
+      "boot.shell_on_fail"
+      "quiet"
+      "udev.log_level=0"
+    ];
 
     # tmp.useTmpfs = true;
 
-    supportedFilesystems = [ "zfs" "ntfs" ];
+    supportedFilesystems = [
+      "zfs"
+      "ntfs"
+    ];
     initrd.supportedFilesystems = [ "zfs" ];
     # zfs.enableUnstable = true;
-    zfs.devNodes =
-      "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
+    zfs.devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
 
     # plymouth.enable = true;
   };
@@ -86,20 +104,26 @@ in {
     fsType = "vfat";
   };
 
-  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
+  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
   networking = {
     hostId = "9371deb4";
     useDHCP = true;
     useNetworkd = true;
-    bridges = { br0 = { interfaces = [ "enp5s0" ]; }; };
+    bridges = {
+      br0 = {
+        interfaces = [ "enp5s0" ];
+      };
+    };
     firewall.enable = false;
   };
 
   systemd.network.networks."40-br0" = {
     name = "br0";
     DHCP = "ipv4";
-    dhcpV4Config = { UseDomains = true; };
+    dhcpV4Config = {
+      UseDomains = true;
+    };
   };
 
   services.resolved = {
@@ -111,14 +135,20 @@ in {
   };
 
   # services.xserver.videoDrivers = ["amdgpu"];
-  services.xserver.videoDrivers = [ "modesetting" "amdgpu" ];
+  services.xserver.videoDrivers = [
+    "modesetting"
+    "amdgpu"
+  ];
 
   hardware.opengl = {
     enable = true;
     # driSupport32Bit = true;
     # extraPackages32 = with pkgs.pkgsi686Linux; [ libva pipewire ];
     setLdLibraryPath = true;
-    extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl ];
+    extraPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
   };
 
   # environment.sessionVariables.VK_LAYER_PATH = "${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d";
@@ -126,8 +156,7 @@ in {
   # environment.systemPackages =
   #   [ pkgs.vulkan-validation-layers pkgs.vulkan-hdr-layer ];
 
-  systemd.tmpfiles.rules =
-    [ "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}" ];
+  systemd.tmpfiles.rules = [ "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}" ];
 
   boot.loader.systemd-boot.extraEntries = {
     "archlinux.conf" = ''

@@ -1,12 +1,15 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.git = {
-    includes = [{
-      condition = "gitdir:~/Code/wave2/";
-      contents = {
-        user.email = "arnaud_rebts@mckinsey.com";
-        hub.host = "github.services.mckinseywave.com";
-      };
-    }];
+    includes = [
+      {
+        condition = "gitdir:~/Code/wave2/";
+        contents = {
+          user.email = "arnaud_rebts@mckinsey.com";
+          hub.host = "github.services.mckinseywave.com";
+        };
+      }
+    ];
   };
 
   home.packages = with pkgs; [
@@ -27,5 +30,7 @@
     age
   ];
 
-  programs.zsh.shellAliases = { k = "kubectl"; };
+  programs.zsh.shellAliases = {
+    k = "kubectl";
+  };
 }

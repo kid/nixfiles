@@ -1,6 +1,6 @@
-{ pkgs, ... }: {
-  xdg.configFile."xmobar/gruvbox-dark.xmobarrc".source =
-    ./files/gruvbox-dark.xmobarrc;
+{ pkgs, ... }:
+{
+  xdg.configFile."xmobar/gruvbox-dark.xmobarrc".source = ./files/gruvbox-dark.xmobarrc;
   xresources.extraConfig = builtins.readFile ./files/gruvbox-dark.xresources;
 
   gtk = {
@@ -61,19 +61,24 @@
   xdg.configFile."mimeapps.list".force = true;
   xdg.mimeApps = {
     enable = true;
-    defaultApplications = let browser = "firefox.desktop";
-    in {
-      "text/html" = browser;
-      "x-scheme-handler/http" = browser;
-      "x-scheme-handler/https" = browser;
-      "x-scheme-handler/about" = browser;
-      "x-scheme-handler/unknown" = browser;
-    };
+    defaultApplications =
+      let
+        browser = "firefox.desktop";
+      in
+      {
+        "text/html" = browser;
+        "x-scheme-handler/http" = browser;
+        "x-scheme-handler/https" = browser;
+        "x-scheme-handler/about" = browser;
+        "x-scheme-handler/unknown" = browser;
+      };
   };
 
   programs.rofi = {
     enable = true;
-    extraConfig = { modi = "drun,window,ssh"; };
+    extraConfig = {
+      modi = "drun,window,ssh";
+    };
 
     # font = "FiraCode Nerd Font 11";
     # theme = "gruvbox-dark";

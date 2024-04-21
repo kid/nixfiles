@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.programs.eww-hyprland;
   dependencies = with pkgs; [
@@ -19,7 +24,8 @@ let
       eww open $w
     done
   '';
-in {
+in
+{
   options.programs.eww-hyprland = {
     enable = lib.mkEnableOption "Eww Hyprland config";
 
@@ -43,10 +49,12 @@ in {
 
     xdg.configFile.eww = {
       source = lib.cleanSourceWith {
-        filter = name: _type:
-          let baseName = baseNameOf (toString name);
-          in !(lib.hasSuffix ".nix"
-            baseName); # && (baseName != "_colors.scss");
+        filter =
+          name: _type:
+          let
+            baseName = baseNameOf (toString name);
+          in
+          !(lib.hasSuffix ".nix" baseName); # && (baseName != "_colors.scss");
         src = lib.cleanSource ./.;
       };
 
