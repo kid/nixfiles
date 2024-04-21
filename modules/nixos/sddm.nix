@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
   services = {
     displayManager = {
       autoLogin = {
@@ -13,4 +13,6 @@
 
     desktopManager.plasma6.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [ wl-clipboard-rs ];
 }
