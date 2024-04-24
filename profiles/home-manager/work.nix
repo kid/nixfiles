@@ -19,7 +19,7 @@
     kubie
     kubernetes-helm
     terraform-ls
-    nodejs-18_x
+    nodejs
     nodePackages.typescript-language-server
     yamllint
     go
