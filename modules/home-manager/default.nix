@@ -22,6 +22,12 @@
     extraConfig = ''
       return {
         command_palette_font_size = ${builtins.toString config.stylix.fonts.sizes.terminal},
+        keys = {
+          { key = "h", mods = "CTRL", action = wezterm.action.ActivatePaneDirection 'Left' },
+          { key = "j", mods = "CTRL", action = wezterm.action.ActivatePaneDirection 'Up' },
+          { key = "k", mods = "CTRL", action = wezterm.action.ActivatePaneDirection 'Down' },
+          { key = "l", mods = "CTRL", action = wezterm.action.ActivatePaneDirection 'Right' },
+        }
       }
     '';
   };
