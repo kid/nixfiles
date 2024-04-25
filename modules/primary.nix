@@ -20,10 +20,13 @@
   };
 
   config = {
-    home-manager.extraSpecialArgs = {
-      inherit inputs;
+    home-manager = {
+      extraSpecialArgs = {
+        inherit inputs;
+      };
+      users.${config.user.name} = lib.mkAliasDefinitions options.hm;
     };
-    home-manager.users.${config.user.name} = lib.mkAliasDefinitions options.hm;
+
     users.users.${config.user.name} = lib.mkAliasDefinitions options.user;
   };
 }

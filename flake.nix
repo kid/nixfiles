@@ -31,6 +31,9 @@
     nur.url = "github:nix-community/NUR";
 
     nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+
+    nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
