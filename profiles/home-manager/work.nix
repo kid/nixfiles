@@ -18,6 +18,7 @@
     kubectx
     kubie
     kubernetes-helm
+    helm-docs
     terraform-ls
     nodejs
     nodePackages.typescript-language-server
@@ -28,6 +29,7 @@
     argocd
     sops
     age
+    pre-commit
   ];
 
   programs.zsh.shellAliases = {
