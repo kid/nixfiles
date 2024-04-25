@@ -1,6 +1,7 @@
-{ config, ... }:
+{ inputs, config, ... }:
 {
   imports = [
+    inputs.nixvim.homeManagerModules.nixvim
     ./stylix.nix
     ./fonts.nix
     ./editor.nix
@@ -9,6 +10,7 @@
     ./ssh.nix
     ./kitty.nix
     ./firefox.nix
+    ./nixvim.nix
   ];
 
   programs = {
