@@ -31,9 +31,10 @@
   programs.noisetorch.enable = true;
 
   environment.systemPackages = with pkgs; [
+    steamtinkerlaunch
     gamemode
-    legendary-gl
-    lutris
+    # legendary-gl
+    # lutris
 
     # wine-staging (version with experimental features)
     wineWowPackages.staging
@@ -46,11 +47,11 @@
     # vulkan-validation-layers
     # vulkan-hdr-layer
 
-    xorg.xrandr
+    # xorg.xrandr
 
     ckan # mod manager for ksp
     steam-run
-    protontricks
+    # protontricks
     mangohud
     dxvk
   ];
