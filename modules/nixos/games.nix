@@ -37,7 +37,7 @@
     # lutris
 
     # wine-staging (version with experimental features)
-    wineWowPackages.staging
+    # wineWowPackages.staging
 
     # winetricks and other programs depending on wine need to use the same wine version
     # (winetricks.override { wine = wineWowPackages.staging; })
@@ -50,7 +50,7 @@
     # xorg.xrandr
 
     ckan # mod manager for ksp
-    steam-run
+    # steam-run
     # protontricks
     mangohud
     dxvk
