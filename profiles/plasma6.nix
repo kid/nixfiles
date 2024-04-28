@@ -2,7 +2,7 @@
 {
   imports = [
     # ../modules/nixos/wayland
-    ../modules/nixos/wine.nix
+    # ../modules/nixos/wine.nix
     ../modules/nixos/sddm.nix
   ];
 
