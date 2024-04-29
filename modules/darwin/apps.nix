@@ -11,6 +11,7 @@
       "scroll-reverser"
       "spotify"
       "pgAdmin4"
+      "rectangle"
     ];
   };
 
