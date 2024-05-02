@@ -12,5 +12,6 @@
       sizes.terminal = lib.mkDefault 10;
     };
     polarity = "dark";
+    # targets.kde.enable = false;
   };
 }

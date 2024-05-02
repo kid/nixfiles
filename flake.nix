@@ -37,6 +37,10 @@
 
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+
+    plasma-manager.url = "github:pjones/plasma-manager/trunk";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager.inputs.home-manager.follows = "hm";
   };
 
   outputs =
@@ -155,7 +159,7 @@
                     #     keyutils
                     #   ];
                     # };
-                    nixos-icons = final.stable.nixos-icons;
+                    # nixos-icons = final.stable.nixos-icons;
                   })
                 ];
               };
@@ -168,7 +172,7 @@
             inputs.hm.nixosModule
             inputs.nur.nixosModules.nur
             inputs.stylix.nixosModules.stylix
-            inputs.xremap.nixosModules.default
+            # inputs.xremap.nixosModules.default
             # { hardware.amdgpu.amdvlk = true; }
             { hardware.amdgpu.loadInInitrd = true; }
             # inputs.hyprland.nixosModules.default

@@ -16,7 +16,6 @@
   programs.htop.enable = true;
 
   programs.bat.enable = true;
-  programs.bat.config.theme = "gruvbox-dark";
 
   programs.eza.enable = true;
   programs.eza.enableZshIntegration = true;
