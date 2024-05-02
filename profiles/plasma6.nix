@@ -9,6 +9,8 @@
   hm.imports = [
     # inputs.hyprland.homeManagerModules.default
     ../modules/home-manager/desktop.nix
+    ../modules/home-manager/plasma.nix
+    ../modules/home-manager/xremap.nix
     # ../modules/home-manager/leftwm.nix
     # ../modules/home-manager/wayland
     # ../modules/home-manager/wayland/hyprland

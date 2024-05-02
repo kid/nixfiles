@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = [ ./primary.nix ];
 
@@ -12,6 +17,10 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    sharedModules = [
+      inputs.xremap.homeManagerModules.default
+      inputs.plasma-manager.homeManagerModules.plasma-manager
+    ];
   };
 
   environment = {
