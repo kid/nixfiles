@@ -32,6 +32,9 @@
 
     nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
 
+    xremap.url = "github:xremap/nix-flake";
+    xremap.inputs.nixpkgs.follows = "nixpkgs";
+
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -165,6 +168,7 @@
             inputs.hm.nixosModule
             inputs.nur.nixosModules.nur
             inputs.stylix.nixosModules.stylix
+            inputs.xremap.nixosModules.default
             # { hardware.amdgpu.amdvlk = true; }
             { hardware.amdgpu.loadInInitrd = true; }
             # inputs.hyprland.nixosModules.default

@@ -2,7 +2,7 @@
 {
   programs.gamescope = {
     enable = true;
-    capSysNice = false;
+    # capSysNice = false;
     # package = pkgs.gamescope_git;
   };
   programs.steam = {

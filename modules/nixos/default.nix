@@ -9,6 +9,7 @@
     ../common.nix
     ../stylix.nix
     ../nix.nix
+    ./xremap.nix
   ];
 
   system.stateVersion = "22.11";
