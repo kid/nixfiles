@@ -6,7 +6,12 @@
 }:
 {
   programs.nixvim = {
-    enable = false;
-    plugins.lightline.enable = true;
+    enable = true;
+    plugins.lualine.enable = true;
+
+    opts = {
+      number = true;
+      relativenumber = true;
+    };
   };
 }
