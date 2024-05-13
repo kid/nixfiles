@@ -164,32 +164,7 @@
                 ];
               };
             }
-            inputs.nixos-hardware.nixosModules.common-pc
-            inputs.nixos-hardware.nixosModules.common-pc-ssd
-            inputs.nixos-hardware.nixosModules.common-cpu-amd
-            inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-            inputs.nixos-hardware.nixosModules.common-gpu-amd
-            inputs.hm.nixosModule
-            inputs.nur.nixosModules.nur
-            inputs.stylix.nixosModules.stylix
-            # inputs.xremap.nixosModules.default
-            # { hardware.amdgpu.amdvlk = true; }
-            { hardware.amdgpu.loadInInitrd = true; }
-            # inputs.hyprland.nixosModules.default
-            inputs.chaotic.nixosModules.default
             ./hosts/nixos.nix
-            ./modules/nixos
-            ./modules/nixos/desktop.nix
-            ./modules/nixos/games.nix
-            # ./modules/nixos/podman.nix
-            # ./modules/nixos/containerd.nix
-            ./modules/nixos/docker.nix
-            ./modules/nixos/virtualization.nix
-            ./modules/nixos/printing.nix
-            # ./profiles/desktop.nix
-            # ./profiles/hyprland.nix
-            ./profiles/plasma6.nix
-            # { home-manager.extraSpecialArgs = { inherit inputs; }; }
           ];
         };
         darwinConfigurations.M-Y47D2M27VX = inputs.darwin.lib.darwinSystem {

@@ -1,16 +1,46 @@
 {
-  config,
+  self,
+  # config,
+  inputs,
   modulesPath,
   pkgs,
   ...
 }:
 let
-
   # kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   kernelPackages = pkgs.linuxPackages_cachyos;
 in
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    inputs.hm.nixosModule
+    inputs.nur.nixosModules.nur
+    inputs.stylix.nixosModules.stylix
+    inputs.chaotic.nixosModules.default
+    ../modules/nixos
+    ../modules/nixos/desktop.nix
+    ../modules/nixos/games.nix
+    ../modules/nixos/docker.nix
+    ../modules/nixos/virtualization.nix
+    ../modules/nixos/printing.nix
+    ../profiles/plasma6.nix
+  ];
+
+  nixpkgs = {
+    config = {
+      allowBroken = true;
+      allowUnfree = true;
+    };
+    overlays = [
+      self.overlays.stable-packages
+      inputs.nur.overlay
+    ];
+  };
 
   boot = {
     inherit kernelPackages;
@@ -51,7 +81,7 @@ in
 
     # plymouth.enable = true;
   };
-
+  hardware.amdgpu.loadInInitrd = true;
   chaotic = {
     hdr = {
       # enable = true;
