@@ -17,5 +17,8 @@
     desktopManager.plasma6.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [ wl-clipboard-rs ];
+  environment.systemPackages = with pkgs; [
+    wl-clipboard-rs
+    kdePackages.neochat
+  ];
 }
