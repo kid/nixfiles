@@ -2,13 +2,21 @@
 {
   programs.firefox = {
     enable = true;
+
     policies = {
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
       DontCheckDefaultBrowser = true;
       DisablePocket = true;
       SearchBar = "unified";
+      EnableTrackingProtection = {
+        Value = true;
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+      };
     };
+
     profiles.kid = {
       # extensions = with inputs.firefox-addons.packages.x86_64-linux; [
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
@@ -20,6 +28,21 @@
       search.force = true;
 
       search.engines = {
+        "Youtube" = {
+          definedAliases = [ "@yt" ];
+          urls = [
+            {
+              template = "https://www.youtube.com/results";
+              params = [
+                {
+                  name = "searchTerms";
+                  value = "{searchTerms}";
+                }
+              ];
+            }
+          ];
+        };
+
         "Nix Packages" = {
           definedAliases = [ "@np" ];
           urls = [
@@ -86,6 +109,7 @@
 
       settings = {
         "browser.sessionstore.restore_on_demand" = false;
+        "signon.rememberSignons" = false;
       };
     };
   };
