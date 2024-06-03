@@ -30,6 +30,8 @@
 
   programs.noisetorch.enable = true;
 
+  hardware.xpadneo.enable = true;
+
   environment.systemPackages = with pkgs; [
     steamtinkerlaunch
     gamemode
