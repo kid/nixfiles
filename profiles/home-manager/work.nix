@@ -15,10 +15,12 @@
   home.packages = with pkgs; [
     awscli
     kubectl
+    kubectl-cnpg
     kubectx
     kubie
     kubernetes-helm
     helm-docs
+    terraform
     terraform-ls
     nodejs
     nodePackages.typescript-language-server
@@ -30,6 +32,8 @@
     sops
     age
     pre-commit
+    kind
+    redis
   ];
 
   programs.zsh.shellAliases = {
