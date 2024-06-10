@@ -17,7 +17,7 @@ insert_behavior = "AfterCurrent"
 keybind = [
   { modifier = [
     "modkey",
-  ], key = "t", command = "Execute", value = "kitty" },
+  ], key = "t", command = "Execute", value = "wezterm" },
   { modifier = [
     "modkey",
   ], key = "p", command = "Execute", value = "rofi -show" },

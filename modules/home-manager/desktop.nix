@@ -27,7 +27,6 @@
 
   home.packages = with pkgs; [
     xclip
-    kitty
     rofi
     # (google-chrome-beta.override {
     #   commandLineArgs = [
@@ -72,16 +71,5 @@
         "x-scheme-handler/about" = browser;
         "x-scheme-handler/unknown" = browser;
       };
-  };
-
-  programs.rofi = {
-    enable = true;
-    extraConfig = {
-      modi = "drun,window,ssh";
-    };
-
-    # font = "FiraCode Nerd Font 11";
-    # theme = "gruvbox-dark";
-    terminal = "kitty";
   };
 }

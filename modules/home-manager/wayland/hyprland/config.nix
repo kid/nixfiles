@@ -46,7 +46,7 @@ in
     # monitor=,preferred,auto,1,vrr,1,bitdepth,8
     # monitor=,highrr,auto,1
 
-    bind = SUPER, T, exec, kitty
+    bind = SUPER, T, exec, wezterm
     bind = SUPER, P, exec, rofi -show
     # bind = SUPER, B, exec, google-chrome-beta --enable-features=UseOzonePlatform --ozone-platform=wayland
     bind = SUPER, B, exec, chromium -ozone-platform=wayland

@@ -75,12 +75,5 @@
 
   programs.lf = {
     enable = true;
-    previewer = {
-      # keybinding = "i";
-      source = ./files/lf/kitty_preview.sh;
-    };
-    extraConfig = ''
-      set cleaner ${./files/lf/kitty_clean.sh}
-    '';
   };
 }
