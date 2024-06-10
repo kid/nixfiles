@@ -2,13 +2,11 @@
 {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
-    ./stylix.nix
     ./fonts.nix
     ./editor.nix
     ./cli.nix
     ./git.nix
     ./ssh.nix
-    ./kitty.nix
     ./firefox.nix
     ./nixvim.nix
   ];
