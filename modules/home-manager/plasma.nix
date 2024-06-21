@@ -18,7 +18,7 @@
     panels = [
       # Windows-like panel at the bottom
       {
-        location = "bottom";
+        location = "top";
         widgets = [
           # We can configure the widgets by adding the name and config
           # attributes. For example to add the the kickoff widget and set the
@@ -34,22 +34,20 @@
           # Adding configuration to the widgets can also for example be used to
           # pin apps to the task-manager, which this example illustrates by
           # pinning dolphin and konsole to the task-manager by default.
-          # {
-          #   name = "org.kde.plasma.icontasks";
-          #   config = {
-          #     General.launchers = [
-          #       "applications:org.kde.dolphin.desktop"
-          #       "applications:org.kde.konsole.desktop"
-          #     ];
-          #   };
-          # }
+          {
+            name = "org.kde.plasma.icontasks";
+            config = {
+              General.launchers = [ "applications:steam.desktop" ];
+            };
+          }
           # If no configuration is needed, specifying only the name of the
           # widget will add them with the default configuration.
+          "org.kde.plasma.panelspacer"
           "org.kde.plasma.marginsseparator"
           "org.kde.plasma.systemtray"
           "org.kde.plasma.digitalclock"
         ];
-        hiding = "autohide";
+        # hiding = "autohide";
       }
       # Global menu at the top
       # {
