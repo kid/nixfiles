@@ -29,10 +29,10 @@
       auto-optimise-store = true;
     };
 
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 14d";
-    };
+    # gc = {
+    #   automatic = true;
+    #   options = "--delete-older-than 14d";
+    # };
 
     # generateRegistryFromInputs = true;
     # generateNixPathFromInputs = true;

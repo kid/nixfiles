@@ -6,7 +6,7 @@
 }:
 {
   programs.nixvim = {
-    enable = true;
+    enable = false;
     plugins.lualine.enable = true;
 
     opts = {

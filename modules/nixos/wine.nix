@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    # bottles
+    bottles
 
     # wine-staging (version with experimental features)
     wineWowPackages.staging

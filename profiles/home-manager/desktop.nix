@@ -16,6 +16,9 @@
     nodejs
     unzip
     cargo
+
+    nil
+    nixd
   ];
 
   programs.zsh.shellAliases = {

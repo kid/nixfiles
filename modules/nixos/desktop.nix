@@ -39,7 +39,7 @@
   powerManagement = {
     enable = true;
     # cpuFreqGovernor = "schedutil";
-    powertop.enable = false;
+    # powertop.enable = false;
   };
 
   hardware.bluetooth = {

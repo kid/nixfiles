@@ -17,6 +17,8 @@
     desktopManager.plasma6.enable = true;
   };
 
+  security.pam.services.sddm.kwallet.enable = true;
+
   environment.systemPackages = with pkgs; [
     wl-clipboard-rs
     kdePackages.neochat

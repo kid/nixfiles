@@ -67,6 +67,7 @@ in
       "boot.shell_on_fail"
       "quiet"
       "udev.log_level=0"
+      "amd_state=guided"
     ];
 
     # tmp.useTmpfs = true;
@@ -81,7 +82,12 @@ in
 
     # plymouth.enable = true;
   };
-  hardware.amdgpu.loadInInitrd = true;
+
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "schedutil";
+  };
+
   chaotic = {
     hdr = {
       # enable = true;
@@ -170,16 +176,16 @@ in
     "amdgpu"
   ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    # driSupport32Bit = true;
-    # extraPackages32 = with pkgs.pkgsi686Linux; [ libva pipewire ];
-    setLdLibraryPath = true;
-    extraPackages = with pkgs; [
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
+    extraPackages = with pkgs; [ amdvlk ];
+
+    enable32Bit = true;
+    extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
   };
+
+  # environment.variables.AMD_VULKAN_ICD = "RADV";
+  environment.variables.VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
 
   # environment.sessionVariables.VK_LAYER_PATH = "${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d";
 
