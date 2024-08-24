@@ -9,6 +9,7 @@
     ../common.nix
     ../stylix.nix
     ../nix.nix
+    ./wine.nix
     ./xremap.nix
   ];
 

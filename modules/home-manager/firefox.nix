@@ -23,6 +23,7 @@
         sponsorblock
         ublock-origin
         improved-tube
+        plasma-integration
         onepassword-password-manager
       ];
       search.force = true;

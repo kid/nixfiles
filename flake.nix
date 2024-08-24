@@ -25,7 +25,8 @@
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    # chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    chaotic.url = "github:chaotic-cx/nyx/b1ecb501161bae54fbc9fd27200bd34d40c4a47a";
     chaotic.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
@@ -45,12 +46,9 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    flake-parts,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    inputs@{ self, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.devshell.flakeModule
         inputs.treefmt-nix.flakeModule
@@ -62,72 +60,72 @@
         "aarch64-darwin"
       ];
 
-      perSystem = {
-        config,
-        pkgs,
-        ...
-      }: {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            gnumake
-            config.treefmt.build.wrapper
-            fd
-            nil
-          ];
-          shellHook = config.pre-commit.installationScript;
-        };
-        devshells.old = {
-          packages = with pkgs; [
-            gnumake
-            config.treefmt.build.wrapper
-            fd
-            nil
-          ];
+      perSystem =
+        { config, pkgs, ... }:
+        {
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              gnumake
+              config.treefmt.build.wrapper
+              fd
+              nil
+              just
+            ];
+            shellHook = config.pre-commit.installationScript;
+          };
+          devshells.old = {
+            packages = with pkgs; [
+              gnumake
+              config.treefmt.build.wrapper
+              fd
+              nil
+            ];
 
-          commands = [
-            {
-              name = "fmt";
-              help = "Check Nix formatting";
-              command = "nixpkgs-fmt \${@} $PRJ_ROOT";
-            }
-            {
-              name = "evalnix";
-              help = "Check Nix parsing";
-              command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
-            }
-            {
-              name = "switch";
-              command = ''
-                case $OSTYPE in
-                  darwin*)  switch-darwin ;;
-                  linux*)   switch-nixos ;;
-                  *)        echo \"unknown: $OSTYPE\"; exit 1 ;;
-                esac
-              '';
-            }
-            {
-              name = "switch-nixos";
-              command = "sudo nixos-rebuild switch --flake . && sudo bootctl set-default @saved";
-            }
-            {
-              name = "switch-darwin";
-              command = "TERM=xterm-256color darwin-rebuild switch --flake .";
-            }
-          ];
-        };
+            commands = [
+              {
+                name = "fmt";
+                help = "Check Nix formatting";
+                command = "nixpkgs-fmt \${@} $PRJ_ROOT";
+              }
+              {
+                name = "evalnix";
+                help = "Check Nix parsing";
+                command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
+              }
+              {
+                name = "switch";
+                command = ''
+                  case $OSTYPE in
+                    darwin*)  switch-darwin ;;
+                    linux*)   switch-nixos ;;
+                    *)        echo \"unknown: $OSTYPE\"; exit 1 ;;
+                  esac
+                '';
+              }
+              {
+                name = "switch-nixos";
+                command = "sudo nixos-rebuild switch --flake . && sudo bootctl set-default @saved";
+              }
+              {
+                name = "switch-darwin";
+                command = "TERM=xterm-256color darwin-rebuild switch --flake .";
+              }
+            ];
+          };
 
-        treefmt = {
-          projectRootFile = "flake.nix";
-          # build.check = true;
-          flakeFormatter = true;
-          programs.nixfmt.enable = true;
-          programs.nixfmt.package = pkgs.nixfmt-rfc-style;
-        };
+          treefmt = {
+            projectRootFile = "flake.nix";
+            # build.check = true;
+            flakeFormatter = true;
+            programs.nixfmt.enable = true;
+            programs.nixfmt.package = pkgs.nixfmt-rfc-style;
+            programs.just.enable = true;
+          };
 
-        pre-commit.check.enable = true;
-      };
+          pre-commit.check.enable = true;
+        };
       flake = {
-        overlays = import ./overlays {inherit inputs;};
+        overlays = import ./overlays { inherit inputs; };
         nixosConfigurations.nixos = inputs.nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit self inputs;
@@ -178,7 +176,7 @@
           specialArgs = {
             inherit self inputs;
           };
-          modules = [./hosts/mbp.nix];
+          modules = [ ./hosts/mbp.nix ];
         };
       };
     };

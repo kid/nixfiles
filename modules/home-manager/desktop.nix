@@ -38,8 +38,8 @@
     # _1password-gui
     discord
     # discord-canary
-    webcord
-    vesktop
+    # webcord
+    # vesktop
     tdesktop # telegram
     polybar
     xorg.xmessage
@@ -49,7 +49,7 @@
     pmount
     pulsemixer
     portfolio
-    freecad
+    # freecad
     prusa-slicer
     alacritty
     # wlr-randr

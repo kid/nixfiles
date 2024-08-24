@@ -6,8 +6,8 @@
 }:
 {
   home = lib.mkIf (!config.programs.nixvim.enable) {
-    shellAliases.nvim = "NVIM_APPNAME=nvim-astrov4 nvim";
     sessionVariables.EDITOR = "nvim";
+    sessionVariables.NVIM_APPNAME = "nvim-astrov4";
     sessionVariables.MANPAGER = "nvim +Man!";
     packages = with pkgs; [
       neovim
@@ -22,6 +22,8 @@
       shfmt
     ];
   };
+
+  programs.helix.enable = true;
 
   programs.zsh.localVariables.ZVM_VI_EDITOR = "nvim";
 }

@@ -5,8 +5,11 @@
     htop
     jq
     ripgrep
-    helix
     pistol # For previews in lf
+    gnumake
+    pulumictl
+    pulumi-bin
+    gopls
   ];
 
   programs.gh.enable = true;
@@ -14,6 +17,8 @@
   programs.gh.settings.version = 1;
 
   programs.htop.enable = true;
+  programs.btop.enable = true;
+  programs.bottom.enable = true;
 
   programs.bat.enable = true;
 
@@ -26,10 +31,15 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
+  programs.fish.enable = true;
+
   programs.fzf.enable = true;
   programs.fzf.enableZshIntegration = true;
+  programs.fzf.enableFishIntegration = true;
   programs.fzf.defaultCommand = "fd --type f";
   programs.fzf.fileWidgetCommand = "fd --type f";
+
+  programs.k9s.enable = true;
 
   programs.zsh = {
     enable = true;
