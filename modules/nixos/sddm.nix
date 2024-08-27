@@ -21,6 +21,7 @@
 
   environment.systemPackages = with pkgs; [
     wl-clipboard-rs
-    kdePackages.neochat
+    # FIXME: dependency marked as insecured
+    # kdePackages.neochat
   ];
 }
