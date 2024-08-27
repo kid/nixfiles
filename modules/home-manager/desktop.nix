@@ -1,50 +1,16 @@
 { pkgs, ... }:
 {
-  xdg.configFile."xmobar/gruvbox-dark.xmobarrc".source = ./files/gruvbox-dark.xmobarrc;
-  xresources.extraConfig = builtins.readFile ./files/gruvbox-dark.xresources;
 
   gtk = {
     enable = true;
-
-    # gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-
-    # font = {
-    #   name = "Roboto";
-    #   package = pkgs.roboto;
-    # };
-
-    # theme = {
-    #   name = "Gruvbox-Dark-BL";
-    #   package = pkgs.gruvbox-gtk-theme;
-    # };
   };
-
-  # dconf.settings = {
-  #   "org/gnome/desktop/interface" = {
-  #     color-scheme = "prefer-dark";
-  #   };
-  # };
 
   home.packages = with pkgs; [
     xclip
-    rofi
-    # (google-chrome-beta.override {
-    #   commandLineArgs = [
-    #     "--enable-features=WebUIDarkMode"
-    #     "--force-dark-mode"
-    #   ];
-    # })
     chromium
-    # _1password-gui
     discord
-    # discord-canary
-    # webcord
-    # vesktop
     tdesktop # telegram
-    polybar
-    xorg.xmessage
     feh
-    leftwm
     nfs-utils
     pmount
     pulsemixer
@@ -52,7 +18,6 @@
     # freecad
     prusa-slicer
     alacritty
-    # wlr-randr
     glxinfo
     deltachat-desktop
   ];
