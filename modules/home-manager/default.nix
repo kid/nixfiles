@@ -54,6 +54,7 @@
       end
 
       return {
+        front_end = "WebGpu",
         command_palette_font_size = ${builtins.toString config.stylix.fonts.sizes.terminal},
         keys = {
           -- move between split panes
