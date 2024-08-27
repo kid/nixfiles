@@ -20,6 +20,7 @@
 
   virtualisation.incus = {
     enable = true;
+    package = pkgs.incus;
     socketActivation = true;
     ui.enable = true;
   };
