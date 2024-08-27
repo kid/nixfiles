@@ -26,6 +26,7 @@ in
     ../modules/nixos/desktop.nix
     ../modules/nixos/games.nix
     ../modules/nixos/docker.nix
+    ../modules/nixos/podman.nix
     ../modules/nixos/virtualization.nix
     ../modules/nixos/printing.nix
     ../profiles/plasma6.nix
