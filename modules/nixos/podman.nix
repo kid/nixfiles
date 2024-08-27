@@ -1,18 +1,20 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  config,
+  ...
+}:
 {
   virtualisation = {
     podman = {
       enable = true;
-      dockerCompat = false;
+      autoPrune.enable = true;
+      dockerCompat = !config.virtualisation.docker.enable;
       extraPackages = [ pkgs.zfs ];
     };
 
+    containers.enable = true;
     # containers.storage.settings = {
     #   driver = "zfs";
     # };
-
-    oci-containers = {
-      backend = "podman";
-    };
   };
 }

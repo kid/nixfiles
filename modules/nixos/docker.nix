@@ -3,7 +3,7 @@
     enable = true;
     autoPrune.enable = true;
 
-    storageDriver = "zfs";
+    storageDriver = "overlay2";
 
     enableOnBoot = false;
   };
