@@ -1,7 +1,6 @@
 { inputs, pkgs, ... }:
 {
   imports = [
-    ../modules/nixos/leftwm.nix
     ../modules/nixos/wayland
     ../modules/nixos/wine.nix
   ];
@@ -9,7 +8,6 @@
   hm.imports = [
     # inputs.hyprland.homeManagerModules.default
     ../modules/home-manager/desktop.nix
-    ../modules/home-manager/leftwm.nix
     ../modules/home-manager/wayland
     # ../modules/home-manager/wayland/hyprland
     ./home-manager/desktop.nix

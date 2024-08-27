@@ -7,8 +7,6 @@
     ripgrep
     pistol # For previews in lf
     gnumake
-    pulumictl
-    pulumi-bin
     gopls
   ];
 
