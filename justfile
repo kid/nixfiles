@@ -1,5 +1,7 @@
 task := if os() == "linux" { "switch-nixos" } else { "switch-darwin" }
 
+default: switch
+
 update-all:
     nix flake update
 
@@ -11,5 +13,3 @@ switch-nixos:
 
 switch-darwin:
     darwin-rebuild switch --flake .
-
-default: switch
