@@ -8,6 +8,10 @@
     #   lookAndFeel = "org.kde.breezedark.desktop";
     # };
 
+    # TODO: should be specific to the machine
+    powerdevil.AC.dimDisplay.enable = false;
+    powerdevil.AC.turnOffDisplay.idleTimeout = "never";
+
     fonts = {
       general = {
         family = "JetBrains Mono";
