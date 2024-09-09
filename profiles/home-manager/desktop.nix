@@ -11,7 +11,8 @@
     winbox
     screen
     minicom
-    go
+    go_1_23
+    gopls
     nil
     nodejs
     unzip
@@ -19,6 +20,8 @@
 
     nil
     nixd
+
+    kcl
   ];
 
   programs.zsh.shellAliases = {

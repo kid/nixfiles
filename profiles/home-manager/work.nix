@@ -25,7 +25,7 @@
     nodejs
     nodePackages.typescript-language-server
     yamllint
-    go
+    go_1_23
     gopls
     golangci-lint
     argocd
