@@ -141,6 +141,11 @@ in
     fsType = "vfat";
   };
 
+  fileSystems."/var/lib/docker" = {
+    device = "/dev/zvol/rpool/docker";
+    fsType = "ext4";
+  };
+
   swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
   networking = {
