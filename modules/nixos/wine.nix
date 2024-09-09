@@ -4,7 +4,7 @@
     bottles
 
     # wine-staging (version with experimental features)
-    wineWowPackages.staging
+    # wineWowPackages.staging
 
     # native wayland support (unstable)
     wineWowPackages.waylandFull
