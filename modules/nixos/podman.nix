@@ -6,13 +6,13 @@
 {
   virtualisation = {
     podman = {
-      enable = true;
+      enable = false;
       autoPrune.enable = true;
       dockerCompat = !config.virtualisation.docker.enable;
       extraPackages = [ pkgs.zfs ];
     };
 
-    containers.enable = true;
+    containers.enable = false;
     # containers.storage.settings = {
     #   driver = "zfs";
     # };
