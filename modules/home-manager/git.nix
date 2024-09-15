@@ -45,6 +45,10 @@
       init = {
         defaultBranch = "main";
       };
+      user.signingkey = "~/.ssh/id_rsa.pub";
+      gpg.format = "ssh";
+      commit.gpgsign = true;
+      tag.gpgsign = true;
     };
   };
 }
