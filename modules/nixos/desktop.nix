@@ -97,4 +97,9 @@
     #   gamemode
     # ];
   };
+
+  # NOTE: https://github.com/nix-community/home-manager/issues/4199#issuecomment-2226810699
+  system.userActivationScripts.removeConflictingFiles.text = ''
+    rm -f /home/${config.user.name}/.gtkrc-2.0.backup
+  '';
 }
