@@ -28,6 +28,7 @@
       watch
       libqalculate
       dig
+      devenv
       # coreutils-full
     ];
   };
