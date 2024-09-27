@@ -15,6 +15,7 @@
     };
 
     desktopManager.plasma6.enable = true;
+    # desktopManager.cosmic.enable = true;
   };
 
   security.pam.services.sddm.kwallet.enable = true;
