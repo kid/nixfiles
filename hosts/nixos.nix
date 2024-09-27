@@ -237,4 +237,6 @@ in
   #   ];
   #   ensureDefaultPrinter = "Brother_HL-2030_series";
   # };
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }
