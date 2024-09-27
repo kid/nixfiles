@@ -33,9 +33,10 @@
   hardware.xpadneo.enable = true;
 
   environment.systemPackages = with pkgs; [
-    steamtinkerlaunch
+    # steamtinkerlaunch
     gamemode
-    # legendary-gl
+    heroic
+    legendary-gl
     # lutris
 
     # wine-staging (version with experimental features)
