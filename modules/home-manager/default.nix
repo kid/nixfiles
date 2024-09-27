@@ -56,6 +56,7 @@
       return {
         front_end = "WebGpu",
         use_fancy_tab_bar = false,
+        hide_tab_bar_if_only_one_tab = true,
         command_palette_font_size = ${builtins.toString config.stylix.fonts.sizes.terminal},
         keys = {
           -- move between split panes
