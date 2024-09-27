@@ -42,6 +42,7 @@
   programs.zsh = {
     enable = true;
     autocd = true;
+    enableVteIntegration = true;
     dotDir = ".config/zsh";
     localVariables = {
       ZVM_VI_INSERT_ESCAPE_BINDKEY = "jk";
