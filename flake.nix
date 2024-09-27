@@ -44,6 +44,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "hm";
     };
+
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
