@@ -21,6 +21,7 @@
       inputs.xremap.homeManagerModules.default
       inputs.plasma-manager.homeManagerModules.plasma-manager
     ];
+    backupFileExtension = "backup";
   };
 
   environment = {
