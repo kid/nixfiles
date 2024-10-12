@@ -3,14 +3,18 @@
   services.printing = {
     enable = true;
     drivers = with pkgs; [ brlaser ];
-    clientConf = ''
-      AllowAnyRoot Yes
-      AllowExpiredCerts No
-      Encryption IfRequested
-      SSLOptions None
-      TrustOnFirstUse Yes
-      ValidateCerts No
-      ServerName 10.0.10.20
-    '';
+  };
+  hardware.printers = {
+    ensurePrinters = [
+      {
+        name = "Brother_HL-2030_series";
+        deviceUri = "http://10.0.100.137:631/printers/Brother_HL-2030_series";
+        model = "drv:///brlaser.drv/brl2320d.ppd";
+        ppdOptions = {
+          PageSize = "A4";
+        };
+      }
+    ];
+    ensureDefaultPrinter = "Brother_HL-2030_series";
   };
 }

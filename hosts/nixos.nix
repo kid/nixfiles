@@ -223,20 +223,5 @@ in
     openFirewall = true;
   };
 
-  # hardware.printers = {
-  #   ensurePrinters = [
-  #     {
-  #       name = "Brother_HL-2030_series";
-  #       # location = "Home";
-  #       deviceUri = "http://10.0.100.137:631/printers/Brother_HL-2030_series";
-  #       # model = "drv:///sample.drv/generic.ppd";
-  #       ppdOptions = {
-  #         PageSize = "A4";
-  #       };
-  #     }
-  #   ];
-  #   ensureDefaultPrinter = "Brother_HL-2030_series";
-  # };
-
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }
