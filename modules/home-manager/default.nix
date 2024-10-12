@@ -2,6 +2,7 @@
 {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeManagerModules.config
     ./fonts.nix
     ./editor.nix
     ./cli.nix
