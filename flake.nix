@@ -36,8 +36,12 @@
     xremap.url = "github:xremap/nix-flake";
     xremap.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixvim.url = "github:nix-community/nixvim";
+    # nixvim.url = "github:nix-community/nixvim";
+    # nixvim.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixvim.url = "github:kid/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.inputs.flake-parts.follows = "flake-parts";
 
     plasma-manager = {
       url = "github:pjones/plasma-manager/trunk";
