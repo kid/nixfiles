@@ -8,7 +8,6 @@
     # kustomize
     # kustomize-sops
     # certbot-full
-    winbox
     screen
     minicom
     go_1_23

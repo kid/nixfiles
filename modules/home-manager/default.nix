@@ -1,4 +1,9 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
@@ -78,4 +83,8 @@
   xdg.enable = true;
 
   home.stateVersion = "22.05";
+
+  home.packages = with pkgs; [
+    winbox4
+  ];
 }
