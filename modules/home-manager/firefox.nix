@@ -44,6 +44,21 @@
           ];
         };
 
+        "GitHub" = {
+          definedAliases = [ "@gh" ];
+          urls = [
+            {
+              template = "https://github.com/search";
+              params = [
+                {
+                  name = "q";
+                  value = "{searchTerms}";
+                }
+              ];
+            }
+          ];
+        };
+
         "Nix Packages" = {
           definedAliases = [ "@np" ];
           urls = [
