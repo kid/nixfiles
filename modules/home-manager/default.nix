@@ -22,6 +22,8 @@
     gpg.enable = true;
   };
 
+  programs.alacritty.enable = true;
+
   programs.wezterm = {
     enable = true;
     enableZshIntegration = true;

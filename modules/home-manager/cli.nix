@@ -9,80 +9,93 @@
     gnumake
     gopls
   ];
-
-  programs.gh.enable = true;
-  programs.gh.settings.git_protocol = "ssh";
-  programs.gh.settings.version = 1;
-
-  programs.htop.enable = true;
-  programs.btop.enable = true;
-  programs.bottom.enable = true;
-
-  programs.bat.enable = true;
-
-  programs.eza.enable = true;
-  programs.eza.enableZshIntegration = true;
-
-  programs.starship.enable = true;
-  programs.starship.enableZshIntegration = true;
-
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
-
-  programs.fish.enable = true;
-
-  programs.fzf.enable = true;
-  programs.fzf.enableZshIntegration = true;
-  programs.fzf.enableFishIntegration = true;
-  programs.fzf.defaultCommand = "fd --type f";
-  programs.fzf.fileWidgetCommand = "fd --type f";
-
-  programs.k9s.enable = true;
-
-  programs.zsh = {
-    enable = true;
-    autocd = true;
-    enableVteIntegration = true;
-    dotDir = ".config/zsh";
-    localVariables = {
-      ZVM_VI_INSERT_ESCAPE_BINDKEY = "jk";
-      ZVM_INIT_MODE = "sourcing";
-    };
-    history = {
-      expireDuplicatesFirst = true;
-      extended = true;
-      ignoreDups = true;
-      share = false;
-    };
-    initExtra = ''
-      setopt inc_append_history
-    '';
-    shellAliases = {
-      ssh = "TERM=xterm-256color ssh";
-    };
-    zplug = {
+  programs = {
+    gh = {
       enable = true;
-      plugins = [
-        { name = "jeffreytse/zsh-vi-mode"; }
-        { name = "zsh-users/zsh-autosuggestions"; }
-        {
-          name = "zsh-users/zsh-syntax-highlighting";
-          tags = [ "defer:2" ];
-        }
-        {
-          name = "plugins/fancy-ctrl-z";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "Aloxaf/fzf-tab";
-          tags = [ "defer:1" ];
-        }
-        { name = "agkozak/zsh-z"; }
-      ];
+      settings.git_protocol = "ssh";
+      settings.version = 1;
     };
-  };
 
-  programs.lf = {
-    enable = true;
+    htop.enable = true;
+    btop.enable = true;
+    bottom.enable = true;
+
+    bat.enable = true;
+    eza = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
+    fish.enable = true;
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+      enableFishIntegration = true;
+      defaultCommand = "fd --type f";
+      fileWidgetCommand = "fd --type f";
+    };
+
+    k9s.enable = true;
+
+    zsh = {
+      enable = true;
+      autocd = true;
+      enableVteIntegration = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      dotDir = ".config/zsh";
+      localVariables = {
+        ZVM_VI_INSERT_ESCAPE_BINDKEY = "jk";
+        ZVM_INIT_MODE = "sourcing";
+      };
+      history = {
+        expireDuplicatesFirst = true;
+        extended = true;
+        ignoreDups = true;
+        share = false;
+      };
+      initExtra = ''
+        setopt inc_append_history
+
+        source "${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+        source "${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh"
+        source "${pkgs.fzf}/share/fzf/key-bindings.zsh"
+
+        _zsh_cli_fg() { fg; }
+        zle -N _zsh_cli_fg
+        bindkey '^Z' _zsh_cli_fg
+
+        function set_win_title(){
+          echo -ne "\033]0; $(basename "$PWD") \007"
+        }
+
+        precmd_functions+=(set_win_title)
+
+        source "${pkgs.kubectl}/share/zsh/site-functions/_kubectl"
+      '';
+
+      # shellAliases = {
+      #   ssh = "TERM=xterm-256color ssh";
+      # };
+    };
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    lf = {
+      enable = true;
+    };
   };
 }

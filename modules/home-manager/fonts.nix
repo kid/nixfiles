@@ -2,15 +2,14 @@
 {
   fonts.fontconfig.enable = true;
 
-  home.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "JetBrainsMono"
-        "FiraCode"
-      ];
-    })
-    font-awesome
-
-    lexend
-  ];
+  home.packages =
+    with pkgs.nerd-fonts;
+    [
+      jetbrains-mono
+      fira-code
+    ]
+    ++ (with pkgs; [
+      font-awesome
+      lexend
+    ]);
 }

@@ -73,4 +73,9 @@
   system.nixos.label =
     (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags))
     + "${config.system.nixos.version}.${self.sourceInfo.shortRev or "dirty"}";
+
+  nixpkgs.config.permittedInsecurePackages = [
+    # "electron-30.5.1"
+    "wire-desktop-3.36.3462"
+  ];
 }

@@ -2,21 +2,20 @@
 {
 
   fonts = {
-    packages = with pkgs; [
-      material-symbols
+    packages =
+      with pkgs;
+      [
+        material-symbols
 
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      roboto
-
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "JetBrainsMono"
-        ];
-      })
-    ];
+        noto-fonts
+        noto-fonts-cjk
+        noto-fonts-emoji
+        roboto
+      ]
+      ++ (with pkgs.nerd-fonts; [
+        FiraCode
+        JetBrainsMono
+      ]);
 
     enableDefaultPackages = false;
 

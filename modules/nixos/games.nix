@@ -35,8 +35,8 @@
   environment.systemPackages = with pkgs; [
     # steamtinkerlaunch
     gamemode
-    heroic
-    legendary-gl
+    # heroic
+    # legendary-gl
     # lutris
 
     # wine-staging (version with experimental features)
@@ -52,7 +52,7 @@
 
     # xorg.xrandr
 
-    ckan # mod manager for ksp
+    # ckan # mod manager for ksp
     # steam-run
     # protontricks
     mangohud

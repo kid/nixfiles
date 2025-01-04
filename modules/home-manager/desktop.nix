@@ -10,16 +10,17 @@
     chromium
     discord
     tdesktop # telegram
+    wire-desktop
     feh
     nfs-utils
-    pmount
+    # pmount
     pulsemixer
     portfolio
     # freecad
     prusa-slicer
-    alacritty
     glxinfo
     deltachat-desktop
+    proton-pass
   ];
 
   xdg.configFile."mimeapps.list".force = true;
