@@ -2,13 +2,15 @@
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    # nixpkgs.url = "github:nixos/nixpkgs/7fa1a3c6b3d22f5e53bb765518a749847a25bb65";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
-
-    hm.url = "github:nix-community/home-manager";
-    hm.inputs.nixpkgs.follows = "nixpkgs";
+    hm = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -149,7 +151,7 @@
                 };
                 overlays = [
                   self.overlays.stable-packages
-                  inputs.nur.overlay
+                  inputs.nur.overlays.default
                   # inputs.nil.overlays.default
                   # inputs.neovim.overlay
                   # inputs.neovim-nightly-overlay.overlay

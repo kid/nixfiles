@@ -4,13 +4,13 @@
 
     overrideConfig = true;
 
-    # workspace = {
-    #   lookAndFeel = "org.kde.breezedark.desktop";
-    # };
-
-    # TODO: should be specific to the machine
-    powerdevil.AC.dimDisplay.enable = false;
-    powerdevil.AC.turnOffDisplay.idleTimeout = "never";
+    powerdevil = {
+      AC = {
+        # TODO: should be specific to the machine
+        dimDisplay.enable = false;
+        turnOffDisplay.idleTimeout = "never";
+      };
+    };
 
     fonts = {
       general = {
@@ -65,6 +65,11 @@
     configFile = {
       # Disable "start menu" on the meta key
       kwinrc.ModifierOnlyShortcuts.Meta = "";
+    };
+
+    session = {
+      general.askForConfirmationOnLogout = false;
+      sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
     };
   };
 }

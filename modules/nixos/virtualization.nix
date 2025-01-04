@@ -11,19 +11,19 @@
 
   virtualisation.libvirtd = {
     enable = false;
-    allowedBridges = [ "br0" ];
+    # allowedBridges = [ "br0" ];
     qemu = {
       runAsRoot = false;
       ovmf.enable = true;
     };
   };
 
-  virtualisation.incus = {
-    enable = true;
-    package = pkgs.incus;
-    socketActivation = true;
-    ui.enable = true;
-  };
+  # virtualisation.incus = {
+  #   enable = true;
+  #   package = pkgs.incus;
+  #   socketActivation = true;
+  #   ui.enable = true;
+  # };
 
   programs.dconf.enable = true;
 }

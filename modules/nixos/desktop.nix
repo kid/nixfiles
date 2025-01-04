@@ -66,7 +66,6 @@
 
   environment.systemPackages = with pkgs; [
     pavucontrol
-    xboxdrv
     # vulkan-tools
     # vulkan-loader
     # vulkan-validation-layers
@@ -102,4 +101,6 @@
   system.userActivationScripts.removeConflictingFiles.text = ''
     rm -f /home/${config.user.name}/.gtkrc-2.0.backup
   '';
+
+  services.locate.enable = true;
 }

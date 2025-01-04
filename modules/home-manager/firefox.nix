@@ -126,6 +126,8 @@
       settings = {
         "browser.sessionstore.restore_on_demand" = false;
         "signon.rememberSignons" = false;
+        # "network.dns.echconfig.enabled" = false;
+        # "network.dns.echconfig.fallback_to_origin_when_all_failed" = true;
       };
     };
   };

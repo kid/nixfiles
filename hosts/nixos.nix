@@ -8,7 +8,8 @@
 }:
 let
   # kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  kernelPackages = pkgs.linuxPackages_cachyos;
+  # kernelPackages = pkgs.linuxPackages_cachyos;
+  kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
 in
 {
   imports = [
@@ -19,7 +20,7 @@ in
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     inputs.hm.nixosModule
-    inputs.nur.nixosModules.nur
+    inputs.nur.modules.nixos.default
     inputs.stylix.nixosModules.stylix
     inputs.chaotic.nixosModules.default
     ../modules/nixos
@@ -39,7 +40,7 @@ in
     };
     overlays = [
       self.overlays.stable-packages
-      inputs.nur.overlay
+      inputs.nur.overlays.default
     ];
   };
 
@@ -61,7 +62,13 @@ in
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
 
-    kernelModules = [ "nct6775" ];
+    # extraModulePackages = [
+    #   (pkgs.zfs_unstable.override { kernel = pkgs.linuxPackages_zen.kernel; })
+    # ];
+    kernelModules = [
+      # "zfs"
+      "nct6775"
+    ];
     # kernelParams = [ "boot.shell_on_fail" "modset=1" "fbdev=1" "hdmi_deepcolor=1" ];
     # kernelParams = [ "boot.shell_on_fail" "amdgpu.freesync_video=1" ];
     kernelParams = [
@@ -78,7 +85,7 @@ in
       "ntfs"
     ];
     initrd.supportedFilesystems = [ "zfs" ];
-    # zfs.enableUnstable = true;
+    # zfs.package = pkgs.zfs_unstable;
     zfs.devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
 
     # plymouth.enable = true;
@@ -150,21 +157,63 @@ in
 
   networking = {
     hostId = "9371deb4";
-    useDHCP = true;
+    useDHCP = false;
     useNetworkd = true;
-    bridges = {
-      br0 = {
-        interfaces = [ "enp5s0" ];
+    vlans = {
+      adm = {
+        id = 99;
+        interface = "enp5s0";
       };
+      lab = {
+        id = 1099;
+        interface = "enp5s0";
+      };
+      labadm = {
+        id = 2995;
+        interface = "enp5s0";
+      };
+    };
+    interfaces.enp5s0.useDHCP = true;
+    interfaces.adm.useDHCP = true;
+    interfaces.lab.useDHCP = true;
+    interfaces.labadm = {
+      useDHCP = false;
+      ipv4.addresses = [
+        {
+          address = "10.1.99.10";
+          prefixLength = 24;
+        }
+      ];
     };
     firewall.enable = false;
   };
 
-  systemd.network.networks."40-br0" = {
-    name = "br0";
-    DHCP = "ipv4";
-    dhcpV4Config = {
-      UseDomains = true;
+  # systemd.network.networks."40-br0" = {
+  #   name = "br0";
+  #   DHCP = "ipv4";
+  #   dhcpV4Config = {
+  #     UseDomains = true;
+  #   };
+  # };
+
+  systemd.network = {
+    networks."40-adm" = {
+      name = "adm";
+      dhcpV4Config = {
+        RouteMetric = 2048;
+      };
+    };
+    networks."40-lab" = {
+      name = "lab";
+      dhcpV4Config = {
+        RouteMetric = 4096;
+      };
+    };
+    networks."40-labadm" = {
+      name = "labadm";
+      dhcpV4Config = {
+        RouteMetric = 4096;
+      };
     };
   };
 
@@ -190,15 +239,15 @@ in
     extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
   };
 
-  # environment.variables.AMD_VULKAN_ICD = "RADV";
-  environment.variables.VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
+  environment.variables.AMD_VULKAN_ICD = "RADV";
+  # environment.variables.VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
 
   # environment.sessionVariables.VK_LAYER_PATH = "${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d";
 
   # environment.systemPackages =
   #   [ pkgs.vulkan-validation-layers pkgs.vulkan-hdr-layer ];
 
-  systemd.tmpfiles.rules = [ "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}" ];
+  # systemd.tmpfiles.rules = [ "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}" ];
 
   boot.loader.systemd-boot.extraEntries = {
     "archlinux.conf" = ''
