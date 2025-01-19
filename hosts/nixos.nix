@@ -95,8 +95,11 @@ in
       "zfs"
       "ntfs"
     ];
-    zfs.package = pkgs.zfs_2_3;
-    zfs.devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
+
+    zfs = {
+      package = pkgs.zfs_2_3;
+      devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
+    };
   };
 
   services.scx = {
