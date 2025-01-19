@@ -59,18 +59,20 @@ in
     ];
     resumeDevice = "/dev/disk/by-label/swap";
 
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        extraInstallCommands = ''
+          ${pkgs.gnused}/bin/sed -i 's/default nixos-generation-[0-9][0-9].conf/default @saved/g' /boot/loader/loader.conf
+        '';
+      };
+    };
 
-    # extraModulePackages = [
-    #   (pkgs.zfs_unstable.override { kernel = pkgs.linuxPackages_zen.kernel; })
-    # ];
     kernelModules = [
-      # "zfs"
       "nct6775"
     ];
-    # kernelParams = [ "boot.shell_on_fail" "modset=1" "fbdev=1" "hdmi_deepcolor=1" ];
-    # kernelParams = [ "boot.shell_on_fail" "amdgpu.freesync_video=1" ];
+
     kernelParams = [
       "boot.shell_on_fail"
       "quiet"
@@ -87,18 +89,14 @@ in
       "vm.max_map_count" = 2147483642;
     };
 
-    # tmp.useTmpfs = true;
+    initrd.supportedFilesystems = [ "zfs" ];
 
     supportedFilesystems = [
       "zfs"
       "ntfs"
     ];
-    initrd.supportedFilesystems = [ "zfs" ];
-    # zfs.package = pkgs.zfs_unstable;
+    zfs.package = pkgs.zfs_2_3;
     zfs.devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
-
-    # plymouth.enable = true;
-
   };
 
   services.scx = {
@@ -255,23 +253,6 @@ in
   };
 
   environment.variables.AMD_VULKAN_ICD = "RADV";
-  # environment.variables.VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
-
-  # environment.sessionVariables.VK_LAYER_PATH = "${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d";
-
-  # environment.systemPackages =
-  #   [ pkgs.vulkan-validation-layers pkgs.vulkan-hdr-layer ];
-
-  # systemd.tmpfiles.rules = [ "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}" ];
-
-  boot.loader.systemd-boot.extraEntries = {
-    "archlinux.conf" = ''
-      title   Arch Linux
-      linux   /vmlinuz-linux-zen
-      initrd  /initramfs-linux-zen.img
-      options root="LABEL=archlinux" rw
-    '';
-  };
 
   services.hardware.openrgb.enable = true;
 
