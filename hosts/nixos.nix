@@ -8,9 +8,9 @@
 }:
 let
   # kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  # kernelPackages = pkgs.linuxPackages_cachyos;
-  kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
+  kernelPackages = pkgs.linuxPackages_cachyos;
 in
+# kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -76,7 +76,16 @@ in
       "quiet"
       "udev.log_level=0"
       "amd_state=guided"
+      "amdgpu.dcdebugmask=0x400"
+      "preempt=full"
     ];
+
+    # Steamdeck adjustments
+    kernel.sysctl = {
+      "kernel.sched_cfs_bandwidth_slice_us" = 3000;
+      "net.ipv4.tcp_fin_timeout" = 5;
+      "vm.max_map_count" = 2147483642;
+    };
 
     # tmp.useTmpfs = true;
 
@@ -89,6 +98,12 @@ in
     zfs.devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
 
     # plymouth.enable = true;
+
+  };
+
+  services.scx = {
+    enable = true;
+    scheduler = "scx_lavd";
   };
 
   powerManagement = {
