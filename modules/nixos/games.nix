@@ -21,7 +21,7 @@
         extraLibraries = pkgs: [ pkgs.xorg.libxcb ];
         extraPkgs =
           pkgs: with pkgs; [
-            # gamemode
+            gamemode
             xorg.libXcursor
             xorg.libXi
             xorg.libXinerama
