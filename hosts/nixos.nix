@@ -224,12 +224,14 @@ in
       dhcpV4Config = {
         RouteMetric = 4096;
       };
+      linkConfig.RequiredForOnline = "no";
     };
     networks."40-labadm" = {
       name = "labadm";
       dhcpV4Config = {
         RouteMetric = 4096;
       };
+      linkConfig.RequiredForOnline = "no";
     };
   };
 
