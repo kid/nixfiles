@@ -64,7 +64,7 @@ in
       systemd-boot = {
         enable = true;
         extraInstallCommands = ''
-          ${pkgs.gnused}/bin/sed -i 's/default nixos-generation-[0-9][0-9].conf/default @saved/g' /boot/loader/loader.conf
+          ${pkgs.gnused}/bin/sed -E -i 's/default nixos-generation-[0-9]+\.conf/default @saved/g' /boot/loader/loader.conf
         '';
       };
     };
