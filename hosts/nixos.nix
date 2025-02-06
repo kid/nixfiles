@@ -1,6 +1,6 @@
 {
   self,
-  # config,
+  config,
   inputs,
   modulesPath,
   pkgs,
@@ -68,6 +68,8 @@ in
         '';
       };
     };
+
+    extraModulePackages = with config.boot.kernelPackages; [ r8125 ];
 
     kernelModules = [
       "nct6775"
@@ -178,18 +180,18 @@ in
     vlans = {
       adm = {
         id = 99;
-        interface = "enp5s0";
+        interface = "enp16s0";
       };
       lab = {
         id = 1099;
-        interface = "enp5s0";
+        interface = "enp16s0";
       };
       labadm = {
         id = 2995;
-        interface = "enp5s0";
+        interface = "enp16s0";
       };
     };
-    interfaces.enp5s0.useDHCP = true;
+    interfaces.enp16s0.useDHCP = true;
     interfaces.adm.useDHCP = true;
     interfaces.lab.useDHCP = true;
     interfaces.labadm = {
