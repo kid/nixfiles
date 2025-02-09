@@ -1,0 +1,82 @@
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
+let
+  inherit (lib.${namespace}) mkModule mkBoolOpt default-attrs;
+in
+mkModule ./. config
+  {
+    plymouth = mkBoolOpt true "Whether to enable the Plymouth boot splash";
+    silent = mkBoolOpt true "Whether to enable silent boot";
+    rememberLast = mkBoolOpt false "Whether to remember the last selected boot";
+  }
+  (cfg: {
+    environment.systemPackages = with pkgs; [
+      efibootmgr
+      efitools
+      efivar
+    ];
+
+    boot = {
+      kernelParams =
+        lib.optionals cfg.plymouth [ "quiet" ]
+        ++ lib.optionals cfg.silent [
+          # tell kernel to not be verbose
+          "quiet"
+
+          # kernel log message level
+          "loglevel=3" # 1: system is unusable | 3: error condition | 7: very verbose
+
+          # udev log message level
+          "udev.log_level=3"
+
+          # lower the udev log level to show only errors or worse
+          "rd.udev.log_level=3"
+
+          # disable systemd status messages
+          "systemd.show_status=auto"
+
+          # rd prefix means systemd-udev will be used instead of initrd
+          "rd.systemd.show_status=auto"
+
+          # disable the cursor in vt to get a black screen during intermissions
+          "vt.global_cursor_default=0"
+        ];
+
+      loader = {
+        efi = {
+          canTouchEfiVariables = true;
+          efiSysMountPoint = "/boot";
+        };
+
+        systemd-boot = {
+          enable = true;
+          configurationLimit = 10;
+
+          extraInstallCommands = lib.mkIf cfg.rememberLast ''
+            ${pkgs.gnused}/bin/sed -E -i 's/default nixos-generation-[0-9]+\.conf/default @saved/g' /boot/loader/loader.conf
+          '';
+        };
+      };
+
+      plymouth = {
+        enable = cfg.plymouth;
+      };
+
+      tmp = default-attrs {
+        useTmpfs = true;
+        cleanOnBoot = true;
+        tmpfsSize = "50%";
+      };
+    };
+
+    services.fwupd = {
+      # FIXME: need to be false for VMs
+      enable = true;
+      daemonSettings.EspUpdateLevel = config.boot.loader.efi.efiSysMountPoint;
+    };
+  })
