@@ -6,8 +6,24 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    snowfall-lib = {
+      url = "github:snowfallorg/lib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
+
+    disko.url = "github:nix-community/disko/latest";
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    hm = {
+    impermanence.url = "github:nix-community/impermanence";
+
+    home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -42,13 +58,13 @@
     # nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     nixvim.url = "github:kid/nixvim";
-    # nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.inputs.flake-parts.follows = "flake-parts";
 
     plasma-manager = {
       url = "github:pjones/plasma-manager/trunk";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "hm";
+      inputs.home-manager.follows = "home-manager";
     };
 
     nixos-cosmic = {
@@ -58,121 +74,161 @@
   };
 
   outputs =
-    inputs@{ self, flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        inputs.devshell.flakeModule
-        inputs.treefmt-nix.flakeModule
-        inputs.pre-commit-hooks-nix.flakeModule
-      ];
+    inputs:
+    inputs.snowfall-lib.mkFlake {
+      inherit inputs;
 
-      systems = [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
+      src = ./.;
 
-      perSystem =
-        { config, pkgs, ... }:
-        {
-          devShells.default = pkgs.mkShell {
-            packages = with pkgs; [
-              gnumake
-              config.treefmt.build.wrapper
-              fd
-              nil
-              just
-            ];
-            shellHook = config.pre-commit.installationScript;
-          };
-          devshells.old = {
-            packages = with pkgs; [
-              gnumake
-              config.treefmt.build.wrapper
-              fd
-              nil
-            ];
+      snowfall = {
+        root = ./nix;
 
-            commands = [
-              {
-                name = "fmt";
-                help = "Check Nix formatting";
-                command = "nixpkgs-fmt \${@} $PRJ_ROOT";
-              }
-              {
-                name = "evalnix";
-                help = "Check Nix parsing";
-                command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
-              }
-              {
-                name = "switch";
-                command = ''
-                  case $OSTYPE in
-                    darwin*)  switch-darwin ;;
-                    linux*)   switch-nixos ;;
-                    *)        echo \"unknown: $OSTYPE\"; exit 1 ;;
-                  esac
-                '';
-              }
-              {
-                name = "switch-nixos";
-                command = "sudo nixos-rebuild switch --flake . && sudo bootctl set-default @saved";
-              }
-              {
-                name = "switch-darwin";
-                command = "TERM=xterm-256color darwin-rebuild switch --flake .";
-              }
-            ];
-          };
+        namespace = "nixfiles";
+      };
 
-          treefmt = {
-            projectRootFile = "flake.nix";
-            # build.check = true;
-            flakeFormatter = true;
-            programs = {
-              nixfmt = {
-                enable = true;
-                package = pkgs.nixfmt-rfc-style;
-              };
-              just.enable = true;
-            };
-          };
-
-          pre-commit.check.enable = true;
-        };
-      flake = {
-        overlays = import ./overlays { inherit inputs; };
-        nixosConfigurations.nixos = inputs.nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit self inputs;
-          };
-          system = "x86_64-linux";
-          modules = [
-            # inputs.nur.modules.nixos.default
-            {
-              nixpkgs = {
-                config = {
-                  allowBroken = true;
-                  allowUnfree = true;
-                };
-                overlays = [
-                  # self.overlays.stable-packages
-                  # inputs.nur.overlays.default
-                  # inputs.nil.overlays.default
-                  # inputs.neovim.overlay
-                  # inputs.neovim-nightly-overlay.overlay
-                ];
-              };
-            }
-            ./hosts/nixos.nix
+      systems = {
+        modules = {
+          nixos = with inputs; [
+            disko.nixosModules.disko
+            stylix.nixosModules.stylix
+            impermanence.nixosModules.impermanence
           ];
-        };
-        darwinConfigurations.M-Y47D2M27VX = inputs.darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = {
-            inherit self inputs;
-          };
-          modules = [ ./hosts/mbp.nix ];
         };
       };
     };
+
+  # outputs =
+  #   inputs@{ self, flake-parts, ... }:
+  #   flake-parts.lib.mkFlake { inherit inputs; } {
+  #     imports = [
+  #       inputs.devshell.flakeModule
+  #       inputs.treefmt-nix.flakeModule
+  #       inputs.pre-commit-hooks-nix.flakeModule
+  #     ];
+  #
+  #     systems = [
+  #       "x86_64-linux"
+  #       "aarch64-darwin"
+  #     ];
+  #
+  #     perSystem =
+  #       { config, pkgs, ... }:
+  #       {
+  #         devShells.default = pkgs.mkShell {
+  #           packages = with pkgs; [
+  #             gnumake
+  #             config.treefmt.build.wrapper
+  #             fd
+  #             nil
+  #             just
+  #           ];
+  #           shellHook = config.pre-commit.installationScript;
+  #         };
+  #         devshells.old = {
+  #           packages = with pkgs; [
+  #             gnumake
+  #             config.treefmt.build.wrapper
+  #             fd
+  #             nil
+  #           ];
+  #
+  #           commands = [
+  #             {
+  #               name = "fmt";
+  #               help = "Check Nix formatting";
+  #               command = "nixpkgs-fmt \${@} $PRJ_ROOT";
+  #             }
+  #             {
+  #               name = "evalnix";
+  #               help = "Check Nix parsing";
+  #               command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
+  #             }
+  #             {
+  #               name = "switch";
+  #               command = ''
+  #                 case $OSTYPE in
+  #                   darwin*)  switch-darwin ;;
+  #                   linux*)   switch-nixos ;;
+  #                   *)        echo \"unknown: $OSTYPE\"; exit 1 ;;
+  #                 esac
+  #               '';
+  #             }
+  #             {
+  #               name = "switch-nixos";
+  #               command = "sudo nixos-rebuild switch --flake . && sudo bootctl set-default @saved";
+  #             }
+  #             {
+  #               name = "switch-darwin";
+  #               command = "TERM=xterm-256color darwin-rebuild switch --flake .";
+  #             }
+  #           ];
+  #         };
+  #
+  #         treefmt = {
+  #           projectRootFile = "flake.nix";
+  #           # build.check = true;
+  #           flakeFormatter = true;
+  #           programs.nixfmt.enable = true;
+  #           programs.nixfmt.package = pkgs.nixfmt-rfc-style;
+  #           programs.just.enable = true;
+  #         };
+  #
+  #         pre-commit.check.enable = true;
+  #       };
+  #     flake = {
+  #       overlays = import ./overlays { inherit inputs; };
+  #       nixosConfigurations.nixos = inputs.nixpkgs.lib.nixosSystem {
+  #         specialArgs = {
+  #           inherit self inputs;
+  #         };
+  #         system = "x86_64-linux";
+  #         modules = [
+  #           {
+  #             nixpkgs = {
+  #               config = {
+  #                 allowBroken = true;
+  #                 allowUnfree = true;
+  #               };
+  #               overlays = [
+  #                 self.overlays.stable-packages
+  #                 inputs.nur.overlays.default
+  #                 # inputs.nil.overlays.default
+  #                 # inputs.neovim.overlay
+  #                 # inputs.neovim-nightly-overlay.overlay
+  #                 # inputs.leftwm.overlay
+  #                 (final: prev: {
+  #                   # fcitx-engines = final.fcitx5;
+  #                   # vulkan-hdr-layer =
+  #                   #   prev.callPackage ./pkgs/vulkan-hdr-layer.nix { };
+  #                   # steam = prev.steam.override {
+  #                   #   extraPkgs = pkgs: with pkgs; [
+  #                   #     xorg.libXcursor
+  #                   #     xorg.libXi
+  #                   #     xorg.libXinerama
+  #                   #     xorg.libXScrnSaver
+  #                   #     libpng
+  #                   #     libpulseaudio
+  #                   #     libvorbis
+  #                   #     stdenv.cc.cc.lib
+  #                   #     libkrb5
+  #                   #     keyutils
+  #                   #   ];
+  #                   # };
+  #                   # nixos-icons = final.stable.nixos-icons;
+  #                 })
+  #               ];
+  #             };
+  #           }
+  #           ./hosts/nixos.nix
+  #         ];
+  #       };
+  #       darwinConfigurations.M-Y47D2M27VX = inputs.darwin.lib.darwinSystem {
+  #         system = "aarch64-darwin";
+  #         specialArgs = {
+  #           inherit self inputs;
+  #         };
+  #         modules = [ ./hosts/mbp.nix ];
+  #       };
+  #     };
+  #   };
 }
