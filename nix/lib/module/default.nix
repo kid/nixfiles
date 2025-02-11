@@ -36,8 +36,8 @@ rec {
         [ namespace ]
         ++ (lib.pipe path [
           (lib.path.removePrefix ../../modules)
-          (lib.path.subpath.components)
-          (lib.tail)
+          lib.path.subpath.components
+          lib.tail
         ]);
       # |> lib.path.removePrefix ../../modules
       # |> lib.path.subpath.components

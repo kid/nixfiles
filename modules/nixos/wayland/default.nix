@@ -1,6 +1,6 @@
 {
   imports = [
-    # ./greetd.nix 
+    # ./greetd.nix
     ../sddm.nix
     ./qtile.nix
   ];

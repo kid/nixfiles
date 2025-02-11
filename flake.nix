@@ -95,6 +95,10 @@
           ];
         };
       };
+
+      outputs-builder = channels: {
+        formatter = inputs.treefmt-nix.lib.mkWrapper channels.nixpkgs ./treefmt.nix;
+      };
     };
 
   # outputs =
