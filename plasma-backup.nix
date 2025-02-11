@@ -265,7 +265,8 @@
     };
     configFile = {
       "baloofilerc"."General"."dbVersion" = 2;
-      "baloofilerc"."General"."exclude filters" = "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.tfstate*,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.terraform,.venv,venv,core-dumps,lost+found";
+      "baloofilerc"."General"."exclude filters" =
+        "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.tfstate*,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.terraform,.venv,venv,core-dumps,lost+found";
       "baloofilerc"."General"."exclude filters version" = 9;
       "dolphinrc"."KFileDialog Settings"."Places Icons Auto-resize" = false;
       "dolphinrc"."KFileDialog Settings"."Places Icons Static Size" = 22;
@@ -328,31 +329,38 @@
       "kwinrc"."Script-polonium"."EngineType" = 2;
       "kwinrc"."Script-polonium"."InsertionPoint" = 2;
       "kwinrc"."Tiling"."padding" = 4;
-      "kwinrc"."Tiling/92e842d7-5928-5c43-884a-4912e7cc82ed"."tiles" = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-      "kwinrc"."Tiling/b59d1eef-ade6-5f8c-9417-f34f488e251c"."tiles" = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-      "kwinrc"."Tiling/f73447bc-9f78-5d9a-84dc-0387f0a1476f"."tiles" = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.23072916666666668},{\"width\":0.4359375000000001},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.5},{\"height\":0.5}],\"width\":0.33333333333333326}]}";
+      "kwinrc"."Tiling/92e842d7-5928-5c43-884a-4912e7cc82ed"."tiles" =
+        "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+      "kwinrc"."Tiling/b59d1eef-ade6-5f8c-9417-f34f488e251c"."tiles" =
+        "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+      "kwinrc"."Tiling/f73447bc-9f78-5d9a-84dc-0387f0a1476f"."tiles" =
+        "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.23072916666666668},{\"width\":0.4359375000000001},{\"layoutDirection\":\"vertical\",\"tiles\":[{\"height\":0.5},{\"height\":0.5}],\"width\":0.33333333333333326}]}";
       "kwinrc"."Xwayland"."Scale" = 1;
       "kwinrulesrc"."1"."Description" = "Settings for org.telegram.desktop";
       "kwinrulesrc"."1"."minimize" = true;
       "kwinrulesrc"."1"."minimizerule" = 3;
       "kwinrulesrc"."1"."wmclass" = "org.telegram.desktop";
       "kwinrulesrc"."1"."wmclassmatch" = 1;
-      "kwinrulesrc"."7b634797-f9e4-4400-aea9-1981652dff74"."Description" = "Settings for steam_app_553850";
+      "kwinrulesrc"."7b634797-f9e4-4400-aea9-1981652dff74"."Description" =
+        "Settings for steam_app_553850";
       "kwinrulesrc"."7b634797-f9e4-4400-aea9-1981652dff74"."fullscreen" = true;
       "kwinrulesrc"."7b634797-f9e4-4400-aea9-1981652dff74"."fullscreenrule" = 5;
       "kwinrulesrc"."7b634797-f9e4-4400-aea9-1981652dff74"."wmclass" = "steam_app_553850";
       "kwinrulesrc"."7b634797-f9e4-4400-aea9-1981652dff74"."wmclassmatch" = 1;
       "kwinrulesrc"."General"."count" = 1;
       "kwinrulesrc"."General"."rules" = 1;
-      "kwinrulesrc"."c17adfa0-f25b-4ad2-be36-6511e19382d6"."Description" = "Settings for org.telegram.desktop";
+      "kwinrulesrc"."c17adfa0-f25b-4ad2-be36-6511e19382d6"."Description" =
+        "Settings for org.telegram.desktop";
       "kwinrulesrc"."c17adfa0-f25b-4ad2-be36-6511e19382d6"."minimize" = true;
       "kwinrulesrc"."c17adfa0-f25b-4ad2-be36-6511e19382d6"."minimizerule" = 3;
       "kwinrulesrc"."c17adfa0-f25b-4ad2-be36-6511e19382d6"."wmclass" = "org.telegram.desktop";
       "kwinrulesrc"."c17adfa0-f25b-4ad2-be36-6511e19382d6"."wmclassmatch" = 1;
-      "kwinrulesrc"."c5675279-ff69-4344-9ae5-c060d1247871"."Description" = "Settings for telegram-desktop org.telegram.desktop";
+      "kwinrulesrc"."c5675279-ff69-4344-9ae5-c060d1247871"."Description" =
+        "Settings for telegram-desktop org.telegram.desktop";
       "kwinrulesrc"."c5675279-ff69-4344-9ae5-c060d1247871"."minimize" = true;
       "kwinrulesrc"."c5675279-ff69-4344-9ae5-c060d1247871"."minimizerule" = 4;
-      "kwinrulesrc"."c5675279-ff69-4344-9ae5-c060d1247871"."wmclass" = "telegram-desktop org.telegram.desktop";
+      "kwinrulesrc"."c5675279-ff69-4344-9ae5-c060d1247871"."wmclass" =
+        "telegram-desktop org.telegram.desktop";
       "kwinrulesrc"."c5675279-ff69-4344-9ae5-c060d1247871"."wmclasscomplete" = true;
       "kwinrulesrc"."c5675279-ff69-4344-9ae5-c060d1247871"."wmclassmatch" = 1;
       "plasma-localerc"."Formats"."LANG" = "en_US.UTF-8";

@@ -9,7 +9,7 @@ in
 git-hooks-nix.lib.${pkgs.system}.run {
   src = ./.;
   hooks = {
-    nixfmt-rfc-style = {
+    nixfmt = {
       enable = true;
     };
 

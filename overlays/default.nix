@@ -3,7 +3,7 @@
   additions = final: _prev: import ../pkgs { pkgs = final; };
 
   stable-packages = final: _prev: {
-    stable = import inputs.nixpkgs-stable { system = final.system; };
+    stable = import inputs.nixpkgs-stable { inherit (final) system; };
   };
 
   # leftwm = prev.leftwm.overrideAttrs (old: rec {
