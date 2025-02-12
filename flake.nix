@@ -42,7 +42,7 @@
     # nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     nixvim.url = "github:kid/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    # nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.inputs.flake-parts.follows = "flake-parts";
 
     plasma-manager = {
