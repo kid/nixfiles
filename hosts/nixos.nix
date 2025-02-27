@@ -105,11 +105,6 @@ in
     };
   };
 
-  services.scx = {
-    enable = true;
-    scheduler = "scx_lavd";
-  };
-
   powerManagement = {
     enable = true;
   };
@@ -121,54 +116,56 @@ in
     };
     # mesa-git.enable = true;
   };
+  fileSystems = {
 
-  # services.xserver.xrandrHeads = [
-  #   {
-  #     output = "HDMI-1";
-  #     monitorConfig = ''Option "Enable" "false"'';
-  #   }
-  #   {
-  #     output = "DP-3";
-  #     primary = true;
-  #   }
-  # ];
-  #
-  # programs.steam.gamescopeSession.args = [ "-O" "DP-3" "-r" "138" ];
+    # services.xserver.xrandrHeads = [
+    #   {
+    #     output = "HDMI-1";
+    #     monitorConfig = ''Option "Enable" "false"'';
+    #   }
+    #   {
+    #     output = "DP-3";
+    #     primary = true;
+    #   }
+    # ];
+    #
+    # programs.steam.gamescopeSession.args = [ "-O" "DP-3" "-r" "138" ];
 
-  fileSystems."/" = {
-    device = "rpool/SYSTEM/root";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-    neededForBoot = true;
-  };
+    "/" = {
+      device = "rpool/SYSTEM/root";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      neededForBoot = true;
+    };
 
-  fileSystems."/var" = {
-    device = "rpool/SYSTEM/var";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-    neededForBoot = true;
-  };
+    "/var" = {
+      device = "rpool/SYSTEM/var";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      neededForBoot = true;
+    };
 
-  fileSystems."/nix" = {
-    device = "rpool/LOCAL/nix";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-  };
+    "/nix" = {
+      device = "rpool/LOCAL/nix";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
 
-  fileSystems."/home" = {
-    device = "rpool/USER/home";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-  };
+    "/home" = {
+      device = "rpool/USER/home";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/EFI";
-    fsType = "vfat";
-  };
+    "/boot" = {
+      device = "/dev/disk/by-label/EFI";
+      fsType = "vfat";
+    };
 
-  fileSystems."/var/lib/docker" = {
-    device = "/dev/zvol/rpool/docker";
-    fsType = "ext4";
+    "/var/lib/docker" = {
+      device = "/dev/zvol/rpool/docker";
+      fsType = "ext4";
+    };
   };
 
   swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
@@ -191,17 +188,19 @@ in
         interface = "enp16s0";
       };
     };
-    interfaces.enp16s0.useDHCP = true;
-    interfaces.adm.useDHCP = true;
-    interfaces.lab.useDHCP = true;
-    interfaces.labadm = {
-      useDHCP = false;
-      ipv4.addresses = [
-        {
-          address = "10.1.99.10";
-          prefixLength = 24;
-        }
-      ];
+    interfaces = {
+      enp16s0.useDHCP = true;
+      adm.useDHCP = true;
+      lab.useDHCP = true;
+      labadm = {
+        useDHCP = false;
+        ipv4.addresses = [
+          {
+            address = "10.1.99.10";
+            prefixLength = 24;
+          }
+        ];
+      };
     };
     firewall.enable = false;
   };
@@ -215,41 +214,62 @@ in
   # };
 
   systemd.network = {
-    networks."40-adm" = {
-      name = "adm";
-      dhcpV4Config = {
-        RouteMetric = 2048;
+    networks = {
+      "40-adm" = {
+        name = "adm";
+        dhcpV4Config = {
+          RouteMetric = 2048;
+        };
       };
-    };
-    networks."40-lab" = {
-      name = "lab";
-      dhcpV4Config = {
-        RouteMetric = 4096;
+      "40-lab" = {
+        name = "lab";
+        dhcpV4Config = {
+          RouteMetric = 4096;
+        };
+        linkConfig.RequiredForOnline = "no";
       };
-      linkConfig.RequiredForOnline = "no";
-    };
-    networks."40-labadm" = {
-      name = "labadm";
-      dhcpV4Config = {
-        RouteMetric = 4096;
+      "40-labadm" = {
+        name = "labadm";
+        dhcpV4Config = {
+          RouteMetric = 4096;
+        };
+        linkConfig.RequiredForOnline = "no";
       };
-      linkConfig.RequiredForOnline = "no";
     };
   };
 
-  services.resolved = {
-    enable = true;
-    dnssec = "false";
-    extraConfig = ''
-      DNSStubListener=no
-    '';
-  };
+  services = {
+    resolved = {
+      enable = true;
+      dnssec = "false";
+      extraConfig = ''
+        DNSStubListener=no
+      '';
+    };
 
-  # services.xserver.videoDrivers = ["amdgpu"];
-  services.xserver.videoDrivers = [
-    "modesetting"
-    "amdgpu"
-  ];
+    # Custom schedulers for gaming
+    scx = {
+      enable = true;
+      scheduler = "scx_lavd";
+    };
+
+    xserver.videoDrivers = [
+      "modesetting"
+      "amdgpu"
+    ];
+
+    hardware.openrgb.enable = true;
+
+    fwupd.enable = true;
+    smartd.enable = true;
+    thermald.enable = true;
+
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+  };
 
   hardware.graphics = {
     enable = true;
@@ -260,20 +280,6 @@ in
   };
 
   environment.variables.AMD_VULKAN_ICD = "RADV";
-
-  services.hardware.openrgb.enable = true;
-
-  services = {
-    fwupd.enable = true;
-    smartd.enable = true;
-    thermald.enable = true;
-  };
-
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

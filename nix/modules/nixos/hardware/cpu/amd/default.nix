@@ -8,7 +8,7 @@
 let
   inherit (lib.${namespace}) mkModule;
 in
-mkModule ./. config { } (_: {
+mkModule ./. false config { } (_: {
   boot = {
     kernelModules = [
       "kvm-amd"

@@ -8,7 +8,7 @@
 let
   inherit (lib.${namespace}) mkModule;
 in
-mkModule ./. config { } (_: {
+mkModule ./. true config { } (_: {
   stylix = {
     enable = true;
     image = ./gruvbox-dark-rainbow.png;
@@ -21,5 +21,6 @@ mkModule ./. config { } (_: {
       sizes.terminal = lib.mkDefault 10;
     };
     polarity = "dark";
+    targets.plymouth.enable = true;
   };
 })

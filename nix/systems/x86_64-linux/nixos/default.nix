@@ -1,17 +1,29 @@
 { inputs, ... }:
 {
-  imports = [
-    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-    inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower
-    ./disko-config.nix
-  ];
+  imports =
+    (with inputs.nixos-hardware.nixosModules; [
+      common-pc
+      common-pc-ssd
+      common-cpu-amd-pstate
+      common-cpu-amd-zenpower
+      common-gpu-amd
+    ])
+    ++ [
+      ./disko-config.nix
+    ];
 
-  nixfiles.hardware.cpu.amd.enable = true;
-  nixfiles.system.boot.enable = true;
-  nixfiles.system.realtime.enable = true;
-  nixfiles.theme.stylix.enable = true;
-
-  system.stateVersion = "25.05";
+  nixfiles = {
+    hardware.cpu.amd.enable = true;
+    system = {
+      boot.enable = true;
+      realtime.enable = true;
+    };
+    theme.stylix.enable = true;
+  };
 
   disko.devices.disk.main.imageSize = "10G";
+
+  hardware.enableRedistributableFirmware = true;
+
+  system.stateVersion = "25.05";
 }
