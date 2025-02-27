@@ -9,33 +9,28 @@ in
 git-hooks-nix.lib.${pkgs.system}.run {
   src = ./.;
   hooks = {
-    nixfmt = {
-      enable = true;
-    };
+    # nixfmt-rfc-style = {
+    #   enable = true;
+    # };
 
     deadnix = {
       enable = true;
-      settings = {
-        edit = true;
-      };
+      # settings = {
+      #   edit = true;
+      # };
     };
 
-    git-cliff = {
-      enable = false;
-    };
+    # git-cliff = {
+    #   enable = false;
+    # };
 
     shfmt.enable = true;
 
     statix.enable = true;
 
-    # pre-commit-hook-ensure-sops-enable = true;
     treefmt = {
       enable = false;
-      # settings.fail-on-change = true;
-      # programs = {
-      #   nixfmt.enable = true;
-      #   nixfmt.package = pkgs.nixfmt-rfc-style;
-      # };
+      packageOverrides.treefmt = inputs.treefmt-nix.lib.mkWrapper pkgs ../../../treefmt.nix;
     };
   };
 }

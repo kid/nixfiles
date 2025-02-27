@@ -30,4 +30,8 @@ mkShell {
 
     inputs.self.checks.${system}.pre-commit-hooks.enabledPackages
   ];
+
+  shellHook = ''
+    ${inputs.self.checks.${system}.pre-commit-hooks.shellHook}
+  '';
 }
