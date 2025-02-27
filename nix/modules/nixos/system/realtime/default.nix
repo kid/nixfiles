@@ -1,3 +1,4 @@
+# TODO: replace with https://github.com/musnix/musnix and/or https://github.com/fps/rtnix
 {
   config,
   lib,
@@ -7,13 +8,13 @@
 let
   inherit (lib.${namespace}) mkModule;
 in
-mkModule ./. config { } (_: {
+mkModule ./. true config { } (_: {
   # port of https://gitlab.archlinux.org/archlinux/packaging/packages/realtime-privileges
   # see https://wiki.archlinux.org/title/Realtime_process_management
   # tldr: realtime processes have higher priority than normal processes
   # and that's a good thing
   users = {
-    users."${config.${namespace}.user.name}".extraGroups = [ "realtime" ];
+    # users."${config.${namespace}.user.name}".extraGroups = [ "realtime" ];
     groups.realtime = { };
   };
 

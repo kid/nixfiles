@@ -8,7 +8,7 @@
 let
   inherit (lib.${namespace}) mkModule mkBoolOpt default-attrs;
 in
-mkModule ./. config
+mkModule ./. true config
   {
     plymouth = mkBoolOpt true "Whether to enable the Plymouth boot splash";
     silent = mkBoolOpt true "Whether to enable silent boot";
@@ -22,14 +22,24 @@ mkModule ./. config
     ];
 
     boot = {
+      # 1: system is unusable | 3: error condition | 7: very verbose
+      consoleLogLevel = 3;
       kernelParams =
-        lib.optionals cfg.plymouth [ "quiet" ]
+        lib.optionals cfg.plymouth [
+          "quiet"
+          "splash"
+
+          # disable the cursor in vt to get a black screen during intermissions
+          "vt.global_cursor_default=0"
+
+          # "console=tty1"
+        ]
         ++ lib.optionals cfg.silent [
           # tell kernel to not be verbose
           "quiet"
 
           # kernel log message level
-          "loglevel=3" # 1: system is unusable | 3: error condition | 7: very verbose
+          # "loglevel=3" # 1: system is unusable | 3: error condition | 7: very verbose
 
           # udev log message level
           "udev.log_level=3"
@@ -43,9 +53,12 @@ mkModule ./. config
           # rd prefix means systemd-udev will be used instead of initrd
           "rd.systemd.show_status=auto"
 
-          # disable the cursor in vt to get a black screen during intermissions
-          "vt.global_cursor_default=0"
         ];
+
+      initrd = {
+        systemd.enable = true;
+        verbose = cfg.plymouth || cfg.silent;
+      };
 
       loader = {
         efi = {
@@ -56,6 +69,7 @@ mkModule ./. config
         systemd-boot = {
           enable = true;
           configurationLimit = 10;
+          consoleMode = "max";
 
           extraInstallCommands = lib.mkIf cfg.rememberLast ''
             ${pkgs.gnused}/bin/sed -E -i 's/default nixos-generation-[0-9]+\.conf/default @saved/g' /boot/loader/loader.conf
@@ -75,8 +89,12 @@ mkModule ./. config
     };
 
     services.fwupd = {
-      # FIXME: need to be false for VMs
+      # NOTE: need to be false for VMs
       enable = true;
       daemonSettings.EspUpdateLevel = config.boot.loader.efi.efiSysMountPoint;
+    };
+
+    virtualisation.vmVariant = {
+      services.fwupd.enable = false;
     };
   })

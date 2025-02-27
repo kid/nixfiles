@@ -27,7 +27,7 @@ rec {
 
   # Helper to create a module with an enable option
   mkModule =
-    path: config: extraOptions: extraConfig:
+    path: enabled: config: extraOptions: extraConfig:
     let
       # relPath = [
       #   namespace
@@ -48,7 +48,7 @@ rec {
     {
       options = setAttrByPath relPath (
         {
-          enable = mkBoolOpt false "Whether to enable the ${name} module";
+          enable = mkBoolOpt enabled "Whether to enable the ${name} module";
         }
         // extraOptions
       );
