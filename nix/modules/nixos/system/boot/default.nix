@@ -8,7 +8,7 @@
 let
   inherit (lib.${namespace}) mkModule mkBoolOpt default-attrs;
 in
-mkModule ./. true config
+mkModule ./. false config
   {
     plymouth = mkBoolOpt true "Whether to enable the Plymouth boot splash";
     silent = mkBoolOpt true "Whether to enable silent boot";
