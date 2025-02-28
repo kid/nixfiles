@@ -1,39 +1,77 @@
 { config, pkgs, ... }:
 {
-  services.getty.autologinUser = config.user.name;
+  services = {
+    getty.autologinUser = config.user.name;
 
-  services.upower.enable = true;
+    upower.enable = true;
+
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      # Should be the default?
+      wireplumber.enable = true;
+      extraConfig.pipewire."92-low-latency" = {
+        context.properties = {
+          default = {
+            clock = {
+              rate = 48000;
+              quantum = 32;
+              min-quantum = 32;
+              max-quantum = 32;
+            };
+          };
+        };
+      };
+    };
+
+    blueman.enable = true;
+
+    locate.enable = true;
+  };
 
   security.polkit.enable = true;
 
   # recommended for pipewire
   security.rtkit.enable = true;
 
-  services.pipewire = {
-    enable = true;
-    alsa = {
+  programs = {
+
+    # Why do we need this again?
+    dconf.enable = true;
+
+    _1password-gui = {
       enable = true;
-      support32Bit = true;
+      polkitPolicyOwners = [ config.user.name ];
     };
-    pulse.enable = true;
-    # Should be the default?
-    wireplumber.enable = true;
-    extraConfig.pipewire."92-low-latency" = {
-      context.properties = {
-        default.clock.rate = 48000;
-        default.clock.quantum = 32;
-        default.clock.min-quantum = 32;
-        default.clock.max-quantum = 32;
-      };
+
+    nix-ld = {
+      enable = true;
+      # libraries = with pkgs; [
+      #   pipewire
+      #   stdenv.cc.cc
+      #   systemd
+      #   vulkan-loader
+      #   xorg.libX11
+      #   xorg.libXScrnSaver
+      #   xorg.libXcomposite
+      #   xorg.libXcursor
+      #   xorg.libXdamage
+      #   xorg.libXext
+      #   xorg.libXfixes
+      #   xorg.libXi
+      #   xorg.libXrandr
+      #   xorg.libXrender
+      #   xorg.libXtst
+      #   xorg.libxcb
+      #   xorg.libxkbfile
+      #   xorg.libxshmfence
+      #   gamemode
+      # ];
     };
-  };
-
-  # Why do we need this again?
-  programs.dconf.enable = true;
-
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ config.user.name ];
   };
 
   powerManagement = {
@@ -50,8 +88,6 @@
       };
     };
   };
-
-  services.blueman.enable = true;
 
   # environment.etc = {
   #   "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
@@ -72,35 +108,8 @@
     # vulkan-hdr-layer
   ];
 
-  programs.nix-ld = {
-    enable = true;
-    # libraries = with pkgs; [
-    #   pipewire
-    #   stdenv.cc.cc
-    #   systemd
-    #   vulkan-loader
-    #   xorg.libX11
-    #   xorg.libXScrnSaver
-    #   xorg.libXcomposite
-    #   xorg.libXcursor
-    #   xorg.libXdamage
-    #   xorg.libXext
-    #   xorg.libXfixes
-    #   xorg.libXi
-    #   xorg.libXrandr
-    #   xorg.libXrender
-    #   xorg.libXtst
-    #   xorg.libxcb
-    #   xorg.libxkbfile
-    #   xorg.libxshmfence
-    #   gamemode
-    # ];
-  };
-
   # NOTE: https://github.com/nix-community/home-manager/issues/4199#issuecomment-2226810699
   system.userActivationScripts.removeConflictingFiles.text = ''
     rm -f /home/${config.user.name}/.gtkrc-2.0.backup
   '';
-
-  services.locate.enable = true;
 }
