@@ -6,9 +6,11 @@
 }:
 {
   home = lib.mkIf (!config.programs.nixvim.enable) {
-    sessionVariables.EDITOR = "nvim";
-    sessionVariables.NVIM_APPNAME = "nvim-astrov4";
-    sessionVariables.MANPAGER = "nvim +Man!";
+    sessionVariables = {
+      EDITOR = "nvim";
+      NVIM_APPNAME = "nvim-astrov4";
+      MANPAGER = "nvim +Man!";
+    };
     packages = with pkgs; [
       neovim
 
