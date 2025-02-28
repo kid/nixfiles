@@ -1,34 +1,83 @@
 {
   config,
   lib,
+  pkgs,
   namespace,
   ...
 }:
 let
-  inherit (lib.${namespace}) mkModule;
+  inherit (lib.${namespace}) mkModule mkOpt;
 in
-mkModule ./. false config { } (_cfg: {
-  documentation = {
-    man.generateCaches = true;
+mkModule ./. false config
+  {
+    package = mkOpt lib.types.package pkgs.nixVersions.latest "Which nix package to use.";
+  }
+  (cfg: {
+    documentation = {
+      man.generateCaches = true;
 
-    nixos = {
-      options = {
-        warningsAreErrors = true;
-        splitBuild = true;
+      nixos = {
+        options = {
+          warningsAreErrors = true;
+          splitBuild = true;
+        };
       };
     };
-  };
 
-  nix = {
-    settings = {
-      experimental-features = [
-        "flakes"
-        "nix-command"
-      ];
-    };
+    nix =
+      let
+        users = [
+          "root"
+          "@wheel"
+          "nix-builder"
+        ];
+      in
+      {
+        inherit (cfg) package;
 
-    generateNixPathFromInputs = true;
-    generateRegistryFromInputs = true;
-    linkInputs = true;
-  };
-})
+        distributedBuilds = true;
+
+        gc = {
+          automatic = true;
+          options = "--delete-older-than 7d";
+        };
+
+        optimise.automatic = true;
+
+        settings = {
+          allowed-users = users;
+          trusted-users = users;
+
+          auto-optimise-store = pkgs.stdenv.isLinux;
+
+          experimental-features = [
+            "flakes"
+            "nix-command"
+            "pipe-operators"
+          ];
+
+          substituters = [
+            "https://cache.nixos.org"
+            "https://nix-community.cachix.org"
+            "https://hyprland.cachix.org"
+            "https://devenv.cachix.org"
+            "https://nixpkgs-wayland.cachix.org"
+            "https://cosmic.cachix.org"
+          ];
+          trusted-public-keys = [
+            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+            "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+            "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+            "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+            "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+          ];
+
+          use-xdg-base-directories = true;
+        };
+
+        generateNixPathFromInputs = true;
+        generateRegistryFromInputs = true;
+        linkInputs = true;
+      };
+  })

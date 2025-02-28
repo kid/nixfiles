@@ -26,6 +26,8 @@ mkShell {
     nix-tree
     nixpkgs-hammering
     nixpkgs-lint
+    nh
+    nvd
     statix
 
     inputs.self.checks.${system}.pre-commit-hooks.enabledPackages
