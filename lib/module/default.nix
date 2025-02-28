@@ -17,10 +17,18 @@ rec {
     type: default: description:
     mkOption { inherit type default description; };
 
-  mkOpt' = type: default: mkOpt type default null;
+  # mkOpt' = type: default: mkOpt type default null;
 
   mkBoolOpt = mkOpt types.bool;
-  mkBoolOpt' = mkOpt types.bool;
+  # mkBoolOpt' = mkOpt' types.bool;
+
+  enabled = {
+    enable = true;
+  };
+
+  disabled = {
+    enable = false;
+  };
 
   # Apply mkDefault to all attributes of a set
   default-attrs = mapAttrs (_key: lib.mkDefault);
