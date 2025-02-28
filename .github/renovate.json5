@@ -8,6 +8,6 @@
   },
   lockFileMaintenance: {
     enabled: true,
-    schedule: 'after 5pm',
+    extends: ['schedule:daily'],
   },
 }
