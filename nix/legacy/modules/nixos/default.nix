@@ -1,5 +1,5 @@
 {
-  self,
+  # self,
   config,
   pkgs,
   ...
@@ -69,10 +69,9 @@
   # always keep a reference to the source flake that generated each generations
   # environment.etc."current-nixos".source = ./.;
 
-  # system.nixos.label = concatStringsSep "-" ((sort (x: y: x < y) cfg.tags) ++ [ "${cfg.version}.${self.sourceInfo.shortRev or "dirty"}" ]);
-  system.nixos.label =
-    (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags))
-    + "${config.system.nixos.version}.${self.sourceInfo.shortRev or "dirty"}";
+  # system.nixos.label =
+  #   (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags))
+  #   + "${config.system.nixos.version}.${self.sourceInfo.shortRev or "dirty"}";
 
   nixpkgs.config.permittedInsecurePackages = [
     # "electron-30.5.1"

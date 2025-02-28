@@ -8,7 +8,7 @@
 let
   inherit (lib.${namespace}) mkModule;
 in
-mkModule ./. true config { } (_: {
+mkModule ./. false config { } (_: {
   stylix = {
     enable = true;
     image = ./gruvbox-dark-rainbow.png;

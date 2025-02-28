@@ -8,7 +8,7 @@
 let
   inherit (lib.${namespace}) mkModule;
 in
-mkModule ./. true config { } (_: {
+mkModule ./. false config { } (_: {
   # port of https://gitlab.archlinux.org/archlinux/packaging/packages/realtime-privileges
   # see https://wiki.archlinux.org/title/Realtime_process_management
   # tldr: realtime processes have higher priority than normal processes
