@@ -16,7 +16,7 @@
     };
     steam = {
       enable = true;
-      gamescopeSession.enable = true;
+      # gamescopeSession.enable = true;
       package = pkgs.steam.override {
         extraLibraries = pkgs: [ pkgs.xorg.libxcb ];
         extraPkgs =

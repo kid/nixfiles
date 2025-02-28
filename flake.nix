@@ -128,9 +128,13 @@
             projectRootFile = "flake.nix";
             # build.check = true;
             flakeFormatter = true;
-            programs.nixfmt.enable = true;
-            programs.nixfmt.package = pkgs.nixfmt-rfc-style;
-            programs.just.enable = true;
+            programs = {
+              nixfmt = {
+                enable = true;
+                package = pkgs.nixfmt-rfc-style;
+              };
+              just.enable = true;
+            };
           };
 
           pre-commit.check.enable = true;
@@ -143,6 +147,7 @@
           };
           system = "x86_64-linux";
           modules = [
+            # inputs.nur.modules.nixos.default
             {
               nixpkgs = {
                 config = {
@@ -150,32 +155,11 @@
                   allowUnfree = true;
                 };
                 overlays = [
-                  self.overlays.stable-packages
-                  inputs.nur.overlays.default
+                  # self.overlays.stable-packages
+                  # inputs.nur.overlays.default
                   # inputs.nil.overlays.default
                   # inputs.neovim.overlay
                   # inputs.neovim-nightly-overlay.overlay
-                  # inputs.leftwm.overlay
-                  (final: prev: {
-                    # fcitx-engines = final.fcitx5;
-                    # vulkan-hdr-layer =
-                    #   prev.callPackage ./pkgs/vulkan-hdr-layer.nix { };
-                    # steam = prev.steam.override {
-                    #   extraPkgs = pkgs: with pkgs; [
-                    #     xorg.libXcursor
-                    #     xorg.libXi
-                    #     xorg.libXinerama
-                    #     xorg.libXScrnSaver
-                    #     libpng
-                    #     libpulseaudio
-                    #     libvorbis
-                    #     stdenv.cc.cc.lib
-                    #     libkrb5
-                    #     keyutils
-                    #   ];
-                    # };
-                    # nixos-icons = final.stable.nixos-icons;
-                  })
                 ];
               };
             }

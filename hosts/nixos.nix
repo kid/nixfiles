@@ -18,8 +18,9 @@ in
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower
     inputs.nixos-hardware.nixosModules.common-gpu-amd
-    inputs.hm.nixosModule
+    inputs.hm.nixosModules.home-manager
     inputs.nur.modules.nixos.default
     inputs.stylix.nixosModules.stylix
     inputs.chaotic.nixosModules.default
@@ -69,17 +70,17 @@ in
       };
     };
 
-    extraModulePackages = with config.boot.kernelPackages; [ r8125 ];
+    # blacklistedKernelModules = [ "r8169" ];
 
-    kernelModules = [
-      "nct6775"
+    extraModulePackages = with config.boot.kernelPackages; [
+      r8125
+      # r8168
     ];
 
     kernelParams = [
       "boot.shell_on_fail"
       "quiet"
       "udev.log_level=0"
-      "amd_state=guided"
       "amdgpu.dcdebugmask=0x400"
       "preempt=full"
     ];
@@ -111,7 +112,6 @@ in
 
   powerManagement = {
     enable = true;
-    cpuFreqGovernor = "schedutil";
   };
 
   chaotic = {
