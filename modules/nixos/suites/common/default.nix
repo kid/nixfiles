@@ -16,6 +16,7 @@ mkModule ./. false config { } (_cfg: {
     systemPackages = with pkgs; [
       curl
       dnsutils
+      usbutils
       lshw
       pciutils
       rsync
