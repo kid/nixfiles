@@ -1,13 +1,13 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    "config:recommended",
+    'config:recommended',
   ],
   nix: {
-    enabled: true
+    enabled: true,
   },
   lockFileMaintenance: {
     enabled: true,
-    schedule: "after 5pm every day"
-  }
+    schedule: 'after 5pm',
+  },
 }
