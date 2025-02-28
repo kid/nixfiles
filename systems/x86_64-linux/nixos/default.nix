@@ -220,6 +220,11 @@ in
   };
 
   services = {
+    udev.extraRules = ''
+      # NOTE: prevent keyboard from continously going to sleep...
+      ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTR{idVendor}=="cb10", ATTR{idProduct}=="1257", ATTR{power/control}="on"
+    '';
+
     resolved = {
       enable = true;
       dnssec = "false";
