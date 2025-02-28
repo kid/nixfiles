@@ -2,7 +2,7 @@
   projectRootFile = "flake.nix";
 
   programs = {
-    nixfmt-rfc-style.enable = true;
+    nixfmt.enable = true;
     just.enable = true;
     statix.enable = true;
     shfmt = {
