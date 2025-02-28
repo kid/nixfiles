@@ -1,4 +1,3 @@
-{ inputs, pkgs, ... }:
 {
   imports = [
     # ../modules/nixos/wayland
