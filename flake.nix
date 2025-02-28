@@ -81,8 +81,6 @@
       src = ./.;
 
       snowfall = {
-        root = ./nix;
-
         namespace = "nixfiles";
       };
 

@@ -23,6 +23,7 @@
     hardware.cpu.amd.enable = true;
     system = {
       boot = {
+        enable = true;
         silent = false;
         plymouth = false;
       };

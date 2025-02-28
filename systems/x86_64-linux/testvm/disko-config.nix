@@ -1,4 +1,3 @@
-{ config, namespace, ... }:
 {
   disko.devices = {
     disk = {
