@@ -1,12 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/5135c59491985879812717f4c9fea69604e7f26f";
 
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
 
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
@@ -22,8 +20,7 @@
     impermanence.url = "github:nix-community/impermanence";
 
     home-manager = {
-      # url = "github:nix-community/home-manager";
-      url = "github:nix-community/home-manager/97d7946b5e107dd03cc82f21165251d4e0159655";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -67,10 +64,10 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nixos-cosmic = {
+    #   url = "github:lilyinstarlight/nixos-cosmic";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =

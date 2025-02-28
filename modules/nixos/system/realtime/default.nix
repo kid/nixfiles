@@ -14,7 +14,8 @@ mkModule ./. false config { } (_: {
   # tldr: realtime processes have higher priority than normal processes
   # and that's a good thing
   users = {
-    # users."${config.${namespace}.user.name}".extraGroups = [ "realtime" ];
+    # TODO: load this from a config
+    users.kid.extraGroups = [ "realtime" ];
     groups.realtime = { };
   };
 

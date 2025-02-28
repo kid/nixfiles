@@ -1,32 +1,3 @@
-# { inputs, ... }:
-# {
-#   imports =
-#     (with inputs.nixos-hardware.nixosModules; [
-#       common-pc
-#       common-pc-ssd
-#       common-cpu-amd-pstate
-#       common-cpu-amd-zenpower
-#       common-gpu-amd
-#     ])
-#     ++ [
-#       ./disko-config.nix
-#     ];
-#
-#   nixfiles = {
-#     hardware.cpu.amd.enable = true;
-#     system = {
-#       boot.enable = true;
-#       realtime.enable = true;
-#     };
-#     theme.stylix.enable = true;
-#   };
-#
-#   disko.devices.disk.main.imageSize = "10G";
-#
-#   hardware.enableRedistributableFirmware = true;
-#
-#   system.stateVersion = "25.05";
-# }
 {
   config,
   inputs,
@@ -35,10 +6,8 @@
   ...
 }:
 let
-  # kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   kernelPackages = pkgs.linuxPackages_cachyos;
 in
-# kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -47,10 +16,11 @@ in
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-amd
-    # inputs.home-manager.nixosModules.home-manager
+
+    # TODO: move to shared modules in flake.nix
     inputs.nur.modules.nixos.default
-    # inputs.stylix.nixosModules.stylix
     inputs.chaotic.nixosModules.default
+
     ../../../legacy/modules/nixos
     ../../../legacy/modules/nixos/desktop.nix
     ../../../legacy/modules/nixos/games.nix
@@ -60,6 +30,8 @@ in
     ../../../legacy/modules/nixos/printing.nix
     ../../../legacy/profiles/plasma6.nix
   ];
+
+  nixfiles.archetypes.gaming.enable = true;
 
   nixpkgs = {
     config = {
@@ -132,10 +104,6 @@ in
     };
   };
 
-  powerManagement = {
-    enable = true;
-  };
-
   chaotic = {
     hdr = {
       # enable = true;
@@ -144,20 +112,6 @@ in
     # mesa-git.enable = true;
   };
   fileSystems = {
-
-    # services.xserver.xrandrHeads = [
-    #   {
-    #     output = "HDMI-1";
-    #     monitorConfig = ''Option "Enable" "false"'';
-    #   }
-    #   {
-    #     output = "DP-3";
-    #     primary = true;
-    #   }
-    # ];
-    #
-    # programs.steam.gamescopeSession.args = [ "-O" "DP-3" "-r" "138" ];
-
     "/" = {
       device = "rpool/SYSTEM/root";
       fsType = "zfs";
@@ -280,11 +234,6 @@ in
       scheduler = "scx_lavd";
     };
 
-    xserver.videoDrivers = [
-      "modesetting"
-      "amdgpu"
-    ];
-
     hardware.openrgb.enable = true;
 
     fwupd.enable = true;
@@ -296,14 +245,6 @@ in
       nssmdns4 = true;
       openFirewall = true;
     };
-  };
-
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [ amdvlk ];
-
-    enable32Bit = true;
-    extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
   };
 
   environment.variables.AMD_VULKAN_ICD = "RADV";

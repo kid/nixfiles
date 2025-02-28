@@ -53,14 +53,6 @@
     ]
     ++ (with config.boot.kernelPackages; [ cpupower ]);
 
-  nix = {
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-    settings.trusted-users = [
-      "root"
-      "@wheel"
-    ];
-  };
-
   security.sudo.wheelNeedsPassword = false;
 
   boot.kernelParams = [

@@ -7,8 +7,7 @@
 {
   imports = [
     ../common.nix
-    ../stylix.nix
-    ../nix.nix
+    # ../stylix.nix
     ./wine.nix
     ./xremap.nix
   ];
@@ -46,22 +45,15 @@
 
   services.openssh.enable = true;
 
-  boot.loader.systemd-boot.configurationLimit = 10;
-  boot.loader.systemd-boot.consoleMode = "auto";
+  # boot.loader.systemd-boot.consoleMode = "auto";
 
   environment.systemPackages = with pkgs; [
     lm_sensors
-    dnsutils
   ];
-
-  stylix = {
-    image = ../home-manager/wallpapers/gruvbox-dark-rainbow.png;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-  };
 
   programs.nh = {
     enable = true;
-    clean.enable = true;
+    # clean.enable = true;
     clean.extraArgs = "--keep-since 7d --keep 5";
     flake = "/home/${config.user.name}/Code/nixfiles";
   };
