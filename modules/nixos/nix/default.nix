@@ -6,13 +6,13 @@
   ...
 }:
 let
-  inherit (lib.${namespace}) mkModule mkOpt;
+  inherit (lib) mkIf;
+  cfg = config.${namespace}.nix;
 in
-mkModule ./. false config
-  {
-    package = mkOpt lib.types.package pkgs.nixVersions.latest "Which nix package to use.";
-  }
-  (cfg: {
+{
+  imports = [ (lib.snowfall.fs.get-file "modules/shared/nix/default.nix") ];
+
+  config = mkIf cfg.enable {
     documentation = {
       man.generateCaches = true;
 
@@ -86,4 +86,5 @@ mkModule ./. false config
         generateRegistryFromInputs = true;
         linkInputs = true;
       };
-  })
+  };
+}
