@@ -17,5 +17,6 @@ mkModule ./. false config { } (_cfg: {
       };
       realtime = enabled;
     };
+    hardware.audio = enabled;
   };
 })

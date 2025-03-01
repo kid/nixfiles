@@ -88,15 +88,21 @@
         namespace = "nixfiles";
       };
 
-      systems = {
-        modules = {
-          nixos = with inputs; [
-            disko.nixosModules.disko
-            stylix.nixosModules.stylix
-            impermanence.nixosModules.impermanence
-          ];
-        };
-      };
+      homes.modules = with inputs; [
+        plasma-manager.homeManagerModules.plasma-manager
+      ];
+
+      # home.users."kid@nixos".modules = with inputs; [
+      #   # Default to enabled and require a config
+      #   xremap.homeManagerModules.default
+      # ];
+
+      systems.modules.nixos = with inputs; [
+        disko.nixosModules.disko
+        impermanence.nixosModules.impermanence
+        stylix.nixosModules.stylix
+        # xremap.nixosModules.default
+      ];
 
       outputs-builder = channels: {
         formatter = inputs.treefmt-nix.lib.mkWrapper channels.nixpkgs ./treefmt.nix;

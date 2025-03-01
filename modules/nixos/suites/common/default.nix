@@ -21,6 +21,9 @@ mkModule ./. false config { } (_cfg: {
       pciutils
       rsync
       util-linux
+
+      watch
+      libqalculate
     ];
   };
 
