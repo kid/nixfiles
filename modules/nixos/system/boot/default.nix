@@ -82,7 +82,8 @@ mkModule ./. false config
       };
 
       tmp = default-attrs {
-        useTmpfs = true;
+        # FIXME: not enough to build kernels...
+        useTmpfs = false;
         cleanOnBoot = true;
         tmpfsSize = "50%";
       };

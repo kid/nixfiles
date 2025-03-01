@@ -20,16 +20,8 @@
     ];
 
   nixfiles = {
+    archetypes.server.enable = true;
     hardware.cpu.amd.enable = true;
-    system = {
-      boot = {
-        enable = true;
-        silent = false;
-        plymouth = false;
-      };
-      realtime.enable = true;
-    };
-    theme.stylix.enable = true;
   };
 
   disko.devices.disk.main.imageSize = "10G";
