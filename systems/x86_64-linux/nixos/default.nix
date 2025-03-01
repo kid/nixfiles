@@ -28,7 +28,7 @@ in
     ../../../legacy/modules/nixos/podman.nix
     ../../../legacy/modules/nixos/virtualization.nix
     ../../../legacy/modules/nixos/printing.nix
-    ../../../legacy/profiles/plasma6.nix
+    ../../../legacy/modules/nixos/sddm.nix
   ];
 
   nixfiles.archetypes.gaming.enable = true;
@@ -78,8 +78,6 @@ in
 
     kernelParams = [
       "boot.shell_on_fail"
-      "quiet"
-      "udev.log_level=0"
       "amdgpu.dcdebugmask=0x400"
       "preempt=full"
     ];
@@ -241,7 +239,6 @@ in
 
     hardware.openrgb.enable = true;
 
-    fwupd.enable = true;
     smartd.enable = true;
     thermald.enable = true;
 
@@ -255,4 +252,10 @@ in
   environment.variables.AMD_VULKAN_ICD = "RADV";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  hardware = {
+    enableAllFirmware = true;
+  };
+
+  user.name = "kid";
 }

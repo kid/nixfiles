@@ -37,6 +37,10 @@ mkModule ./. false config
 
         distributedBuilds = true;
 
+        daemonCPUSchedPolicy = "batch";
+        daemonIOSchedClass = "idle";
+        daemonIOSchedPriority = 7;
+
         gc = {
           automatic = true;
           options = "--delete-older-than 7d";
