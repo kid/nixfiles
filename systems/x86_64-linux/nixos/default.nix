@@ -257,5 +257,5 @@ in
     enableAllFirmware = true;
   };
 
-  user.name = "kid";
+  # user.name = "kid";
 }

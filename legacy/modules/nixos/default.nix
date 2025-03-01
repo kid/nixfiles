@@ -6,34 +6,32 @@
 }:
 {
   imports = [
-    ../common.nix
-    # ../stylix.nix
     ./wine.nix
     ./xremap.nix
   ];
 
   system.stateVersion = "22.11";
 
-  users = {
-    defaultUserShell = pkgs.zsh;
-    mutableUsers = false;
-    users = {
-      "${config.user.name}" = {
-        isNormalUser = true;
-        createHome = true;
-        useDefaultShell = true;
-        extraGroups = [
-          "audio"
-          "video"
-          "wheel"
-          "libvirtd"
-          "incus-admin"
-          "docker"
-        ];
-        initialPassword = "foo";
-      };
-    };
-  };
+  # users = {
+  #   defaultUserShell = pkgs.zsh;
+  #   mutableUsers = false;
+  #   users = {
+  #     "${config.user.name}" = {
+  #       isNormalUser = true;
+  #       createHome = true;
+  #       useDefaultShell = true;
+  #       extraGroups = [
+  #         "audio"
+  #         "video"
+  #         "wheel"
+  #         "libvirtd"
+  #         "incus-admin"
+  #         "docker"
+  #       ];
+  #       initialPassword = "foo";
+  #     };
+  #   };
+  # };
 
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "Europe/Brussels";
@@ -55,7 +53,7 @@
     enable = true;
     # clean.enable = true;
     clean.extraArgs = "--keep-since 7d --keep 5";
-    flake = "/home/${config.user.name}/Code/nixfiles";
+    flake = "/home/${config.nixfiles.user.name}/Code/nixfiles";
   };
 
   # always keep a reference to the source flake that generated each generations

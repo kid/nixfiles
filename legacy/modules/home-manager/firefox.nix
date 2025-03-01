@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 {
   programs.firefox = {
     enable = true;
@@ -17,6 +20,7 @@
       };
     };
 
+    # TODO: replace with config value here
     profiles.kid = {
       # extensions = with inputs.firefox-addons.packages.x86_64-linux; [
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [

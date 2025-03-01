@@ -1,6 +1,7 @@
-{ config, ... }:
+{ config, namespace, ... }:
 {
   hardware.uinput.enable = true;
-  users.groups.uinput.members = [ config.user.name ];
-  users.groups.input.members = [ config.user.name ];
+  # TODO: should add user to group directly isntead?
+  users.groups.uinput.members = [ config.${namespace}.user.name ];
+  users.groups.input.members = [ config.${namespace}.user.name ];
 }
