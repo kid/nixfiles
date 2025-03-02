@@ -13,7 +13,10 @@ mkModule ./. false config { } (_cfg: {
   ${namespace} = {
     nix = mkDefault enabled;
     theme.stylix = mkDefault enabled;
-    hardware.power = mkDefault enabled;
+    hardware = {
+      firmware = mkDefault enabled;
+      power = mkDefault enabled;
+    };
   };
 
   environment = {

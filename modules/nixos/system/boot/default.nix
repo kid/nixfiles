@@ -88,14 +88,4 @@ mkModule ./. false config
         tmpfsSize = "50%";
       };
     };
-
-    services.fwupd = {
-      # NOTE: need to be false for VMs
-      enable = true;
-      daemonSettings.EspUpdateLevel = config.boot.loader.efi.efiSysMountPoint;
-    };
-
-    virtualisation.vmVariant = {
-      services.fwupd.enable = false;
-    };
   })

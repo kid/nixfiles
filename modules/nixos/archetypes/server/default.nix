@@ -12,9 +12,12 @@ mkModule ./. false config { } (_cfg: {
     suites = {
       common = enabled;
     };
-    hardware.power = {
-      governor = "powersave";
-      energy_performance_preference = "balance_power";
+    hardware = {
+      firmware.enable = true;
+      power = {
+        governor = "powersave";
+        energy_performance_preference = "balance_power";
+      };
     };
     system = {
       boot = {
