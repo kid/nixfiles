@@ -1,17 +1,19 @@
 {
   inputs,
   pkgs,
+  config,
   ...
 }:
 let
-  inherit (inputs) git-hooks-nix;
+  inherit (inputs) git-hooks-nix treefmt-nix;
+  treefmt = treefmt-nix.lib.evalModule pkgs ../../treefmt.nix;
 in
 git-hooks-nix.lib.${pkgs.system}.run {
   src = ./.;
   hooks = {
     treefmt = {
       enable = true;
-      packageOverrides.treefmt = inputs.treefmt-nix.lib.mkWrapper pkgs ../../treefmt.nix;
+      package = treefmt.config.build.wrapper;
     };
   };
 }
