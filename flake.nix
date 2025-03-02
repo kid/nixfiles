@@ -67,6 +67,9 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+
     # nixos-cosmic = {
     #   url = "github:lilyinstarlight/nixos-cosmic";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -74,18 +77,28 @@
   };
 
   outputs =
-    inputs@{ self, ... }:
-    (inputs.snowfall-lib.mkFlake {
-      inherit self inputs;
+    inputs:
+    let
+      inherit (inputs) self snowfall-lib;
 
-      src = ./.;
+      lib = snowfall-lib.mkLib {
+        inherit inputs;
+        src = ./.;
+
+        snowfall = {
+          meta = {
+            name = "nixfiles";
+            title = "nixfiles";
+          };
+          namespace = "nixfiles";
+        };
+
+      };
+    in
+    (lib.mkFlake {
 
       channels-config = {
         allowUnfree = true;
-      };
-
-      snowfall = {
-        namespace = "nixfiles";
       };
 
       homes.modules = with inputs; [
@@ -103,6 +116,11 @@
         stylix.nixosModules.stylix
         # xremap.nixosModules.default
       ];
+
+      deploy = lib.mkDeploy {
+        inherit self;
+        overrides.pve0.hostname = "pve0.kidibox.net";
+      };
 
       outputs-builder = channels: {
         formatter = inputs.treefmt-nix.lib.mkWrapper channels.nixpkgs ./treefmt.nix;
