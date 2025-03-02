@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   inputs,
   modulesPath,
   pkgs,
@@ -34,10 +35,8 @@ in
   nixfiles.archetypes.gaming.enable = true;
 
   nixpkgs = {
-    config = {
-      allowBroken = true;
-      allowUnfree = true;
-    };
+    config.allowBroken = true;
+
     overlays = [
       # self.overlays.stable-packages
       inputs.nur.overlays.default
@@ -58,16 +57,6 @@ in
       "sd_mod"
     ];
     resumeDevice = "/dev/disk/by-label/swap";
-
-    loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot = {
-        enable = true;
-        extraInstallCommands = ''
-          ${pkgs.gnused}/bin/sed -E -i 's/default nixos-generation-[0-9]+\.conf/default @saved/g' /boot/loader/loader.conf
-        '';
-      };
-    };
 
     # blacklistedKernelModules = [ "r8169" ];
 
@@ -218,8 +207,8 @@ in
   };
 
   services = {
-    udev.extraRules = ''
-      # NOTE: prevent keyboard from continously going to sleep...
+    # NOTE: prevent keyboard from continously going to sleep...
+    udev.extraRules = lib.mkAfter ''
       ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTR{idVendor}=="cb10", ATTR{idProduct}=="1257", ATTR{power/control}="on"
     '';
 
@@ -252,10 +241,4 @@ in
   environment.variables.AMD_VULKAN_ICD = "RADV";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  hardware = {
-    enableAllFirmware = true;
-  };
-
-  # user.name = "kid";
 }
