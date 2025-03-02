@@ -11,6 +11,8 @@
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
+
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -102,6 +104,7 @@
       # ];
 
       systems.modules.nixos = with inputs; [
+        nixos-facter-modules.nixosModules.facter
         disko.nixosModules.disko
         impermanence.nixosModules.impermanence
         stylix.nixosModules.stylix
