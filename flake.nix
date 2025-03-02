@@ -16,7 +16,10 @@
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
+    ucodenix.url = "github:e-tho/ucodenix";
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
     impermanence.url = "github:nix-community/impermanence";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -108,6 +111,7 @@
         disko.nixosModules.disko
         impermanence.nixosModules.impermanence
         stylix.nixosModules.stylix
+        ucodenix.nixosModules.default
         # xremap.nixosModules.default
       ];
 
