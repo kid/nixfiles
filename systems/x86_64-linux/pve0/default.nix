@@ -1,6 +1,5 @@
 {
   inputs,
-  modulesPath,
   ...
 }:
 {
@@ -8,18 +7,20 @@
     (with inputs.nixos-hardware.nixosModules; [
       common-pc
       common-pc-ssd
-      common-cpu-amd
-      common-cpu-amd-pstate
-      common-cpu-amd-zenpower
+      # common-cpu-amd
+      # common-cpu-amd-pstate
+      # common-cpu-amd-zenpower
     ])
     ++ [
-      "${modulesPath}/installer/scan/not-detected.nix"
+      # "${modulesPath}/installer/scan/not-detected.nix"
       ./disko-config.nix
     ];
 
+  facter.reportPath = ./facter.json;
+
   nixfiles = {
     archetypes.server.enable = true;
-    hardware.cpu.amd.enable = true;
+    # hardware.cpu.amd.enable = true;
   };
 
   disko.devices.disk.main.imageSize = "10G";

@@ -2,7 +2,6 @@
   config,
   lib,
   inputs,
-  modulesPath,
   pkgs,
   ...
 }:
@@ -11,12 +10,12 @@ let
 in
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
+    # (modulesPath + "/installer/scan/not-detected.nix")
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.common-cpu-amd
-    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    # inputs.nixos-hardware.nixosModules.common-cpu-amd
+    # inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    # inputs.nixos-hardware.nixosModules.common-gpu-amd
 
     # TODO: move to shared modules in flake.nix
     inputs.nur.modules.nixos.default
@@ -30,7 +29,11 @@ in
     ../../../legacy/modules/nixos/virtualization.nix
     ../../../legacy/modules/nixos/printing.nix
     ../../../legacy/modules/nixos/sddm.nix
+
+    # { config.facter.reportPath = ./facter.json; }
   ];
+
+  facter.reportPath = ./facter.json;
 
   nixfiles.archetypes.gaming.enable = true;
 
@@ -48,14 +51,14 @@ in
 
     # consoleLogLevel = 0;
     # initrd.verbose = false;
-    initrd.availableKernelModules = [
-      "nvme"
-      "xhci_pci"
-      "ahci"
-      "usb_storage"
-      "usbhid"
-      "sd_mod"
-    ];
+    # initrd.availableKernelModules = [
+    #   "nvme"
+    #   "xhci_pci"
+    #   "ahci"
+    #   "usb_storage"
+    #   "usbhid"
+    #   "sd_mod"
+    # ];
     resumeDevice = "/dev/disk/by-label/swap";
 
     # blacklistedKernelModules = [ "r8169" ];
@@ -229,7 +232,6 @@ in
     hardware.openrgb.enable = true;
 
     smartd.enable = true;
-    thermald.enable = true;
 
     avahi = {
       enable = true;
