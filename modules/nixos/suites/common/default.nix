@@ -10,6 +10,12 @@ let
   inherit (lib.${namespace}) enabled mkModule;
 in
 mkModule ./. false config { } (_cfg: {
+  ${namespace} = {
+    nix = mkDefault enabled;
+    theme.stylix = mkDefault enabled;
+    hardware.power = mkDefault enabled;
+  };
+
   environment = {
     defaultPackages = lib.mkForce [ ];
 
@@ -17,19 +23,18 @@ mkModule ./. false config { } (_cfg: {
       curl
       dnsutils
       usbutils
+      ethtool
       lshw
       pciutils
       rsync
       util-linux
 
+      btop
+      htop
       watch
       libqalculate
     ];
   };
 
-  ${namespace} = {
-    nix = mkDefault enabled;
-    theme.stylix = mkDefault enabled;
-    hardware.power = mkDefault enabled;
-  };
+  hardware.enableAllFirmware = true;
 })
