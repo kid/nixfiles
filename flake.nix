@@ -122,6 +122,17 @@
 
       outputs-builder = channels: {
         formatter = inputs.treefmt-nix.lib.mkWrapper channels.nixpkgs ./treefmt.nix;
+        # checks =
+        #   let
+        #     inherit (channels.nixpkgs) system;
+        #     # FIXME: need to filter on system
+        #     # deploy = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
+        #     nixosMachines = lib.mapAttrs' (
+        #       name: config: lib.nameValuePair "nixosConfiguration-${name}" config.config.system.build.toplevel
+        #     ) ((lib.filterAttrs (_: config: config.pkgs.system == system)) self.nixosConfigurations);
+        #     # devShells = lib.mapAttrs' (n: lib.nameValuePair "devShells-${n}") self.devShells;
+        #   in
+        #   nixosMachines;
       };
     })
     // {
