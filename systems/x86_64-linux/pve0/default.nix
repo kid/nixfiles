@@ -1,4 +1,5 @@
 {
+  lib,
   inputs,
   ...
 }:
@@ -21,7 +22,12 @@
   nixfiles = {
     archetypes.server.enable = true;
     # hardware.cpu.amd.enable = true;
+    roles.hercules-ci.enable = true;
+    security.sops.defaultSopsFile = lib.snowfall.fs.get-file "secrets/pve0/default.sops.yaml";
   };
+
+  # sops.secrets."hercules_ci/caches".sopsFile =
+  #   lib.snowfall.fs.get-file "secrets/pve0/hercules_ci_caches.sops.json";
 
   disko.devices.disk.main.imageSize = "10G";
 

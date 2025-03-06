@@ -11,6 +11,7 @@ mkShell {
     just
     nil
 
+    sops
     act
 
     deadnix
@@ -19,7 +20,6 @@ mkShell {
     nix-diff
     nix-health
     nix-index
-    nix-melt
     nix-melt
     nix-prefetch-git
     nix-search-cli

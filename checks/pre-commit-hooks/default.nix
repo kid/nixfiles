@@ -12,7 +12,7 @@ git-hooks-nix.lib.${pkgs.system}.run {
   src = ./.;
   hooks = {
     treefmt = {
-      enable = true;
+      # enable = true;
       package = treefmt.config.build.wrapper;
     };
   };

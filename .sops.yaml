@@ -1,0 +1,15 @@
+keys:
+  - &nixos_kid age1dghfu7sxwlkf4626eywmgr63y2g7m4x8zs8a6xt2zay3x7dclpnsw776dd
+  - &pve0 age1p2vm095mfftw3uywqkhwmkseusl0l95dpsx9dtd6zu84m0zspa4sjndx3c
+
+creation_rules:
+  - key_groups:
+      - age:
+          - *nixos_kid
+          - *pve0
+
+stores:
+  json:
+    indent: 2
+  yaml:
+    indent: 2
