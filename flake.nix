@@ -70,6 +70,10 @@
 
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
   outputs =
@@ -99,6 +103,7 @@
 
       homes.modules = with inputs; [
         plasma-manager.homeManagerModules.plasma-manager
+        sops-nix.homeManagerModules.sops
       ];
 
       # home.users."kid@nixos".modules = with inputs; [
@@ -106,14 +111,20 @@
       #   xremap.homeManagerModules.default
       # ];
 
-      systems.modules.nixos = with inputs; [
-        nixos-facter-modules.nixosModules.facter
-        disko.nixosModules.disko
-        impermanence.nixosModules.impermanence
-        stylix.nixosModules.stylix
-        ucodenix.nixosModules.default
-        # xremap.nixosModules.default
-      ];
+      systems.modules = {
+        darwin = with inputs; [
+          sops-nix.darwinModules.sops
+        ];
+        nixos = with inputs; [
+          nixos-facter-modules.nixosModules.facter
+          disko.nixosModules.disko
+          impermanence.nixosModules.impermanence
+          stylix.nixosModules.stylix
+          ucodenix.nixosModules.default
+          sops-nix.nixosModules.sops
+          # xremap.nixosModules.default
+        ];
+      };
 
       deploy = lib.mkDeploy {
         inherit self;
@@ -138,6 +149,9 @@
     // {
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
         checks = inputs.nixpkgs.lib.getAttrs [ "x86_64-linux" "x86_64-darwin" ] self.checks;
+      };
+      herculesCI = {
+        ciSystems = [ "x86_64-linux" ];
       };
     };
 }

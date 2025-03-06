@@ -18,6 +18,8 @@
       "LICENSE"
       # unsupported extensions
       "*.{gif,png,svg,tape,mts,lock,mod,sum,toml,env,envrc,org,yuck,gitignore,editorconfig}"
+      # sops files
+      "*.sops.{json,yaml}"
     ];
 
     formatter = {
