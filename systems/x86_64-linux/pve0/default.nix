@@ -24,6 +24,7 @@
     # hardware.cpu.amd.enable = true;
     roles.hercules-ci.enable = true;
     security.sops.defaultSopsFile = lib.snowfall.fs.get-file "secrets/pve0/default.sops.yaml";
+    virtualisation.incus.enable = true;
   };
 
   # sops.secrets."hercules_ci/caches".sopsFile =
