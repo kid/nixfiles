@@ -122,6 +122,8 @@
           stylix.nixosModules.stylix
           ucodenix.nixosModules.default
           sops-nix.nixosModules.sops
+          nixvim.nixosModules.nixvim
+          nixvim.nixosModules.config
           # xremap.nixosModules.default
         ];
       };

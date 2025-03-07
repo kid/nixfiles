@@ -5,7 +5,7 @@
   ...
 }:
 {
-  home = lib.mkIf (!config.programs.nixvim.enable) {
+  home = lib.mkIf (!config.programs.nixvim.enable or false) {
     sessionVariables = {
       EDITOR = "nvim";
       NVIM_APPNAME = "nvim-astrov4";

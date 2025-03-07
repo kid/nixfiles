@@ -44,7 +44,9 @@ mkModule ./. false config { } (_: {
       LESSHISTFILE = "$XDG_CACHE_HOME/less.history";
       WGETRC = "$XDG_CONFIG_HOME/wgetrc";
 
-      MANPAGER = "nvim -c 'set ft=man bt=nowrite noswapfile nobk shada=\\\"NONE\\\" ro noma' +Man! -o -";
+      # MANPAGER = "nvim -c 'set ft=man bt=nowrite noswapfile nobk shada=\\\"NONE\\\" ro noma' +Man! -o -";
+      MANWIDTH = 999;
+      MANPAGER = "nvim +Man! -o -";
       SYSTEMD_PAGERSECURE = "true";
       PAGER = "less -FR";
       LESS = lib.concatStringsSep " " pagerArgs;
