@@ -6,7 +6,6 @@
 {
   imports = [
     ./fonts.nix
-    ./editor.nix
     ./cli.nix
     ./git.nix
     ./ssh.nix
