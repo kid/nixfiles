@@ -23,7 +23,7 @@
     # TODO: replace with config value here
     profiles.kid = {
       # extensions = with inputs.firefox-addons.packages.x86_64-linux; [
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         sponsorblock
         ublock-origin
         improved-tube
