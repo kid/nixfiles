@@ -19,10 +19,10 @@ mkModule ./. false config { } (_cfg: {
     defaultSopsFormat = "yaml";
     secrets = {
       "hercules_ci/token" = {
-        owner = config.services.hercules-ci-agent.user;
+        owner = config.systemd.services.hercules-ci-agent.serviceConfig.User;
       };
       "hercules_ci/caches" = {
-        owner = config.services.hercules-ci-agent.user;
+        owner = config.systemd.services.hercules-ci-agent.serviceConfig.User;
       };
     };
   };
