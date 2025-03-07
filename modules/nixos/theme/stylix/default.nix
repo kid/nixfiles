@@ -21,6 +21,10 @@ mkModule ./. false config { } (_: {
       sizes.terminal = lib.mkDefault 10;
     };
     polarity = "dark";
-    targets.plymouth.enable = true;
+    targets = {
+      # TODO: needed?
+      plymouth.enable = true;
+      nixvim.plugin = "base16-nvim";
+    };
   };
 })

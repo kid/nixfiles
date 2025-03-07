@@ -43,7 +43,6 @@
   ];
 
   programs = {
-    neovim.enable = true;
     nix-ld.enable = true;
   };
 
