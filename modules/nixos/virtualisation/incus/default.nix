@@ -32,6 +32,7 @@ mkModule ./. false config { } (_: {
 
   networking = {
     nftables.enable = true;
+    firewall.allowedTCPPorts = [ 8443 ];
 
     useDHCP = false;
 
