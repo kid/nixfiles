@@ -17,6 +17,7 @@ mkModule ./. false config { } (_cfg: {
       firmware = mkDefault enabled;
       power = mkDefault enabled;
     };
+    system.env = mkDefault enabled;
     security.sops = mkDefault enabled;
   };
 
