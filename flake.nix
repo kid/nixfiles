@@ -34,9 +34,6 @@
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-github-actions.url = "github:nix-community/nix-github-actions";
-    nix-github-actions.inputs.nixpkgs.follows = "nixpkgs";
-
     stylix = {
       url = "github:danth/stylix";
       inputs = {
@@ -147,9 +144,6 @@
       };
     })
     // {
-      githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
-        checks = inputs.nixpkgs.lib.getAttrs [ "x86_64-linux" "x86_64-darwin" ] self.checks;
-      };
       herculesCI = {
         ciSystems = [ "x86_64-linux" ];
       };

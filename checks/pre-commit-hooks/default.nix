@@ -11,6 +11,7 @@ in
 git-hooks-nix.lib.${pkgs.system}.run {
   src = ./.;
   hooks = {
+    commitizen.enable = true;
     treefmt = {
       # enable = true;
       package = treefmt.config.build.wrapper;
