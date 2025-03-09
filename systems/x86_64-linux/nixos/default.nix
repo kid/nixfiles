@@ -2,12 +2,8 @@
   config,
   lib,
   inputs,
-  pkgs,
   ...
 }:
-let
-  kernelPackages = pkgs.linuxPackages_cachyos;
-in
 {
   imports = [
     # (modulesPath + "/installer/scan/not-detected.nix")
@@ -47,7 +43,6 @@ in
   };
 
   boot = {
-    inherit kernelPackages;
 
     # consoleLogLevel = 0;
     # initrd.verbose = false;
@@ -89,7 +84,6 @@ in
     ];
 
     zfs = {
-      package = pkgs.zfs_2_3;
       devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
     };
   };
