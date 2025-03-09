@@ -11,7 +11,8 @@
   ];
 
   nixfiles = {
-    nix.enable = true;
+    suites.common.enable = true;
+    suites.desktop.enable = true;
   };
 
   # services.fwupd.enable = lib.mkForce false;
