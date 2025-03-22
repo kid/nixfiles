@@ -79,6 +79,8 @@
   # };
 
   environment.systemPackages = with pkgs; [
+    floorp
+    freecad-wayland
     pavucontrol
     # vulkan-tools
     # vulkan-loader
