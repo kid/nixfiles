@@ -14,6 +14,7 @@ mkModule ./. false config { } (_cfg: {
         enable = true;
         silent = true;
         plymouth = true;
+        rememberLast = true;
       };
       realtime = enabled;
     };
