@@ -18,7 +18,7 @@ mkModule ./. false config { } (_: {
         name = "JetBrainsMono Nerd Font";
         package = pkgs.nerd-fonts.jetbrains-mono;
       };
-      sizes.terminal = lib.mkDefault 10;
+      sizes.terminal = lib.mkDefault 11;
     };
     polarity = "dark";
     targets = {
