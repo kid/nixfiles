@@ -6,6 +6,9 @@ on:
 
 jobs:
   lockfile:
+    env:
+      BRANCH: chore/update-flake-lock
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -18,6 +21,11 @@ jobs:
         with:
           name: kidibox
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Create or update branch
+        run: |
+          git checkout -b $BRANCH
+          git push -u origin $BRANCH --force
 
       - name: Update flake.lock
         run: nix flake update
@@ -34,9 +42,6 @@ jobs:
             FILES="${FILES} -F files[][path]=$value -F files[][contents]=$(base64 -w0 $value)"
           done
 
-          git checkout -b $BRANCH
-          git push -u origin $BRANCH --force
-
           gh api graphql \
             -F githubRepository=$GITHUB_REPOSITORY \
             -F branchName=$BRANCH \
@@ -48,7 +53,6 @@ jobs:
           gh pr create --fill --base main --head $BRANCH
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: chore/update-flake-lock
 
       # - name: Commit changes
       #   env:
