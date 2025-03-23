@@ -39,6 +39,7 @@ jobs:
             --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
           git checkout -b "$DESTINATION_BRANCH"
+          git push -u origin "$DESTINATION_BRANCH"
           gh pr create --title "Update $FILE_TO_COMMIT" --body "This PR updates $FILE_TO_COMMIT" --head $DESTINATION_BRANCH --base main
 
       # - name: Update flake.lock
