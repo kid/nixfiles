@@ -24,13 +24,15 @@ jobs:
 
       - name: Commit changes
         run: |
-          set -x
-          CHANGED=($(git diff --name-only))
+          mapfile -t CHANGED < <(git diff --name-only | xargs)
 
           # TODO: use an array for $FILES
           for value in "${CHANGED[@]}"; do
             FILES="${FILES} -F files[][path]=$value -F files[][contents]=$(base64 -w0 $value)"
           done
+
+          git checkout -b $BRANCH
+          git push -u origin $BRANCH --force
 
           gh api graphql \
             -F githubRepository=$GITHUB_REPOSITORY \
@@ -38,8 +40,7 @@ jobs:
             -F expectedHeadOid=$(git rev-parse HEAD) \
             -F commitMessage="chore: update flake.lock" \
             -F 'query=@.github/api/createCommitOnBranch.gql' \
-            ${FILES} \
-            | jq
+            ${FILES}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: chore/update-flake-lock
