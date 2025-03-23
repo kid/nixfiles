@@ -13,6 +13,7 @@ mkModule ./. false config { } (_cfg: {
     settings = {
       clusterJoinTokenPath = config.sops.secrets."hercules_ci/token".path;
       binaryCachesPath = config.sops.secrets."hercules_ci/caches".path;
+      # concurrentTasks = 4;
     };
   };
   sops = {
@@ -25,5 +26,32 @@ mkModule ./. false config { } (_cfg: {
         owner = config.systemd.services.hercules-ci-agent.serviceConfig.User;
       };
     };
+  };
+
+  # TODO: move this somewhere else
+  services.earlyoom = {
+    enable = true;
+    # enableNotifications = true;
+    extraArgs =
+      let
+        catPatterns = patterns: builtins.concatStringsSep "|" patterns;
+        preferPatterns = [
+          "hercules-ci-age"
+        ];
+        avoidPatterns = [
+          "bash"
+          "sshd"
+          "systemd"
+          "systemd-logind"
+          "systemd-udevd"
+          "systemd-networkd"
+        ];
+      in
+      [
+        "--prefer"
+        "'^(${catPatterns preferPatterns})$'"
+        "--avoid"
+        "'^(${catPatterns avoidPatterns})$'"
+      ];
   };
 })
