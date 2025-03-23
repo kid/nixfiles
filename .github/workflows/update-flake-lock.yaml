@@ -24,6 +24,9 @@ jobs:
 
       - name: Commit changes
         run: |
+          set -euo pipefail
+          set -x
+
           mapfile -t CHANGED < <(git diff --name-only | xargs)
 
           # TODO: use an array for $FILES
