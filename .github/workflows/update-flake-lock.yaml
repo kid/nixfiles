@@ -14,8 +14,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: cachix/cachix-action@v15
         with:
@@ -62,13 +63,11 @@ jobs:
           PR_EXISTS=$(gh pr list --head "$BRANCH" --json number -q '.[0].number')
 
           if [ -z "$PR_EXISTS" ]; then
-            # git fetch
-            # git reset --hard "origin/$BRANCH"
             gh pr create \
               --title "chore: update flake.lock" \
               --body "" \
               --base "$(git rev-parse HEAD)" \
-              --head "$BRANCH"
+              --head "origin/$BRANCH"
           else
             echo "Pull request already exists: #$PR_EXISTS"
           fi
