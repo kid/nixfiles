@@ -33,11 +33,6 @@ mkModule ./. false config { } (_: {
   networking = {
     nftables.enable = true;
     firewall.allowedTCPPorts = [ 8443 ];
-
-    useDHCP = false;
-
-    bridges."br0".interfaces = [ "enp36s0f0" ];
-    interfaces.br0.useDHCP = true;
   };
 
   users.users.${config.${namespace}.user.name}.extraGroups = [ "incus-admin" ];

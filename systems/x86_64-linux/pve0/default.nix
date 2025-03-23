@@ -13,7 +13,6 @@
       # common-cpu-amd-zenpower
     ])
     ++ [
-      # "${modulesPath}/installer/scan/not-detected.nix"
       ./disko-config.nix
     ];
 
@@ -21,14 +20,10 @@
 
   nixfiles = {
     archetypes.server.enable = true;
-    # hardware.cpu.amd.enable = true;
     roles.hercules-ci.enable = true;
     security.sops.defaultSopsFile = lib.snowfall.fs.get-file "secrets/pve0/default.sops.yaml";
     virtualisation.incus.enable = true;
   };
-
-  # sops.secrets."hercules_ci/caches".sopsFile =
-  #   lib.snowfall.fs.get-file "secrets/pve0/hercules_ci_caches.sops.json";
 
   disko.devices.disk.main.imageSize = "10G";
 
@@ -54,5 +49,18 @@
         PasswordAuthentication = true;
       };
     };
+  };
+
+  networking = {
+    useDHCP = false;
+
+    bridges.br0.interfaces = [
+      "enp38s0"
+      "enp39s0"
+      "enp36s0f0"
+      "enp36s0f1"
+    ];
+
+    interfaces.br0.useDHCP = true;
   };
 }
