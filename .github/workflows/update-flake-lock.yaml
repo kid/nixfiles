@@ -48,10 +48,11 @@ jobs:
             -F branchName="$BRANCH" \
             -F expectedHeadOid="$(git rev-parse HEAD)" \
             -F commitMessage="chore: update flake.lock" \
-            -F 'query=@.github/api/createCommitOnBranch.gql' \
+            -F "query=@.github/api/createCommitOnBranch.gql" \
             "${FILES[@]}"
 
-          git pull
+          git fetch
+          git reset --hard "origin/$BRANCH"
           gh pr create --fill --base main --head "$BRANCH"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
