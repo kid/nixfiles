@@ -24,6 +24,7 @@ jobs:
 
       - name: Commit changes
         run: |
+          set -x
           CHANGED=($(git diff --name-only))
 
           # TODO: use an array for $FILES
