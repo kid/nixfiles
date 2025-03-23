@@ -10,16 +10,40 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
+
       - uses: cachix/cachix-action@v15
         with:
           name: kidibox
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
-        with:
-          pr-title: "Update flake.lock"
-          pr-labels: |
-            dependencies
-            automated
+        run: nix flake update
+
+      - name: Commit changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILE_TO_COMMIT: flake.lock
+          DESTINATION_BRANCH: chore/update-flake-lock
+        run: |
+          export TODAY=$(date -u '+%Y-%m-%d')
+          export MESSAGE="chore: update $FILE_TO_COMMIT for $TODAY"
+          export SHA=$(git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT)
+          export CONTENT=$(base64 -i $FILE_TO_COMMIT)
+          gh api --method PUT /repos/:owner/:repo/contents/$FILE_TO_COMMIT \
+            --field message="$MESSAGE" \
+            --field content="$CONTENT" \
+            --field encoding="base64" \
+            --field branch="$DESTINATION_BRANCH" \
+            --field sha="$SHA"
+          gh pr create --title "Update $FILE_TO_COMMIT" --body "This PR updates $FILE_TO_COMMIT" --head $DESTINATION_BRANCH --base main
+
+      # - name: Update flake.lock
+      #   uses: DeterminateSystems/update-flake-lock@main
+      #   with:
+      #     pr-title: "Update flake.lock"
+      #     pr-labels: |
+      #       dependencies
+      #       automated
