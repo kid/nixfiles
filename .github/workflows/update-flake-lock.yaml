@@ -52,7 +52,7 @@ jobs:
             -F 'query=@.github/api/createCommitOnBranch.gql' \
             "${FILES[@]}"
 
-          gh pr create --fill --base main --head "$BRANCH"
+          gh pr create --fill --base main --head "origin/$BRANCH"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
