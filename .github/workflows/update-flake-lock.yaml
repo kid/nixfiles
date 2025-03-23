@@ -63,7 +63,8 @@ jobs:
           PR_EXISTS=$(gh pr list --head "$BRANCH" --json number -q '.[0].number')
 
           if [ -z "$PR_EXISTS" ]; then
-            echo $GITHUB_REF
+            git reset --hard "$GITHUB_REF"
+            git pull
             gh pr create \
               --title "chore: update flake.lock" \
               --body "" \
