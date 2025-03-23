@@ -64,9 +64,9 @@ jobs:
           PR_EXISTS=$(gh pr list --head "$BRANCH" --json number -q '.[0].number')
 
           if [ -z "$PR_EXISTS" ]; then
-            git fetch
-            git reset --hard "origin/$BRANCH"
-            gh pr create --fill --base "$(git rev-parse HEAD)" --head "$BRANCH"
+            # git fetch
+            # git reset --hard "origin/$BRANCH"
+            gh pr create --title "chore: update flake.lock" --body "" --base "$(git rev-parse HEAD)" --head "$BRANCH"
           else
             echo "Pull request already exists: #$PR_EXISTS"
           fi
