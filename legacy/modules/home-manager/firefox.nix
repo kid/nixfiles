@@ -2,26 +2,23 @@
   pkgs,
   ...
 }:
-{
-  programs.firefox = {
-    enable = true;
-
-    policies = {
-      DisableTelemetry = true;
-      DisableFirefoxStudies = true;
-      DontCheckDefaultBrowser = true;
-      DisablePocket = true;
-      SearchBar = "unified";
-      EnableTrackingProtection = {
-        Value = true;
-        Locked = true;
-        Cryptomining = true;
-        Fingerprinting = true;
-      };
+let
+  policies = {
+    DisableTelemetry = true;
+    DisableFirefoxStudies = true;
+    DontCheckDefaultBrowser = true;
+    DisablePocket = true;
+    SearchBar = "unified";
+    EnableTrackingProtection = {
+      Value = true;
+      Locked = true;
+      Cryptomining = true;
+      Fingerprinting = true;
     };
-
-    # TODO: replace with config value here
-    profiles.kid = {
+  };
+  # TODO: replace with config value here
+  profiles = {
+    kid = {
       # extensions = with inputs.firefox-addons.packages.x86_64-linux; [
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         sponsorblock
@@ -135,4 +132,19 @@
       };
     };
   };
+
+in
+{
+  programs.firefox = {
+    enable = true;
+    inherit policies profiles;
+  };
+
+  programs.floorp = {
+    enable = true;
+    inherit policies profiles;
+  };
+
+  stylix.targets.firefox.profileNames = [ "kid" ];
+  # stylix.targets.floorp.profileNames = [ "kid" ];
 }
