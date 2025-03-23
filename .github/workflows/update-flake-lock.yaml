@@ -36,6 +36,7 @@ jobs:
           set -x
 
           CHANGED=($(git diff --name-only | xargs))
+          echo $CHANGED
 
           # TODO: use an array for $FILES
           for value in "${CHANGED[@]}"; do
