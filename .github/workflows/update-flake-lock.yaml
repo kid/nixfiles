@@ -33,7 +33,7 @@ jobs:
           done
 
           gh api graphql \
-            -F $githubRepository=$GITHUB_REPOSITORY \
+            -F githubRepository=$GITHUB_REPOSITORY \
             -F branchName=$BRANCH \
             -F expectedHeadOid=$(git rev-parse HEAD) \
             -F commitMessage="chore: update flake.lock" \
