@@ -66,7 +66,7 @@ jobs:
             gh pr create \
               --title "chore: update flake.lock" \
               --body "" \
-              --base "$(git rev-parse HEAD)" \
+              --base "${GITHUB_REF}" \
               --head "origin/$BRANCH"
           else
             echo "Pull request already exists: #$PR_EXISTS"
