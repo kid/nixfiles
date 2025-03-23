@@ -32,26 +32,27 @@ jobs:
 
       - name: Commit changes
         run: |
+          #!/usr/bin/env bash
+
           set -euo pipefail
           set -x
 
-          CHANGED=($(git diff --name-only | xargs))
-          echo $CHANGED
+          mapfile -t CHANGED < <(git diff --name-only | xargs)
 
-          # TODO: use an array for $FILES
+          declare -a FILES
           for value in "${CHANGED[@]}"; do
-            FILES="${FILES} -F files[][path]=$value -F files[][contents]=$(base64 -w0 $value)"
+            FILES+=(-F "files[][path]=$value" -F "files[][contents]=$(base64 -w0 "$value")")
           done
 
           gh api graphql \
-            -F githubRepository=$GITHUB_REPOSITORY \
-            -F branchName=$BRANCH \
-            -F expectedHeadOid=$(git rev-parse HEAD) \
+            -F githubRepository="$GITHUB_REPOSITORY" \
+            -F branchName="$BRANCH" \
+            -F expectedHeadOid="$(git rev-parse HEAD)" \
             -F commitMessage="chore: update flake.lock" \
             -F 'query=@.github/api/createCommitOnBranch.gql' \
-            ${FILES}
+            "${FILES[@]}"
 
-          gh pr create --fill --base main --head $BRANCH
+          gh pr create --fill --base main --head "$BRANCH"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
