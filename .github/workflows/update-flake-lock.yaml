@@ -51,36 +51,24 @@ jobs:
             -F "query=@.github/api/createCommitOnBranch.gql" \
             "${FILES[@]}"
 
-          git fetch
-          git reset --hard "origin/$BRANCH"
-          gh pr create --fill --base main --head "$BRANCH"
+          gh pr create --fill --base "$(git rev-parse HEAD)" --head "$BRANCH"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Commit changes
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     FILE_TO_COMMIT: flake.lock
-      #     DESTINATION_BRANCH: chore/update-flake-lock
-      #   run: |
-      #     export TODAY=$(date -u '+%Y-%m-%d')
-      #     export MESSAGE="chore: update $FILE_TO_COMMIT for $TODAY"
-      #     export SHA=$(git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT)
-      #     export CONTENT=$(base64 -i $FILE_TO_COMMIT)
-      #     git checkout -b "$DESTINATION_BRANCH"
-      #     git push -u origin "$DESTINATION_BRANCH"
-      #     gh api --method PUT /repos/:owner/:repo/contents/$FILE_TO_COMMIT \
-      #       --field message="$MESSAGE" \
-      #       --field content="$CONTENT" \
-      #       --field encoding="base64" \
-      #       --field branch="$DESTINATION_BRANCH" \
-      #       --field sha="$SHA"
-      #     gh pr create --title "Update $FILE_TO_COMMIT" --body "This PR updates $FILE_TO_COMMIT" --head $DESTINATION_BRANCH --base main
+      - name: Create pull request if not exists
+        run: |
+          #!/usr/bin/env bash
 
-      # - name: Update flake.lock
-      #   uses: DeterminateSystems/update-flake-lock@main
-      #   with:
-      #     pr-title: "Update flake.lock"
-      #     pr-labels: |
-      #       dependencies
-      #       automated
+          set -euo pipefail
+
+          PR_EXISTS=$(gh pr list --head "$BRANCH" --json number -q '.[0].number')
+
+          if [ -z "$PR_EXISTS" ]; then
+            git fetch
+            git reset --hard "origin/$BRANCH"
+            gh pr create --fill --base "$(git rev-parse HEAD)" --head "$BRANCH"
+          else
+            echo "Pull request already exists: #$PR_EXISTS"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
