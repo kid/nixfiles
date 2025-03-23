@@ -6,20 +6,72 @@ on:
 
 jobs:
   lockfile:
+    env:
+      BRANCH: chore/update-flake-lock
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: cachix/cachix-action@v15
         with:
           name: kidibox
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Create or update branch
+        run: |
+          git checkout -b $BRANCH
+          git push -u origin $BRANCH --force
+
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
-        with:
-          pr-title: "Update flake.lock"
-          pr-labels: |
-            dependencies
-            automated
+        run: nix flake update
+
+      - name: Commit changes
+        run: |
+          #!/usr/bin/env bash
+
+          set -euo pipefail
+
+          mapfile -t CHANGED < <(git diff --name-only | xargs)
+
+          declare -a FILES
+          for value in "${CHANGED[@]}"; do
+            FILES+=(-F "files[][path]=$value" -F "files[][contents]=$(base64 -w0 "$value")")
+          done
+
+          gh api graphql \
+            -F githubRepository="$GITHUB_REPOSITORY" \
+            -F branchName="$BRANCH" \
+            -F expectedHeadOid="$(git rev-parse HEAD)" \
+            -F commitMessage="chore: update flake.lock" \
+            -F "query=@.github/api/createCommitOnBranch.gql" \
+            "${FILES[@]}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create pull request if not exists
+        run: |
+          #!/usr/bin/env bash
+
+          set -euo pipefail
+
+          PR_EXISTS=$(gh pr list --head "$BRANCH" --json number -q '.[0].number')
+
+          if [ -z "$PR_EXISTS" ]; then
+            git reset --hard "$GITHUB_REF"
+            git pull
+            gh pr create \
+              --title "chore: update flake.lock" \
+              --body "" \
+              --base "${GITHUB_REF}" \
+              --head "${BRANCH}"
+          else
+            echo "Pull request already exists: #$PR_EXISTS"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
