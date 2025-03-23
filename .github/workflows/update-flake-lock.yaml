@@ -35,7 +35,6 @@ jobs:
           #!/usr/bin/env bash
 
           set -euo pipefail
-          set -x
 
           mapfile -t CHANGED < <(git diff --name-only | xargs)
 
@@ -52,7 +51,8 @@ jobs:
             -F 'query=@.github/api/createCommitOnBranch.gql' \
             "${FILES[@]}"
 
-          gh pr create --fill --base main --head "origin/$BRANCH"
+          git pull
+          gh pr create --fill --base main --head "$BRANCH"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
