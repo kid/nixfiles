@@ -31,7 +31,7 @@ jobs:
             -F expectedHeadOid=$(git rev-parse HEAD) \
             -F commitMessage="chore: update flake.lock" \
             -F 'query=@.github/api/createCommitOnBranch.gql'
-            $FILES
+            "${CHANGED[@]}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: chore/update-flake-lock
