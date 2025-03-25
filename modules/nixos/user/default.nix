@@ -2,17 +2,16 @@
   config,
   lib,
   pkgs,
-  namespace,
   ...
 }:
 let
   inherit (lib) types;
-  inherit (lib.${namespace}) mkOpt;
+  inherit (lib.nixfiles) mkOpt;
 
-  cfg = config.${namespace}.user;
+  cfg = config.nixfiles.user;
 in
 {
-  options.${namespace}.user = with types; {
+  options.nixfiles.user = with types; {
     name = mkOpt str "kid" "The name of the user account.";
     fullName = mkOpt str "Arnaud Rebts" "The full name of the user.";
     email = mkOpt str "arnaud.rebts@gmail.com" "The email of the user.";

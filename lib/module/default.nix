@@ -1,6 +1,5 @@
 {
   lib,
-  namespace,
   ...
 }:
 let
@@ -41,7 +40,7 @@ rec {
       #   namespace
       # ] ++ lib.tail (lib.path.subpath.components (lib.path.removePrefix ../../modules path));
       relPath =
-        [ namespace ]
+        [ "nixfiles" ]
         ++ (lib.pipe path [
           (lib.path.removePrefix ../../modules)
           lib.path.subpath.components

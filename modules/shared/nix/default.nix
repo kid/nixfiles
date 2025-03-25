@@ -2,20 +2,24 @@
   config,
   lib,
   pkgs,
-  namespace,
   ...
 }:
 let
-  inherit (lib.${namespace}) mkModule mkOpt;
+  inherit (lib) mkEnableOption mkIf;
+  inherit (lib.nixfiles) mkOpt;
+  cfg = config.nixfiles.nix;
 in
-mkModule ./. false config
-  {
+{
+  options.nixfiles.nix = {
+    enable = mkEnableOption "nix";
     package = mkOpt lib.types.package pkgs.nixVersions.latest "Which nix package to use.";
-  }
-  (_cfg: {
+  };
+
+  config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       cachix
       deploy-rs
       # nix-prefetch-nix
     ];
-  })
+  };
+}

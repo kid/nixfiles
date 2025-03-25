@@ -1,15 +1,19 @@
 {
   config,
   lib,
-  namespace,
   ...
 }:
+with lib;
 let
-  inherit (lib.${namespace}) enabled mkModule;
+  cfg = config.nixfiles.archetypes.gaming;
 in
-mkModule ./. false config { } (_cfg: {
-  ${namespace}.suites = {
-    common = enabled;
-    desktop = enabled;
+{
+  options.nixfiles.archetypes.gaming.enable = mkEnableOption "gaming";
+
+  config = mkIf cfg.enable {
+    nixfiles.suites = {
+      common.enable = true;
+      desktop.enable = true;
+    };
   };
-})
+}

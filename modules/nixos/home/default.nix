@@ -2,23 +2,21 @@
   config,
   lib,
   options,
-  namespace,
   ...
 }:
+with lib;
 let
-  inherit (lib) types mkAliasDefinitions;
-  inherit (lib.${namespace}) mkOpt;
+  inherit (lib.nixfiles) mkOpt;
 in
 {
-
-  options.${namespace}.home = with types; {
+  options.nixfiles.home = with types; {
     extraOptions = mkOpt attrs { } "Options to pass directly to home-manager.";
     file = mkOpt attrs { } "A set of files to be managed by home-manager's <option>home.file</option>.";
   };
 
   config = {
-    ${namespace}.home.extraOptions = {
-      home.file = mkAliasDefinitions options.${namespace}.home.file;
+    nixfiles.home.extraOptions = {
+      home.file = mkAliasDefinitions options.nixfiles.home.file;
       home.stateVersion = config.system.stateVersion;
       xdg.enable = true;
     };
@@ -30,7 +28,7 @@ in
       useGlobalPkgs = true;
       useUserPackages = true;
 
-      users.${config.${namespace}.user.name} = mkAliasDefinitions options.${namespace}.home.extraOptions;
+      users.${config.nixfiles.user.name} = mkAliasDefinitions options.nixfiles.home.extraOptions;
 
       verbose = true;
     };

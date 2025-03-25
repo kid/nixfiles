@@ -49,7 +49,7 @@
                       "noatime"
                     ];
                   };
-                  # "/home/${config.${namespace}.user.name}" = { };
+                  # "/home/${config.nixfiles.user.name}" = { };
                   "/nix" = {
                     mountpoint = "/nix";
                     mountOptions = [

@@ -2,21 +2,23 @@
   config,
   lib,
   pkgs,
-  namespace,
   ...
 }:
+with lib;
 let
-  inherit (lib) mkForce types;
-  inherit (lib.${namespace}) mkModule mkOpt;
+  inherit (lib.nixfiles) mkOpt;
+  cfg = config.nixfiles.hardware.power;
 in
-mkModule ./. false config
-  {
+{
+  options.nixfiles.hardware.power = {
+    enable = mkEnableOption "Power";
     governor = mkOpt types.str "performance" "Governor used to regulate CPU frequency";
     energy_performance_preference =
       mkOpt types.str "balance_performance"
         "Energy performance preference";
-  }
-  (cfg: {
+  };
+
+  config = mkIf cfg.enable {
     environment.systemPackages =
       with pkgs;
       [
@@ -54,4 +56,5 @@ mkModule ./. false config
         SUBSYSTEM=="ata_port", KERNEL=="ata*", ATTR{device/power/control}="auto"
       '';
     };
-  })
+  };
+}

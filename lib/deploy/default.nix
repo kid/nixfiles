@@ -1,13 +1,12 @@
 {
   lib,
   inputs,
-  namespace,
 
 }:
 let
   inherit (inputs) deploy-rs;
 in
-rec {
+{
   #@ self: Flake, override: Attrs ? {} -> Attrs
   mkDeploy =
     {
@@ -21,7 +20,7 @@ rec {
         result: name:
         let
           host = hosts.${name};
-          user = host.config.${namespace}.user.name or null;
+          user = host.config.nixfiles.user.name or null;
           inherit (host.pkgs) system;
         in
         result
@@ -38,7 +37,7 @@ rec {
                   user = "root";
                   sshUser = user;
                 };
-              # // lib.optionalAttrs (host.config.${namespace}.security.doas.enable or false) { sudo = "doas -u"; };
+              # // lib.optionalAttrs (host.config.nixfiles.security.doas.enable or false) { sudo = "doas -u"; };
             };
           };
         }

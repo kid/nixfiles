@@ -1,30 +1,36 @@
 {
   config,
   lib,
-  namespace,
   pkgs,
   ...
 }:
+with lib;
 let
-  inherit (lib.${namespace}) mkModule;
+  cfg = config.nixfiles.theme.stylix;
 in
-mkModule ./. false config { } (_: {
-  stylix = {
-    enable = true;
-    image = ./gruvbox-dark-rainbow.png;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-    fonts = {
-      monospace = {
-        name = "JetBrainsMono Nerd Font";
-        package = pkgs.nerd-fonts.jetbrains-mono;
+{
+  options.nixfiles.theme.stylix = {
+    enable = mkEnableOption "Stylix";
+  };
+
+  config = mkIf cfg.enable {
+    stylix = {
+      enable = true;
+      image = ./gruvbox-dark-rainbow.png;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+      fonts = {
+        monospace = {
+          name = "JetBrainsMono Nerd Font Propo";
+          package = pkgs.nerd-fonts.jetbrains-mono;
+        };
+        sizes.terminal = lib.mkDefault 11;
       };
-      sizes.terminal = lib.mkDefault 11;
-    };
-    polarity = "dark";
-    targets = {
-      # TODO: needed?
-      plymouth.enable = true;
-      nixvim.plugin = "base16-nvim";
+      polarity = "dark";
+      targets = {
+        # TODO: needed?
+        plymouth.enable = true;
+        nixvim.plugin = "base16-nvim";
+      };
     };
   };
-})
+}

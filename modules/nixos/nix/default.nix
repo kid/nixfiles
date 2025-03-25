@@ -2,12 +2,11 @@
   config,
   lib,
   pkgs,
-  namespace,
   ...
 }:
+with lib;
 let
-  inherit (lib) mkIf;
-  cfg = config.${namespace}.nix;
+  cfg = config.nixfiles.nix;
 in
 {
   imports = [ (lib.snowfall.fs.get-file "modules/shared/nix/default.nix") ];
@@ -78,6 +77,7 @@ in
             "https://nixpkgs-wayland.cachix.org"
             "https://cosmic.cachix.org"
           ];
+
           trusted-public-keys = [
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
             "kidibox.cachix.org-1:BN875x9JUW61souPxjf7eA5Uh2k3A1OSA1JIb/axGGE="

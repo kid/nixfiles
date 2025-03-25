@@ -1,12 +1,11 @@
 {
   config,
   pkgs,
-  namespace,
   ...
 }:
 {
   services = {
-    getty.autologinUser = config.${namespace}.user.name;
+    getty.autologinUser = config.nixfiles.user.name;
 
     upower.enable = true;
 
@@ -50,7 +49,7 @@
 
     _1password-gui = {
       enable = true;
-      polkitPolicyOwners = [ config.${namespace}.user.name ];
+      polkitPolicyOwners = [ config.nixfiles.user.name ];
     };
 
     nix-ld = {
@@ -90,6 +89,6 @@
 
   # NOTE: https://github.com/nix-community/home-manager/issues/4199#issuecomment-2226810699
   system.userActivationScripts.removeConflictingFiles.text = ''
-    rm -f /home/${config.${namespace}.user.name}/.gtkrc-2.0.backup
+    rm -f /home/${config.nixfiles.user.name}/.gtkrc-2.0.backup
   '';
 }
