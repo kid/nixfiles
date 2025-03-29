@@ -5,36 +5,36 @@
 }:
 {
   services = {
-    getty.autologinUser = config.nixfiles.user.name;
+    getty.autologinUser = config.nixfiles.system.mainUser;
 
-    upower.enable = true;
-
-    pipewire = {
-      enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      pulse.enable = true;
-      # Should be the default?
-      wireplumber.enable = true;
-      extraConfig.pipewire."92-low-latency" = {
-        context.properties = {
-          default = {
-            clock = {
-              rate = 48000;
-              quantum = 32;
-              min-quantum = 32;
-              max-quantum = 32;
-            };
-          };
-        };
-      };
-    };
-
-    blueman.enable = true;
-
-    locate.enable = true;
+    # upower.enable = true;
+    #
+    # pipewire = {
+    #   enable = true;
+    #   alsa = {
+    #     enable = true;
+    #     support32Bit = true;
+    #   };
+    #   pulse.enable = true;
+    #   # Should be the default?
+    #   wireplumber.enable = true;
+    #   extraConfig.pipewire."92-low-latency" = {
+    #     context.properties = {
+    #       default = {
+    #         clock = {
+    #           rate = 48000;
+    #           quantum = 32;
+    #           min-quantum = 32;
+    #           max-quantum = 32;
+    #         };
+    #       };
+    #     };
+    #   };
+    # };
+    #
+    # blueman.enable = true;
+    #
+    # locate.enable = true;
   };
 
   security.polkit.enable = true;
@@ -49,7 +49,7 @@
 
     _1password-gui = {
       enable = true;
-      polkitPolicyOwners = [ config.nixfiles.user.name ];
+      polkitPolicyOwners = [ config.nixfiles.system.mainUser ];
     };
 
     nix-ld = {
@@ -57,14 +57,14 @@
     };
   };
 
-  hardware.bluetooth = {
-    enable = true;
-    settings = {
-      General = {
-        Enable = "Source,Sink,Media,Socket";
-      };
-    };
-  };
+  # hardware.bluetooth = {
+  #   enable = true;
+  #   settings = {
+  #     General = {
+  #       Enable = "Source,Sink,Media,Socket";
+  #     };
+  #   };
+  # };
 
   # environment.etc = {
   #   "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
@@ -78,7 +78,7 @@
   # };
 
   environment.systemPackages = with pkgs; [
-    floorp
+    # floorp
     freecad-wayland
     pavucontrol
     # vulkan-tools
@@ -89,6 +89,6 @@
 
   # NOTE: https://github.com/nix-community/home-manager/issues/4199#issuecomment-2226810699
   system.userActivationScripts.removeConflictingFiles.text = ''
-    rm -f /home/${config.nixfiles.user.name}/.gtkrc-2.0.backup
+    rm -f /home/${config.nixfiles.system.mainUser}/.gtkrc-2.0.backup
   '';
 }

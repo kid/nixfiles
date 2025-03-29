@@ -27,100 +27,103 @@ let
         plasma-integration
         onepassword-password-manager
       ];
-      search.force = true;
 
-      search.engines = {
-        "Youtube" = {
-          definedAliases = [ "@yt" ];
-          urls = [
-            {
-              template = "https://www.youtube.com/results";
-              params = [
-                {
-                  name = "search_query";
-                  value = "{searchTerms}";
-                }
-              ];
-            }
-          ];
-        };
+      search = {
+        force = true;
 
-        "GitHub" = {
-          definedAliases = [ "@gh" ];
-          urls = [
-            {
-              template = "https://github.com/search";
-              params = [
-                {
-                  name = "q";
-                  value = "{searchTerms}";
-                }
-              ];
-            }
-          ];
-        };
+        engines = {
+          "Youtube" = {
+            definedAliases = [ "@yt" ];
+            urls = [
+              {
+                template = "https://www.youtube.com/results";
+                params = [
+                  {
+                    name = "search_query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+          };
 
-        "Nix Packages" = {
-          definedAliases = [ "@np" ];
-          urls = [
-            {
-              template = "https://search.nixos.org/packages";
-              params = [
-                {
-                  name = "type";
-                  value = "packages";
-                }
-                {
-                  name = "channel";
-                  value = "unstable";
-                }
-                {
-                  name = "query";
-                  value = "{searchTerms}";
-                }
-              ];
-            }
-          ];
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        };
+          "GitHub" = {
+            definedAliases = [ "@gh" ];
+            urls = [
+              {
+                template = "https://github.com/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+          };
 
-        "Nix Options" = {
-          definedAliases = [ "@no" ];
-          urls = [
-            {
-              template = "https://search.nixos.org/options";
-              params = [
-                {
-                  name = "type";
-                  value = "options";
-                }
-                {
-                  name = "channel";
-                  value = "unstable";
-                }
-                {
-                  name = "query";
-                  value = "{searchTerms}";
-                }
-              ];
-            }
-          ];
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        };
+          "Nix Packages" = {
+            definedAliases = [ "@np" ];
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          };
 
-        "RottenTomatoes" = {
-          definedAliases = [ "@rt" ];
-          urls = [
-            {
-              template = "https://www.rottentomatoes.com/search";
-              params = [
-                {
-                  name = "search";
-                  value = "{searchTerms}";
-                }
-              ];
-            }
-          ];
+          "Nix Options" = {
+            definedAliases = [ "@no" ];
+            urls = [
+              {
+                template = "https://search.nixos.org/options";
+                params = [
+                  {
+                    name = "type";
+                    value = "options";
+                  }
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          };
+
+          "RottenTomatoes" = {
+            definedAliases = [ "@rt" ];
+            urls = [
+              {
+                template = "https://www.rottentomatoes.com/search";
+                params = [
+                  {
+                    name = "search";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+          };
         };
       };
 
@@ -146,5 +149,5 @@ in
   };
 
   stylix.targets.firefox.profileNames = [ "kid" ];
-  # stylix.targets.floorp.profileNames = [ "kid" ];
+  stylix.targets.floorp.profileNames = [ "kid" ];
 }

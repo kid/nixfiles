@@ -1,13 +1,15 @@
 {
+  self,
   config,
   lib,
   pkgs,
   ...
 }:
-with lib;
 let
+  inherit (lib) mkDefault mkEnableOption mkIf;
+  inherit (self.lib) mkBoolOpt;
+
   cfg = config.nixfiles.system.boot;
-  inherit (lib.nixfiles) mkBoolOpt;
 in
 {
   options.nixfiles.system.boot = {

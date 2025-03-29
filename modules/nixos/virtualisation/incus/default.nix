@@ -40,6 +40,6 @@ in
       firewall.allowedTCPPorts = [ 8443 ];
     };
 
-    users.users.${config.nixfiles.user.name}.extraGroups = [ "incus-admin" ];
+    users.users.${config.nixfiles.system.mainUser}.extraGroups = [ "incus-admin" ];
   };
 }

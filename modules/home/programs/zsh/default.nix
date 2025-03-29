@@ -13,6 +13,7 @@
       enable = true;
       enableZshIntegration = true;
     };
+
     zsh = {
       enable = true;
       autocd = true;

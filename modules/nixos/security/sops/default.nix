@@ -1,12 +1,13 @@
 {
+  self,
   config,
   lib,
   ...
 }:
-with lib;
 let
+  inherit (lib) mkEnableOption mkIf types;
+  inherit (self.lib) mkOpt;
   cfg = config.nixfiles.security.sops;
-  inherit (lib.nixfiles) mkOpt;
 in
 {
   options.nixfiles.security.sops = {

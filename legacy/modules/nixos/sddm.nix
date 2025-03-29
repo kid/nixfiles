@@ -6,7 +6,7 @@
     displayManager = {
       autoLogin = {
         enable = true;
-        user = config.nixfiles.user.name;
+        user = config.nixfiles.system.mainUser;
       };
       sddm = {
         enable = true;

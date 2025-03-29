@@ -13,7 +13,7 @@ in
 
   config = mkIf cfg.enable {
     nixfiles = {
-      nix.enable = mkDefault true;
+      # nix.enable = mkDefault true;
       theme.stylix.enable = mkDefault true;
       hardware = {
         firmware.enable = mkDefault true;

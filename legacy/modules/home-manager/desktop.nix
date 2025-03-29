@@ -9,7 +9,8 @@
     xclip
     chromium
     discord
-    tdesktop # telegram
+    # tdesktop # telegram
+    telegram-desktop
     wire-desktop
     feh
     nfs-utils
@@ -18,7 +19,7 @@
     portfolio
     # freecad
     prusa-slicer
-    glxinfo
+    # glxinfo
     deltachat-desktop
     proton-pass
   ];

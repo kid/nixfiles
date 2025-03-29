@@ -1,7 +1,7 @@
 {
   lib,
   inputs,
-
+  ...
 }:
 let
   inherit (inputs) deploy-rs;

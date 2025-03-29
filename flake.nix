@@ -1,5 +1,9 @@
 {
   inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    easy-hosts.url = "github:tgirlcloud/easy-hosts";
+    make-shell.url = "github:nicknovitski/make-shell";
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     snowfall-lib.url = "github:snowfallorg/lib";
@@ -19,6 +23,9 @@
     ucodenix.url = "github:e-tho/ucodenix";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    auto-cpufreq.url = "github:AdnanHodzic/auto-cpufreq";
+    auto-cpufreq.inputs.nixpkgs.follows = "nixpkgs";
 
     impermanence.url = "github:nix-community/impermanence";
 
@@ -68,84 +75,84 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-
   };
 
   outputs =
-    inputs:
-    let
-      inherit (inputs) self snowfall-lib;
+    inputs@{ flake-parts, ... }: flake-parts.lib.mkFlake { inherit inputs; } { imports = [ ./flake ]; };
 
-      lib = snowfall-lib.mkLib {
-        inherit inputs;
-        src = ./.;
-
-        snowfall = {
-          meta = {
-            name = "nixfiles";
-            title = "nixfiles";
-          };
-          namespace = "nixfiles";
-        };
-
-      };
-    in
-    (lib.mkFlake {
-
-      channels-config = {
-        allowUnfree = true;
-      };
-
-      homes.modules = with inputs; [
-        plasma-manager.homeManagerModules.plasma-manager
-        sops-nix.homeManagerModules.sops
-      ];
-
-      # home.users."kid@nixos".modules = with inputs; [
-      #   # Default to enabled and require a config
-      #   xremap.homeManagerModules.default
-      # ];
-
-      systems.modules = {
-        darwin = with inputs; [
-          sops-nix.darwinModules.sops
-        ];
-        nixos = with inputs; [
-          nixos-facter-modules.nixosModules.facter
-          disko.nixosModules.disko
-          impermanence.nixosModules.impermanence
-          stylix.nixosModules.stylix
-          ucodenix.nixosModules.default
-          sops-nix.nixosModules.sops
-          nixvim.nixosModules.nixvim
-          nixvim.nixosModules.config
-          # xremap.nixosModules.default
-        ];
-      };
-
-      deploy = lib.mkDeploy {
-        inherit self;
-        overrides.pve0.hostname = "pve0.kidibox.net";
-      };
-
-      outputs-builder = channels: {
-        formatter = inputs.treefmt-nix.lib.mkWrapper channels.nixpkgs ./treefmt.nix;
-        # checks =
-        #   let
-        #     inherit (channels.nixpkgs) system;
-        #     # FIXME: need to filter on system
-        #     # deploy = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
-        #     nixosMachines = lib.mapAttrs' (
-        #       name: config: lib.nameValuePair "nixosConfiguration-${name}" config.config.system.build.toplevel
-        #     ) ((lib.filterAttrs (_: config: config.pkgs.system == system)) self.nixosConfigurations);
-        #     # devShells = lib.mapAttrs' (n: lib.nameValuePair "devShells-${n}") self.devShells;
-        #   in
-        #   nixosMachines;
-      };
-    })
-    // {
-      herculesCI = {
-        ciSystems = [ "x86_64-linux" ];
-      };
-    };
+  # let
+  #   inherit (inputs) self snowfall-lib;
+  #
+  #   lib = snowfall-lib.mkLib {
+  #     inherit inputs;
+  #     src = ./.;
+  #
+  #     snowfall = {
+  #       meta = {
+  #         name = "nixfiles";
+  #         title = "nixfiles";
+  #       };
+  #       namespace = "nixfiles";
+  #     };
+  #
+  #   };
+  # in
+  # (lib.mkFlake {
+  #
+  #   channels-config = {
+  #     allowUnfree = true;
+  #   };
+  #
+  #   homes.modules = with inputs; [
+  #     plasma-manager.homeManagerModules.plasma-manager
+  #     sops-nix.homeManagerModules.sops
+  #   ];
+  #
+  #   # home.users."kid@nixos".modules = with inputs; [
+  #   #   # Default to enabled and require a config
+  #   #   xremap.homeManagerModules.default
+  #   # ];
+  #
+  #   systems.modules = {
+  #     darwin = with inputs; [
+  #       sops-nix.darwinModules.sops
+  #     ];
+  #     nixos = with inputs; [
+  #       nixos-facter-modules.nixosModules.facter
+  #       disko.nixosModules.disko
+  #       impermanence.nixosModules.impermanence
+  #       stylix.nixosModules.stylix
+  #       ucodenix.nixosModules.default
+  #       sops-nix.nixosModules.sops
+  #       nixvim.nixosModules.nixvim
+  #       nixvim.nixosModules.config
+  #       # xremap.nixosModules.default
+  #     ];
+  #   };
+  #
+  #   deploy = lib.mkDeploy {
+  #     inherit self;
+  #     overrides.pve0.hostname = "pve0.kidibox.net";
+  #   };
+  #
+  #   outputs-builder = channels: {
+  #     formatter = inputs.treefmt-nix.lib.mkWrapper channels.nixpkgs ./treefmt.nix;
+  #     # checks =
+  #     #   let
+  #     #     inherit (channels.nixpkgs) system;
+  #     #     # FIXME: need to filter on system
+  #     #     # deploy = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
+  #     #     nixosMachines = lib.mapAttrs' (
+  #     #       name: config: lib.nameValuePair "nixosConfiguration-${name}" config.config.system.build.toplevel
+  #     #     ) ((lib.filterAttrs (_: config: config.pkgs.system == system)) self.nixosConfigurations);
+  #     #     # devShells = lib.mapAttrs' (n: lib.nameValuePair "devShells-${n}") self.devShells;
+  #     #   in
+  #     #   nixosMachines;
+  #   };
+  # })
+  # // {
+  #   herculesCI = {
+  #     ciSystems = [ "x86_64-linux" ];
+  #   };
+  # };
 }

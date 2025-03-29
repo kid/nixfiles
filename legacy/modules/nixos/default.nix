@@ -49,13 +49,6 @@
     lm_sensors
   ];
 
-  programs.nh = {
-    enable = true;
-    # clean.enable = true;
-    clean.extraArgs = "--keep-since 7d --keep 5";
-    flake = "/home/${config.nixfiles.user.name}/Code/nixfiles";
-  };
-
   # always keep a reference to the source flake that generated each generations
   # environment.etc."current-nixos".source = ./.;
 
