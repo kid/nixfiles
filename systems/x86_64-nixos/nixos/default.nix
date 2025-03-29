@@ -32,12 +32,12 @@
 
   facter.reportPath = ./facter.json;
 
-  nixfiles.archetypes.gaming.enable = true;
-  nixfiles.hardware.power.usbPowerControl = "on";
+  nixfiles.device.profiles = [
+    "desktop"
+    "graphical"
+  ];
 
   nixpkgs = {
-    config.allowBroken = true;
-
     overlays = [
       # self.overlays.stable-packages
       inputs.nur.overlays.default
@@ -220,6 +220,7 @@
     };
 
     # Custom schedulers for gaming
+    # TODO: move to gaming profile
     scx = {
       enable = true;
       scheduler = "scx_lavd";

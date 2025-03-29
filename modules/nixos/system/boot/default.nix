@@ -20,11 +20,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      efibootmgr
-      efitools
-      efivar
-    ];
+    nixfiles.packages = {
+      inherit (pkgs)
+        efibootmgr
+        efitools
+        efivar
+        ;
+    };
 
     boot = {
       # 1: system is unusable | 3: error condition | 7: very verbose

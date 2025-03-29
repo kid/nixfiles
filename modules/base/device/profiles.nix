@@ -12,7 +12,6 @@ in
       "server"
       "vm"
 
-      "lite"
       "graphical"
       "headless"
     ]);

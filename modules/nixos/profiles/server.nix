@@ -1,18 +1,20 @@
 {
-  config,
   lib,
+  self,
+  config,
   pkgs,
   ...
 }:
 let
-  inherit (lib) mkEnableOption mkIf;
-  cfg = config.nixfiles.suites.server;
+  inherit (lib.modules) mkIf mkForce;
+  inherit (self.lib.validators) hasProfile;
 in
 {
-  options.nixfiles.suites.server.enable = mkEnableOption "server";
+  config = mkIf (hasProfile config [ "server" ]) {
+    time.timeZone = mkForce "UTC";
 
-  config = mkIf cfg.enable {
     nixfiles = {
+      system.activation.diff.enable = true;
       system = {
         boot = {
           enable = true;
@@ -29,6 +31,7 @@ in
       };
     };
 
+    # TODO: find a better place for this
     environment.systemPackages = with pkgs; [
       ghostty.terminfo
       kitty.terminfo

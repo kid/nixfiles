@@ -1,5 +1,6 @@
 {
   lib,
+  config,
   modulesPath,
   ...
 }:
@@ -11,14 +12,10 @@
   ];
 
   nixfiles = {
-    suites.common.enable = true;
-    suites.desktop.enable = true;
-  };
-
-  # services.fwupd.enable = lib.mkForce false;
-
-  boot = {
-    # kernelParams = [ "video=Virtual-1:1920x1080@60" ];
+    device.profiles = [
+      "vm"
+      "desktop"
+    ];
   };
 
   disko.memSize = 8096;
@@ -40,5 +37,5 @@
     graphics.enable32Bit = true;
   };
 
-  services.getty.autologinUser = "kid";
+  services.getty.autologinUser = config.nixfiles.system.mainUser;
 }

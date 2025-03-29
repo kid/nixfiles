@@ -19,7 +19,10 @@
   facter.reportPath = ./facter.json;
 
   nixfiles = {
-    archetypes.server.enable = true;
+    device.profiles = [
+      "server"
+      "headless"
+    ];
     roles.hercules-ci.enable = true;
     security.sops.defaultSopsFile = "${self}/secrets/pve0/default.sops.yaml";
     virtualisation.incus.enable = true;
