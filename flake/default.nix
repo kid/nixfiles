@@ -1,9 +1,16 @@
+# { self, ... }:
+# let
+#   inherit (self.lib.helpers) listImportableRecursive;
+# in
 {
+  # imports = listImportableRecursive ./.;
   imports = [
-    ../lib/flake-module.nix
-    ../modules/flake-module.nix
-    ../shells/flake-module.nix
-    ../systems/flake-module.nix
+    ./checks/formatting.nix
+    ./lib
+    ./modules.nix
+    ./programs/treefmt.nix
+    ./shells
+    ./systems.nix
   ];
 
   systems = [

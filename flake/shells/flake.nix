@@ -1,7 +1,6 @@
 {
-  # inputs,
+  # config,
   pkgs,
-  # system,
   ...
 }:
 {
@@ -31,6 +30,8 @@
 
     # inputs.self.checks.${system}.pre-commit-hooks.enabledPackages
   ];
+
+  # inputsFrom = [ config.treefmt.build.devShell ];
 
   # shellHook = ''
   #   ${inputs.self.checks.${system}.pre-commit-hooks.shellHook}

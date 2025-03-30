@@ -12,7 +12,7 @@ in
 
   easy-hosts = {
     autoConstruct = true;
-    path = ./.;
+    path = ../systems;
 
     perClass = class: {
       modules = concatLists [

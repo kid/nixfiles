@@ -8,7 +8,7 @@
     _:
     let
       flake = {
-        imports = [ ./flake ];
+        imports = [ ./flake.nix ];
       };
     in
     {

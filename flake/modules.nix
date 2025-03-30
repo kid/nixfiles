@@ -1,7 +1,5 @@
 { self, ... }:
 let
-  inherit (builtins) throw;
-
   mkModule =
     {
       name ? "nixfiles",
@@ -25,8 +23,6 @@ in
           (self + /modules/nixos)
         ];
       };
-
-      default = throw "There is no default module.";
     };
 
     homeModules = {
@@ -34,8 +30,6 @@ in
         class = "homeManager";
         modules = [ (self + /modules/home) ];
       };
-
-      default = throw "There is no default module.";
     };
   };
 }
