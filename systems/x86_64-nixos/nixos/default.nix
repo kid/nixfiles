@@ -1,5 +1,4 @@
 {
-  self,
   config,
   lib,
   inputs,
@@ -17,15 +16,9 @@
     # TODO: move to shared modules in flake.nix
     inputs.nur.modules.nixos.default
     inputs.chaotic.nixosModules.default
-
-    "${self}/legacy/modules/nixos"
-    "${self}/legacy/modules/nixos/games.nix"
-    "${self}/legacy/modules/nixos/docker.nix"
-    "${self}/legacy/modules/nixos/podman.nix"
-    "${self}/legacy/modules/nixos/virtualization.nix"
-
-    # { config.facter.reportPath = ./facter.json; }
   ];
+
+  system.stateVersion = "22.11";
 
   facter.reportPath = ./facter.json;
 
@@ -35,7 +28,17 @@
       "graphical"
     ];
 
-    services.printing.enable = true;
+    programs = {
+      gaming.enable = true;
+    };
+
+    services = {
+      printing.enable = true;
+    };
+
+    virtualization = {
+      podman.enable = true;
+    };
   };
 
   nixpkgs = {
