@@ -31,7 +31,7 @@ in
 
     homeModules = {
       nixfiles = mkModule {
-        class = "home";
+        class = "homeManager";
         modules = [ (self + /modules/home) ];
       };
 

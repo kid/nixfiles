@@ -1,4 +1,4 @@
-{ self, inputs, ... }:
+{ self, pkgs, ... }:
 {
   imports = [
     "${self}/legacy/modules/home-manager"
@@ -9,4 +9,12 @@
 
   programs.ghostty.enable = true;
   programs.ranger.enable = true;
+
+  nixfiles = {
+    packages = {
+      inherit (pkgs) freecad-wayland;
+    };
+
+    services.xremap.enable = true;
+  };
 }

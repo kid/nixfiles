@@ -15,7 +15,7 @@ let
     mkOption {
       default = anyHome config id path;
       example = true;
-      description = "Does ${concatStringsSep "." path} meet the requirements";
+      description = "Is ${concatStringsSep "." path} true on any home for this system?";
       type = lib.types.bool;
     };
 in
@@ -33,5 +33,29 @@ in
       "fish"
       "enable"
     ];
+    isWayland = mkMetaOption [
+      "nixfiles"
+      "meta"
+      "isWayland"
+    ];
+    isWM = mkMetaOption [
+      "nixfiles"
+      "meta"
+      "isWM"
+    ];
+    plasma6 =
+      let
+        path = [
+          "nixfiles"
+          "environment"
+          "desktop"
+        ];
+      in
+      mkOption {
+        default = anyHome config (v: v == "plasma6") path;
+        example = true;
+        description = "Is ${concatStringsSep "." path} true on any home for this system?";
+        type = lib.types.bool;
+      };
   };
 }

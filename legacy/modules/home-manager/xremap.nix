@@ -5,9 +5,9 @@
   ...
 }:
 {
+  # TODO: wrap this in our own program
   services.xremap = {
     # serviceMode = "user";
-    # userName = config.user.name;
     withKDE = true;
     # debug = true;
     watch = true;

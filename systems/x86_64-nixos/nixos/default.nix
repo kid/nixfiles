@@ -19,23 +19,24 @@
     inputs.chaotic.nixosModules.default
 
     "${self}/legacy/modules/nixos"
-    "${self}/legacy/modules/nixos/desktop.nix"
     "${self}/legacy/modules/nixos/games.nix"
     "${self}/legacy/modules/nixos/docker.nix"
     "${self}/legacy/modules/nixos/podman.nix"
     "${self}/legacy/modules/nixos/virtualization.nix"
-    "${self}/legacy/modules/nixos/printing.nix"
-    "${self}/legacy/modules/nixos/sddm.nix"
 
     # { config.facter.reportPath = ./facter.json; }
   ];
 
   facter.reportPath = ./facter.json;
 
-  nixfiles.device.profiles = [
-    "desktop"
-    "graphical"
-  ];
+  nixfiles = {
+    device.profiles = [
+      "desktop"
+      "graphical"
+    ];
+
+    services.printing.enable = true;
+  };
 
   nixpkgs = {
     overlays = [

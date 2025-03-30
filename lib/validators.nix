@@ -57,6 +57,28 @@ let
   hasProfile = conf: list: any (flip elem conf.nixfiles.device.profiles) list;
 
   /**
+    check if the device is using wayland
+
+    # Arguments
+
+    - [config] the configuration that nixosConfigurations provides
+
+    # Type
+
+    ```
+    isWayland :: AttrSet -> Bool
+    ```
+
+    # Example
+
+    ```nix
+    isWayland osConfig
+    => true
+    ```
+  */
+  isWayland = conf: conf.nixfiles.meta.isWayland;
+
+  /**
     check if a predicate for any user config is true
 
     # Arguments
@@ -96,5 +118,10 @@ let
     any cond list;
 in
 {
-  inherit anyHome hasProfile ifTheyExist;
+  inherit
+    anyHome
+    hasProfile
+    ifTheyExist
+    isWayland
+    ;
 }

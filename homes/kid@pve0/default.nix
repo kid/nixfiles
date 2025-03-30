@@ -1,3 +1,2 @@
 {
-  services.xremap.enable = false;
 }

@@ -11,6 +11,6 @@
     sops-nix.nixosModules.sops
     nixvim.nixosModules.nixvim
     nixvim.nixosModules.config
-    # xremap.nixosModules.default
+    xremap.nixosModules.default
   ];
 }

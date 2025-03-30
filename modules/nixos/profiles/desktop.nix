@@ -11,6 +11,7 @@ in
 {
   config = mkIf (hasProfile config [ "desktop" ]) {
     nixfiles = {
+      security.autoLogin = true;
       system = {
         boot = {
           enable = true;
