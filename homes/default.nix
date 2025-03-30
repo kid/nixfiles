@@ -38,7 +38,7 @@ in
           ;
       };
 
-      sharedModules = [ (self + /modules/home) ];
+      sharedModules = [ self.homeModules.nixfiles ];
     };
   };
 }

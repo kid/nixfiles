@@ -21,7 +21,8 @@ in
       nixfiles = mkModule {
         class = "nixos";
         modules = [
-          (self + /modules/nixos/default.nix)
+          (self + /modules/base)
+          (self + /modules/nixos)
         ];
       };
 
@@ -31,7 +32,7 @@ in
     homeModules = {
       nixfiles = mkModule {
         class = "home";
-        modules = [ (self + /modules/home/default.nix) ];
+        modules = [ (self + /modules/home) ];
       };
 
       default = throw "There is no default module.";

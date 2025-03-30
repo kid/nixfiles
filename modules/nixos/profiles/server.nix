@@ -30,12 +30,5 @@ in
         };
       };
     };
-
-    # TODO: find a better place for this
-    environment.systemPackages = with pkgs; [
-      ghostty.terminfo
-      kitty.terminfo
-      wezterm.terminfo
-    ];
   };
 }

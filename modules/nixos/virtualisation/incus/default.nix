@@ -33,7 +33,7 @@ in
       };
     };
 
-    environment.systemPackages = with pkgs; [ incus ];
+    nixfiles.packages = { inherit (pkgs) incus; };
 
     networking = {
       nftables.enable = true;

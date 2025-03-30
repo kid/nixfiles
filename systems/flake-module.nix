@@ -17,11 +17,7 @@ in
     perClass = class: {
       modules = concatLists [
         [
-          "${self}/modules/base"
-          "${self}/modules/${class}"
-          {
-            nixpkgs.config.allowUnfree = true;
-          }
+          self."${class}Modules".nixfiles
         ]
 
         (optionals (class != "iso") [
@@ -29,10 +25,5 @@ in
         ])
       ];
     };
-
-    # hosts = {
-    #   nixos.class = "nixos";
-    #   testvm.class = "nixos";
-    # };
   };
 }
