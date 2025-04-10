@@ -1,23 +1,27 @@
 {
   config,
   lib,
-  namespace,
   ...
 }:
+with lib;
 let
-  inherit (lib.${namespace}) mkModule;
+  cfg = config.nixfiles.hardware.audio;
 in
-mkModule ./. false config { } (_: {
-  security.rtkit.enable = true;
-  services = {
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      audio.enable = true;
-      jack.enable = true;
-      pulse.enable = true;
-      wireplumber.enable = true;
+{
+  options.nixfiles.hardware.audio.enable = mkEnableOption "audio";
+
+  config = mkIf cfg.enable {
+    security.rtkit.enable = true;
+    services = {
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        audio.enable = true;
+        jack.enable = true;
+        pulse.enable = true;
+        wireplumber.enable = true;
+      };
+      pulseaudio.enable = lib.mkForce false;
     };
-    pulseaudio.enable = lib.mkForce false;
   };
-})
+}

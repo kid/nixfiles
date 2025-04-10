@@ -1,15 +1,19 @@
 {
   config,
   lib,
-  namespace,
   ...
 }:
+with lib;
 let
-  inherit (lib.${namespace}) mkModule;
+  cfg = config.nixfiles.storage.btrfs;
 in
-mkModule ./. false config { } (_cfg: {
-  boot = {
-    supportedFilesystems.btrfs = true;
-    initrd.supportedFilesystems.btrfs = true;
+{
+  options.nixfiles.storage.btrfs.enable = mkEnableOption "btrfs";
+
+  config = mkIf cfg.enable {
+    boot = {
+      supportedFilesystems.btrfs = true;
+      initrd.supportedFilesystems.btrfs = true;
+    };
   };
-})
+}

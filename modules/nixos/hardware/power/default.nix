@@ -1,22 +1,35 @@
 {
+  self,
   config,
   lib,
   pkgs,
-  namespace,
   ...
 }:
 let
-  inherit (lib) mkForce types;
-  inherit (lib.${namespace}) mkModule mkOpt;
+  inherit (lib)
+    mkEnableOption
+    mkForce
+    mkIf
+    types
+    ;
+  inherit (self.lib) mkOpt;
+  cfg = config.nixfiles.hardware.power;
 in
-mkModule ./. false config
-  {
+{
+  options.nixfiles.hardware.power = {
+    enable = mkEnableOption "Power";
+    usbPowerControl = mkOpt (types.enum [
+      "auto"
+      "on"
+      "off"
+    ]) "auto" "Default mode for USB power/control";
     governor = mkOpt types.str "performance" "Governor used to regulate CPU frequency";
     energy_performance_preference =
       mkOpt types.str "balance_performance"
         "Energy performance preference";
-  }
-  (cfg: {
+  };
+
+  config = mkIf cfg.enable {
     environment.systemPackages =
       with pkgs;
       [
@@ -34,14 +47,15 @@ mkModule ./. false config
 
     powerManagement.scsiLinkPolicy = "med_power_with_dipm";
 
-    services = {
-      auto-cpufreq = {
-        enable = true;
-        settings.charger = {
-          inherit (cfg) governor energy_performance_preference;
-          turbo = "auto";
-        };
+    programs.auto-cpufreq = {
+      enable = true;
+      settings.charger = {
+        inherit (cfg) governor energy_performance_preference;
+        turbo = "auto";
       };
+    };
+
+    services = {
 
       thermald.enable = true;
 
@@ -49,9 +63,11 @@ mkModule ./. false config
       power-profiles-daemon.enable = mkForce false;
 
       udev.extraRules = ''
-        ACTION=="add|change", SUBSYSTEM=="pci|usb", TEST=="power/control", ATTR{power/control}="auto"
+        ACTION=="add|change", SUBSYSTEM=="pci", TEST=="power/control", ATTR{power/control}="auto"
+        ACTION=="add|change", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="${cfg.usbPowerControl}"
         ACTION=="add|change", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
         SUBSYSTEM=="ata_port", KERNEL=="ata*", ATTR{device/power/control}="auto"
       '';
     };
-  })
+  };
+}

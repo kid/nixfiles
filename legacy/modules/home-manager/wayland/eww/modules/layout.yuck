@@ -1,7 +1,0 @@
-(defwidget layout []
-  (box
-    :space-evenly false
-    :class "text"
-    (label
-      :text {hyprland.layout}
-      :class "layout")))

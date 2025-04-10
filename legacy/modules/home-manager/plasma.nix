@@ -1,4 +1,7 @@
+{ lib, ... }:
 {
+  # qt.enable = lib.mkForce false;
+  qt.platformTheme.name = lib.mkForce "kde6";
   programs.plasma = {
     enable = true;
 

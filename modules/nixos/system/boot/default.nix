@@ -1,25 +1,32 @@
 {
+  self,
   config,
   lib,
   pkgs,
-  namespace,
   ...
 }:
 let
-  inherit (lib.${namespace}) mkModule mkBoolOpt default-attrs;
+  inherit (lib) mkDefault mkEnableOption mkIf;
+  inherit (self.lib) mkBoolOpt;
+
+  cfg = config.nixfiles.system.boot;
 in
-mkModule ./. false config
-  {
+{
+  options.nixfiles.system.boot = {
+    enable = mkEnableOption "boot";
     plymouth = mkBoolOpt true "Whether to enable the Plymouth boot splash";
     silent = mkBoolOpt true "Whether to enable silent boot";
     rememberLast = mkBoolOpt false "Whether to remember the last selected boot";
-  }
-  (cfg: {
-    environment.systemPackages = with pkgs; [
-      efibootmgr
-      efitools
-      efivar
-    ];
+  };
+
+  config = mkIf cfg.enable {
+    nixfiles.packages = {
+      inherit (pkgs)
+        efibootmgr
+        efitools
+        efivar
+        ;
+    };
 
     boot = {
       # 1: system is unusable | 3: error condition | 7: very verbose
@@ -81,11 +88,12 @@ mkModule ./. false config
         enable = cfg.plymouth;
       };
 
-      tmp = default-attrs {
+      tmp = {
         # FIXME: not enough to build kernels...
-        useTmpfs = false;
-        cleanOnBoot = true;
-        tmpfsSize = "50%";
+        useTmpfs = mkDefault false;
+        cleanOnBoot = mkDefault true;
+        tmpfsSize = mkDefault "50%";
       };
     };
-  })
+  };
+}

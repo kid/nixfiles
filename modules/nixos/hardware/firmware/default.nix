@@ -1,32 +1,37 @@
 {
   config,
   lib,
-  namespace,
   ...
 }:
+with lib;
 let
-  inherit (lib.${namespace}) mkModule;
   inherit (config.facter) report reportPath;
+  cfg = config.nixfiles.hardware.firmware;
   virtualized = (report.virtualisation or null) != "none";
 in
-mkModule ./. false config { } (_cfg: {
-  services = {
-    fwupd = {
-      enable = !virtualized;
-      daemonSettings.EspUpdateLevel = config.boot.loader.efi.efiSysMountPoint;
-    };
 
-    ucodenix = {
-      enable = !virtualized;
-      cpuModelId = reportPath;
-    };
-  };
+{
+  options.nixfiles.hardware.firmware.enable = mkEnableOption "firmware";
 
-  # NOTE: force disable when running via build-vm
-  virtualisation.vmVariant = {
+  config = mkIf cfg.enable {
     services = {
-      fwupd.enable = false;
-      ucodenix.enable = false;
+      fwupd = {
+        enable = !virtualized;
+        daemonSettings.EspUpdateLevel = config.boot.loader.efi.efiSysMountPoint;
+      };
+
+      ucodenix = {
+        enable = !virtualized;
+        cpuModelId = reportPath;
+      };
+    };
+
+    # NOTE: force disable when running via build-vm
+    virtualisation.vmVariant = {
+      services = {
+        fwupd.enable = false;
+        ucodenix.enable = false;
+      };
     };
   };
-})
+}
