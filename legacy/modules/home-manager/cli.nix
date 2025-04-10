@@ -8,6 +8,7 @@
     pistol # For previews in lf
     gnumake
     gopls
+    devenv
   ];
   programs = {
     gh = {
