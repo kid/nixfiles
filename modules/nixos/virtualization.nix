@@ -13,6 +13,7 @@ in
 {
   options.nixfiles.virtualization = {
     enable = mkEnableOption "virtualization";
+    docker.enable = mkEnableOption "docker";
     podman.enable = mkEnableOption "podman";
     qemu.enable = mkEnableOption "qemu";
   };
@@ -37,6 +38,13 @@ in
       };
     })
 
+    (mkIf cfg.docker.enable {
+      users.users.${config.nixfiles.system.mainUser}.extraGroups = [ "docker" ];
+      virtualisation.docker = {
+        enable = true;
+      };
+    })
+
     (mkIf cfg.podman.enable {
       nixfiles.packages = {
         inherit (pkgs) podman podman-compose;
@@ -45,7 +53,7 @@ in
       virtualisation.podman = {
         enable = true;
         dockerCompat = true;
-        dockerSocket.enable = true;
+        dockerSocket.enable = !cfg.docker.enable;
         defaultNetwork.settings.dns_enabled = true;
         autoPrune = {
           enable = true;
