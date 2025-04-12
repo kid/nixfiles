@@ -37,7 +37,8 @@
     };
 
     virtualization = {
-      podman.enable = true;
+      enable = true;
+      docker.enable = true;
     };
   };
 
@@ -49,17 +50,6 @@
   };
 
   boot = {
-
-    # consoleLogLevel = 0;
-    # initrd.verbose = false;
-    # initrd.availableKernelModules = [
-    #   "nvme"
-    #   "xhci_pci"
-    #   "ahci"
-    #   "usb_storage"
-    #   "usbhid"
-    #   "sd_mod"
-    # ];
     resumeDevice = "/dev/disk/by-label/swap";
 
     # blacklistedKernelModules = [ "r8169" ];
@@ -143,46 +133,26 @@
 
   networking = {
     hostId = "9371deb4";
-    useDHCP = false;
+    # useDHCP = false;
     useNetworkd = true;
+    bridges = {
+      br0 = {
+        interfaces = [ "enp16s0" ];
+      };
+    };
+    interfaces = {
+      enp16s0.useDHCP = false;
+      br0.useDHCP = true;
+      adm.useDHCP = true;
+    };
     vlans = {
       adm = {
         id = 99;
         interface = "enp16s0";
       };
-      lab = {
-        id = 1099;
-        interface = "enp16s0";
-      };
-      labadm = {
-        id = 2995;
-        interface = "enp16s0";
-      };
-    };
-    interfaces = {
-      enp16s0.useDHCP = true;
-      adm.useDHCP = true;
-      lab.useDHCP = true;
-      labadm = {
-        useDHCP = false;
-        ipv4.addresses = [
-          {
-            address = "10.1.99.10";
-            prefixLength = 24;
-          }
-        ];
-      };
     };
     firewall.enable = false;
   };
-
-  # systemd.network.networks."40-br0" = {
-  #   name = "br0";
-  #   DHCP = "ipv4";
-  #   dhcpV4Config = {
-  #     UseDomains = true;
-  #   };
-  # };
 
   systemd.network = {
     networks = {
@@ -191,20 +161,6 @@
         dhcpV4Config = {
           RouteMetric = 2048;
         };
-      };
-      "40-lab" = {
-        name = "lab";
-        dhcpV4Config = {
-          RouteMetric = 4096;
-        };
-        linkConfig.RequiredForOnline = "no";
-      };
-      "40-labadm" = {
-        name = "labadm";
-        dhcpV4Config = {
-          RouteMetric = 4096;
-        };
-        linkConfig.RequiredForOnline = "no";
       };
     };
   };
