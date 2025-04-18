@@ -18,6 +18,7 @@ in
       enable = true;
       image = ./gruvbox-dark-rainbow.png;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+      # base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
       fonts = {
         monospace = {
           name = "JetBrainsMono Nerd Font Propo";
