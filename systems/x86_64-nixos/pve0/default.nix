@@ -35,7 +35,8 @@
   security.sudo.wheelNeedsPassword = false;
 
   boot.kernelParams = [
-    "iommy=soft"
+    # "iommu=soft"
+    "pcie_aspm=force"
     "pcie_aspm.policy=powersave"
     "rcu_nocbs=all"
     "rcutree.enable_rcu_lazy=1"
@@ -43,6 +44,7 @@
 
   programs = {
     nix-ld.enable = true;
+    neovim.enable = true;
   };
 
   services = {

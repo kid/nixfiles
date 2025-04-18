@@ -17,6 +17,8 @@ in
     virtualisation = {
       incus = {
         enable = true;
+        # defaults to incus-lts
+        package = pkgs.incus;
         ui.enable = true;
         preseed = {
           config."core.https_address" = "[::]:8443";
