@@ -8,12 +8,16 @@ let
   inherit (config.facter) report reportPath;
   cfg = config.nixfiles.hardware.firmware;
   virtualized = (report.virtualisation or null) != "none";
+  isAMD = (builtins.elemAt report.hardware.cpu 0).vendor_name == "AuthenticAMD";
 in
 
 {
   options.nixfiles.hardware.firmware.enable = mkEnableOption "firmware";
 
   config = mkIf cfg.enable {
+    # Disable microcode checksum verification for ucodenix to work
+    boot.kernelParams = mkIf (!virtualized && isAMD) [ "microcode.amd_sha_check=off" ];
+
     services = {
       fwupd = {
         enable = !virtualized;
