@@ -10,6 +10,7 @@ jobs:
       BRANCH: chore/update-flake-lock
 
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,9 +30,26 @@ jobs:
           git push -u origin $BRANCH --force
 
       - name: Update flake.lock
-        run: nix flake update
+        id: update-flake
+        run: |
+          echo "result<<EOF" >> $GITHUB_OUTPUT
+          nix flake update 2>&1 | tee -a $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Check for changes
+        id: check-changes
+        run: |
+          CHANGED=$(git status --porcelain)
+          if [ -z "$CHANGED" ]; then
+            echo "No changes detected."
+            echo "changes=false" >> $GITHUB_ENV
+          else
+            echo "Changes detected."
+            echo "changes=true" >> $GITHUB_ENV
+          fi
 
       - name: Commit changes
+        if: env.changes == 'true'
         run: |
           #!/usr/bin/env bash
 
@@ -55,23 +73,28 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create pull request if not exists
+        if: env.changes == 'true'
         run: |
           #!/usr/bin/env bash
 
           set -euo pipefail
 
-          PR_EXISTS=$(gh pr list --head "$BRANCH" --json number -q '.[0].number')
+          PR_ID=$(gh pr list --head "$BRANCH" --json number -q '.[0].number')
 
-          if [ -z "$PR_EXISTS" ]; then
+          if [ -z "$PR_ID" ]; then
             git reset --hard "$GITHUB_REF"
             git pull
             gh pr create \
               --title "chore: update flake.lock" \
-              --body "" \
+              --body "${PR_BODY}" \
               --base "${GITHUB_REF}" \
               --head "${BRANCH}"
           else
-            echo "Pull request already exists: #$PR_EXISTS"
+            gh pr update "$PR_ID" --body "${PR_BODY}"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BODY: |
+            ```
+            ${{ steps.update-flake.outputs.result }}
+            ```
