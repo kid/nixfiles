@@ -4,17 +4,13 @@
   ...
 }:
 {
-  imports =
-    (with inputs.nixos-hardware.nixosModules; [
-      common-pc
-      common-pc-ssd
-      # common-cpu-amd
-      # common-cpu-amd-pstate
-      # common-cpu-amd-zenpower
-    ])
-    ++ [
-      ./disko-config.nix
-    ];
+  imports = with inputs.nixos-hardware.nixosModules; [
+    common-pc
+    common-pc-ssd
+    # common-cpu-amd
+    # common-cpu-amd-pstate
+    # common-cpu-amd-zenpower
+  ];
 
   facter.reportPath = ./facter.json;
 
@@ -23,6 +19,10 @@
       "server"
       "headless"
     ];
+    storage.btrfs = {
+      enable = true;
+      mainDevice = "/dev/nvme0n1";
+    };
     roles.hercules-ci.enable = true;
     security.sops.defaultSopsFile = "${self}/secrets/pve0/default.sops.yaml";
     virtualisation.incus.enable = true;

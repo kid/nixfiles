@@ -1,3 +1,7 @@
+{ lib, ... }:
+let
+  inherit (lib) foldl';
+in
 {
   disko.devices = {
     disk = {
@@ -32,45 +36,34 @@
                   "nixos"
                   "-f"
                 ];
-                subvolumes = {
-                  "/rootfs" = {
-                    mountpoint = "/";
-                    mountOptions = [
-                      # "subvol=rootfs"
-                      "compress=zstd"
-                      "noatime"
+                subvolumes =
+                  foldl'
+                    (
+                      acc: name:
+                      acc
+                      // {
+                        "@{name}" = {
+                          mountpoint = "/${name}";
+                          mountOptions = [
+                            "compress=zstd"
+                            "noatime"
+                          ];
+                        };
+                      }
+                    )
+                    {
+                      "@" = { };
+                      "@swap" = {
+                        mountpoint = "/swap";
+                        swap.swapfile.size = "2G";
+                      };
+                    }
+                    [
+                      "root"
+                      "home"
+                      "nix"
+                      "persist"
                     ];
-                  };
-                  "/home" = {
-                    mountpoint = "/home";
-                    mountOptions = [
-                      # "subvol=home"
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-                  # "/home/${config.nixfiles.user.name}" = { };
-                  "/nix" = {
-                    mountpoint = "/nix";
-                    mountOptions = [
-                      # "subvol=nix"
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-                  "/persist" = {
-                    mountpoint = "/persist";
-                    mountOptions = [
-                      # "subvol=persist"
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-                  "/swap" = {
-                    mountpoint = "/swap";
-                    swap.swapfile.size = "2G";
-                  };
-                };
               };
             };
           };

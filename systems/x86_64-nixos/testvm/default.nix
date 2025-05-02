@@ -8,14 +8,21 @@
   imports = [
     "${modulesPath}/virtualisation/qemu-vm.nix"
     "${modulesPath}/profiles/qemu-guest.nix"
-    ./disko-config.nix
+    # ./disko-config.nix
   ];
 
   nixfiles = {
     device.profiles = [
       "vm"
-      "desktop"
+      # "desktop"
     ];
+    storage = {
+      impermanence.enable = true;
+      btrfs = {
+        enable = true;
+        mainDevice = "/dev/vda";
+      };
+    };
   };
 
   disko.memSize = 8096;
