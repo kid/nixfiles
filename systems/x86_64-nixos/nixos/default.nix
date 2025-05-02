@@ -2,8 +2,22 @@
   config,
   lib,
   inputs,
+  pkgs,
   ...
 }:
+let
+  zfsCompatibleKernelPackages = lib.filterAttrs (
+    name: kernelPackages:
+    (builtins.match "linux_[0-9]+_[0-9]+" name) != null
+    && (builtins.tryEval kernelPackages).success
+    && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
+  ) pkgs.linuxKernel.packages;
+  latestKernelPackage = lib.last (
+    lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
+      builtins.attrValues zfsCompatibleKernelPackages
+    )
+  );
+in
 {
   imports = [
     # (modulesPath + "/installer/scan/not-detected.nix")
@@ -40,6 +54,8 @@
       enable = true;
       docker.enable = true;
     };
+
+    system.boot.kernel = latestKernelPackage;
   };
 
   nixpkgs = {
@@ -63,6 +79,7 @@
       "boot.shell_on_fail"
       "amdgpu.dcdebugmask=0x400"
       "preempt=full"
+      "amd_pstate=active"
     ];
 
     # Steamdeck adjustments

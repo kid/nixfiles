@@ -34,6 +34,7 @@ in
       with pkgs;
       [
         powertop
+        s-tui
       ]
       ++ (with config.boot.kernelPackages; [ cpupower ]);
 

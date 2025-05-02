@@ -6,7 +6,13 @@
   ...
 }:
 let
-  inherit (lib) mkDefault mkEnableOption mkIf;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    ;
+  inherit (lib.types) raw;
   inherit (self.lib) mkBoolOpt;
 
   cfg = config.nixfiles.system.boot;
@@ -17,6 +23,11 @@ in
     plymouth = mkBoolOpt true "Whether to enable the Plymouth boot splash";
     silent = mkBoolOpt true "Whether to enable silent boot";
     rememberLast = mkBoolOpt false "Whether to remember the last selected boot";
+
+    kernel = mkOption {
+      type = raw;
+      default = pkgs.linuxPackages_latest;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -31,6 +42,9 @@ in
     boot = {
       # 1: system is unusable | 3: error condition | 7: very verbose
       consoleLogLevel = 3;
+
+      kernelPackages = mkDefault cfg.kernel;
+
       kernelParams =
         lib.optionals cfg.plymouth [
           "quiet"
@@ -60,10 +74,16 @@ in
           # rd prefix means systemd-udev will be used instead of initrd
           "rd.systemd.show_status=auto"
 
+          "fbcon=nodefer"
         ];
 
       initrd = {
-        systemd.enable = true;
+        systemd = {
+          enable = true;
+
+          # save space by stripping copied binaries and libraries to the initramfs
+          strip = true;
+        };
         verbose = cfg.plymouth || cfg.silent;
       };
 
@@ -91,7 +111,7 @@ in
       tmp = {
         # FIXME: not enough to build kernels...
         useTmpfs = mkDefault false;
-        cleanOnBoot = mkDefault true;
+        cleanOnBoot = mkDefault (!config.boot.tmp.useTmpfs);
         tmpfsSize = mkDefault "50%";
       };
     };
