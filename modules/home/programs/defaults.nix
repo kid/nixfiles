@@ -9,7 +9,7 @@ in
 {
   options.nixfiles.programs.defaults = {
     browser = mkOption {
-      default = "floorp";
+      default = "firefox";
       type = enum [
         "firefox"
         "floorp"
