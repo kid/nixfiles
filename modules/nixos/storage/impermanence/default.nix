@@ -5,27 +5,68 @@
 }:
 with lib;
 let
+  inherit (lib.options) mkEnableOption mkOption;
+
   cfg = config.nixfiles.storage.impermanence;
 in
 {
-  options.nixfiles.storage.impermanence.enable = mkEnableOption "btrfs";
+  options.nixfiles.storage.impermanence = {
+    enable = mkEnableOption "impermanence";
 
-  config = mkIf cfg.enable {
-    environment.persistence."/persist/system" = {
-      hideMounts = true;
-
-      files = [
-        "/etc/machine-id"
-        "/etc/ssh/ssh_host_rsa_key"
-        "/etc/ssh/ssh_host_rsa_key.pub"
-        "/etc/ssh/ssh_host_ed25519_key"
-        "/etc/ssh/ssh_host_ed25519_key.pub"
-      ];
-
-      directories = [
-        "/var/lib/bluetoth"
-        "/var/lib/nixos"
-      ];
+    persistence = mkOption {
+      type = types.attrs;
+      default = { };
     };
   };
+
+  config = mkIf cfg.enable (mkMerge [
+    {
+      nixfiles.storage.impermanence.persistence = {
+        "/persist/system" = {
+          hideMounts = true;
+
+          files = [
+            "/etc/machine-id"
+            "/etc/ssh/ssh_host_rsa_key"
+            "/etc/ssh/ssh_host_rsa_key.pub"
+            "/etc/ssh/ssh_host_ed25519_key"
+            "/etc/ssh/ssh_host_ed25519_key.pub"
+          ];
+
+          directories = [
+            "/var/lib/bluetoth"
+            "/var/lib/nixos"
+            "/var/log"
+          ];
+        };
+      };
+    }
+
+    {
+      environment.persistence = cfg.persistence;
+    }
+
+    {
+      nixfiles.storage.extraSubVolumes = builtins.attrNames cfg.persistence;
+    }
+
+    {
+      fileSystems = lib.mapAttrs' (
+        mountPoint: _:
+        lib.nameValuePair mountPoint {
+          neededForBoot = lib.mkForce true;
+        }
+      ) cfg.persistence;
+    }
+
+    {
+
+      virtualisation.vmVariantWithDisko.virtualisation.fileSystems = lib.mapAttrs' (
+        mountPoint: _:
+        lib.nameValuePair mountPoint {
+          neededForBoot = lib.mkForce true;
+        }
+      ) cfg.persistence;
+    }
+  ]);
 }
