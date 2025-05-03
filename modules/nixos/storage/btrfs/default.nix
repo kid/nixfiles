@@ -3,12 +3,11 @@
   lib,
   ...
 }:
-with lib;
 let
-  inherit (lib) types;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.modules) mkIf mkMerge;
 
-  cfg = config.nixfiles.storage.btrfs;
+  cfg = config.nixfiles.storage;
   impermanenceCfg = config.nixfiles.storage.impermanence;
 
   mountOptions = [
@@ -19,14 +18,7 @@ let
   script = builtins.readFile ./rollback.sh;
 in
 {
-  options.nixfiles.storage.btrfs = {
-    enable = mkEnableOption "btrfs";
-    mainDevice = mkOption {
-      type = types.str;
-    };
-  };
-
-  config = mkIf cfg.enable (mkMerge [
+  config = mkIf (cfg.type == "btrfs") (mkMerge [
     {
       boot = {
         supportedFilesystems.btrfs = true;
@@ -73,7 +65,7 @@ in
                   "nixos"
                   "-f"
                 ];
-                subvolumes = mkMerge [
+                subvolumes =
                   {
                     "/root" = {
                       inherit mountOptions;
@@ -87,25 +79,15 @@ in
                       inherit mountOptions;
                       mountpoint = "/nix";
                     };
-                    "/var/log" = {
-                      inherit mountOptions;
-                      mountpoint = "/var/log";
-                    };
                   }
-                  (mkIf impermanenceCfg.enable {
-                    "/persist/system" = {
-                      inherit mountOptions;
-                      mountpoint = "/persist";
-                    };
-                  })
-                ];
+                  // genAttrs cfg.extraSubVolumes (mountpoint: {
+                    inherit mountpoint mountOptions;
+                  });
               };
             };
           };
         };
       };
-
-      fileSystems."/var/log".neededForBoot = true;
 
       virtualisation.vmVariantWithDisko = {
         disko.devices.disk.main.imageSize = "10G";
@@ -114,8 +96,6 @@ in
     }
 
     (mkIf impermanenceCfg.enable {
-      fileSystems."/persist/system".neededForBoot = true;
-
       boot.initrd.systemd.services.rollback = {
         wantedBy = [ "initrd.target" ];
         after = [ "initrd-root-device.target" ];
@@ -123,10 +103,6 @@ in
         unitConfig.DefaultDependencies = "no";
         serviceConfig.Type = "oneshot";
         inherit script;
-      };
-
-      virtualisation.vmVariantWithDisko = {
-        virtualisation.fileSystems."/persist".neededForBoot = true;
       };
     })
   ]);

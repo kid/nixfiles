@@ -19,9 +19,10 @@
       "server"
       "headless"
     ];
-    storage.btrfs = {
-      enable = true;
+    storage = {
+      type = "btrfs";
       mainDevice = "/dev/nvme0n1";
+      impermanence.enable = true;
     };
     roles.hercules-ci.enable = true;
     security.sops.defaultSopsFile = "${self}/secrets/pve0/default.sops.yaml";
@@ -35,7 +36,7 @@
   security.sudo.wheelNeedsPassword = false;
 
   boot.kernelParams = [
-    # "iommu=soft"
+    "iommu=pt"
     "pcie_aspm=force"
     "pcie_aspm.policy=powersave"
     "rcu_nocbs=all"
