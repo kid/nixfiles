@@ -17,10 +17,11 @@ in
     perClass = class: {
       modules = concatLists [
         [
-          self."${class}Modules".nixfiles
+          "${self}/modules/${class}"
         ]
 
         (optionals (class != "iso") [
+          "${self}/modules/base"
           "${self}/homes"
         ])
       ];

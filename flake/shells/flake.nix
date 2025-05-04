@@ -19,6 +19,7 @@
     nix-health
     nix-index
     nix-melt
+    nix-output-monitor
     nix-prefetch-git
     nix-search-cli
     nix-tree
