@@ -21,6 +21,9 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+    nixos-anywhere.url = "github:nix-community/nixos-anywhere";
+    nixos-anywhere.inputs.nixpkgs.follows = "nixpkgs";
+
     auto-cpufreq.url = "github:AdnanHodzic/auto-cpufreq";
     auto-cpufreq.inputs.nixpkgs.follows = "nixpkgs";
 
