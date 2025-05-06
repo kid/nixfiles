@@ -18,7 +18,7 @@
 
     storage = {
       type = "btrfs";
-      mainDevice = "/dev/nvme0n1";
+      mainDevice = "/dev/disk/by-id/nvme-SHPP41-2000GM_ASD9N54741120A36G_1";
       impermanence.enable = true;
     };
 
