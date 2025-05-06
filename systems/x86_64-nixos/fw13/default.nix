@@ -8,6 +8,8 @@
     inputs.nur.overlays.default
   ];
 
+  facter.reportPath = ./facter.json;
+
   nixfiles = {
     device.profiles = [
       "laptop"
