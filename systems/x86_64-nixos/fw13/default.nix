@@ -1,7 +1,13 @@
-{ inputs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     inputs.nur.modules.nixos.default
+    # inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
   ];
 
   nixpkgs.overlays = [
@@ -22,18 +28,32 @@
       impermanence.enable = true;
     };
 
-    # programs = {
-    #   gaming.enable = true;
-    # };
+    programs = {
+      gaming.enable = true;
+    };
 
-    # services = {
-    #   printing.enable = true;
-    # };
+    packages = {
+      inherit (pkgs) fw-ectool;
+    };
+  };
 
-    # virtualization = {
-    #   enable = true;
-    #   docker.enable = true;
-    #   qemu.enable = true;
-    # };
+  networking = {
+    useNetworkd = lib.mkForce false;
+    networkmanager.enable = lib.mkForce true;
+    networkmanager.wifi.backend = "iwd";
+    wireless.iwd.enable = true;
+  };
+
+  powerManagement.powertop.enable = true;
+
+  hardware = {
+    # FIXME: requirement for xremap, move it there
+    uinput.enable = true;
+
+    graphics.extraPackages = with pkgs; [
+      amdvlk
+    ];
+
+    sensor.iio.enable = true;
   };
 }

@@ -23,10 +23,6 @@ in
       };
       hardware = {
         firmware.enable = true;
-        power = {
-          governor = "powersave";
-          energy_performance_preference = "balance_power";
-        };
       };
     };
   };
