@@ -1,5 +1,6 @@
 {
   config,
+  options,
   lib,
   ...
 }:
@@ -14,8 +15,7 @@ in
     enable = mkEnableOption "impermanence";
 
     persistence = mkOption {
-      type = types.attrs;
-      default = { };
+      inherit (options.environment.persistence) default description type;
     };
   };
 
@@ -34,8 +34,10 @@ in
           ];
 
           directories = [
-            "/var/lib/bluetoth"
+            "/var/lib/bluetooth"
+            "/var/lib/fwupd"
             "/var/lib/nixos"
+            "/var/lib/sddm"
             "/var/log"
           ];
         };

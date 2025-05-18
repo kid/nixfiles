@@ -18,6 +18,7 @@ in
       package = pkgs.steam.override {
         extraPkgs =
           pkgs: with pkgs; [
+            mangohud
             gamemode
             xorg.libXcursor
             xorg.libXi
@@ -31,6 +32,11 @@ in
             keyutils
           ];
       };
+
     };
+
+    environment.systemPackages = with pkgs; [
+      mangohud
+    ];
   };
 }

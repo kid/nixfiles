@@ -31,6 +31,7 @@ in
       type = enum [
         "wezterm"
         "ghostty"
+        "kitty"
       ];
     };
 

@@ -8,7 +8,6 @@
 let
   inherit (lib)
     mkEnableOption
-    mkForce
     mkIf
     types
     ;
@@ -23,10 +22,6 @@ in
       "on"
       "off"
     ]) "auto" "Default mode for USB power/control";
-    governor = mkOpt types.str "performance" "Governor used to regulate CPU frequency";
-    energy_performance_preference =
-      mkOpt types.str "balance_performance"
-        "Energy performance preference";
   };
 
   config = mkIf cfg.enable {
@@ -48,20 +43,8 @@ in
 
     powerManagement.scsiLinkPolicy = "med_power_with_dipm";
 
-    programs.auto-cpufreq = {
-      enable = true;
-      settings.charger = {
-        inherit (cfg) governor energy_performance_preference;
-        turbo = "auto";
-      };
-    };
-
     services = {
-
-      thermald.enable = true;
-
-      # NOTE:This is enabled by plasma and conflict with auto-cpufreq
-      power-profiles-daemon.enable = mkForce false;
+      power-profiles-daemon.enable = true;
 
       udev.extraRules = ''
         ACTION=="add|change", SUBSYSTEM=="pci", TEST=="power/control", ATTR{power/control}="auto"

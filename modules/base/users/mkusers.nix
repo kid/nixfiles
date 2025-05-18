@@ -51,6 +51,9 @@ in
           "git"
           "libvirtd"
           "cloudflared"
+          # FIXME: requirement for xremap
+          "uinput"
+          "gamemode"
         ];
     } { })
   );
