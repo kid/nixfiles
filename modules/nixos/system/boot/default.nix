@@ -78,12 +78,7 @@ in
         ];
 
       initrd = {
-        systemd = {
-          enable = true;
-
-          # save space by stripping copied binaries and libraries to the initramfs
-          strip = true;
-        };
+        systemd.enable = true;
         verbose = cfg.plymouth || cfg.silent;
       };
 
