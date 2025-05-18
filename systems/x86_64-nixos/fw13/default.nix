@@ -25,7 +25,14 @@
     storage = {
       type = "btrfs";
       mainDevice = "/dev/disk/by-id/nvme-SHPP41-2000GM_ASD9N54741120A36G_1";
-      impermanence.enable = true;
+      impermanence = {
+        enable = true;
+        persistence."/persist/system".directories = [
+          "/etc/NetworkManager/system-connections"
+          "/var/lib/iwd"
+          "/var/lib/fprint"
+        ];
+      };
     };
 
     programs = {
