@@ -5,7 +5,6 @@
 {
   imports = [
     ./cli.nix
-    ./git.nix
     ./ssh.nix
     ./firefox.nix
   ];
