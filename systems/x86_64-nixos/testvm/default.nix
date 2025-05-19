@@ -23,6 +23,8 @@
       mainDevice = "/dev/vda";
       impermanence.enable = true;
     };
+    # FIXME: some issues with the headless profile?
+    system.boot.plymouth = false;
   };
 
   disko.memSize = 8096;
