@@ -26,7 +26,11 @@
     };
     roles.hercules-ci.enable = true;
     security.sops.defaultSopsFile = "${self}/secrets/pve0/default.sops.yaml";
-    virtualisation.incus.enable = true;
+    virtualisation = {
+      enable = true;
+      incus.enable = true;
+      podman.enable = true;
+    };
   };
 
   disko.devices.disk.main.imageSize = "10G";

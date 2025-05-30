@@ -8,11 +8,11 @@ let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption;
 
-  cfg = config.nixfiles.virtualization;
+  cfg = config.nixfiles.virtualisation;
 in
 {
-  options.nixfiles.virtualization = {
-    enable = mkEnableOption "virtualization";
+  options.nixfiles.virtualisation = {
+    enable = mkEnableOption "virtualisation";
     docker.enable = mkEnableOption "docker";
     podman.enable = mkEnableOption "podman";
     qemu.enable = mkEnableOption "qemu";

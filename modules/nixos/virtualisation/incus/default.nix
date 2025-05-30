@@ -46,7 +46,7 @@ in
             ];
           };
         };
-        vswitch.enable = true;
+        # vswitch.enable = true;
       };
 
       nixfiles.packages = { inherit (pkgs) incus ovn; };
