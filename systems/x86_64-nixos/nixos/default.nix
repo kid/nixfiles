@@ -50,7 +50,7 @@ in
       printing.enable = true;
     };
 
-    virtualization = {
+    virtualisation = {
       enable = true;
       docker.enable = true;
     };
