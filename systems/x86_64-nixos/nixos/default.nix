@@ -56,6 +56,10 @@ in
     };
 
     system.boot.kernel = latestKernelPackage;
+
+    packages = {
+      inherit (pkgs) go;
+    };
   };
 
   nixpkgs = {
