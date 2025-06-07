@@ -13,7 +13,10 @@ in
   config = mkIf cfg.enable {
     programs.steam = {
       enable = true;
-      extraCompatPackages = [ pkgs.proton-ge-bin ];
+      extraCompatPackages = with pkgs; [
+        proton-ge-custom
+        proton-ge-bin
+      ];
 
       package = pkgs.steam.override {
         extraPkgs =
