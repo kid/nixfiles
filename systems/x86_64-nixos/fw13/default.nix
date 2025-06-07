@@ -1,19 +1,9 @@
 {
-  inputs,
   lib,
   pkgs,
   ...
 }:
 {
-  imports = [
-    inputs.nur.modules.nixos.default
-    # inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
-  ];
-
-  nixpkgs.overlays = [
-    inputs.nur.overlays.default
-  ];
-
   facter.reportPath = ./facter.json;
 
   nixfiles = {

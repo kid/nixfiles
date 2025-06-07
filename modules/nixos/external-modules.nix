@@ -12,5 +12,7 @@
     nixvim.nixosModules.nixvim
     nixvim.nixosModules.config
     xremap.nixosModules.default
+    nur.modules.nixos.default
+    chaotic.nixosModules.default
   ];
 }
