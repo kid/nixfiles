@@ -26,10 +26,6 @@ in
     # inputs.nixos-hardware.nixosModules.common-cpu-amd
     # inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     # inputs.nixos-hardware.nixosModules.common-gpu-amd
-
-    # TODO: move to shared modules in flake.nix
-    inputs.nur.modules.nixos.default
-    inputs.chaotic.nixosModules.default
   ];
 
   system.stateVersion = "22.11";
@@ -60,13 +56,6 @@ in
     packages = {
       inherit (pkgs) go;
     };
-  };
-
-  nixpkgs = {
-    overlays = [
-      # self.overlays.stable-packages
-      inputs.nur.overlays.default
-    ];
   };
 
   boot = {
