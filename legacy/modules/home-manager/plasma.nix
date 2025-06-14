@@ -74,5 +74,10 @@
       general.askForConfirmationOnLogout = false;
       sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
     };
+
+    shortcuts = {
+      # NOTE: Disable Meta key for application launcher
+      plasmashell."activate application launcher" = [ "Alt+F1" ];
+    };
   };
 }
