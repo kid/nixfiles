@@ -20,6 +20,7 @@ in
         jack.enable = true;
         pulse.enable = true;
         wireplumber.enable = true;
+        lowLatency.enable = true;
       };
       pulseaudio.enable = lib.mkForce false;
     };
