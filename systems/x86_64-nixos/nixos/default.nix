@@ -75,13 +75,6 @@ in
       "amd_pstate=active"
     ];
 
-    # Steamdeck adjustments
-    kernel.sysctl = {
-      "kernel.sched_cfs_bandwidth_slice_us" = 3000;
-      "net.ipv4.tcp_fin_timeout" = 5;
-      "vm.max_map_count" = 2147483642;
-    };
-
     initrd.supportedFilesystems = [ "zfs" ];
 
     supportedFilesystems = [
@@ -210,4 +203,17 @@ in
   environment.variables.AMD_VULKAN_ICD = "RADV";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  programs.gamescope.args = [
+    "-W"
+    "3840"
+    "-H"
+    "2160"
+    "-r"
+    "138"
+    "-f"
+    "--adaptive-sync"
+    "--force-grab-cursor"
+    "--hdr-enabled"
+  ];
 }

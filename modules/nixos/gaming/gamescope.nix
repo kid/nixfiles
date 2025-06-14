@@ -12,5 +12,10 @@ in
   config.programs.gamescope = mkIf cfg.enable {
     enable = true;
     # capSysNice = true;
+
+    args = [
+      "--rt"
+      "--expose-wayland"
+    ];
   };
 }

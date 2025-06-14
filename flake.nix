@@ -57,10 +57,16 @@
       };
     };
 
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
+
     nur.url = "github:nix-community/NUR";
 
-    xremap.url = "github:xremap/nix-flake";
-    xremap.inputs.nixpkgs.follows = "nixpkgs";
+    xremap = {
+      url = "github:xremap/nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
 
     nixvim.url = "github:kid/nixvim";
 

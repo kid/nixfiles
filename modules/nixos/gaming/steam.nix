@@ -35,6 +35,9 @@ in
           ];
       };
 
+      protontricks.enable = true;
+
+      platformOptimizations.enable = true;
     };
 
     environment.systemPackages = with pkgs; [

@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs',
   ...
 }:
 let
@@ -11,10 +12,17 @@ let
 in
 {
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      lutris
-      wineWowPackages.waylandFull
-      umu-launcher
-    ];
+    environment.systemPackages =
+      with pkgs;
+      [
+        lutris
+        # wineWowPackages.waylandFull
+        umu-launcher
+      ]
+      ++ (with inputs'.nix-gaming.packages; [
+        wine-tkg-ntsync
+      ]);
+
+    programs.wine.ntsync.enable = true;
   };
 }
