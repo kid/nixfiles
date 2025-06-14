@@ -53,4 +53,14 @@
 
     sensor.iio.enable = true;
   };
+
+  services = {
+    libinput = {
+      touchpad = {
+        naturalScrolling = true;
+        tapping = false;
+        clickMethod = "clickfinger";
+      };
+    };
+  };
 }
