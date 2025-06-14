@@ -23,7 +23,9 @@ let
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         sponsorblock
         ublock-origin
+        consent-o-matic
         improved-tube
+        sidebery
         plasma-integration
         onepassword-password-manager
       ];
