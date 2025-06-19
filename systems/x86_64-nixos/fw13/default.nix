@@ -25,6 +25,10 @@
       };
     };
 
+    services = {
+      printing.enable = true;
+    };
+
     programs = {
       gaming.enable = true;
     };

@@ -1,8 +1,4 @@
-{
-  self,
-  pkgs,
-  ...
-}:
+{ self, pkgs, ... }:
 {
   imports = [
     "${self}/legacy/modules/home-manager"
