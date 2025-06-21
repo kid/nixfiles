@@ -54,6 +54,7 @@ in
           # FIXME: requirement for xremap
           "uinput"
           "gamemode"
+          "corectrl"
         ];
     } { })
   );

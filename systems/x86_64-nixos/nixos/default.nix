@@ -200,10 +200,13 @@ in
     };
   };
 
-  environment.variables.AMD_VULKAN_ICD = "RADV";
+  hardware.amdgpu.overdrive.enable = true;
+
+  # environment.variables.AMD_VULKAN_ICD = "RADV";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  programs.corectrl.enable = true;
   programs.gamescope.args = [
     "-W"
     "3840"
@@ -215,5 +218,6 @@ in
     "--adaptive-sync"
     "--force-grab-cursor"
     "--hdr-enabled"
+    "--mango"
   ];
 }
