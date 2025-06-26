@@ -5,19 +5,6 @@
   pkgs,
   ...
 }:
-let
-  zfsCompatibleKernelPackages = lib.filterAttrs (
-    name: kernelPackages:
-    (builtins.match "linux_[0-9]+_[0-9]+" name) != null
-    && (builtins.tryEval kernelPackages).success
-    && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
-  ) pkgs.linuxKernel.packages;
-  latestKernelPackage = lib.last (
-    lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
-      builtins.attrValues zfsCompatibleKernelPackages
-    )
-  );
-in
 {
   imports = [
     # (modulesPath + "/installer/scan/not-detected.nix")
@@ -51,21 +38,32 @@ in
       docker.enable = true;
     };
 
-    system.boot.kernel = latestKernelPackage;
+    # system.boot.kernel = latestKernelPackage;
+
+    storage = {
+      type = "btrfs";
+      # mainDevice = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T";
+      mainDevice = "/dev/disk/by-id/nvme-Samsung_SSD_950_PRO_256GB_S2GLNCAGB17031B";
+      impermanence = {
+        enable = true;
+        persistence."/persist/system".directories = [
+          "/etc/NetworkManager/system-connections"
+          "/var/lib/iwd"
+          "/var/lib/fprint"
+        ];
+      };
+    };
 
     packages = {
       inherit (pkgs) go;
     };
   };
 
+  disko.devices.disk.main.device = "/dev/disk/by-id/nvme-Samsung_SSD_950_PRO_256GB_S2GLNCAGB17031B";
+
   boot = {
-    resumeDevice = "/dev/disk/by-label/swap";
-
-    # blacklistedKernelModules = [ "r8169" ];
-
     extraModulePackages = with config.boot.kernelPackages; [
       r8125
-      # r8168
     ];
 
     kernelParams = [
@@ -74,17 +72,6 @@ in
       "preempt=full"
       "amd_pstate=active"
     ];
-
-    initrd.supportedFilesystems = [ "zfs" ];
-
-    supportedFilesystems = [
-      "zfs"
-      "ntfs"
-    ];
-
-    zfs = {
-      devNodes = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T-part5";
-    };
   };
 
   chaotic = {
@@ -94,45 +81,6 @@ in
     };
     # mesa-git.enable = true;
   };
-  fileSystems = {
-    "/" = {
-      device = "rpool/SYSTEM/root";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-      neededForBoot = true;
-    };
-
-    "/var" = {
-      device = "rpool/SYSTEM/var";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-      neededForBoot = true;
-    };
-
-    "/nix" = {
-      device = "rpool/LOCAL/nix";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
-
-    "/home" = {
-      device = "rpool/USER/home";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
-
-    "/boot" = {
-      device = "/dev/disk/by-label/EFI";
-      fsType = "vfat";
-    };
-
-    "/var/lib/docker" = {
-      device = "/dev/zvol/rpool/docker";
-      fsType = "ext4";
-    };
-  };
-
-  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
   networking = {
     hostId = "9371deb4";
