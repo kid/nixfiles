@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib.modules) mkAfter mkForce mkImageMediaOverride;
 in
@@ -9,6 +14,10 @@ in
     kernelParams = mkAfter [
       "noquiet"
       "toram"
+    ];
+
+    extraModulePackages = with config.boot.kernelPackages; [
+      r8125
     ];
 
     initrd.systemd = {
