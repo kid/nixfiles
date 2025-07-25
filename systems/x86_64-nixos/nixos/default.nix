@@ -38,8 +38,6 @@
       docker.enable = true;
     };
 
-    # system.boot.kernel = latestKernelPackage;
-
     storage = {
       type = "btrfs";
       # mainDevice = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T";
@@ -72,14 +70,6 @@
       "preempt=full"
       "amd_pstate=active"
     ];
-  };
-
-  chaotic = {
-    hdr = {
-      # enable = true;
-      specialisation.enable = false;
-    };
-    # mesa-git.enable = true;
   };
 
   networking = {

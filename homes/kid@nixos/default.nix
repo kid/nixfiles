@@ -8,7 +8,11 @@
 
   nixfiles = {
     packages = {
-      inherit (pkgs) freecad-wayland winbox4 incus;
+      inherit (pkgs)
+        # freecad-wayland
+        winbox4
+        incus
+        ;
     };
 
     services.xremap.enable = true;

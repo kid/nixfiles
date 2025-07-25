@@ -14,7 +14,7 @@
     xremap.nixosModules.default
     nur.modules.nixos.default
     chaotic.nixosModules.default
-    nix-gaming.nixosModules.ntsync
+    nix-gaming.nixosModules.wine
     nix-gaming.nixosModules.pipewireLowLatency
     nix-gaming.nixosModules.platformOptimizations
   ];
