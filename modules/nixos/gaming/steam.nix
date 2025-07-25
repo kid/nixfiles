@@ -15,6 +15,7 @@ in
       enable = true;
       extraCompatPackages = with pkgs; [
         proton-ge-bin
+        # proton-ge-custom
       ];
 
       package = pkgs.steam.override {
@@ -43,5 +44,11 @@ in
     environment.systemPackages = with pkgs; [
       mangohud
     ];
+
+    environment.sessionVariables = {
+      PROTON_ENABLE_WAYLAND = "1";
+      PROTON_ENABLE_HDR = "1";
+      PROTON_USE_WOW64 = "1";
+    };
   };
 }
