@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -15,7 +16,11 @@ in
     settings = {
       general = {
         softrealtime = "auto";
-        renice = 15;
+        renice = 10;
+      };
+      custom = {
+        start = "${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations activated'";
+        end = "${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'";
       };
     };
   };
