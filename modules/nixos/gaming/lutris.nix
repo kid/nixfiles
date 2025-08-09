@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  # inputs',
   ...
 }:
 let
@@ -16,7 +15,5 @@ in
       lutris
       umu-launcher
     ];
-
-    programs.wine.ntsync.enable = true;
   };
 }
