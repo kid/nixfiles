@@ -25,6 +25,8 @@
       "graphical"
     ];
 
+    system.boot.secureBoot = true;
+
     programs = {
       gaming.enable = true;
     };
