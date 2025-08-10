@@ -39,13 +39,14 @@ rec {
       # relPath = [
       #   namespace
       # ] ++ lib.tail (lib.path.subpath.components (lib.path.removePrefix ../../modules path));
-      relPath =
-        [ "nixfiles" ]
-        ++ (lib.pipe path [
-          (lib.path.removePrefix ../../modules)
-          lib.path.subpath.components
-          lib.tail
-        ]);
+      relPath = [
+        "nixfiles"
+      ]
+      ++ (lib.pipe path [
+        (lib.path.removePrefix ../../modules)
+        lib.path.subpath.components
+        lib.tail
+      ]);
       # |> lib.path.removePrefix ../../modules
       # |> lib.path.subpath.components
       # |> lib.tail; # Remove the first element, which is the module type (home / nixos / darwin)

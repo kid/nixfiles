@@ -65,24 +65,23 @@ in
                   "nixos"
                   "-f"
                 ];
-                subvolumes =
-                  {
-                    "/root" = {
-                      inherit mountOptions;
-                      mountpoint = "/";
-                    };
-                    "/home" = {
-                      inherit mountOptions;
-                      mountpoint = "/home";
-                    };
-                    "/nix" = {
-                      inherit mountOptions;
-                      mountpoint = "/nix";
-                    };
-                  }
-                  // genAttrs cfg.extraSubVolumes (mountpoint: {
-                    inherit mountpoint mountOptions;
-                  });
+                subvolumes = {
+                  "/root" = {
+                    inherit mountOptions;
+                    mountpoint = "/";
+                  };
+                  "/home" = {
+                    inherit mountOptions;
+                    mountpoint = "/home";
+                  };
+                  "/nix" = {
+                    inherit mountOptions;
+                    mountpoint = "/nix";
+                  };
+                }
+                // genAttrs cfg.extraSubVolumes (mountpoint: {
+                  inherit mountpoint mountOptions;
+                });
               };
             };
           };
