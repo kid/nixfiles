@@ -12,6 +12,8 @@
       "graphical"
     ];
 
+    system.boot.secureBoot = true;
+
     storage = {
       type = "btrfs";
       mainDevice = "/dev/disk/by-id/nvme-SHPP41-2000GM_ASD9N54741120A36G_1";
