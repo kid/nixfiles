@@ -12,10 +12,11 @@
     # pmount
     pulsemixer
     portfolio
-    # freecad
+    freecad
     prusa-slicer
     # glxinfo
     deltachat-desktop
     proton-pass
+    winbox4
   ];
 }

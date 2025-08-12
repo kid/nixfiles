@@ -1,4 +1,4 @@
-{ self, pkgs, ... }:
+{ self, ... }:
 {
   imports = [
     "${self}/legacy/modules/home-manager"
@@ -7,10 +7,6 @@
   ];
 
   nixfiles = {
-    packages = {
-      inherit (pkgs) freecad-wayland winbox4;
-    };
-
     services.xremap.enable = true;
 
     programs.gui.enable = true;

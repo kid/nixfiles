@@ -1,7 +1,7 @@
 {
   networking = {
     useNetworkd = true;
-    wireless.enable = true;
+    wireless.iwd.enable = true;
   };
 
   services.openssh.enable = true;

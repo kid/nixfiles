@@ -1,5 +1,4 @@
 {
-  self,
   config,
   lib,
   pkgs,
@@ -8,28 +7,12 @@
 let
   inherit (lib)
     mkDefault
-    mkEnableOption
     mkIf
-    mkOption
     ;
-  inherit (lib.types) raw;
-  inherit (self.lib) mkBoolOpt;
 
   cfg = config.nixfiles.system.boot;
 in
 {
-  options.nixfiles.system.boot = {
-    enable = mkEnableOption "boot";
-    plymouth = mkBoolOpt true "Whether to enable the Plymouth boot splash";
-    silent = mkBoolOpt true "Whether to enable silent boot";
-    rememberLast = mkBoolOpt false "Whether to remember the last selected boot";
-
-    kernel = mkOption {
-      type = raw;
-      default = pkgs.linuxPackages_latest;
-    };
-  };
-
   config = mkIf cfg.enable {
     nixfiles.packages = {
       inherit (pkgs)

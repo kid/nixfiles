@@ -27,35 +27,34 @@ in
       initialPassword = mkDefault "foo";
 
       # only add groups that exist
-      extraGroups =
-        [
-          "wheel"
-          "nix"
-        ]
-        ++ ifTheyExist config [
-          "network"
-          "networkmanager"
-          "systemd-journal"
-          "audio"
-          "pipewire" # this give us access to the rt limits
-          "video"
-          "input"
-          "plugdev"
-          "lp"
-          "tss"
-          "power"
-          "wireshark"
-          "mysql"
-          "docker"
-          "podman"
-          "git"
-          "libvirtd"
-          "cloudflared"
-          # FIXME: requirement for xremap
-          "uinput"
-          "gamemode"
-          "corectrl"
-        ];
+      extraGroups = [
+        "wheel"
+        "nix"
+      ]
+      ++ ifTheyExist config [
+        "network"
+        "networkmanager"
+        "systemd-journal"
+        "audio"
+        "pipewire" # this give us access to the rt limits
+        "video"
+        "input"
+        "plugdev"
+        "lp"
+        "tss"
+        "power"
+        "wireshark"
+        "mysql"
+        "docker"
+        "podman"
+        "git"
+        "libvirtd"
+        "cloudflared"
+        # FIXME: requirement for xremap
+        "uinput"
+        "gamemode"
+        "corectrl"
+      ];
     } { })
   );
 }
