@@ -23,7 +23,7 @@
 
       # set the build dir to /var/tmp to avoid issues on tmpfs
       # https://github.com/NixOS/nixpkgs/issues/293114#issuecomment-2663470083
-      build-dir = "/var/tmp";
+      # build-dir = "/var/tmp";
 
       extra-platforms = config.boot.binfmt.emulatedSystems;
     };
