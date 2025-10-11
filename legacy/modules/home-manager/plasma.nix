@@ -1,4 +1,6 @@
 {
+  qt.platformTheme.name = "kde";
+
   programs.plasma = {
     enable = true;
 
