@@ -147,7 +147,7 @@ in
   };
 
   programs.floorp = {
-    enable = true;
+    enable = false;
     inherit policies profiles;
   };
 

@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -27,7 +28,7 @@
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
-      dotDir = ".config/zsh";
+      dotDir = "${config.xdg.configHome}/zsh";
 
       localVariables = {
         ZVM_VI_INSERT_ESCAPE_BINDKEY = "jk";
