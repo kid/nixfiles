@@ -38,6 +38,7 @@
     virtualisation = {
       enable = true;
       docker.enable = true;
+      incus.enable = true;
     };
 
     storage = {
