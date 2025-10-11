@@ -53,10 +53,6 @@
     # FIXME: requirement for xremap, move it there
     uinput.enable = true;
 
-    graphics.extraPackages = with pkgs; [
-      amdvlk
-    ];
-
     sensor.iio.enable = true;
   };
 
