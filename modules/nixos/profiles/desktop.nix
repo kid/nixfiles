@@ -19,7 +19,7 @@ in
           plymouth = true;
           rememberLast = true;
         };
-        realtime.enable = true;
+        realtime.enable = false;
       };
       hardware = {
         power.usbPowerControl = "on";

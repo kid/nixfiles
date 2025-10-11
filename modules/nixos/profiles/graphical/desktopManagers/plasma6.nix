@@ -13,5 +13,7 @@ in
     services.desktopManager.plasma6.enableQt5Integration = false;
 
     security.pam.services.sddm.kwallet.enable = true;
+
+    programs.kdeconnect.enable = true;
   };
 }

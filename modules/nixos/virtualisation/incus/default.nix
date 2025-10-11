@@ -60,7 +60,7 @@ in
     }
 
     (mkIf config.nixfiles.storage.impermanence.enable {
-      nixfiles.storage.impermanence.persistence."/persist/incus".directories = [
+      nixfiles.storage.impermanence.persistence."/persist/system".directories = [
         "/var/lib/incus"
       ];
     })
