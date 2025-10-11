@@ -86,10 +86,20 @@
       enp16s0.useDHCP = false;
       br0.useDHCP = true;
       adm.useDHCP = true;
+      lab1.ipv4.addresses = [
+        {
+          address = "192.168.88.10";
+          prefixLength = 24;
+        }
+      ];
     };
     vlans = {
       adm = {
         id = 99;
+        interface = "enp16s0";
+      };
+      lab1 = {
+        id = 1991;
         interface = "enp16s0";
       };
     };
