@@ -60,8 +60,6 @@
     };
   };
 
-  disko.devices.disk.main.device = "/dev/disk/by-id/nvme-Samsung_SSD_950_PRO_256GB_S2GLNCAGB17031B";
-
   boot = {
     extraModulePackages = with config.boot.kernelPackages; [
       r8125
@@ -142,8 +140,6 @@
   };
 
   hardware.amdgpu.overdrive.enable = true;
-
-  # environment.variables.AMD_VULKAN_ICD = "RADV";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
