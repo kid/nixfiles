@@ -26,15 +26,15 @@ let
         consent-o-matic
         improved-tube
         sidebery
-        plasma-integration
         onepassword-password-manager
+        proton-pass
       ];
 
       search = {
         force = true;
 
         engines = {
-          "Youtube" = {
+          "YouTube" = {
             definedAliases = [ "@yt" ];
             urls = [
               {
