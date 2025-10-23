@@ -146,8 +146,10 @@ let
 
       settings = {
         "browser.sessionstore.restore_on_demand" = false;
-        "signon.rememberSignons" = false;
         "browser.tabs.groups.enable" = true;
+        "browser.tabs.tabMinWidth" = 85;
+        "browser.urlbar.openintab" = true;
+        "signon.rememberSignons" = false;
         # "network.dns.echconfig.enabled" = false;
         # "network.dns.echconfig.fallback_to_origin_when_all_failed" = true;
         "widget.use-xdg-desktop-portal.file-picker" = 1;
