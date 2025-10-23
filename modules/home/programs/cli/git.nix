@@ -41,7 +41,7 @@
       commit.gpgsign = true;
       tag.gpgsign = true;
 
-      aliases = {
+      alias = {
         co = "checkout";
         br = "branch";
         ci = "commit";
