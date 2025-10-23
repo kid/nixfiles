@@ -28,6 +28,7 @@ let
         sidebery
         onepassword-password-manager
         proton-pass
+        plasma-integration
       ];
 
       search = {
@@ -135,6 +136,7 @@ let
         "browser.tabs.groups.enable" = true;
         # "network.dns.echconfig.enabled" = false;
         # "network.dns.echconfig.fallback_to_origin_when_all_failed" = true;
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
       };
     };
   };
@@ -143,11 +145,13 @@ in
 {
   programs.firefox = {
     enable = true;
+    nativeMessagingHosts = with pkgs; [ kdePackages.plasma-browser-integration ];
     inherit policies profiles;
   };
 
   programs.floorp = {
     enable = false;
+    nativeMessagingHosts = with pkgs; [ kdePackages.plasma-browser-integration ];
     inherit policies profiles;
   };
 
