@@ -35,7 +35,8 @@ let
         force = true;
 
         engines = {
-          "YouTube" = {
+          youtube = {
+            name = "YouTube";
             definedAliases = [ "@yt" ];
             urls = [
               {
@@ -50,7 +51,8 @@ let
             ];
           };
 
-          "GitHub" = {
+          github = {
+            name = "GitHub";
             definedAliases = [ "@gh" ];
             urls = [
               {
@@ -65,7 +67,8 @@ let
             ];
           };
 
-          "Nix Packages" = {
+          nix-packages = {
+            name = "Nix Packages";
             definedAliases = [ "@np" ];
             urls = [
               {
@@ -89,7 +92,8 @@ let
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
           };
 
-          "Nix Options" = {
+          nixos-options = {
+            name = "Nix Options";
             definedAliases = [ "@no" ];
             urls = [
               {
@@ -113,7 +117,17 @@ let
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
           };
 
-          "RottenTomatoes" = {
+          nixos-wiki = {
+            name = "NixOS Wiki";
+            urls = [
+              { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; }
+            ];
+            iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
+            definedAliases = [ "@nw" ];
+          };
+
+          rottentomatoes = {
+            name = "RottenTomatoes";
             definedAliases = [ "@rt" ];
             urls = [
               {
