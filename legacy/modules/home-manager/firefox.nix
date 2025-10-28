@@ -145,7 +145,10 @@ let
       };
 
       settings = {
+        "browser.sessionstore.resuming_after_os_restart" = true;
         "browser.sessionstore.restore_on_demand" = false;
+        "browser.sessionstore.restore_pinned_tabs_on_demand" = false;
+        "browser.startup.page" = 3;
         "browser.tabs.groups.enable" = true;
         "browser.tabs.tabMinWidth" = 85;
         "browser.urlbar.openintab" = true;
