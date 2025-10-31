@@ -20,7 +20,7 @@ in
       KWIN_DRM_NO_AMS = "1";
       PROTON_ENABLE_WAYLAND = "1";
       PROTON_ENABLE_HDR = "1";
-      PROTON_USE_WOW64 = "1";
+      PROTON_USE_NTSYNC = 1;
       SDL_VIDEODRIVER = "wayland";
     };
   };
