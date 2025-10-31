@@ -18,5 +18,6 @@
     nix-gaming.nixosModules.pipewireLowLatency
     nix-gaming.nixosModules.platformOptimizations
     lanzaboote.nixosModules.lanzaboote
+    niri.nixosModules.niri
   ];
 }
