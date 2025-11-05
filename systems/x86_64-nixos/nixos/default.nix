@@ -149,8 +149,14 @@
       openFirewall = true;
     };
   };
+  hardware = {
+    amdgpu.overdrive."enable" = true;
 
-  hardware.amdgpu.overdrive.enable = true;
+    logitech.wireless = {
+      enable = true;
+      enableGraphical = true;
+    };
+  };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
