@@ -2,19 +2,21 @@
   self,
   lib,
   config,
+  osConfig,
   pkgs,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
   inherit (self.lib.programs) mkProgram;
+  inherit (self.lib.validators) hasProfile;
 
   cfg = config.nixfiles.programs.gui.niri;
 in
 {
   options.nixfiles.programs.gui = {
     niri = mkProgram pkgs "niri" {
-      enable.default = config.nixfiles.programs.gui.enable;
+      enable.default = config.nixfiles.programs.gui.enable && (hasProfile osConfig [ "laptop" ]);
     };
   };
 

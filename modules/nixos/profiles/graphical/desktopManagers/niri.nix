@@ -2,7 +2,6 @@
   lib,
   self,
   config,
-  pkgs,
   ...
 }:
 let
@@ -11,18 +10,11 @@ let
 in
 {
   config =
-    mkIf
-      (
-        (hasProfile config [
-          "graphical"
-          "laptop"
-        ])
-        && (isWayland config)
-      )
+    mkIf ((hasProfile config [ "graphical" ]) && (hasProfile config [ "laptop" ]) && (isWayland config))
       {
         programs = {
           niri.enable = true;
-          niri.package = pkgs.niri-unstable;
+          # niri.package = pkgs.niri-unstable;
         };
       };
 }
