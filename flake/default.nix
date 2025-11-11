@@ -1,9 +1,4 @@
-# { self, ... }:
-# let
-#   inherit (self.lib.helpers) listImportableRecursive;
-# in
 {
-  # imports = listImportableRecursive ./.;
   imports = [
     ./checks/formatting.nix
     ./lib

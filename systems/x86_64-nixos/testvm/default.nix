@@ -14,8 +14,9 @@
   nixfiles = {
     device.profiles = [
       "vm"
-      # "desktop"
-      "headless"
+      "desktop"
+      # FIXME: non graphical appears broken because of niri & stylix?
+      # "headless"
     ];
     virtualisation.incus.enable = true;
     storage = {
@@ -23,8 +24,6 @@
       mainDevice = "/dev/vda";
       impermanence.enable = true;
     };
-    # FIXME: some issues with the headless profile?
-    system.boot.plymouth = false;
   };
 
   disko.memSize = 8096;
