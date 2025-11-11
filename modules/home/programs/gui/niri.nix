@@ -9,14 +9,18 @@
 let
   inherit (lib.modules) mkIf;
   inherit (self.lib.programs) mkProgram;
-  inherit (self.lib.validators) hasProfile;
+  inherit (self.lib.validators) isWayland hasProfile;
 
   cfg = config.nixfiles.programs.gui.niri;
 in
 {
   options.nixfiles.programs.gui = {
     niri = mkProgram pkgs "niri" {
-      enable.default = config.nixfiles.programs.gui.enable && (hasProfile osConfig [ "laptop" ]);
+      enable.default =
+        config.nixfiles.programs.gui.enable
+        && (hasProfile osConfig [ "laptop" ])
+        && (hasProfile osConfig [ "graphical" ])
+        && (isWayland osConfig);
     };
   };
 
