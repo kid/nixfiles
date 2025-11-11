@@ -2,6 +2,7 @@
   lib,
   self,
   config,
+  pkgs,
   ...
 }:
 let
@@ -14,7 +15,7 @@ in
       {
         programs = {
           niri.enable = true;
-          # niri.package = pkgs.niri-unstable;
+          niri.package = pkgs.niri-unstable;
         };
       };
 }
