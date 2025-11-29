@@ -29,9 +29,5 @@ in
     };
 
     time.timeZone = "Europe/Brussels";
-
-    # TODO: move this to its own module, maybe back to home-manager?
-    programs.nixvim.enable = true;
-    programs.nixvim.defaultEditor = true;
   };
 }

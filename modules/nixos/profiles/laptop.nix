@@ -32,13 +32,5 @@ in
     };
 
     time.timeZone = "Europe/Brussels";
-    programs = {
-      nixvim = {
-        # TODO: move this to its own module, maybe back to home-manager?
-        enable = true;
-        plugins.avante.enable = true;
-        defaultEditor = true;
-      };
-    };
   };
 }

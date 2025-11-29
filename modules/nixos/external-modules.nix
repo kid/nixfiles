@@ -9,8 +9,6 @@
     stylix.nixosModules.stylix
     ucodenix.nixosModules.default
     sops-nix.nixosModules.sops
-    nixvim.nixosModules.nixvim
-    nixvim.nixosModules.config
     xremap.nixosModules.default
     nur.modules.nixos.default
     chaotic.nixosModules.default

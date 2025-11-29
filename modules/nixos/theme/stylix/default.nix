@@ -30,7 +30,6 @@ in
       targets = {
         # TODO: needed?
         plymouth.enable = true;
-        nixvim.plugin = "base16-nvim";
         qt.enable = false;
       };
     };

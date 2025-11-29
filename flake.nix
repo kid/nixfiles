@@ -63,7 +63,8 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
-    nixvim.url = "github:kid/nixvim";
+    neovim-flake.url = "github:kid/neovim";
+    neovim-flake.inputs.nixpkgs.follows = "nixpkgs";
 
     plasma-manager = {
       url = "github:pjones/plasma-manager/trunk";

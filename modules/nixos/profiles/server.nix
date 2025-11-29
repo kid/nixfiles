@@ -13,8 +13,8 @@ in
     time.timeZone = mkForce "UTC";
 
     nixfiles = {
-      system.activation.diff.enable = true;
       system = {
+        activation.diff.enable = true;
         boot = {
           enable = true;
           silent = false;
