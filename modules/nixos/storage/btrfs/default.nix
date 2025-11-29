@@ -8,14 +8,11 @@ let
   inherit (lib.modules) mkIf mkMerge;
 
   cfg = config.nixfiles.storage;
-  impermanenceCfg = config.nixfiles.storage.impermanence;
 
   mountOptions = [
     "compress=zstd"
     "noatime"
   ];
-
-  script = builtins.readFile ./rollback.sh;
 in
 {
   config = mkIf (cfg.type == "btrfs") (mkMerge [
@@ -93,16 +90,5 @@ in
         virtualisation.fileSystems."/home".neededForBoot = true;
       };
     }
-
-    (mkIf impermanenceCfg.enable {
-      boot.initrd.systemd.services.rollback = {
-        wantedBy = [ "initrd.target" ];
-        after = [ "initrd-root-device.target" ];
-        before = [ "sysroot.mount" ];
-        unitConfig.DefaultDependencies = "no";
-        serviceConfig.Type = "oneshot";
-        inherit script;
-      };
-    })
   ]);
 }
