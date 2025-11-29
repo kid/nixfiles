@@ -1,6 +1,6 @@
 {
   lib,
-  pkgs,
+  # pkgs,
   config,
   ...
 }:
@@ -11,9 +11,9 @@ let
 in
 {
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      lutris
-      umu-launcher
-    ];
+    # environment.systemPackages = with pkgs; [
+    #   lutris
+    #   umu-launcher
+    # ];
   };
 }
