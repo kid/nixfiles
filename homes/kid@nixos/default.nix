@@ -8,7 +8,7 @@
 
   nixfiles = {
     packages = {
-      inherit (pkgs) incus;
+      inherit (pkgs) incus opencode;
     };
 
     services.xremap.enable = true;

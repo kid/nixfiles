@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, pkgs, ... }:
 {
   imports = [
     "${self}/legacy/modules/home-manager"
@@ -7,6 +7,10 @@
   ];
 
   nixfiles = {
+    packages = {
+      inherit (pkgs) opencode;
+    };
+
     services.xremap.enable = true;
 
     programs.gui.enable = true;
