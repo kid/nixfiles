@@ -1302,11 +1302,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1764417062,
-        "narHash": "sha256-CXQIyZsVS+0pV6+k7k9VIdVtDpCyZuzZmudoWbWwz+k=",
+        "lastModified": 1764420987,
+        "narHash": "sha256-TcY8NHznhtHUZHAX15SZvqqTH8nkHtL2GFTOSrhojrk=",
         "owner": "kid",
         "repo": "neovim",
-        "rev": "4d7854d271f436a5a0babe2119bdb512f86ce10b",
+        "rev": "86c9d343978a5ebd45f2015b259ea99ef8ce04ec",
         "type": "github"
       },
       "original": {
