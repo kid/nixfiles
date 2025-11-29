@@ -8,6 +8,7 @@
       "https://nixpkgs-wayland.cachix.org"
       "https://cosmic.cachix.org"
       "https://nix-gaming.cachix.org"
+      "https://install.determinate.systems"
     ];
 
     trusted-public-keys = [
@@ -18,6 +19,7 @@
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
     ];
   };
 }

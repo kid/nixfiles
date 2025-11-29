@@ -17,5 +17,6 @@
     nix-gaming.nixosModules.platformOptimizations
     lanzaboote.nixosModules.lanzaboote
     niri.nixosModules.niri
+    determinate.nixosModules.default
   ];
 }

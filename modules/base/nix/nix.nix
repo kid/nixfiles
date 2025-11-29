@@ -16,7 +16,7 @@ let
 in
 {
   nix = {
-    package = pkgs.nixVersions.latest;
+    # package = pkgs.nixVersions.latest;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = (mapAttrs (_: flake: { inherit flake; }) flakeInputs) // {
