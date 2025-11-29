@@ -9,16 +9,16 @@ let
   inherit (lib.modules) mkIf;
   inherit (self.lib.programs) mkProgram;
 
-  cfg = config.nixfiles.programs.tui.gh-dash;
+  cfg = config.nixfiles.programs.tui.zellij;
 in
 {
   options.nixfiles.programs.tui = {
-    gh-dash = mkProgram pkgs "gh-dash" {
+    zellij = mkProgram pkgs "zellij" {
       enable.default = config.nixfiles.programs.tui.enable;
     };
   };
 
-  config.programs.gh-dash = mkIf cfg.enable {
+  config.programs.zellij = mkIf cfg.enable {
     enable = true;
   };
 }
