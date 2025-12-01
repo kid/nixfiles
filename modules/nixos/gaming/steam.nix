@@ -15,6 +15,8 @@ in
       enable = true;
       extraCompatPackages = with pkgs; [
         proton-ge-bin
+        proton-cachyos_x86_64_v4
+        proton-cachyos_nightly_x86_64_v4
       ];
 
       package = pkgs.steam.override {

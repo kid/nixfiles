@@ -61,6 +61,8 @@
   };
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_cachyos.cachyOverride { mArch = "ZEN4"; };
+
     extraModulePackages = with config.boot.kernelPackages; [
       r8125
     ];
