@@ -35,8 +35,6 @@ in
           ];
       };
 
-      # protontricks.enable = true;
-
       platformOptimizations.enable = true;
     };
 
