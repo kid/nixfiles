@@ -25,10 +25,21 @@ in
       };
     };
 
+    darwinModules = {
+      nixfiles = mkModule {
+        class = "darwin";
+        modules = [
+          (self + /modules/base)
+        ];
+      };
+    };
+
     homeModules = {
       nixfiles = mkModule {
         class = "homeManager";
-        modules = [ (self + /modules/home) ];
+        modules = [
+          (self + /modules/home)
+        ];
       };
     };
   };
