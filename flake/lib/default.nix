@@ -1,10 +1,8 @@
-{ lib, inputs, ... }:
+{ lib, ... }:
 let
   nixfilesLib = lib.fixedPoints.makeExtensible (final: {
     # NOTE: legacy
     module = import ./module { inherit lib; };
-
-    deploy = import ./deploy { inherit lib inputs; };
 
     helpers = import ./helpers.nix { inherit lib; };
     programs = import ./programs.nix { inherit lib; };

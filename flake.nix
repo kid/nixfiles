@@ -1,13 +1,9 @@
 {
   inputs = {
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    easy-hosts.url = "github:tgirlcloud/easy-hosts";
-    make-shell.url = "github:nicknovitski/make-shell";
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    git-hooks-nix.url = "github:cachix/git-hooks.nix";
-    git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    easy-hosts.url = "github:tgirlcloud/easy-hosts";
 
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
@@ -24,9 +20,6 @@
     nixos-anywhere.url = "github:nix-community/nixos-anywhere";
     nixos-anywhere.inputs.nixpkgs.follows = "nixpkgs";
 
-    auto-cpufreq.url = "github:AdnanHodzic/auto-cpufreq";
-    auto-cpufreq.inputs.nixpkgs.follows = "nixpkgs";
-
     impermanence.url = "github:nix-community/impermanence";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -41,8 +34,11 @@
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    stylix.url = "github:danth/stylix";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nur.follows = "nur";
+    };
 
     chaotic = {
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
@@ -52,10 +48,12 @@
       };
     };
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
+    # FIXME: pin to a specific commit until https://github.com/fufexan/nix-gaming/issues/318 is resolved
+    nix-gaming.url = "github:fufexan/nix-gaming/faa8b1fd869418ea37dafe7d20000c1f660d3664";
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
 
     xremap = {
       url = "github:xremap/nix-flake";
@@ -71,9 +69,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-
-    deploy-rs.url = "github:serokell/deploy-rs";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";

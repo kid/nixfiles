@@ -1,22 +1,28 @@
-{ inputs, ... }:
 {
-  imports = [
-    inputs.make-shell.flakeModules.default
-  ];
-
   perSystem =
-    _:
-    let
-      flake = {
-        imports = [ ./flake.nix ];
-      };
-    in
+    { config, pkgs, ... }:
     {
+      devShells = {
 
-      make-shells = {
-        inherit flake;
+        default = pkgs.mkShellNoCC {
+          packages = with pkgs; [
+            just
 
-        default = flake;
+            sops
+            act
+
+            nil
+            nixd
+            deadnix
+            statix
+
+            nix-melt
+
+            # inputs.self.checks.${system}.pre-commit-hooks.enabledPackages
+          ];
+
+          inputsFrom = [ config.treefmt.build.devShell ];
+        };
       };
     };
 }
