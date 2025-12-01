@@ -2,7 +2,6 @@
 {
   imports = with inputs; [
     home-manager.nixosModules.default
-    auto-cpufreq.nixosModules.default
     nixos-facter-modules.nixosModules.facter
     disko.nixosModules.disko
     impermanence.nixosModules.impermanence
