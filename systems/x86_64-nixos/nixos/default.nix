@@ -81,11 +81,11 @@
     useNetworkd = true;
     bridges = {
       br0 = {
-        interfaces = [ "enp16s0" ];
+        interfaces = [ "enp15s0" ];
       };
     };
     interfaces = {
-      enp16s0.useDHCP = false;
+      enp15s0.useDHCP = false;
       br0.useDHCP = true;
       adm.useDHCP = true;
       lab.useDHCP = true;
@@ -99,11 +99,11 @@
     vlans = {
       adm = {
         id = 99;
-        interface = "enp16s0";
+        interface = "enp15s0";
       };
       lab = {
         id = 1991;
-        interface = "enp16s0";
+        interface = "enp15s0";
       };
     };
     firewall.enable = false;

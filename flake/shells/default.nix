@@ -1,6 +1,11 @@
 {
   perSystem =
-    { config, pkgs, ... }:
+    {
+      config,
+      pkgs,
+      inputs',
+      ...
+    }:
     {
       devShells = {
 
@@ -19,6 +24,7 @@
             nix-melt
 
             # inputs.self.checks.${system}.pre-commit-hooks.enabledPackages
+            inputs'.disko.packages.disko-install
           ];
 
           inputsFrom = [ config.treefmt.build.devShell ];

@@ -14,7 +14,21 @@ in
         content = {
           type = "gpt";
           partitions = {
-            nixos = {
+            ESP = {
+              priority = 1;
+              name = "ESP";
+              label = "boot";
+              start = "1M";
+              end = "512M";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+                mountOptions = [ "umask=0077" ];
+              };
+            };
+            NIXOS = {
               size = "100%";
               content = {
                 type = "btrfs";
@@ -44,28 +58,9 @@ in
                 };
               };
             };
-            # ESP = {
-            #   priority = 1;
-            #   name = "ESP";
-            #   label = "boot";
-            #   start = "1M";
-            #   end = "512M";
-            #   type = "EF00";
-            #   content = {
-            #     type = "filesystem";
-            #     format = "vfat";
-            #     mountpoint = "/boot";
-            #     mountOptions = [ "umask=0077" ];
-            #   };
-            # };
           };
         };
       };
     };
-  };
-
-  fileSystems = {
-    "/persist".neededForBoot = true;
-    "/home".neededForBoot = true;
   };
 }

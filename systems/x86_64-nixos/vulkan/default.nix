@@ -13,6 +13,7 @@
     # inputs.nixos-hardware.nixosModules.common-cpu-amd
     # inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     # inputs.nixos-hardware.nixosModules.common-gpu-amd
+    ./disko-config.nix
   ];
 
   system.stateVersion = "22.11";
@@ -41,20 +42,20 @@
       incus.enable = true;
     };
 
-    storage = {
-      type = "btrfs";
-      # mainDevice = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T";
-      # mainDevice = "/dev/disk/by-id/nvme-Samsung_SSD_950_PRO_256GB_S2GLNCAGB17031B";
-      mainDevice = "/dev/disk/by-id/nvme-WD_BLACK_SN8100_2000GB_25264U800487";
-      impermanence = {
-        enable = true;
-        persistence."/persist/system".directories = [
-          "/etc/NetworkManager/system-connections"
-          "/var/lib/iwd"
-          "/var/lib/fprint"
-        ];
-      };
-    };
+    # storage = {
+    #   type = "btrfs";
+    #   # mainDevice = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNG0NB01573T";
+    #   # mainDevice = "/dev/disk/by-id/nvme-Samsung_SSD_950_PRO_256GB_S2GLNCAGB17031B";
+    #   mainDevice = "/dev/disk/by-id/nvme-WD_BLACK_SN8100_2000GB_25264U800487";
+    #   impermanence = {
+    #     enable = true;
+    #     persistence."/persist/system".directories = [
+    #       "/etc/NetworkManager/system-connections"
+    #       "/var/lib/iwd"
+    #       "/var/lib/fprint"
+    #     ];
+    #   };
+    # };
 
     packages = {
       inherit (pkgs) go;
@@ -177,4 +178,58 @@
     "--hdr-enabled"
     "--mango"
   ];
+
+  fileSystems = {
+    "/persist".neededForBoot = true;
+    "/home".neededForBoot = true;
+  };
+
+  preservation = {
+    enable = true;
+    preserveAt."/persist" = {
+      files = [
+        {
+          file = "/etc/machine-id";
+          inInitrd = true;
+        }
+        {
+          file = "/etc/ssh/ssh_host_rsa_key";
+          how = "symlink";
+          configureParent = true;
+        }
+        {
+          file = "/etc/ssh/ssh_host_rsa_key.pub";
+          how = "symlink";
+          configureParent = true;
+        }
+        {
+          file = "/etc/ssh/ssh_host_ed25519_key";
+          how = "symlink";
+          configureParent = true;
+        }
+        {
+          file = "/etc/ssh/ssh_host_ed25519_key.pub";
+          how = "symlink";
+          configureParent = true;
+        }
+      ];
+
+      directories = [
+        "/etc/secureboot"
+        "/var/lib/bluetooth"
+        "/var/lib/fprint"
+        "/var/lib/fwupd"
+        "/var/lib/libvirt"
+        "/var/lib/power-profiles-daemon"
+        "/var/lib/systemd/coredump"
+        "/var/lib/systemd/rfkill"
+        "/var/lib/systemd/timers"
+        "/var/log"
+        {
+          directory = "/var/lib/nixos";
+          inInitrd = true;
+        }
+      ];
+    };
+  };
 }
