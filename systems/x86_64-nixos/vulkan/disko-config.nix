@@ -1,3 +1,7 @@
+{
+  device ? "/dev/disk/by-id/nvme-WD_BLACK_SN8100_2000GB_25264U800487",
+  ...
+}:
 let
   mountOptions = [
     "compress=zstd"
@@ -8,7 +12,7 @@ in
   disko.devices = {
     disk = {
       main = {
-        device = "/dev/disk/by-id/nvme-WD_BLACK_SN8100_2000GB_25264U800487";
+        inherit device;
         type = "disk";
         imageSize = "10G";
         content = {
@@ -33,25 +37,23 @@ in
               content = {
                 type = "btrfs";
                 extraArgs = [
-                  "-L"
-                  "nixos"
                   "-f"
                 ];
                 subvolumes = {
                   "@" = { };
-                  "@root" = {
+                  "@/root" = {
                     inherit mountOptions;
                     mountpoint = "/";
                   };
-                  "@home" = {
+                  "@/home" = {
                     inherit mountOptions;
                     mountpoint = "/home";
                   };
-                  "@nix" = {
+                  "@/nix" = {
                     inherit mountOptions;
                     mountpoint = "/nix";
                   };
-                  "@persist" = {
+                  "@/persist" = {
                     inherit mountOptions;
                     mountpoint = "/persist";
                   };

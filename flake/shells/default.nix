@@ -24,6 +24,7 @@
             nix-melt
 
             # inputs.self.checks.${system}.pre-commit-hooks.enabledPackages
+            inputs'.disko.packages.disko
             inputs'.disko.packages.disko-install
           ];
 
