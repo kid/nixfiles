@@ -5,6 +5,7 @@
     nixos-facter-modules.nixosModules.facter
     disko.nixosModules.disko
     impermanence.nixosModules.impermanence
+    preservation.nixosModules.preservation
     stylix.nixosModules.stylix
     ucodenix.nixosModules.default
     sops-nix.nixosModules.sops
