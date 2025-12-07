@@ -1,5 +1,7 @@
 {
   inputs = {
+    self.submodules = true;
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -62,7 +64,7 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
-    neovim-flake.url = "github:kid/neovim";
+    neovim-flake.url = "path:vendor/neovim";
     neovim-flake.inputs.nixpkgs.follows = "nixpkgs";
 
     plasma-manager = {
