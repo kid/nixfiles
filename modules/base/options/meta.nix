@@ -1,13 +1,13 @@
 {
   lib,
-  self,
+  localLib,
   config,
   ...
 }:
 let
   inherit (lib.trivial) id;
   inherit (lib.options) mkOption;
-  inherit (self.lib.validators) anyHome;
+  inherit (localLib.validators) anyHome;
   inherit (lib.strings) concatStringsSep;
 
   mkMetaOption =

@@ -1,6 +1,6 @@
 {
   lib,
-  self,
+  localLib,
   config,
   ...
 }:
@@ -8,7 +8,7 @@ let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkOptionDefault;
   inherit (lib.types) nullOr enum;
-  inherit (self.lib.validators) hasProfile;
+  inherit (localLib.validators) hasProfile;
 in
 {
   options.nixfiles.environment.loginManager = mkOption {

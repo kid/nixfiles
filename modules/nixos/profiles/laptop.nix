@@ -1,12 +1,12 @@
 {
   lib,
-  self,
+  localLib,
   config,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) hasProfile;
+  inherit (localLib.validators) hasProfile;
 in
 {
   config = mkIf (hasProfile config [ "laptop" ]) {

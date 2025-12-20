@@ -1,10 +1,10 @@
 {
-  self,
+  localLib,
   pkgs,
   ...
 }:
 let
-  inherit (self.lib.programs) mkProgram;
+  inherit (localLib.programs) mkProgram;
 in
 {
   options.nixfiles.programs = {

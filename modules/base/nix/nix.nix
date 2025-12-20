@@ -1,13 +1,13 @@
 {
   lib,
   pkgs,
-  self,
+  localLib,
   inputs,
   ...
 }:
 let
   inherit (lib.attrsets) filterAttrs mapAttrs;
-  inherit (self.lib.hardware) ldTernary;
+  inherit (localLib.hardware) ldTernary;
   inherit (lib.types) isType;
 
   flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;

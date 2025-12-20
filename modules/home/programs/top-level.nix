@@ -1,5 +1,5 @@
 {
-  self,
+  localLib,
   lib,
   config,
   osConfig,
@@ -8,7 +8,7 @@
 let
   inherit (lib.modules) mkOptionDefault;
   inherit (lib.options) mkEnableOption;
-  inherit (self.lib.validators) hasProfile;
+  inherit (localLib.validators) hasProfile;
 
   cfg = config.nixfiles.programs;
 in

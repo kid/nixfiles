@@ -1,12 +1,12 @@
 {
   lib,
-  self,
+  localLib,
   config,
   ...
 }:
 let
   inherit (lib.modules) mkIf mkForce;
-  inherit (self.lib.validators) hasProfile;
+  inherit (localLib.validators) hasProfile;
   inherit (lib.attrsets) mapAttrs;
 in
 {

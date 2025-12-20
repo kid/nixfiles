@@ -1,6 +1,6 @@
 {
   lib,
-  self,
+  localLib,
   pkgs,
   config,
   ...
@@ -8,8 +8,8 @@
 let
   inherit (lib.modules) mkDefault;
   inherit (lib.attrsets) genAttrs;
-  inherit (self.lib.hardware) ldTernary;
-  inherit (self.lib.validators) ifTheyExist;
+  inherit (localLib.hardware) ldTernary;
+  inherit (localLib.validators) ifTheyExist;
 in
 {
   users.users = genAttrs config.nixfiles.system.users (

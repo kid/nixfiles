@@ -1,5 +1,5 @@
 {
-  self,
+  localLib,
   config,
   lib,
   pkgs,
@@ -11,7 +11,7 @@ let
     mkIf
     types
     ;
-  inherit (self.lib) mkOpt;
+  inherit (localLib) mkOpt;
   cfg = config.nixfiles.hardware.power;
 in
 {

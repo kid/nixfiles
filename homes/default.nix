@@ -1,8 +1,10 @@
 {
-  lib,
+  nixfiles,
   config,
+  flake,
   self,
   self',
+  lib,
   inputs,
   inputs',
   ...
@@ -30,15 +32,17 @@ in
       });
 
       extraSpecialArgs = {
+        inherit nixfiles;
         inherit
           self
           self'
           inputs
           inputs'
           ;
+
       };
 
-      sharedModules = [ self.homeModules.nixfiles ];
+      sharedModules = [ flake.homeModules.nixfiles ];
     };
   };
 }

@@ -1,13 +1,13 @@
 {
   lib,
-  self,
+  localLib,
   pkgs,
   config,
   ...
 }:
 let
-  inherit (self.lib.programs) mkProgram;
-  inherit (self.lib.validators) isWayland;
+  inherit (localLib.programs) mkProgram;
+  inherit (localLib.validators) isWayland;
   inherit (lib.lists) optional;
 
   cfg = config.nixfiles.programs.wine;

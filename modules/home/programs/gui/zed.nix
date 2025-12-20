@@ -1,5 +1,5 @@
 {
-  self,
+  localLib,
   lib,
   config,
   pkgs,
@@ -7,7 +7,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.programs) mkProgram;
+  inherit (localLib.programs) mkProgram;
 
   cfg = config.nixfiles.programs.gui.zed-editor;
 in

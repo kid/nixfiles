@@ -1,5 +1,5 @@
 {
-  self,
+  localLib,
   lib,
   pkgs,
   ...
@@ -10,7 +10,7 @@ let
     mkOption
     ;
   inherit (lib.types) raw;
-  inherit (self.lib) mkBoolOpt;
+  inherit (localLib) mkBoolOpt;
 in
 {
   options.nixfiles.system.boot = {

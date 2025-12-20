@@ -1,5 +1,6 @@
 {
   lib,
+  localLib,
   self,
   pkgs,
   config,
@@ -8,7 +9,7 @@
 let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkDefault;
-  inherit (self.lib.hardware) ldTernary;
+  inherit (localLib.hardware) ldTernary;
 
   cfg = config.nixfiles.system;
 in

@@ -1,5 +1,5 @@
 {
-  self,
+  localLib,
   lib,
   config,
   osConfig,
@@ -8,8 +8,8 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.programs) mkProgram;
-  inherit (self.lib.validators) isWayland hasProfile;
+  inherit (localLib.programs) mkProgram;
+  inherit (localLib.validators) isWayland hasProfile;
 
   cfg = config.nixfiles.programs.gui.niri;
 in

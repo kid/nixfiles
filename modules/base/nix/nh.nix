@@ -1,10 +1,10 @@
 {
-  self,
+  localLib,
   config,
   ...
 }:
 let
-  inherit (self.lib.validators) hasProfile;
+  inherit (localLib.validators) hasProfile;
 in
 {
   programs.nh = {

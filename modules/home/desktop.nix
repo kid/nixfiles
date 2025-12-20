@@ -1,6 +1,6 @@
 {
   lib,
-  self,
+  localLib,
   config,
   osConfig,
   ...
@@ -11,7 +11,7 @@ let
   inherit (lib.lists) elem;
   inherit (lib.options) mkOption;
   inherit (lib.types) bool nullOr enum;
-  inherit (self.lib.validators) hasProfile;
+  inherit (localLib.validators) hasProfile;
 
   mkMetaOption =
     path: enum:

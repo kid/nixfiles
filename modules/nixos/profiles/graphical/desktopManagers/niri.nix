@@ -1,13 +1,13 @@
 {
   lib,
-  self,
+  localLib,
   config,
   pkgs,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) hasProfile isWayland;
+  inherit (localLib.validators) hasProfile isWayland;
 in
 {
   config =

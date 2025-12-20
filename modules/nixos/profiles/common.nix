@@ -1,12 +1,12 @@
 {
   lib,
-  self,
+  localLib,
   config,
   ...
 }:
 let
   inherit (lib.modules) mkDefault mkMerge mkIf;
-  inherit (self.lib.validators) hasProfile;
+  inherit (localLib.validators) hasProfile;
 in
 {
   # TODO: get rid of this

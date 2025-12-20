@@ -1,13 +1,13 @@
 {
   lib,
-  self,
+  localLib,
   config,
   pkgs,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) hasProfile;
+  inherit (localLib.validators) hasProfile;
 in
 {
   config = mkIf (hasProfile config [ "headless" ]) {
