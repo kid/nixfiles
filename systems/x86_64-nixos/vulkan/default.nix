@@ -67,14 +67,7 @@
   networking = {
     hostId = "9371deb4";
     useNetworkd = true;
-    bridges = {
-      br0 = {
-        interfaces = [ "en*" ];
-      };
-    };
     interfaces = {
-      enp16s0.useDHCP = false;
-      br0.useDHCP = true;
       adm.useDHCP = true;
       lab.useDHCP = true;
     };
@@ -95,6 +88,12 @@
     networks = {
       "40-adm" = {
         name = "adm";
+        dhcpV4Config = {
+          RouteMetric = 2048;
+        };
+      };
+      "40-lab" = {
+        name = "lab";
         dhcpV4Config = {
           RouteMetric = 2048;
         };
