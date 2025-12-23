@@ -51,8 +51,7 @@
       };
     };
 
-    # FIXME: pin to a specific commit until https://github.com/fufexan/nix-gaming/issues/318 is resolved
-    nix-gaming.url = "github:fufexan/nix-gaming/faa8b1fd869418ea37dafe7d20000c1f660d3664";
+    nix-gaming.url = "github:fufexan/nix-gaming";
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
