@@ -271,4 +271,8 @@
       umount /mnt
     '';
   };
+
+  zramSwap = {
+    enable = true;
+  };
 }
