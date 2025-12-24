@@ -27,3 +27,6 @@ build pkg:
 # build the iso image, you must specify the image you want to build
 [group('package')]
 iso image: (build "nixosConfigurations." + image + ".config.system.build.isoImage")
+
+update:
+    git submodule update --rebase --remote
