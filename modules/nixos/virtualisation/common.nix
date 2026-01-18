@@ -20,22 +20,28 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.qemu.enable {
-      nixfiles.packages = {
-        inherit (pkgs) virt-manager virt-viewer;
-      };
+      nixfiles.packages =
+        let
+          qemu-system-uefi = pkgs.writeShellScriptBin "qemu-system-x86_64-uefi" ''
+              qemu-system-x86_64 \
+                -bios ${pkgs.OVMF.fd}/FV/OVMF.fd \
+                "$@"
+            '';
+        in
+        {
+          inherit qemu-system-uefi;
+          inherit (pkgs) virt-manager virt-viewer;
+        };
 
       virtualisation.libvirtd = {
         enable = true;
 
         qemu = {
-          package = pkgs.qemu_kvm;
           swtpm.enable = true;
-          ovmf = {
-            enable = true;
-            packages = with pkgs; [ OVMFFull.fd ];
-          };
         };
       };
+
+      programs.virt-manager.enable = true;
     })
 
     (mkIf cfg.docker.enable {
