@@ -744,6 +744,22 @@
         "type": "github"
       }
     },
+    "mt7925": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1768942224,
+        "narHash": "sha256-+ocyoyb3qBYx5i8H9UNOg1htPS4ffN2vB3pGKKiax4k=",
+        "owner": "zbowling",
+        "repo": "mt7925",
+        "rev": "2f006830e5d48377286ab16bcf539e608676ed47",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zbowling",
+        "repo": "mt7925",
+        "type": "github"
+      }
+    },
     "neovim-flake": {
       "inputs": {
         "blink-cmp": "blink-cmp",
@@ -1318,6 +1334,7 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
+        "mt7925": "mt7925",
         "neovim-flake": "neovim-flake",
         "niri": "niri",
         "nix-gaming": "nix-gaming",
