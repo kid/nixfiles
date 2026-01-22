@@ -15,7 +15,6 @@ in
     with localFlake.inputs;
     [
       home-manager.nixosModules.default
-      nixos-facter-modules.nixosModules.facter
       disko.nixosModules.disko
       impermanence.nixosModules.impermanence
       preservation.nixosModules.preservation

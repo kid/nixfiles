@@ -7,6 +7,7 @@
 let
   inherit (lib)
     mkDefault
+    mkForce
     mkIf
     ;
 
@@ -26,7 +27,8 @@ in
       # 1: system is unusable | 3: error condition | 7: very verbose
       consoleLogLevel = 3;
 
-      kernelPackages = mkDefault cfg.kernel;
+      # FIXME: should not be using force here
+      kernelPackages = mkForce cfg.kernel;
 
       kernelParams =
         lib.optionals cfg.plymouth [

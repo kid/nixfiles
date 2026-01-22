@@ -26,7 +26,6 @@ in
         nixfiles = {
           theme.stylix.enable = mkDefault true;
           hardware = {
-            firmware.enable = mkDefault true;
             power.enable = mkDefault true;
           };
           security.sops.enable = mkDefault true;
