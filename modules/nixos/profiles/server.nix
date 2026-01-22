@@ -21,9 +21,6 @@ in
           plymouth = false;
         };
       };
-      hardware = {
-        firmware.enable = true;
-      };
     };
   };
 }

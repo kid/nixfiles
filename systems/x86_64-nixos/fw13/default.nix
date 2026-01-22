@@ -1,10 +1,13 @@
 {
   lib,
   pkgs,
+  inputs,
   ...
 }:
 {
-  facter.reportPath = ./facter.json;
+  imports = with inputs.nixos-hardware.nixosModules; [
+    framework-amd-ai-300-series
+  ];
 
   nixfiles = {
     device.profiles = [

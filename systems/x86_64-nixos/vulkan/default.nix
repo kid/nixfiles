@@ -2,12 +2,13 @@
   config,
   lib,
   inputs,
+  modulesPath,
   pkgs,
   ...
 }:
 {
   imports = [
-    # (modulesPath + "/installer/scan/not-detected.nix")
+    (modulesPath + "/installer/scan/not-detected.nix")
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     # inputs.nixos-hardware.nixosModules.common-cpu-amd
@@ -17,8 +18,6 @@
   ];
 
   system.stateVersion = "22.11";
-
-  facter.reportPath = ./facter.json;
 
   nixfiles = {
     device.profiles = [

@@ -12,8 +12,6 @@
     # common-cpu-amd-zenpower
   ];
 
-  facter.reportPath = ./facter.json;
-
   nixfiles = {
     device.profiles = [
       "server"
