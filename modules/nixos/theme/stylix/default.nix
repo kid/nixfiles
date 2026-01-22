@@ -9,10 +9,6 @@ let
   cfg = config.nixfiles.theme.stylix;
 in
 {
-  options.nixfiles.theme.stylix = {
-    enable = mkEnableOption "Stylix";
-  };
-
   config = mkIf cfg.enable {
     stylix = {
       enable = true;
