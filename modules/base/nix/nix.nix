@@ -45,7 +45,7 @@ in
       # https://github.com/NixOS/nix/issues/7273
       # but we use lix which has a fix for this issue:
       # https://gerrit.lix.systems/c/lix/+/2100
-      auto-optimise-store = true;
+      # auto-optimise-store = true;
 
       # users or groups which are allowed to do anything with the Nix daemon
       allowed-users = [ sudoers ];
