@@ -169,7 +169,7 @@ in
 {
   programs.firefox = {
     enable = true;
-    package = lib.mkIf pkgs.stdenv.isDarwin (lib.makeOverridable ({ ... }: pkgs.firefox-bin) { });
+    package = lib.mkIf pkgs.stdenv.isDarwin (lib.makeOverridable (_: pkgs.firefox-bin) { });
     nativeMessagingHosts = lib.mkIf pkgs.stdenv.isLinux [ pkgs.kdePackages.plasma-browser-integration ];
     inherit policies profiles;
   };
