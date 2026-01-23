@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -20,16 +21,20 @@ let
   profiles = {
     kid = {
       # extensions = with inputs.firefox-addons.packages.x86_64-linux; [
-      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-        sponsorblock
-        ublock-origin
-        consent-o-matic
-        improved-tube
-        sidebery
-        onepassword-password-manager
-        proton-pass
-        plasma-integration
-      ];
+      extensions.packages =
+        with pkgs.nur.repos.rycee.firefox-addons;
+        [
+          sponsorblock
+          ublock-origin
+          consent-o-matic
+          improved-tube
+          sidebery
+          onepassword-password-manager
+          proton-pass
+        ]
+        ++ lib.optionals pkgs.stdenv.isLinux [
+          plasma-integration
+        ];
 
       search = {
         force = true;
@@ -164,16 +169,10 @@ in
 {
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts = with pkgs; [ kdePackages.plasma-browser-integration ];
-    inherit policies profiles;
-  };
-
-  programs.floorp = {
-    enable = false;
-    nativeMessagingHosts = with pkgs; [ kdePackages.plasma-browser-integration ];
+    package = lib.mkIf pkgs.stdenv.isDarwin (lib.makeOverridable (_: pkgs.firefox-bin) { });
+    nativeMessagingHosts = lib.mkIf pkgs.stdenv.isLinux [ pkgs.kdePackages.plasma-browser-integration ];
     inherit policies profiles;
   };
 
   stylix.targets.firefox.profileNames = [ "kid" ];
-  stylix.targets.floorp.profileNames = [ "kid" ];
 }
