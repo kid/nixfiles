@@ -15,6 +15,8 @@
             sops
             act
 
+            nh
+
             nil
             nixd
             deadnix
