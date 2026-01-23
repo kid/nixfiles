@@ -9,12 +9,13 @@ let
   cfg = config.nixfiles.theme.stylix;
 in
 {
+  options.nixfiles.theme.stylix.enable = mkEnableOption "stylix";
+
   config = mkIf cfg.enable {
     stylix = {
       enable = true;
       image = ./gruvbox-dark-rainbow.png;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-      # base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
       fonts = {
         monospace = {
           name = "JetBrainsMono Nerd Font Propo";
@@ -23,11 +24,6 @@ in
         sizes.terminal = lib.mkDefault 11;
       };
       polarity = "dark";
-      targets = {
-        # TODO: needed?
-        plymouth.enable = true;
-        qt.enable = false;
-      };
     };
   };
 }
