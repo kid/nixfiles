@@ -4,7 +4,7 @@
 }:
 let
   inherit (lib) types;
-  inherit (lib.options) mkOption;
+  inherit (lib.options) mkEnableOption mkOption;
 in
 {
   options.nixfiles.storage = {
@@ -12,6 +12,8 @@ in
       type = types.nullOr (types.enum [ "btrfs" ]);
       default = null;
     };
+
+    enableDisko = mkEnableOption "Disko integration";
 
     mainDevice = mkOption {
       type = types.str;

@@ -32,7 +32,7 @@ in
         };
       };
 
-      disko.devices.disk.main = {
+      disko.devices.disk.main = mkIf cfg.enableDisko {
         device = cfg.mainDevice;
         type = "disk";
 
@@ -85,7 +85,7 @@ in
         };
       };
 
-      virtualisation.vmVariantWithDisko = {
+      virtualisation.vmVariantWithDisko = mkIf cfg.enableDisko {
         disko.devices.disk.main.imageSize = "10G";
         virtualisation.fileSystems."/home".neededForBoot = true;
       };
