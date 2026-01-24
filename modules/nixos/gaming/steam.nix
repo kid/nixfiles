@@ -42,6 +42,9 @@ in
 
     environment.systemPackages = with pkgs; [
       mangohud
+      umu-launcher
+      protonup-qt
+      (bottles.override { removeWarningPopup = true; })
     ];
   };
 }
