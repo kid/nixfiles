@@ -3,6 +3,7 @@
   lib,
   inputs,
   modulesPath,
+  inputs',
   pkgs,
   ...
 }:
@@ -11,9 +12,9 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    # inputs.nixos-hardware.nixosModules.common-cpu-amd
-    # inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-    # inputs.nixos-hardware.nixosModules.common-gpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
     ./disko-config.nix
   ];
 
@@ -24,6 +25,11 @@
       "desktop"
       "graphical"
     ];
+
+    storage = {
+      type = "btrfs";
+      enableDisko = false;
+    };
 
     system.boot.secureBoot = false;
 
@@ -39,10 +45,14 @@
       enable = true;
       docker.enable = true;
       incus.enable = true;
+      qemu.enable = true;
     };
 
     packages = {
       inherit (pkgs) go;
+      star-citizen = inputs'.nix-gaming.packages.star-citizen.override (_: {
+        useUmu = true;
+      });
     };
   };
 
@@ -269,9 +279,5 @@
       # Unmount /mnt and continue boot process
       umount /mnt
     '';
-  };
-
-  zramSwap = {
-    enable = true;
   };
 }
