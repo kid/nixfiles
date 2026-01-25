@@ -27,5 +27,7 @@ in
 
     # get the git rev that we are working on and set that to the configurationRevision
     configurationRevision = self.shortRev or self.dirtyShortRev or "dirty";
+
+    nixos.label = "${config.system.nixos.version}-nixfiles-${config.system.configurationRevision}";
   };
 }
