@@ -23,10 +23,10 @@ in
       nixfiles.packages =
         let
           qemu-system-uefi = pkgs.writeShellScriptBin "qemu-system-x86_64-uefi" ''
-              qemu-system-x86_64 \
-                -bios ${pkgs.OVMF.fd}/FV/OVMF.fd \
-                "$@"
-            '';
+            qemu-system-x86_64 \
+              -bios ${pkgs.OVMF.fd}/FV/OVMF.fd \
+              "$@"
+          '';
         in
         {
           inherit qemu-system-uefi;
