@@ -66,7 +66,6 @@
     };
 
     neovim-flake.url = "path:vendor/neovim";
-    neovim-flake.inputs.nixpkgs.follows = "nixpkgs";
 
     plasma-manager = {
       url = "github:pjones/plasma-manager/trunk";
