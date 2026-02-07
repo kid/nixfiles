@@ -14,7 +14,7 @@ in
     mkIf ((hasProfile config [ "graphical" ]) && (hasProfile config [ "laptop" ]) && (isWayland config))
       {
         programs.niri = {
-          enable = true;
+          enable = false;
           package = pkgs.niri-unstable;
         };
       };
