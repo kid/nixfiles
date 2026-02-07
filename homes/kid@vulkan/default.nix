@@ -8,7 +8,7 @@
 
   nixfiles = {
     packages = {
-      inherit (pkgs) incus opencode ollama;
+      inherit (pkgs) incus opencode ollama-rocm;
     };
 
     services.xremap.enable = true;
