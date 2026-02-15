@@ -126,6 +126,7 @@
         dhcpV4Config = {
           RouteMetric = 2048;
         };
+        domains = [ "~dev.kidibox.net" ];
       };
     };
   };
