@@ -156,7 +156,7 @@ let
         "browser.startup.page" = 3;
         "browser.tabs.groups.enable" = true;
         "browser.tabs.tabMinWidth" = 85;
-        "browser.urlbar.openintab" = true;
+        "browser.urlbar.openintab" = false;
         "signon.rememberSignons" = false;
         # "network.dns.echconfig.enabled" = false;
         # "network.dns.echconfig.fallback_to_origin_when_all_failed" = true;
