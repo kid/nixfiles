@@ -71,6 +71,8 @@ in
           split_nav('resize', 'j'),
           split_nav('resize', 'k'),
           split_nav('resize', 'l'),
+          -- disable fullscreen on Alt-Enter to keep Claude Code newlines on macOS
+          ${lib.optionalString pkgs.stdenv.isDarwin "{ key = 'Enter', mods = 'ALT', action = 'DisableDefaultAssignment' },"}
         },
       }
     '';
