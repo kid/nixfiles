@@ -4,6 +4,7 @@
     fd
     htop
     jq
+    yq
     ripgrep
     pistol # For previews in lf
     gnumake
