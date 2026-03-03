@@ -126,7 +126,7 @@
         dhcpV4Config = {
           RouteMetric = 2048;
         };
-        domains = [ "~dev.kidibox.net" ];
+        domains = [ "~dev.kidibox.net." ];
       };
     };
   };
@@ -141,7 +141,7 @@
       enable = true;
       settings.Resolve = {
         DNSSEC = false;
-        DNSStubListener = false;
+        DNSStubListener = true;
       };
     };
 
@@ -169,6 +169,8 @@
       enable = true;
       enableGraphical = true;
     };
+
+    bluetooth.enable = true;
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
