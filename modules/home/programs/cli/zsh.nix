@@ -44,6 +44,11 @@
         share = false;
       };
 
+      shellAliases = {
+        "g" = "git";
+        "k" = "kubectl";
+      };
+
       plugins = [
         {
           name = "zsh-vi-mode";

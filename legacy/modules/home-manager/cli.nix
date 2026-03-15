@@ -4,11 +4,16 @@
     fd
     htop
     jq
+    yq
     ripgrep
     pistol # For previews in lf
     gnumake
     gopls
     devenv
+
+    kubectl
+    talosctl
+    flux
   ];
   programs = {
     gh = {
