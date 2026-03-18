@@ -47,11 +47,11 @@
   networking = {
     useNetworkd = lib.mkForce false;
     networkmanager.enable = lib.mkForce true;
-    wireless.enable = true;
-    wireless.userControlled = true;
+    networkmanager.wifi.backend = "iwd";
+    wireless.iwd.enable = true;
   };
 
-  # powerManagement.powertop.enable = true;
+  powerManagement.powertop.enable = true;
 
   hardware = {
     # FIXME: requirement for xremap, move it there
