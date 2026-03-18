@@ -81,10 +81,6 @@
 
     niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
-
-    # # MT7925 WiFi driver patches for Framework laptops
-    # mt7925.url = "github:zbowling/mt7925";
-    # mt7925.flake = false;
   };
 
   outputs = inputs@{ flake-parts, ... }: flake-parts.lib.mkFlake { inherit inputs; } (import ./flake);
