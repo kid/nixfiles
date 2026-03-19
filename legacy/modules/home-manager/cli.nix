@@ -1,20 +1,27 @@
-{ pkgs, ... }:
+{ inputs', pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    fd
-    htop
-    jq
-    yq
-    ripgrep
-    pistol # For previews in lf
-    gnumake
-    gopls
-    devenv
+  home.packages =
+    with pkgs;
+    [
+      fd
+      htop
+      jq
+      yq
+      ripgrep
+      pistol # For previews in lf
+      gnumake
+      gopls
+      devenv
 
-    kubectl
-    talosctl
-    flux
-  ];
+      kubectl
+      talosctl
+      flux
+    ]
+    ++ (with inputs'.dagger.packages; [
+      container-use
+      dagger
+    ]);
+
   programs = {
     gh = {
       enable = true;

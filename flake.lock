@@ -184,6 +184,26 @@
         "type": "github"
       }
     },
+    "dagger": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772816670,
+        "narHash": "sha256-shPL2izGas59HuqoRCmUyKCxDsCfrxjAgCF9LJzFotA=",
+        "owner": "dagger",
+        "repo": "nix",
+        "rev": "cba50897f7ae620b4ec8c14b6da394cc5a303b58",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dagger",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -1457,6 +1477,7 @@
     "root": {
       "inputs": {
         "chaotic": "chaotic",
+        "dagger": "dagger",
         "darwin": "darwin",
         "disko": "disko",
         "easy-hosts": "easy-hosts",
