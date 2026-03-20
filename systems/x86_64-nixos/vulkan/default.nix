@@ -3,7 +3,6 @@
   lib,
   inputs,
   modulesPath,
-  inputs',
   pkgs,
   ...
 }:
@@ -46,13 +45,6 @@
       docker.enable = true;
       incus.enable = true;
       qemu.enable = true;
-    };
-
-    packages = {
-      inherit (pkgs) go;
-      star-citizen = inputs'.nix-gaming.packages.star-citizen.override (_: {
-        useUmu = true;
-      });
     };
   };
 
