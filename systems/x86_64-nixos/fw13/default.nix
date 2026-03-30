@@ -39,6 +39,11 @@
       gaming.enable = true;
     };
 
+    virtualisation = {
+      enable = true;
+      docker.enable = true;
+    };
+
     packages = {
       inherit (pkgs) fw-ectool;
     };
