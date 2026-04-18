@@ -20,7 +20,7 @@
     nixos-anywhere.url = "github:nix-community/nixos-anywhere";
     nixos-anywhere.inputs.nixpkgs.follows = "nixpkgs";
 
-    impermanence.url = "github:nix-community/impermanence/4b3e914cdf97a5b536a889e939fb2fd2b043a170";
+    impermanence.url = "github:nix-community/impermanence";
     preservation.url = "github:nix-community/preservation";
 
     home-manager.url = "github:nix-community/home-manager";

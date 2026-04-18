@@ -7,6 +7,14 @@
 with lib;
 let
   inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types)
+    anything
+    attrsOf
+    bool
+    listOf
+    submodule
+    unspecified
+    ;
 
   cfg = config.nixfiles.storage.impermanence;
 in
@@ -15,7 +23,68 @@ in
     enable = mkEnableOption "impermanence";
 
     persistence = mkOption {
-      inherit (options.environment.persistence) default description type;
+      type = attrsOf (
+        submodule (
+          { name, ... }:
+          {
+            freeformType = attrsOf anything;
+
+            options = {
+              enable = mkOption {
+                type = bool;
+                default = true;
+              };
+
+              persistentStoragePath = mkOption {
+                type = anything;
+                default = name;
+              };
+
+              files = mkOption {
+                type = listOf anything;
+                default = [ ];
+              };
+
+              directories = mkOption {
+                type = listOf anything;
+                default = [ ];
+              };
+
+              hideMounts = mkOption {
+                type = bool;
+                default = false;
+              };
+
+              allowTrash = mkOption {
+                type = bool;
+                default = false;
+              };
+
+              enableWarnings = mkOption {
+                type = bool;
+                default = true;
+              };
+
+              enableDebugging = mkOption {
+                type = bool;
+                default = false;
+              };
+
+              users = mkOption {
+                type = attrsOf anything;
+                default = { };
+              };
+
+              assertions = mkOption {
+                type = listOf unspecified;
+                default = [ ];
+              };
+            };
+          }
+        )
+      );
+      default = { };
+      inherit (options.environment.persistence) description;
     };
   };
 
