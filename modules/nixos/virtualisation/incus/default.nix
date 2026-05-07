@@ -20,6 +20,7 @@ in
         incus = {
           enable = true;
           # defaults to incus-lts
+          bucketSupport = false;
           package = pkgs.incus;
           ui.enable = true;
           preseed = {

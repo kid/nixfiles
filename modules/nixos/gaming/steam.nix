@@ -44,7 +44,7 @@ in
       mangohud
       umu-launcher
       protonup-qt
-      (bottles.override { removeWarningPopup = true; })
+      # (bottles.override { removeWarningPopup = true; })
     ];
   };
 }
