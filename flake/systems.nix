@@ -32,14 +32,12 @@ let
           inherit (config) flake;
         };
         modules = [
-          config.flake.nixosModules.nixfiles
           {
             networking = {
               inherit hostName;
             };
           }
           ../systems/${arch}-nixos/${hostName}
-          ../homes
         ];
       }
     ));
