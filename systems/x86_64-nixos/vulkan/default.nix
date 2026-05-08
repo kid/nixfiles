@@ -318,6 +318,8 @@
   };
 
   programs = {
+    zsh.enable = true;
+
     nh = {
       enable = true;
       clean = {
@@ -518,7 +520,7 @@
 
   boot = {
     consoleLogLevel = 3;
-    kernelPackages = pkgs.linuxPackages_cachyos.cachyOverride { mArch = "ZEN4"; };
+    kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = with config.boot.kernelPackages; [ r8125 ];
     kernelParams = [
       "quiet"

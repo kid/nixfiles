@@ -15,7 +15,7 @@
   ];
 
   home = {
-    stateVersion = osConfig.system.stateVersion;
+    inherit (osConfig.system) stateVersion;
     packages = [
       pkgs.opencode
       inputs'.neovim-flake.packages.neovim
