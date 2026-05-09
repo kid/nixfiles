@@ -44,9 +44,7 @@
         home = {
           inherit (osConfig.system) stateVersion;
           packages = [
-            pkgs.incus
             pkgs.opencode
-            pkgs.ollama-rocm
             inputs'.neovim-flake.packages.neovim
             pkgs.winbox4
             pkgs.fd
@@ -81,7 +79,6 @@
         systemd.user.startServices = lib.mkDefault "sd-switch";
 
         programs = {
-          home-manager.enable = true;
 
           gh = {
             enable = true;
