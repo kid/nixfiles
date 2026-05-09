@@ -1,3 +1,0 @@
-{
-  perSystem.treefmt.flakeCheck = true;
-}

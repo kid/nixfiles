@@ -1,5 +1,4 @@
 name: Validate Nix Flake
-
 on:
   workflow_dispatch:
   workflow_call:
@@ -13,14 +12,11 @@ on:
       - "**.lock"
       - ".github/workflows/check.yaml"
       - ".github/actions/**/*"
-
 permissions: {}
-
 jobs:
   check-flake:
     name: Check (${{ matrix.system }})
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         include:
@@ -28,7 +24,6 @@ jobs:
             system: x86_64-linux
           - os: macos-latest
             system: aarch64-darwin
-
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -36,15 +31,12 @@ jobs:
           ref: ${{ inputs.ref && inputs.ref || github.ref_name }}
           persist-credentials: false
           submodules: recursive
-
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-
       - uses: cachix/cachix-action@v17
         with:
           name: kidibox
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-
       - name: Check Flake
         run: nix flake check

@@ -225,6 +225,22 @@
         "type": "github"
       }
     },
+    "den": {
+      "locked": {
+        "lastModified": 1778300842,
+        "narHash": "sha256-X1NvpQMH9LYe2dDisoWcjVuWKZOy849u7nqUUxV+lYM=",
+        "owner": "denful",
+        "repo": "den",
+        "rev": "82af3678ce320776b6de7d0cc96bb585fdbef534",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denful",
+        "ref": "feat/fx-pipeline",
+        "repo": "den",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -818,6 +834,21 @@
       "original": {
         "owner": "nix-community",
         "repo": "impermanence",
+        "type": "github"
+      }
+    },
+    "import-tree": {
+      "locked": {
+        "lastModified": 1773693634,
+        "narHash": "sha256-BtZ2dtkBdSUnFPPFc+n0kcMbgaTxzFNPv2iaO326Ffg=",
+        "owner": "vic",
+        "repo": "import-tree",
+        "rev": "c41e7d58045f9057880b0d85e1152d6a4430dbf1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "import-tree",
         "type": "github"
       }
     },
@@ -1534,11 +1565,13 @@
         "chaotic": "chaotic",
         "dagger": "dagger",
         "darwin": "darwin",
+        "den": "den",
         "disko": "disko",
         "easy-hosts": "easy-hosts",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "import-tree": "import-tree",
         "lanzaboote": "lanzaboote",
         "neovim-flake": "neovim-flake",
         "niri": "niri",

@@ -3,41 +3,33 @@ on:
   workflow_dispatch: # allows manual triggering
   # schedule:
   #   - cron: "0 0 * * 0" # runs weekly on Sunday at 00:00
-
 jobs:
   lockfile:
     env:
       BRANCH: chore/update-flake-lock
-
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           submodules: recursive
-
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-
       - uses: cachix/cachix-action@v17
         with:
           name: kidibox
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-
       - name: Create or update branch
         run: |
           git checkout -b $BRANCH
           git push -u origin $BRANCH --force
-
       - name: Update flake.lock
         id: update-flake
         run: |
           echo "result<<EOF" >> $GITHUB_OUTPUT
           nix flake update 2>&1 | tee -a $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-
       - name: Check for changes
         id: check-changes
         run: |
@@ -49,7 +41,6 @@ jobs:
             echo "Changes detected."
             echo "changes=true" >> $GITHUB_ENV
           fi
-
       - name: Commit changes
         if: env.changes == 'true'
         run: |
@@ -73,7 +64,6 @@ jobs:
             "${FILES[@]}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create pull request if not exists
         if: env.changes == 'true'
         run: |
