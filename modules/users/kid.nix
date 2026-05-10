@@ -12,6 +12,7 @@
       <den/primary-user>
       <nf/batteries/privileged-user>
       <nf.apps/firefox>
+      <nf.ai/pi>
       (den.provides.unfree [
         "1password"
         "1password-cli"
