@@ -1,6 +1,9 @@
 { inputs, den, ... }:
 {
-  imports = [ inputs.den.flakeModule ];
+  imports = [
+    inputs.den.flakeModule
+    (inputs.den.namespace "nf" true)
+  ];
 
   systems = [
     "x86_64-linux"
