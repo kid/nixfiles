@@ -12,7 +12,10 @@
           enable = true;
           includes = [ "**/*.nix" ];
         };
-        deadnix.enable = true;
+        deadnix = {
+          enable = true;
+          no-underscore = true;
+        };
         statix.enable = true;
         jsonfmt.enable = true;
         yamlfmt.enable = true;
