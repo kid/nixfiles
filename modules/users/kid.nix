@@ -10,6 +10,7 @@
     includes = [
       <den/define-user>
       <den/primary-user>
+      <nf/batteries/privileged-user>
       <nf.apps/firefox>
       (den.provides.unfree [
         "1password"
