@@ -86,7 +86,7 @@
     dagger.inputs.nixpkgs.follows = "nixpkgs";
 
     import-tree.url = "github:vic/import-tree";
-    den.url = "github:denful/den/feat/fx-pipeline";
+    den.url = "github:denful/den";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);

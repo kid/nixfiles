@@ -20,6 +20,9 @@
         inputs.lanzaboote.nixosModules.lanzaboote
       ];
 
+      home-manager.useUserPackages = true;
+      home-manager.useGlobalPkgs = true;
+
       nixpkgs = {
         overlays = [
           inputs.nur.overlays.default

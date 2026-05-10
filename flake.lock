@@ -227,16 +227,15 @@
     },
     "den": {
       "locked": {
-        "lastModified": 1778300842,
-        "narHash": "sha256-X1NvpQMH9LYe2dDisoWcjVuWKZOy849u7nqUUxV+lYM=",
+        "lastModified": 1778354654,
+        "narHash": "sha256-f8aDZU0IZmwzPweimLgAaYTu8cj5VxVbGz3rL+mfWTY=",
         "owner": "denful",
         "repo": "den",
-        "rev": "82af3678ce320776b6de7d0cc96bb585fdbef534",
+        "rev": "c2c23612f892f2e1c0d506c3af59f6f4d2122a9b",
         "type": "github"
       },
       "original": {
         "owner": "denful",
-        "ref": "feat/fx-pipeline",
         "repo": "den",
         "type": "github"
       }

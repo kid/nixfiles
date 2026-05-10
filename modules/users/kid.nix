@@ -8,8 +8,9 @@
 {
   den.aspects.kid = {
     includes = [
-      den.provides.define-user
-      den.provides.primary-user
+      <den/define-user>
+      <den/primary-user>
+      <nf.apps/firefox>
       (den.provides.unfree [
         "1password"
         "1password-cli"
@@ -21,7 +22,6 @@
         "xone-dongle-firmware"
         "winbox"
       ])
-      <nf/apps/firefox>
     ];
 
     homeManager =

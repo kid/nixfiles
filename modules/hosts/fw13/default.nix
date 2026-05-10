@@ -1,6 +1,5 @@
 {
   __findFile,
-  den,
   inputs,
   lib,
   ...
@@ -12,8 +11,8 @@
 
   den.aspects.fw13 = {
     includes = [
-      den.provides.hostname
-      <nf/profiles/laptop>
+      <den/hostname>
+      <nf.base>
     ];
 
     nixos =

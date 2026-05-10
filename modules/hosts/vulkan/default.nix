@@ -1,6 +1,5 @@
 {
   __findFile,
-  den,
   inputs,
   ...
 }:
@@ -11,8 +10,8 @@
 
   den.aspects.vulkan = {
     includes = [
-      den.provides.hostname
-      <nf/profiles/desktop>
+      <den/hostname>
+      <nf.base>
     ];
 
     nixos.imports = [
