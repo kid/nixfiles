@@ -1,4 +1,5 @@
 {
+  __findFile,
   inputs,
   lib,
   den,
@@ -7,7 +8,6 @@
 {
   den.aspects.kid = {
     includes = [
-      den.aspects.firefox
       den.provides.define-user
       den.provides.primary-user
       (den.provides.unfree [
@@ -21,6 +21,7 @@
         "xone-dongle-firmware"
         "winbox"
       ])
+      <nf/apps/firefox>
     ];
 
     homeManager =

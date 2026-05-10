@@ -5,11 +5,11 @@
       devShells = {
         default = pkgs.mkShellNoCC {
           packages = with pkgs; [
+            just
+
             nh
             nil
             nixd
-            deadnix
-            statix
           ];
 
           inputsFrom = [ config.treefmt.build.devShell ];

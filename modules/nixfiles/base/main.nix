@@ -1,10 +1,6 @@
+{ inputs, lib, ... }:
 {
-  inputs,
-  lib,
-  ...
-}:
-{
-  den.aspects.base.nixos =
+  nf.base.nixos =
     { config, pkgs, ... }:
     {
       imports = [
