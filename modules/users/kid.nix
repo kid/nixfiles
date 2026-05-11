@@ -59,8 +59,14 @@
             pkgs.kubectl
             pkgs.talosctl
             pkgs.flux
-            inputs'.dagger.packages.container-use
-            inputs'.dagger.packages.dagger
+            # Work around upstream dagger packages still using the deprecated
+            # `system` alias by passing the host platform system explicitly.
+            (pkgs.callPackage "${inputs.dagger}/pkgs/container-use/default.nix" {
+              inherit (pkgs.stdenv.hostPlatform) system;
+            })
+            (pkgs.callPackage "${inputs.dagger}/pkgs/dagger/default.nix" {
+              inherit (pkgs.stdenv.hostPlatform) system;
+            })
             pkgs.xclip
             pkgs.chromium
             pkgs.discord
