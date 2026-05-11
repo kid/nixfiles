@@ -331,6 +331,8 @@
           };
         };
 
+        gtk.gtk4.theme = config.gtk.theme;
+
         qt.platformTheme.name = lib.mkForce "kde";
 
         services.xremap = {
