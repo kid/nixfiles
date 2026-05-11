@@ -1,13 +1,18 @@
-{ inputs, lib, ... }:
+{
+  __findFile,
+  inputs,
+  lib,
+  ...
+}:
 {
   nf.desktop.plasma = {
+    includes = [ <nf.desktop/wayland> ];
     nixos = {
       security.pam.services.sddm.kwallet.enable = true;
 
       services = {
         displayManager.sddm = {
           enable = true;
-          wayland.enable = true;
           settings.General.InputMethod = "";
         };
 

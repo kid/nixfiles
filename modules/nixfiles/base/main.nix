@@ -10,7 +10,6 @@
         inputs.preservation.nixosModules.preservation
         inputs.ucodenix.nixosModules.default
         inputs.sops-nix.nixosModules.sops
-        inputs.xremap.nixosModules.default
         inputs.nur.modules.nixos.default
         inputs.chaotic.nixosModules.default
         inputs.nix-gaming.nixosModules.wine
@@ -75,7 +74,6 @@
           htop
           watch
           libqalculate
-          wl-clipboard-rs
           mangohud
           umu-launcher
           protonup-qt
@@ -88,23 +86,13 @@
 
         variables = {
           NIXPKGS_CONFIG = lib.mkForce "";
-          NIXOS_OZONE_WL = "1";
           _JAVA_AWT_WM_NONEREPARENTING = "1";
-          GDK_BACKEND = "wayland,x11";
-          ANKI_WAYLAND = "1";
-          MOZ_ENABLE_WAYLAND = "1";
-          XDG_SESSION_TYPE = "wayland";
-          SDL_VIDEODRIVER = "wayland";
-          CLUTTER_BACKEND = "wayland";
         };
 
         sessionVariables = {
           MESA_VK_WSI_PRESENT_MODE = "immediate";
-          KWIN_DRM_NO_AMS = "1";
-          PROTON_ENABLE_WAYLAND = "1";
           PROTON_ENABLE_HDR = "1";
           PROTON_USE_NTSYNC = 1;
-          SDL_VIDEODRIVER = "wayland";
         };
 
         pathsToLink = [
@@ -238,10 +226,7 @@
         gamescope = {
           enable = true;
           capSysNice = true;
-          args = [
-            "--rt"
-            "--expose-wayland"
-          ];
+          args = [ "--rt" ];
         };
 
         gamemode = {

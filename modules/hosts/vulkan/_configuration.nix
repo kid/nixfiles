@@ -122,8 +122,6 @@
   };
 
   services = {
-    xremap.enable = false;
-
     resolved.settings.Resolve = {
       DNSSEC = false;
       DNSStubListener = true;

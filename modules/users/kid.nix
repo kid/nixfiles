@@ -13,6 +13,7 @@
       <nf/batteries/privileged-user>
       <nf.apps/firefox>
       <nf.ai/pi>
+      <nf.desktop/xremap/kde>
       <nf.desktop/plasma>
       (den.provides.unfree [
         "1password"
@@ -36,10 +37,7 @@
         ...
       }:
       {
-        imports = [
-          inputs.sops-nix.homeManagerModules.sops
-          inputs.xremap.homeManagerModules.default
-        ];
+        imports = [ inputs.sops-nix.homeManagerModules.sops ];
 
         home = {
           inherit (osConfig.system) stateVersion;
@@ -292,25 +290,6 @@
             enable = true;
             userSettings.vim_mode = true;
           };
-        };
-
-        services.xremap = {
-          enable = true;
-          withKDE = true;
-          watch = true;
-          config.keymap = [
-            {
-              remap = {
-                SUPER-B.launch = [ "firefox" ];
-                SUPER-SHIFT-B.launch = [
-                  "firefox"
-                  "--private-window"
-                ];
-                SUPER-T.launch = [ "wezterm" ];
-                SUPER-P.launch = [ "krunner" ];
-              };
-            }
-          ];
         };
 
         xdg = {

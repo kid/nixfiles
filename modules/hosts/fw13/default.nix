@@ -192,8 +192,6 @@
         };
 
         services = {
-          xremap.enable = false;
-
           displayManager.autoLogin = {
             enable = false;
             user = "kid";
