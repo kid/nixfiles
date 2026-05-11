@@ -1,32 +1,13 @@
-flake := env('FLAKE', justfile_directory())
-task := if os() == "linux" { "switch-nixos" } else { "switch-darwin" }
+hostname := `hostname -s`
 
-default:
-    @just --list
+help:
+  just -l
 
-update-all:
-    nix flake update
+build host=hostname *args:
+  nix run \#{{host}} build {{args}}
 
-switch-nixos:
-    nh os switch .
+switch host=hostname *args:
+  nix run \#{{host}} switch --ask {{args}}
 
-switch-darwin:
-    darwin-rebuild switch --flake .
-
-run:
-    just {{ task }}
-
-# build the package, you must specify the package you want to build
-[group('package')]
-build pkg:
-    nix build {{ flake }}#{{ pkg }} \
-      --log-format internal-json \
-      -v \
-      |& nom --json
-
-# build the iso image, you must specify the image you want to build
-[group('package')]
-iso image: (build "nixosConfigurations." + image + ".config.system.build.isoImage")
-
-update:
-    git submodule update --rebase --remote
+boot host=hostname *args:
+  nix run \#{{host}} boot --ask {{args}}
