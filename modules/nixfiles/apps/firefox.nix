@@ -1,10 +1,11 @@
 {
   nf.apps.firefox = {
     homeManager =
-      { pkgs, ... }:
+      { config, pkgs, ... }:
       {
         programs.firefox = {
           enable = true;
+          configPath = "${config.xdg.configHome}/mozilla/firefox";
           nativeMessagingHosts = [ pkgs.kdePackages.plasma-browser-integration ];
           policies = {
             DisableTelemetry = true;
