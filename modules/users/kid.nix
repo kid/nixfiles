@@ -41,10 +41,6 @@
           inputs.xremap.homeManagerModules.default
         ];
 
-        nixpkgs.overlays = [
-          inputs.nur.overlays.default
-        ];
-
         home = {
           inherit (osConfig.system) stateVersion;
           packages = [
