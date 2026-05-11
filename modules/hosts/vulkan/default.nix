@@ -12,6 +12,7 @@
     includes = [
       <den/hostname>
       <nf.base>
+      <nf.desktop/plasma>
       <nf.stylix>
     ];
 

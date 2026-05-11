@@ -280,7 +280,6 @@
           '';
         };
 
-        pam.services.sddm.kwallet.enable = true;
         rtkit.enable = true;
       };
 
@@ -298,17 +297,6 @@
           allowSFTP = true;
           settings.PermitRootLogin = "no";
           openFirewall = true;
-        };
-
-        displayManager.sddm = {
-          enable = true;
-          wayland.enable = true;
-          settings.General.InputMethod = "";
-        };
-
-        desktopManager.plasma6 = {
-          enable = true;
-          enableQt5Integration = false;
         };
 
         printing = {

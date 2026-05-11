@@ -13,6 +13,7 @@
       <nf/batteries/privileged-user>
       <nf.apps/firefox>
       <nf.ai/pi>
+      <nf.desktop/plasma>
       (den.provides.unfree [
         "1password"
         "1password-cli"
@@ -36,7 +37,6 @@
       }:
       {
         imports = [
-          inputs.plasma-manager.homeModules.plasma-manager
           inputs.sops-nix.homeManagerModules.sops
           inputs.xremap.homeManagerModules.default
         ];
@@ -292,50 +292,7 @@
             enable = true;
             userSettings.vim_mode = true;
           };
-
-          plasma = {
-            enable = true;
-            overrideConfig = true;
-            powerdevil.AC = {
-              dimDisplay.enable = false;
-              turnOffDisplay.idleTimeout = "never";
-            };
-            fonts.general = {
-              family = "JetBrains Mono";
-              pointSize = 12;
-            };
-            panels = [
-              {
-                location = "top";
-                widgets = [
-                  {
-                    name = "org.kde.plasma.kickoff";
-                    config.General.icon = "nix-snowflake-white";
-                  }
-                  {
-                    name = "org.kde.plasma.icontasks";
-                    config.General.launchers = [ "applications:steam.desktop" ];
-                  }
-                  "org.kde.plasma.panelspacer"
-                  "org.kde.plasma.marginsseparator"
-                  "org.kde.plasma.systemtray"
-                  "org.kde.plasma.digitalclock"
-                  "org.kde.plasma.marginsseparator"
-                ];
-              }
-            ];
-            configFile.kwinrc.ModifierOnlyShortcuts.Meta = "";
-            session = {
-              general.askForConfirmationOnLogout = false;
-              sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
-            };
-            shortcuts.plasmashell."activate application launcher" = [ "Alt+F1" ];
-          };
         };
-
-        gtk.gtk4.theme = config.gtk.theme;
-
-        qt.platformTheme.name = lib.mkForce "kde";
 
         services.xremap = {
           enable = true;
