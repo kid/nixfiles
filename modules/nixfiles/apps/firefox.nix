@@ -1,5 +1,5 @@
 {
-  nf.apps._.firefox = {
+  nf.apps.firefox = {
     homeManager =
       { pkgs, ... }:
       {

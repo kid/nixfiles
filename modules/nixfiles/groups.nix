@@ -1,5 +1,5 @@
 {
-  nf.batteries._.privileged-user =
+  nf.batteries.privileged-user =
     { user, ... }:
     {
       nixos =

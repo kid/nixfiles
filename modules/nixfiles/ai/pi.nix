@@ -1,5 +1,5 @@
 {
-  nf.ai._.pi = {
+  nf.ai.pi = {
     homeManager =
       { inputs', ... }:
       {
