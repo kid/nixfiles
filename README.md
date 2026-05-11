@@ -14,7 +14,7 @@ This repo follows Den’s current host/user/aspect model:
 - `modules/den.nix` enables Den and registers the local `nf` namespace
 - `modules/hosts/*` defines hosts such as `fw13` and `vulkan`
 - `modules/users/*` defines user aspects, mainly `kid`
-- `modules/nixfiles/*` contains reusable local aspects like `nf.base`, `nf.apps.firefox`, and `nf.ai.pi`
+- `modules/nixfiles/*` contains reusable local aspects like `nf.base`, `nf.stylix`, `nf.apps.firefox`, and `nf.ai.pi`
 
 In practice, hosts are very small and mostly just compose aspects:
 
@@ -27,6 +27,7 @@ den.aspects.fw13 = {
   includes = [
     <den/hostname>
     <nf.base>
+    <nf.stylix>
   ];
 };
 ```

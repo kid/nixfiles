@@ -8,7 +8,6 @@
         inputs.disko.nixosModules.disko
         inputs.impermanence.nixosModules.impermanence
         inputs.preservation.nixosModules.preservation
-        inputs.stylix.nixosModules.stylix
         inputs.ucodenix.nixosModules.default
         inputs.sops-nix.nixosModules.sops
         inputs.xremap.nixosModules.default
@@ -414,19 +413,5 @@
 
       powerManagement.scsiLinkPolicy = "med_power_with_dipm";
 
-      stylix = {
-        enable = true;
-        image = ./theme/stylix/gruvbox-dark-rainbow.png;
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-        fonts = {
-          monospace = {
-            name = "JetBrainsMono Nerd Font Propo";
-            package = pkgs.nerd-fonts.jetbrains-mono;
-          };
-          sizes.terminal = lib.mkDefault 11;
-        };
-        polarity = "dark";
-        targets.qt.enable = false;
-      };
     };
 }

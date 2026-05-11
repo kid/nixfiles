@@ -13,6 +13,7 @@
     includes = [
       <den/hostname>
       <nf.base>
+      <nf.stylix>
     ];
 
     nixos =
