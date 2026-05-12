@@ -14,12 +14,20 @@
     };
 
     homeManager =
-      { config, pkgs, ... }:
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
+      let
+        isNixOS = pkgs.stdenv.hostPlatform.isLinux;
+      in
       {
         programs.firefox = {
           enable = true;
           configPath = "${config.xdg.configHome}/mozilla/firefox";
-          nativeMessagingHosts = [ pkgs.kdePackages.plasma-browser-integration ];
+          nativeMessagingHosts = lib.optionals isNixOS [ pkgs.kdePackages.plasma-browser-integration ];
           policies = {
             DisableTelemetry = true;
             DisableFirefoxStudies = true;
@@ -34,16 +42,22 @@
             };
           };
           profiles.kid = {
-            extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-              sponsorblock
-              ublock-origin
-              consent-o-matic
-              improved-tube
-              sidebery
-              onepassword-password-manager
-              proton-pass
-              plasma-integration
-            ];
+            extensions.packages =
+              (with pkgs.nur.repos.rycee.firefox-addons; [
+                sponsorblock
+                ublock-origin
+                consent-o-matic
+                improved-tube
+                sidebery
+                onepassword-password-manager
+                proton-pass
+              ])
+              ++ lib.optionals isNixOS (
+                with pkgs.nur.repos.rycee.firefox-addons;
+                [
+                  plasma-integration
+                ]
+              );
 
             search = {
               force = true;
