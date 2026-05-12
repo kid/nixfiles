@@ -10,7 +10,6 @@
         inputs.preservation.nixosModules.preservation
         inputs.ucodenix.nixosModules.default
         inputs.sops-nix.nixosModules.sops
-        inputs.nur.modules.nixos.default
         inputs.chaotic.nixosModules.default
         inputs.nix-gaming.nixosModules.wine
         inputs.nix-gaming.nixosModules.pipewireLowLatency
@@ -22,10 +21,6 @@
       home-manager.useGlobalPkgs = true;
 
       nixpkgs = {
-        overlays = [
-          inputs.nur.overlays.default
-        ];
-
         config = {
           allowUnfree = true;
           allowBroken = false;

@@ -1,5 +1,18 @@
+{ inputs, ... }:
 {
   nf.apps.firefox = {
+    nixos = {
+      imports = [ inputs.nur.modules.nixos.default ];
+    };
+
+    darwin = {
+      imports = [ inputs.nur.modules.darwin.default ];
+
+      nixpkgs.overlays = [
+        inputs.nixpkgs-firefox-darwin.overlay
+      ];
+    };
+
     homeManager =
       { config, pkgs, ... }:
       {

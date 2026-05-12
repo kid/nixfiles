@@ -21,7 +21,6 @@
         inputs.ucodenix.nixosModules.default
         inputs.sops-nix.nixosModules.sops
         inputs.xremap.nixosModules.default
-        inputs.nur.modules.nixos.default
         inputs.chaotic.nixosModules.default
         inputs.nix-gaming.nixosModules.wine
         inputs.nix-gaming.nixosModules.pipewireLowLatency
