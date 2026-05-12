@@ -1,3 +1,0 @@
-[submodule "vendor/neovim"]
-	path = vendor/neovim
-	url = https://github.com/kid/neovim.git

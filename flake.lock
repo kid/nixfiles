@@ -1032,14 +1032,18 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "path": "vendor/neovim",
-        "type": "path"
+        "lastModified": 1778595951,
+        "narHash": "sha256-Xq3YPDWeYiOq9c+Z95torCO51Ma0QKdiOmFUPuM+Bvc=",
+        "owner": "kid",
+        "repo": "neovim",
+        "rev": "d3ea98b57c439bfee01bcd283dfd58ddbe28531d",
+        "type": "github"
       },
       "original": {
-        "path": "vendor/neovim",
-        "type": "path"
-      },
-      "parent": []
+        "owner": "kid",
+        "repo": "neovim",
+        "type": "github"
+      }
     },
     "neovim-nightly": {
       "inputs": {
