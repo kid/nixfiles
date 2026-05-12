@@ -1,12 +1,8 @@
 { inputs, lib, ... }:
-{
-  nf.stylix.nixos =
+let
+  mod =
     { pkgs, ... }:
     {
-      imports = [
-        inputs.stylix.nixosModules.stylix
-      ];
-
       stylix = {
         enable = true;
         image = lib.mkDefault ./gruvbox-dark-rainbow.png;
@@ -19,7 +15,23 @@
           sizes.terminal = lib.mkDefault 11;
         };
         polarity = lib.mkDefault "dark";
-        targets.qt.enable = lib.mkDefault false;
       };
     };
+in
+{
+  nf.stylix.nixos = {
+    imports = [
+      inputs.stylix.nixosModules.stylix
+      mod
+    ];
+
+    stylix.targets.qt.enable = lib.mkDefault false;
+  };
+
+  nf.stylix.darwin = {
+    imports = [
+      inputs.stylix.darwinModules.stylix
+      mod
+    ];
+  };
 }
