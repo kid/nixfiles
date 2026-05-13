@@ -7,10 +7,6 @@
 
     darwin = {
       imports = [ inputs.nur.modules.darwin.default ];
-
-      nixpkgs.overlays = [
-        inputs.nixpkgs-firefox-darwin.overlay
-      ];
     };
 
     homeManager =
@@ -26,9 +22,10 @@
       {
         programs.firefox = {
           enable = true;
-          configPath = "${config.xdg.configHome}/mozilla/firefox";
+          configPath = lib.mkIf isNixOS "${config.xdg.configHome}/mozilla/firefox";
           nativeMessagingHosts = lib.optionals isNixOS [ pkgs.kdePackages.plasma-browser-integration ];
           policies = {
+            DisableAppUpdate = true;
             DisableTelemetry = true;
             DisableFirefoxStudies = true;
             DontCheckDefaultBrowser = true;
