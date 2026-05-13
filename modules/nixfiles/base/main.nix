@@ -10,6 +10,12 @@
         allowBroken = false;
       };
     };
+
+    nix.settings.experimental-features = [
+      "flakes"
+      "nix-command"
+      "pipe-operators"
+    ];
   };
 
   nf.base.nixos =
@@ -28,16 +34,6 @@
         inputs.nix-gaming.nixosModules.platformOptimizations
         inputs.lanzaboote.nixosModules.lanzaboote
       ];
-
-      home-manager.useUserPackages = true;
-      home-manager.useGlobalPkgs = true;
-
-      nixpkgs = {
-        config = {
-          allowUnfree = true;
-          allowBroken = false;
-        };
-      };
 
       users.users.kid = {
         uid = lib.mkDefault 1000;
