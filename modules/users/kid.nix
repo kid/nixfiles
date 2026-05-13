@@ -12,6 +12,9 @@
       <den/primary-user>
       <nf/batteries/privileged-user>
       <nf.apps/firefox>
+      <nf.apps/git>
+      <nf.apps/wezterm>
+      <nf.shell/zsh>
       <nf.ai/pi>
       <nf.desktop/xremap/kde>
       <nf.desktop/plasma>
@@ -84,31 +87,13 @@
 
         programs = {
 
-          gh = {
-            enable = true;
-            settings.git_protocol = "ssh";
-            settings.version = 1;
-          };
-
           htop.enable = true;
           btop.enable = true;
           bottom.enable = true;
-          bat.enable = true;
           k9s.enable = true;
           lf.enable = true;
           kitty.enable = true;
-          gh-dash.enable = true;
           zellij.enable = true;
-
-          eza = {
-            enable = true;
-            enableZshIntegration = true;
-          };
-
-          direnv = {
-            enable = true;
-            nix-direnv.enable = true;
-          };
 
           ssh = {
             enable = true;
@@ -116,110 +101,6 @@
             matchBlocks."*" = {
               compression = true;
               forwardAgent = true;
-            };
-          };
-
-          fzf = {
-            enable = true;
-            enableZshIntegration = true;
-          };
-
-          starship = {
-            enable = true;
-            enableZshIntegration = true;
-          };
-
-          zoxide = {
-            enable = true;
-            enableZshIntegration = true;
-          };
-
-          zsh = {
-            enable = true;
-            autocd = true;
-            enableCompletion = true;
-            enableVteIntegration = true;
-            autosuggestion.enable = true;
-            syntaxHighlighting.enable = true;
-            dotDir = "${config.xdg.configHome}/zsh";
-            localVariables = {
-              ZVM_VI_INSERT_ESCAPE_BINDKEY = "jk";
-              ZVM_INIT_MODE = "sourcing";
-            };
-            history = {
-              append = true;
-              expireDuplicatesFirst = true;
-              extended = true;
-              ignoreDups = true;
-              share = false;
-            };
-            shellAliases = {
-              g = "git";
-              k = "kubectl";
-            };
-            plugins = [
-              {
-                name = "zsh-vi-mode";
-                src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
-              }
-              {
-                name = "fzf-tab";
-                src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
-              }
-            ];
-            initContent = ''
-              _zsh_cli_fg() { fg; }
-              zle -N _zsh_cli_fg
-              bindkey '^Z' _zsh_cli_fg
-
-              function set_win_title(){
-                echo -ne "\033]0; $(basename "$PWD") \007"
-              }
-
-              precmd_functions+=(set_win_title)
-
-              if [ -d "$HOME/go/bin" ]; then
-                export PATH="$HOME/go/bin:$PATH"
-              fi
-            '';
-          };
-
-          git = {
-            enable = true;
-            settings = {
-              difftastic.enable = true;
-              user = {
-                email = "arnaud.rebts@gmail.com";
-                name = "Arnaud Rebts";
-                signingkey = "~/.ssh/id_ed25519.pub";
-              };
-              fetch.prune = true;
-              push = {
-                default = "simple";
-                followTags = true;
-                autoSetupRemote = true;
-              };
-              pull.rebase = true;
-              merge.ff = "only";
-              mergetool.keepBackup = false;
-              rebase.autosquash = true;
-              rerere.enabled = true;
-              init.defaultBranch = "main";
-              gpg.format = "ssh";
-              commit.gpgsign = true;
-              tag.gpgsign = true;
-              alias = {
-                co = "checkout";
-                br = "branch";
-                ci = "commit";
-                cl = "clone";
-                cp = "cherry-pick";
-                ls = "log --decorate --oneline";
-                ll = "log --decorate --numstat";
-                lg = "log --decorate --graph --abbrev-commit --date=relative --all";
-                st = "status -s";
-                diffn = "diff --no-ext-diff";
-              };
             };
           };
 
@@ -231,59 +112,6 @@
               "ctrl+shift+k=goto_split:top"
               "ctrl+shift+l=goto_split:right"
             ];
-          };
-
-          wezterm = {
-            enable = true;
-            extraConfig = ''
-              local function is_vim(pane)
-                return pane:get_user_vars().IS_NVIM == 'true'
-              end
-
-              local direction_keys = {
-                h = 'Left',
-                j = 'Down',
-                k = 'Up',
-                l = 'Right',
-              }
-
-              local function split_nav(resize_or_move, key)
-                return {
-                  key = key,
-                  mods = resize_or_move == 'resize' and 'META' or 'CTRL',
-                  action = wezterm.action_callback(function(win, pane)
-                    if is_vim(pane) then
-                      win:perform_action({
-                        SendKey = { key = key, mods = resize_or_move == 'resize' and 'META' or 'CTRL' },
-                      }, pane)
-                    else
-                      if resize_or_move == 'resize' then
-                        win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
-                      else
-                        win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
-                      end
-                    end
-                  end),
-                }
-              end
-
-              return {
-                use_fancy_tab_bar = false,
-                hide_tab_bar_if_only_one_tab = true,
-                command_palette_font_size = 11,
-                mux_enable_ssh_agent = false,
-                keys = {
-                  split_nav('move', 'h'),
-                  split_nav('move', 'j'),
-                  split_nav('move', 'k'),
-                  split_nav('move', 'l'),
-                  split_nav('resize', 'h'),
-                  split_nav('resize', 'j'),
-                  split_nav('resize', 'k'),
-                  split_nav('resize', 'l'),
-                },
-              }
-            '';
           };
 
           zed-editor = {
@@ -332,15 +160,6 @@
               "${pkgs.telegram-desktop}/share/applications/org.telegram.desktop.desktop"
             ];
           };
-        };
-
-        home.shell = {
-          enableShellIntegration = false;
-          enableBashIntegration = false;
-          enableIonIntegration = false;
-          enableNushellIntegration = false;
-          enableZshIntegration = true;
-          enableFishIntegration = false;
         };
       };
   };
