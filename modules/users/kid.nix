@@ -13,6 +13,7 @@
       <nf/batteries/privileged-user>
       <nf.apps/firefox>
       <nf.apps/git>
+      <nf.apps/neovim>
       <nf.apps/wezterm>
       <nf.shell/zsh>
       <nf.ai/pi>
@@ -35,7 +36,6 @@
       {
         config,
         pkgs,
-        inputs',
         osConfig,
         ...
       }:
@@ -46,7 +46,7 @@
           inherit (osConfig.system) stateVersion;
           packages = [
             pkgs.opencode
-            inputs'.neovim-flake.packages.neovim
+            pkgs.my-neovim
             pkgs.winbox4
             pkgs.fd
             pkgs.htop

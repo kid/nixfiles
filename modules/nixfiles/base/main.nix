@@ -1,5 +1,18 @@
 { inputs, lib, ... }:
 {
+  nf.base.os = {
+    home-manager.useUserPackages = true;
+    home-manager.useGlobalPkgs = true;
+
+    nixpkgs = {
+      config = {
+        allowUnfree = true;
+        allowBroken = false;
+        allowAliases = false;
+      };
+    };
+  };
+
   nf.base.nixos =
     { config, pkgs, ... }:
     {

@@ -1032,11 +1032,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1778595951,
-        "narHash": "sha256-Xq3YPDWeYiOq9c+Z95torCO51Ma0QKdiOmFUPuM+Bvc=",
+        "lastModified": 1778670053,
+        "narHash": "sha256-SRzLGlwXK6twSB6VhBAjy2CsTE/lgrXT+5PxEiWzIK4=",
         "owner": "kid",
         "repo": "neovim",
-        "rev": "d3ea98b57c439bfee01bcd283dfd58ddbe28531d",
+        "rev": "2d07bd308ef7fddb5a51e76c455d83ad6d95a5ba",
         "type": "github"
       },
       "original": {
