@@ -8,7 +8,6 @@
       config = {
         allowUnfree = true;
         allowBroken = false;
-        allowAliases = false;
       };
     };
   };
@@ -37,7 +36,6 @@
         config = {
           allowUnfree = true;
           allowBroken = false;
-          allowAliases = false;
         };
       };
 
