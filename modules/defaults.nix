@@ -3,8 +3,8 @@
   den = {
     default = {
       includes = [
-        den.provides.inputs'
-        den.provides.self'
+        den.batteries.inputs'
+        den.batteries.self'
       ];
 
       nixos.system.stateVersion = lib.mkDefault "25.05";
