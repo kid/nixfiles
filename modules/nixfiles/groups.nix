@@ -1,4 +1,6 @@
 {
+  # TODO: should use schema instead?
+
   nf.batteries.privileged-user =
     { user, ... }:
     {
