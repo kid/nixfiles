@@ -204,7 +204,6 @@
 
     incus = {
       enable = true;
-      bucketSupport = false;
       package = pkgs.incus;
       ui.enable = true;
       preseed = {
