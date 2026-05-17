@@ -28,7 +28,6 @@
         inputs.preservation.nixosModules.preservation
         inputs.ucodenix.nixosModules.default
         inputs.sops-nix.nixosModules.sops
-        inputs.chaotic.nixosModules.default
         inputs.nix-gaming.nixosModules.wine
         inputs.nix-gaming.nixosModules.pipewireLowLatency
         inputs.nix-gaming.nixosModules.platformOptimizations
@@ -202,8 +201,6 @@
           enable = true;
           extraCompatPackages = with pkgs; [
             proton-ge-bin
-            proton-cachyos_x86_64_v4
-            proton-cachyos_nightly_x86_64_v4
           ];
           package = pkgs.steam.override {
             extraPkgs =
