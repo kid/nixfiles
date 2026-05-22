@@ -31,10 +31,6 @@
         programs.plasma = {
           enable = true;
           overrideConfig = true;
-          powerdevil.AC = {
-            dimDisplay.enable = false;
-            turnOffDisplay.idleTimeout = "never";
-          };
           fonts.general = {
             family = "JetBrains Mono";
             pointSize = 12;
