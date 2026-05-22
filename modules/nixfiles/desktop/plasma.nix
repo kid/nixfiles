@@ -1,12 +1,12 @@
 {
-  __findFile,
   inputs,
   lib,
+  nf,
   ...
 }:
 {
   nf.desktop.plasma = {
-    includes = [ <nf.desktop/wayland> ];
+    includes = [ nf.desktop.wayland ];
     nixos = {
       security.pam.services.sddm.kwallet.enable = true;
 

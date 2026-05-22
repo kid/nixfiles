@@ -1,7 +1,8 @@
 {
-  __findFile,
   inputs,
   lib,
+  den,
+  nf,
   ...
 }:
 {
@@ -11,10 +12,10 @@
 
   den.aspects.fw13 = {
     includes = [
-      <den/hostname>
-      <nf.base>
-      <nf.desktop/plasma>
-      <nf.stylix>
+      den._.hostname
+      nf.base
+      nf.desktop.plasma
+      nf.stylix
     ];
 
     nixos =

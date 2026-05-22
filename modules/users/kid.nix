@@ -1,24 +1,22 @@
 {
-  __findFile,
   inputs,
   lib,
   den,
+  nf,
   ...
 }:
 {
   den.aspects.kid = {
     includes = [
-      <den/define-user>
-      <den/primary-user>
-      <nf/batteries/privileged-user>
-      <nf.apps/firefox>
-      <nf.apps/git>
-      <nf.apps/neovim>
-      <nf.apps/wezterm>
-      <nf.shell/zsh>
-      <nf.ai/pi>
-      <nf.desktop/xremap/kde>
-      <nf.desktop/plasma>
+      den._.define-user
+      den._.primary-user
+      nf.batteries.privileged-user
+      nf.apps._
+      nf.shell.zsh
+      # nf.ai.pi
+      nf.desktop.xremap
+      nf.desktop.xremap.kde
+      nf.desktop.plasma
       (den.provides.unfree [
         "1password"
         "1password-cli"

@@ -1,10 +1,7 @@
-{
-  __findFile,
-  ...
-}:
+{ nf, ... }:
 {
   nf.shell.zsh = {
-    includes = [ <nf.shell> ];
+    includes = [ nf.shell ];
 
     homeManager =
       { config, pkgs, ... }:

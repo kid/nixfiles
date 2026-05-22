@@ -1,4 +1,4 @@
-{ __findFile, inputs, ... }:
+{ inputs, ... }:
 {
   nf.desktop.xremap = {
     nixos = {
@@ -29,7 +29,6 @@
     };
 
     kde = {
-      includes = [ <nf.desktop/xremap> ];
       homeManager.services.xremap.withKDE = true;
     };
   };
