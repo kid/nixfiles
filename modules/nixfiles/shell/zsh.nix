@@ -6,15 +6,6 @@
     homeManager =
       { config, pkgs, ... }:
       {
-        home.shell = {
-          enableShellIntegration = false;
-          enableBashIntegration = false;
-          enableIonIntegration = false;
-          enableNushellIntegration = false;
-          enableZshIntegration = true;
-          enableFishIntegration = false;
-        };
-
         programs.zsh = {
           enable = true;
           autocd = true;

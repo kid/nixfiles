@@ -45,11 +45,6 @@
           packages = [
             pkgs.opencode
             pkgs.winbox4
-            pkgs.fd
-            pkgs.htop
-            pkgs.jq
-            pkgs.yq
-            pkgs.ripgrep
             pkgs.pistol
             pkgs.gnumake
             pkgs.gopls

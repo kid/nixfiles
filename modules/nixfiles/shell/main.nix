@@ -1,34 +1,33 @@
 {
   nf.shell = {
-    homeManager = {
-      programs = {
-        bat.enable = true;
+    homeManager =
+      { pkgs, ... }:
+      {
+        home.packages = with pkgs; [
+          fd
+          ripgrep
+          jq
+          yq
+        ];
 
-        direnv = {
-          enable = true;
-          nix-direnv.enable = true;
-        };
+        programs = {
+          bat.enable = true;
 
-        eza = {
-          enable = true;
-          enableZshIntegration = true;
-        };
+          htop.enable = true;
 
-        fzf = {
-          enable = true;
-          enableZshIntegration = true;
-        };
+          direnv = {
+            enable = true;
+            nix-direnv.enable = true;
+          };
 
-        starship = {
-          enable = true;
-          enableZshIntegration = true;
-        };
+          eza.enable = true;
 
-        zoxide = {
-          enable = true;
-          enableZshIntegration = true;
+          fzf.enable = true;
+
+          starship.enable = true;
+
+          zoxide.enable = true;
         };
       };
-    };
   };
 }
