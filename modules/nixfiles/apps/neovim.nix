@@ -6,7 +6,11 @@
     homeManager =
       { pkgs, ... }:
       {
-        home.packages = with pkgs; [ my-neovim ];
+        home = {
+          packages = with pkgs; [ my-neovim ];
+          sessionVariables.EDITOR = "nvim";
+          shellAliases.vimdiff = "nvim -d";
+        };
       };
   };
 }

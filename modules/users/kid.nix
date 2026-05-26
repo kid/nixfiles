@@ -44,7 +44,6 @@
           inherit (osConfig.system) stateVersion;
           packages = [
             pkgs.opencode
-            pkgs.my-neovim
             pkgs.winbox4
             pkgs.fd
             pkgs.htop
@@ -76,9 +75,6 @@
             pkgs.prusa-slicer
             pkgs.proton-pass
           ];
-
-          sessionVariables.EDITOR = "nvim";
-          shellAliases.vimdiff = "nvim -d";
         };
 
         systemd.user.startServices = lib.mkDefault "sd-switch";
