@@ -1128,6 +1128,26 @@
         "type": "github"
       }
     },
+    "nix-gaming-edge": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779867336,
+        "narHash": "sha256-ekx38TKokMbBD3RoqcEMZYb7/vER5FJwueFx20NM+PE=",
+        "owner": "powerofthe69",
+        "repo": "nix-gaming-edge",
+        "rev": "eaf3a463b412e029c6fbfdf440cfc101fe1d6bef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "powerofthe69",
+        "repo": "nix-gaming-edge",
+        "type": "github"
+      }
+    },
     "nix-github-actions": {
       "inputs": {
         "nixpkgs": [
@@ -1598,6 +1618,7 @@
         "niri": "niri",
         "nix-citizen": "nix-citizen",
         "nix-gaming": "nix-gaming",
+        "nix-gaming-edge": "nix-gaming-edge",
         "nixos-anywhere": "nixos-anywhere",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",

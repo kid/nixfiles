@@ -42,6 +42,9 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-gaming-edge.url = "github:powerofthe69/nix-gaming-edge";
+    nix-gaming-edge.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-citizen.url = "github:LovingMelody/nix-citizen";
     nix-citizen.inputs.nixpkgs.follows = "nixpkgs";
     nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
