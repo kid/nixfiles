@@ -16,7 +16,6 @@
       # nf.ai.pi
       nf.desktop
       nf.desktop.xremap
-      nf.desktop.xremap.kde
       nf.desktop.plasma
     ];
 

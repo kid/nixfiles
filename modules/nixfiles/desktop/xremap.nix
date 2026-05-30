@@ -1,4 +1,9 @@
-{ inputs, ... }:
+{
+  inputs,
+  den,
+  nf,
+  ...
+}:
 {
   nf.desktop.xremap = {
     nixos = {
@@ -28,8 +33,10 @@
       };
     };
 
-    kde = {
-      homeManager.services.xremap.withKDE = true;
-    };
+    includes = [
+      (den.lib.policy.when ({ user, ... }: user.hasAspect nf.desktop.plasma) {
+        homeManager.services.xremap.withKDE = true;
+      })
+    ];
   };
 }
