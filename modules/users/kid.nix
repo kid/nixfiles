@@ -63,7 +63,6 @@
         systemd.user.startServices = lib.mkDefault "sd-switch";
 
         programs = {
-
           htop.enable = true;
           btop.enable = true;
           bottom.enable = true;
@@ -75,9 +74,9 @@
           ssh = {
             enable = true;
             enableDefaultConfig = false;
-            matchBlocks."*" = {
-              compression = true;
-              forwardAgent = true;
+            settings."*" = {
+              Compression = true;
+              ForwardAgent = true;
             };
           };
 
