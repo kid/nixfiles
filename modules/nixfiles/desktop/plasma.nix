@@ -5,6 +5,12 @@
   ...
 }:
 {
+  flake-file.inputs.plasma-manager = {
+    url = "github:nix-community/plasma-manager/trunk";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.home-manager.follows = "home-manager";
+  };
+
   nf.desktop.plasma = {
     includes = [ nf.desktop.wayland ];
     nixos = {
@@ -64,6 +70,8 @@
         };
 
         gtk.gtk4.theme = config.gtk.theme;
+
+        # TODO: should this be dependend on nf.desktop.plasma or even move there?
         qt.platformTheme.name = lib.mkForce "kde";
       };
   };

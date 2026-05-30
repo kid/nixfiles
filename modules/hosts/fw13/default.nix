@@ -22,15 +22,8 @@
       { config, pkgs, ... }:
       {
         imports = [
-          inputs.niri.nixosModules.niri
           inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
         ];
-
-        nixpkgs = {
-          overlays = [
-            inputs.niri.overlays.niri
-          ];
-        };
 
         users.users.kid = {
           extraGroups = lib.mkAfter [

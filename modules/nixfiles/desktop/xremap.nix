@@ -5,6 +5,12 @@
   ...
 }:
 {
+  flake-file.inputs.xremap = {
+    url = "github:xremap/nix-flake";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.flake-parts.follows = "flake-parts";
+  };
+
   nf.desktop.xremap = {
     nixos = {
       imports = [ inputs.xremap.nixosModules.default ];

@@ -1,6 +1,6 @@
 # ❄️ nixfiles
 
-Declarative NixOS configurations built with [flake-parts](https://flake.parts/) and [den](https://den.denful.dev/).
+Declarative NixOS configurations built with [flake-parts](https://flake.parts/), [den](https://den.denful.dev/), and [flake-file](https://github.com/denful/flake-file).
 
 This repo follows Den’s current host/user/aspect model:
 
@@ -10,7 +10,8 @@ This repo follows Den’s current host/user/aspect model:
 
 ## How this repo is structured
 
-- `flake.nix` wires in `inputs.den.flakeModule`
+- `flake-file.nix` declares flake inputs for the generated `flake.nix`
+- `outputs.nix` is the hand-written flake entrypoint
 - `modules/den.nix` enables Den and registers the local `nf` namespace
 - `modules/hosts/*` defines hosts such as `fw13` and `vulkan`
 - `modules/users/*` defines user aspects, mainly `kid`
@@ -96,14 +97,21 @@ Stage a boot entry instead of switching immediately:
 just boot fw13
 ```
 
+Regenerate `flake.nix` after changing flake inputs:
+
+```bash
+just write
+```
+
 Run flake checks:
 
 ```bash
-nix flake check
+just check
 ```
 
 ## Main dependencies
 
+- [flake-file](https://github.com/denful/flake-file) for generating `flake.nix` from typed module options
 - [den](https://den.denful.dev/) for the host/user/aspect pipeline
 - [home-manager](https://github.com/nix-community/home-manager) for user environments
 - [disko](https://github.com/nix-community/disko) for declarative partitioning
@@ -112,10 +120,3 @@ nix flake check
 - [plasma-manager](https://github.com/nix-community/plasma-manager) for KDE configuration
 - [sops-nix](https://github.com/Mic92/sops-nix) for secrets
 - [treefmt-nix](https://github.com/numtide/treefmt-nix) for formatting
-
-## Credits
-
-This setup has been heavily inspired by:
-
-- [isabelroses/dotfiles](https://github.com/isabelroses/dotfiles)
-- [jakehamilton/config](https://github.com/jakehamilton/config)

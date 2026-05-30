@@ -26,11 +26,7 @@
         inputs.disko.nixosModules.disko
         inputs.impermanence.nixosModules.impermanence
         inputs.preservation.nixosModules.preservation
-        inputs.ucodenix.nixosModules.default
         inputs.sops-nix.nixosModules.sops
-        inputs.nix-gaming.nixosModules.wine
-        inputs.nix-gaming.nixosModules.pipewireLowLatency
-        inputs.nix-gaming.nixosModules.platformOptimizations
         inputs.lanzaboote.nixosModules.lanzaboote
       ];
 
@@ -243,7 +239,6 @@
           jack.enable = true;
           pulse.enable = true;
           wireplumber.enable = true;
-          lowLatency.enable = true;
         };
 
         pulseaudio.enable = lib.mkForce false;
