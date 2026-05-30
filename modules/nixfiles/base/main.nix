@@ -89,13 +89,6 @@
           NIXPKGS_CONFIG = lib.mkForce "";
           _JAVA_AWT_WM_NONEREPARENTING = "1";
         };
-
-        sessionVariables = {
-          MESA_VK_WSI_PRESENT_MODE = "immediate";
-          PROTON_ENABLE_HDR = "1";
-          PROTON_USE_NTSYNC = 1;
-        };
-
         pathsToLink = [
           "/share/bash-completion"
           "/share/zsh"
@@ -195,57 +188,6 @@
         _1password-gui = {
           enable = true;
           polkitPolicyOwners = [ "kid" ];
-        };
-
-        steam = {
-          enable = true;
-          extraCompatPackages = with pkgs; [
-            proton-ge-bin
-          ];
-          package = pkgs.steam.override {
-            extraPkgs =
-              pkgs': with pkgs'; [
-                mangohud
-                gamemode
-                libxcursor
-                libxi
-                libxinerama
-                libxscrnsaver
-                libpng
-                libpulseaudio
-                libvorbis
-                stdenv.cc.cc.lib
-                libkrb5
-                keyutils
-              ];
-          };
-          platformOptimizations.enable = true;
-        };
-
-        gamescope = {
-          enable = true;
-          capSysNice = true;
-          args = [ "--rt" ];
-        };
-
-        gamemode = {
-          enable = true;
-          enableRenice = true;
-          settings = {
-            general = {
-              softrealtime = "auto";
-              renice = 10;
-            };
-            custom = {
-              start = "${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations activated'";
-              end = "${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'";
-            };
-          };
-        };
-
-        wine = {
-          enable = true;
-          ntsync = true;
         };
 
         kdeconnect.enable = true;

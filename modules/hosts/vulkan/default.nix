@@ -13,8 +13,8 @@
     includes = [
       den._.hostname
       nf.base
-      nf.desktop.plasma
       nf.stylix
+      nf.desktop.gaming
     ];
 
     nixos.imports = [
