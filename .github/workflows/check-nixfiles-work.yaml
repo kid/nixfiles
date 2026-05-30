@@ -1,0 +1,68 @@
+name: Check nixfiles-work against this branch
+on:
+  workflow_dispatch:
+    inputs:
+      work_repository:
+        description: Repository to check
+        required: false
+        type: string
+        default: kid/nixfiles-work
+      work_ref:
+        description: Ref in nixfiles-work to check
+        required: false
+        type: string
+        default: main
+  pull_request:
+    paths:
+      - "**.nix"
+      - "**.lock"
+      - ".github/workflows/check-nixfiles-work.yaml"
+      - ".github/actions/**/*"
+  push:
+    paths:
+      - "**.nix"
+      - "**.lock"
+      - ".github/workflows/check-nixfiles-work.yaml"
+      - ".github/actions/**/*"
+permissions:
+  contents: read
+jobs:
+  check-nixfiles-work:
+    name: Check nixfiles-work
+    runs-on: ubuntu-latest
+    env:
+      WORK_REPOSITORY: ${{ github.event.inputs.work_repository || 'kid/nixfiles-work' }}
+      WORK_REF: ${{ github.event.inputs.work_ref || 'main' }}
+    steps:
+      - name: Checkout nixfiles
+        uses: actions/checkout@v6
+        with:
+          path: nixfiles
+          persist-credentials: false
+          submodules: recursive
+
+      - name: Checkout nixfiles-work
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ env.WORK_REPOSITORY }}
+          ref: ${{ env.WORK_REF }}
+          token: ${{ secrets.NIXFILES_WORK_REPO_TOKEN || secrets.GITHUB_TOKEN }}
+          path: nixfiles-work
+          persist-credentials: false
+          submodules: recursive
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: cachix/cachix-action@v17
+        with:
+          name: kidibox
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Check nixfiles-work with this nixfiles branch
+        working-directory: nixfiles-work
+        run: |
+          nix flake check \
+            --no-write-lock-file \
+            --override-input nixfiles "path:${GITHUB_WORKSPACE}/nixfiles"
