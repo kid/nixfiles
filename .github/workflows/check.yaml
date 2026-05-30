@@ -1,4 +1,4 @@
-name: Validate Nix Flake
+name: nix flake check
 on:
   push:
     paths:
@@ -9,7 +9,7 @@ on:
 permissions: {}
 jobs:
   check-flake:
-    name: Check (x86_64-linux)
+    name: nixfiles (x86_64-linux)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
