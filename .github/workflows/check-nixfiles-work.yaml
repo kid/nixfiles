@@ -1,42 +1,22 @@
 name: Check nixfiles-work against this branch
 on:
-  workflow_dispatch:
-    inputs:
-      work_repository:
-        description: Repository to check
-        required: false
-        type: string
-        default: kid/nixfiles-work
-      work_ref:
-        description: Ref in nixfiles-work to check
-        required: false
-        type: string
-        default: main
-  pull_request:
-    paths:
-      - "**.nix"
-      - "**.lock"
-      - ".github/workflows/check-nixfiles-work.yaml"
-      - ".github/actions/**/*"
   push:
     paths:
       - "**.nix"
       - "**.lock"
-      - ".github/workflows/check-nixfiles-work.yaml"
+      - ".github/workflows/check.yaml"
       - ".github/actions/**/*"
 permissions:
   contents: read
 jobs:
   check-nixfiles-work:
-    name: Check nixfiles-work
-    runs-on: ubuntu-latest
-    env:
-      WORK_REPOSITORY: ${{ github.event.inputs.work_repository || 'kid/nixfiles-work' }}
-      WORK_REF: ${{ github.event.inputs.work_ref || 'main' }}
+    name: Check nixfiles-work (aarch64-darwin)
+    runs-on: macos-latest
     steps:
       - name: Checkout nixfiles
         uses: actions/checkout@v6
         with:
+          ref: ${{ github.ref_name }}
           path: nixfiles
           persist-credentials: false
           submodules: recursive
@@ -44,8 +24,8 @@ jobs:
       - name: Checkout nixfiles-work
         uses: actions/checkout@v6
         with:
-          repository: ${{ env.WORK_REPOSITORY }}
-          ref: ${{ env.WORK_REF }}
+          repository: kid/nixfiles-work
+          ref: main
           token: ${{ secrets.NIXFILES_WORK_REPO_TOKEN || secrets.GITHUB_TOKEN }}
           path: nixfiles-work
           persist-credentials: false

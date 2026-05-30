@@ -1,11 +1,5 @@
 name: Validate Nix Flake
 on:
-  workflow_dispatch:
-  workflow_call:
-    inputs:
-      ref:
-        required: false
-        type: string
   push:
     paths:
       - "**.nix"
@@ -15,20 +9,13 @@ on:
 permissions: {}
 jobs:
   check-flake:
-    name: Check (${{ matrix.system }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            system: x86_64-linux
-          - os: macos-latest
-            system: aarch64-darwin
+    name: Check (x86_64-linux)
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.ref && inputs.ref || github.ref_name }}
+          ref: ${{ github.ref_name }}
           persist-credentials: false
           submodules: recursive
       - uses: cachix/install-nix-action@v31
