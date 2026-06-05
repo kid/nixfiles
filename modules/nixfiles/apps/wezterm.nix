@@ -36,7 +36,6 @@
           end
 
           return {
-            enable_kitty_keyboard = true,
             use_fancy_tab_bar = false,
             hide_tab_bar_if_only_one_tab = true,
             command_palette_font_size = 11,
