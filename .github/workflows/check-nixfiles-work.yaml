@@ -14,14 +14,14 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout nixfiles
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.ref_name }}
           path: nixfiles
           persist-credentials: false
           submodules: recursive
       - name: Checkout nixfiles-work
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: kid/nixfiles-work
           ref: main
