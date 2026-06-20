@@ -30,7 +30,7 @@
     };
 
     homeManager =
-      { config, ... }:
+      { ... }:
       {
         imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
@@ -68,8 +68,6 @@
           };
           shortcuts.plasmashell."activate application launcher" = [ "Alt+F1" ];
         };
-
-        gtk.gtk4.theme = config.gtk.theme;
 
         # TODO: should this be dependend on nf.desktop.plasma or even move there?
         qt.platformTheme.name = lib.mkForce "kde";
