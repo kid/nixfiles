@@ -114,6 +114,11 @@
           dimDisplay.enable = false;
           turnOffDisplay.idleTimeout = "never";
         };
+
+        home.sessionVariables = {
+          PROTON_FSR4_RDNA3_UPGRADE = "1";
+          PROTON_USE_OPTISCALER = "1";
+        };
       };
     };
   };
