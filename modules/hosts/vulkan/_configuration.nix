@@ -129,13 +129,6 @@
     virt-manager.enable = true;
   };
 
-  security.wrappers.qemu-bridge-helper = {
-    source = "${pkgs.qemu}/libexec/qemu-bridge-helper";
-    capabilities = "cap_net_admin+ep";
-    owner = "root";
-    group = "kvm";
-  };
-
   services = {
     resolved.settings.Resolve = {
       DNSSEC = false;
