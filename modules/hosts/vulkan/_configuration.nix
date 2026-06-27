@@ -36,6 +36,7 @@
     nftables.enable = true;
 
     interfaces = {
+      k8s.useDHCP = false;
       adm.useDHCP = true;
       lab-oob.useDHCP = true;
       lab-trusted = {
@@ -51,6 +52,10 @@
     };
 
     vlans = {
+      k8s = {
+        id = 40;
+        interface = "enp15s0";
+      };
       adm = {
         id = 99;
         interface = "enp15s0";
@@ -64,6 +69,9 @@
         interface = "enp15s0";
       };
     };
+
+    bridges.br-k8s.interfaces = [ "k8s" ];
+    interfaces.br-k8s.useDHCP = false;
 
     firewall = {
       enable = false;
@@ -119,6 +127,13 @@
 
     corectrl.enable = true;
     virt-manager.enable = true;
+  };
+
+  security.wrappers.qemu-bridge-helper = {
+    source = "${pkgs.qemu}/libexec/qemu-bridge-helper";
+    capabilities = "cap_net_admin+ep";
+    owner = "root";
+    group = "kvm";
   };
 
   services = {
@@ -199,6 +214,7 @@
     docker.enable = true;
     libvirtd = {
       enable = true;
+      allowedBridges = [ "br-k8s" ];
       qemu.swtpm.enable = true;
     };
 
