@@ -13,7 +13,7 @@
       nf.batteries.privileged-user
       nf.apps._
       nf.shell.zsh
-      # nf.ai.pi
+      nf.ai
       nf.desktop
       nf.desktop.xremap
       nf.desktop.plasma
