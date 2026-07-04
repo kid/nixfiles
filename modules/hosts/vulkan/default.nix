@@ -19,7 +19,7 @@
 
     nixos.imports = [
       ./_configuration.nix
-      ./_disko-config.nix
+      (import ./_disko-config.nix { })
     ]
     ++ (with inputs.nixos-hardware.nixosModules; [
       common-pc
