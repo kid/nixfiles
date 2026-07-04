@@ -1,8 +1,6 @@
 {
   config,
-  # inputs,
   lib,
-  # self,
   pkgs,
   ...
 }:
@@ -38,17 +36,17 @@
     interfaces = {
       k8s.useDHCP = false;
       adm.useDHCP = true;
-      lab-oob.useDHCP = true;
-      lab-trusted = {
-        useDHCP = true;
-        ipv4.routes = [
-          {
-            address = "10.128.0.0";
-            prefixLength = 9;
-            via = "10.128.100.1";
-          }
-        ];
-      };
+      # lab-oob.useDHCP = true;
+      # lab-trusted = {
+      #   useDHCP = true;
+      #   ipv4.routes = [
+      #     {
+      #       address = "10.128.0.0";
+      #       prefixLength = 9;
+      #       via = "10.128.100.1";
+      #     }
+      #   ];
+      # };
     };
 
     vlans = {
@@ -60,14 +58,14 @@
         id = 99;
         interface = "enp15s0";
       };
-      lab-oob = {
-        id = 1991;
-        interface = "enp15s0";
-      };
-      lab-trusted = {
-        id = 1100;
-        interface = "enp15s0";
-      };
+      # lab-oob = {
+      #   id = 1991;
+      #   interface = "enp15s0";
+      # };
+      # lab-trusted = {
+      #   id = 1100;
+      #   interface = "enp15s0";
+      # };
     };
 
     bridges.br-k8s.interfaces = [ "k8s" ];
@@ -85,15 +83,15 @@
         name = "adm";
         dhcpV4Config.RouteMetric = 2048;
       };
-      "40-lab-oob" = {
-        name = "lab-oob";
-        dhcpV4Config.RouteMetric = 2048;
-      };
-      "40-lab-trusted" = {
-        name = "lab-trusted";
-        dhcpV4Config.RouteMetric = 2048;
-        domains = [ "~dev.kidibox.net." ];
-      };
+      # "40-lab-oob" = {
+      #   name = "lab-oob";
+      #   dhcpV4Config.RouteMetric = 2048;
+      # };
+      # "40-lab-trusted" = {
+      #   name = "lab-trusted";
+      #   dhcpV4Config.RouteMetric = 2048;
+      #   domains = [ "~dev.kidibox.net." ];
+      # };
     };
 
     suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
@@ -205,6 +203,7 @@
 
   virtualisation = {
     docker.enable = true;
+
     libvirtd = {
       enable = true;
       allowedBridges = [ "br-k8s" ];
