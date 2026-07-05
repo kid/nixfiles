@@ -16,6 +16,7 @@
       nf.base
       nf.desktop.plasma
       nf.stylix
+      nf.dev.incus
     ];
 
     nixos =

@@ -9,15 +9,12 @@
     extraGroups = lib.mkAfter [
       "libvirtd"
       "corectrl"
-      "incus-admin"
     ];
   };
 
   environment.systemPackages = lib.mkAfter (
     with pkgs;
     [
-      incus
-      ovn
       virt-manager
       virt-viewer
       (pkgs.writeShellScriptBin "qemu-system-x86_64-uefi" ''
@@ -208,33 +205,6 @@
       enable = true;
       allowedBridges = [ "br-k8s" ];
       qemu.swtpm.enable = true;
-    };
-
-    incus = {
-      enable = true;
-      package = pkgs.incus;
-      ui.enable = true;
-      preseed = {
-        config."core.https_address" = "[::]:8443";
-        networks = [ ];
-        profiles = [
-          {
-            name = "default";
-            devices.root = {
-              path = "/";
-              pool = "default";
-              type = "disk";
-            };
-          }
-        ];
-        storage_pools = [
-          {
-            name = "default";
-            driver = "btrfs";
-            config.source = "/var/lib/incus/storage-pools/default";
-          }
-        ];
-      };
     };
   };
 

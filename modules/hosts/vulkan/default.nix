@@ -15,6 +15,7 @@
       nf.base
       nf.stylix
       nf.desktop.gaming
+      nf.dev.incus
     ];
 
     nixos.imports = [
