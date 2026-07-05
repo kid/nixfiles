@@ -36,7 +36,8 @@
               how = "symlink";
               configureParent = true;
             }
-          ] ++ lib.concatMap (p: p.files or [ ]) persist;
+          ]
+          ++ lib.concatMap (p: p.files or [ ]) persist;
 
           directories = lib.concatMap (p: p.directories or [ ]) persist;
         };
@@ -58,7 +59,8 @@
             "/etc/ssh/ssh_host_rsa_key.pub"
             "/etc/ssh/ssh_host_ed25519_key"
             "/etc/ssh/ssh_host_ed25519_key.pub"
-          ] ++ lib.concatMap (p: p.files or [ ]) persist;
+          ]
+          ++ lib.concatMap (p: p.files or [ ]) persist;
 
           directories = lib.concatMap (p: p.directories or [ ]) persist;
         };
