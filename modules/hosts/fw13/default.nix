@@ -17,6 +17,12 @@
       nf.desktop.plasma
       nf.stylix
       nf.dev.incus
+      nf.storage.persistence
+    ];
+
+    persist.directories = [
+      "/etc/NetworkManager/system-connections"
+      "/var/lib/iwd"
     ];
 
     nixos =
@@ -43,28 +49,6 @@
               sbctl
             ]
           );
-
-          persistence."/persist/system" = {
-            hideMounts = true;
-            files = [
-              "/etc/machine-id"
-              "/etc/ssh/ssh_host_rsa_key"
-              "/etc/ssh/ssh_host_rsa_key.pub"
-              "/etc/ssh/ssh_host_ed25519_key"
-              "/etc/ssh/ssh_host_ed25519_key.pub"
-            ];
-            directories = [
-              "/var/lib/bluetooth"
-              "/var/lib/fwupd"
-              "/var/lib/nixos"
-              "/var/lib/sddm"
-              "/var/log"
-              "/etc/NetworkManager/system-connections"
-              "/var/lib/iwd"
-              "/var/lib/fprint"
-              "/var/lib/sbctl"
-            ];
-          };
         };
 
         fileSystems = {

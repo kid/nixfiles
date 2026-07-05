@@ -13,6 +13,9 @@
 
   nf.desktop.plasma = {
     includes = [ nf.desktop.wayland ];
+
+    persist.directories = [ "/var/lib/sddm" ];
+
     nixos = {
       security.pam.services.sddm.kwallet.enable = true;
 

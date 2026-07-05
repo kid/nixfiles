@@ -1,5 +1,16 @@
 { inputs, lib, ... }:
 {
+  nf.base.persist.directories = [
+    "/var/lib/bluetooth"
+    "/var/lib/power-profiles-daemon"
+    "/var/lib/fwupd"
+    "/var/lib/fprint"
+    "/var/lib/sbctl"
+    "/etc/secureboot"
+    "/var/log"
+    "/var/lib/nixos"
+  ];
+
   nf.base.os = {
     home-manager.useUserPackages = true;
     home-manager.useGlobalPkgs = true;

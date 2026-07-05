@@ -16,6 +16,14 @@
       nf.stylix
       nf.desktop.gaming
       nf.dev.incus
+      nf.storage.preservation
+    ];
+
+    persist.directories = [
+      "/var/lib/libvirt"
+      "/var/lib/systemd/coredump"
+      "/var/lib/systemd/rfkill"
+      "/var/lib/systemd/timers"
     ];
 
     nixos.imports = [

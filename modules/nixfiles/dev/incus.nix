@@ -1,5 +1,7 @@
 {
   nf.dev.incus = {
+    persist.directories = [ "/var/lib/incus" ];
+
     nixos =
       { lib, pkgs, ... }:
       {
