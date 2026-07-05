@@ -7,23 +7,9 @@
 {
   users.users.kid = {
     extraGroups = lib.mkAfter [
-      "libvirtd"
       "corectrl"
     ];
   };
-
-  environment.systemPackages = lib.mkAfter (
-    with pkgs;
-    [
-      virt-manager
-      virt-viewer
-      (pkgs.writeShellScriptBin "qemu-system-x86_64-uefi" ''
-        qemu-system-x86_64 \
-          -bios ${pkgs.OVMF.fd}/FV/OVMF.fd \
-          "$@"
-      '')
-    ]
-  );
 
   networking = {
     hostId = "9371deb4";
@@ -121,7 +107,6 @@
     ];
 
     corectrl.enable = true;
-    virt-manager.enable = true;
   };
 
   services = {
@@ -200,11 +185,6 @@
 
   virtualisation = {
     docker.enable = true;
-
-    libvirtd = {
-      enable = true;
-      allowedBridges = [ "br-k8s" ];
-      qemu.swtpm.enable = true;
-    };
+    libvirtd.allowedBridges = [ "br-k8s" ];
   };
 }
