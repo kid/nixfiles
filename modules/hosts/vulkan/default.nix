@@ -18,6 +18,7 @@
       nf.dev.incus
       nf.dev.libvirt
       nf.storage.preservation
+      nf.hardware.razer
     ];
 
     persist.directories = [

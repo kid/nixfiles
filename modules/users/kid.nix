@@ -31,7 +31,6 @@
         home = {
           inherit (osConfig.system) stateVersion;
           packages = [
-            pkgs.opencode
             pkgs.winbox4
             pkgs.pistol
             pkgs.gnumake
