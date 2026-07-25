@@ -1,9 +1,4 @@
-{
-  inputs,
-  den,
-  nf,
-  ...
-}:
+{ inputs, nf, ... }:
 {
   flake-file.inputs.xremap = {
     url = "github:xremap/nix-flake";
@@ -11,7 +6,7 @@
     inputs.flake-parts.follows = "flake-parts";
   };
 
-  nf.desktop.xremap = {
+  nf.desktop.xremap = { user, ... }: {
     nixos = {
       imports = [ inputs.xremap.nixosModules.default ];
       services.xremap.enable = false;
@@ -22,27 +17,27 @@
 
       services.xremap = {
         enable = true;
-        watch = true;
-        config.keymap = [
-          {
-            remap = {
-              SUPER-B.launch = [ "firefox" ];
-              SUPER-SHIFT-B.launch = [
-                "firefox"
-                "--private-window"
-              ];
-              SUPER-T.launch = [ "wezterm" ];
-              SUPER-P.launch = [ "krunner" ];
-            };
-          }
-        ];
+        withKDE = user.hasAspect nf.desktop.plasma;
+        config = {
+          # Fix compatibility with Wayland applications (particularly games)
+          keypress_delay_ms = 20;
+          throttle_ms = 10;
+
+          keymap = [
+            {
+              remap = {
+                SUPER-B.launch = [ "firefox" ];
+                SUPER-SHIFT-B.launch = [
+                  "firefox"
+                  "--private-window"
+                ];
+                SUPER-T.launch = [ "wezterm" ];
+                SUPER-P.launch = [ "krunner" ];
+              };
+            }
+          ];
+        };
       };
     };
-
-    includes = [
-      (den.lib.policy.when ({ user, ... }: user.hasAspect nf.desktop.plasma) {
-        homeManager.services.xremap.withKDE = true;
-      })
-    ];
   };
 }
