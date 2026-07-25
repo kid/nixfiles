@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   ...
@@ -168,6 +169,11 @@
       windows."11".efiDeviceHandle = "HD0b";
     };
   };
+
+  services.lact.enable = true;
+  environment.systemPackages = with pkgs; [
+    lact
+  ];
 
   hardware = {
     amdgpu.overdrive.enable = true;
