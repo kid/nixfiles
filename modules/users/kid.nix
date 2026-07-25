@@ -6,7 +6,7 @@
   ...
 }:
 {
-  den.aspects.kid = {
+  den.aspects.kid = { host, ... }: {
     includes = [
       den._.define-user
       den._.primary-user
@@ -17,14 +17,11 @@
       nf.desktop
       nf.desktop.xremap
       nf.desktop.plasma
-    ];
+    ]
+    ++ (if host.name == "vulkan" then [ nf.games.helldivers2 ] else [ ]);
 
     homeManager =
-      {
-        pkgs,
-        osConfig,
-        ...
-      }:
+      { pkgs, osConfig, ... }:
       {
         imports = [ inputs.sops-nix.homeManagerModules.sops ];
 
