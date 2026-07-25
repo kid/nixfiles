@@ -119,12 +119,12 @@
       user = "kid";
     };
 
-    udev.extraRules = lib.mkAfter ''
-      ACTION=="add|change", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="on"
-      ACTION=="add|change", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
-      SUBSYSTEM=="ata_port", KERNEL=="ata*", ATTR{device/power/control}="auto"
-      ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTR{idVendor}=="cb10", ATTR{idProduct}=="1257", ATTR{power/control}="on"
-    '';
+    # udev.extraRules = lib.mkAfter ''
+    #   ACTION=="add|change", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="on"
+    #   ACTION=="add|change", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
+    #   SUBSYSTEM=="ata_port", KERNEL=="ata*", ATTR{device/power/control}="auto"
+    #   ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTR{idVendor}=="cb10", ATTR{idProduct}=="1257", ATTR{power/control}="on"
+    # '';
 
     scx = {
       enable = true;
@@ -141,7 +141,7 @@
     extraModulePackages = with config.boot.kernelPackages; [ r8125 ];
     kernelParams = lib.mkAfter [
       "boot.shell_on_fail"
-      "amdgpu.dcdebugmask=0x400"
+      # "amdgpu.dcdebugmask=0x400"
       "preempt=full"
       "amd_pstate=active"
     ];
