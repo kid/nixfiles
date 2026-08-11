@@ -1,8 +1,5 @@
-{ nf, ... }:
 {
   nf.ai.pi = {
-    includes = [ nf.ai ];
-
     homeManager =
       {
         config,

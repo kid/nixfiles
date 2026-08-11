@@ -21,14 +21,8 @@
 
         home = {
           packages = with pkgs.llm-agents; [
-            claude-code
-            claudebox
             opencode
           ];
-
-          sessionVariables = {
-            CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = 1;
-          };
         };
       };
   };

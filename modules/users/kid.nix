@@ -14,6 +14,7 @@
       nf.apps._
       nf.shell.zsh
       nf.ai
+      nf.ai._
       nf.desktop
       nf.desktop.xremap
       nf.desktop.plasma
