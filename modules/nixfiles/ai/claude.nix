@@ -1,23 +1,50 @@
 {
   nf.ai.claude = {
     homeManager =
-      { pkgs, ... }:
+      { lib, pkgs, ... }:
       {
-        programs.tmux.enable = true;
-
-        home = {
-          sessionVariables = {
-            CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = 1;
-          };
-        };
-
         programs.claude-code = {
           enable = true;
           enableMcpIntegration = true;
           package = pkgs.llm-agents.claude-code;
+
+          context = ./agents.md;
+
           settings = {
             editorMode = "vim";
             theme = "dark-ansi";
+            env = {
+              CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = 1;
+              CLAUDE_CODE_DISABLE_AUTO_MEMORY = 1;
+            };
+            outputStyle = "ASD-STE100";
+          };
+
+          outputStyles.ASD-STE100 = ./asd-ste100.md;
+
+          lspServers = {
+            typescript = {
+              command = lib.getExe pkgs.typescript-language-server;
+              args = [ "--stdio" ];
+              extensionToLanguage = {
+                ".ts" = "typescript";
+                ".mts" = "typescript";
+                ".cts" = "typescript";
+                ".tsx" = "typescriptreact";
+                ".js" = "javascript";
+                ".mjs" = "javascript";
+                ".cjs" = "javascript";
+                ".jsx" = "javascriptreact";
+              };
+            };
+
+            go = {
+              command = lib.getExe pkgs.gopls;
+              args = [ "serve" ];
+              extensionToLanguage = {
+                ".go" = "go";
+              };
+            };
           };
         };
       };
