@@ -45,6 +45,13 @@
                 ".go" = "go";
               };
             };
+
+            nix = {
+              command = lib.getExe pkgs.nixd;
+              extensionToLanguage = {
+                ".nix" = "nix";
+              };
+            };
           };
         };
       };
