@@ -15,7 +15,6 @@
             theme = "dark-ansi";
             env = {
               CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = 1;
-              CLAUDE_CODE_DISABLE_AUTO_MEMORY = 1;
             };
             outputStyle = "ASD-STE100";
           };
