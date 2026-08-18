@@ -3,6 +3,8 @@
     homeManager =
       { lib, pkgs, ... }:
       {
+        home.packages = with pkgs.llm-agents; [ claude-desktop ];
+
         programs.claude-code = {
           enable = true;
           enableMcpIntegration = true;
