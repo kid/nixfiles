@@ -13,14 +13,8 @@
       enableDefaultExcludes = true;
 
       programs = {
-        nixfmt = {
-          enable = true;
-          includes = [ "**/*.nix" ];
-        };
-        deadnix = {
-          enable = true;
-          no-underscore = true;
-        };
+        nixfmt.enable = true;
+        deadnix.enable = true;
         statix.enable = true;
         jsonfmt.enable = true;
         yamlfmt.enable = true;
