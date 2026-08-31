@@ -3,7 +3,9 @@
     homeManager =
       { lib, pkgs, ... }:
       {
-        home.packages = with pkgs.llm-agents; [ claude-desktop ];
+        home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux (
+          with pkgs.llm-agents; [ claude-desktop ]
+        );
 
         programs.claude-code = {
           enable = true;
