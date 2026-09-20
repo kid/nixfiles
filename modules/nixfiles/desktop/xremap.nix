@@ -12,32 +12,45 @@
       services.xremap.enable = false;
     };
 
-    homeManager = {
-      imports = [ inputs.xremap.homeManagerModules.default ];
+    homeManager =
+      { pkgs, ... }:
+      let
+        scoped =
+          cmd:
+          [
+            "${pkgs.systemd}/bin/systemd-run"
+            "--user"
+            "--scope"
+            "--quiet"
+          ]
+          ++ cmd;
+      in
+      {
+        imports = [ inputs.xremap.homeManagerModules.default ];
 
-      services.xremap = {
-        enable = true;
-        withKDE = user.hasAspect nf.desktop.plasma;
-        config = {
-          # Fix compatibility with Wayland applications (particularly games)
-          keypress_delay_ms = 20;
-          throttle_ms = 10;
+        services.xremap = {
+          enable = true;
+          withKDE = user.hasAspect nf.desktop.plasma;
+          config = {
+            # Fix compatibility with Wayland applications (particularly games)
+            keypress_delay_ms = 20;
+            throttle_ms = 10;
 
-          keymap = [
-            {
-              remap = {
-                SUPER-B.launch = [ "firefox" ];
-                SUPER-SHIFT-B.launch = [
-                  "firefox"
-                  "--private-window"
-                ];
-                SUPER-T.launch = [ "wezterm" ];
-                SUPER-P.launch = [ "krunner" ];
-              };
-            }
-          ];
+            keymap = [
+              {
+                remap = {
+                  SUPER-B.launch = scoped [ "firefox" ];
+                  SUPER-SHIFT-B.launch = scoped [
+                    "firefox"
+                    "--private-window"
+                  ];
+                  SUPER-T.launch = scoped [ "wezterm" ];
+                  SUPER-P.launch = scoped [ "krunner" ];
+                };
+              }
+            ];
+          };
         };
       };
-    };
   };
 }
