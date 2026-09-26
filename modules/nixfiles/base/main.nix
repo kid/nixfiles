@@ -21,12 +21,6 @@
         allowBroken = false;
       };
     };
-
-    nix.settings.experimental-features = [
-      "flakes"
-      "nix-command"
-      "pipe-operators"
-    ];
   };
 
   nf.base.nixos =
@@ -104,78 +98,6 @@
       i18n.defaultLocale = "en_NZ.UTF-8";
 
       time.timeZone = "Europe/Brussels";
-
-      nix = {
-        package = pkgs.nixVersions.latest;
-
-        gc = {
-          automatic = true;
-          options = "--delete-older-than 3d";
-          dates = "Mon *-*-* 03:00";
-        };
-
-        channel.enable = false;
-
-        optimise = {
-          automatic = true;
-          dates = [ "04:00" ];
-        };
-
-        daemonCPUSchedPolicy = "idle";
-        daemonIOSchedClass = "idle";
-        daemonIOSchedPriority = 7;
-
-        settings = {
-          min-free = 5 * 1024 * 1024 * 1024;
-          max-free = 20 * 1024 * 1024 * 1024;
-          allowed-users = [ "@wheel" ];
-          trusted-users = [ "@wheel" ];
-          use-registries = true;
-          flake-registry = "";
-          max-jobs = "auto";
-          sandbox = true;
-          system-features = [
-            "nixos-test"
-            "kvm"
-            "recursive-nix"
-            "big-parallel"
-          ];
-          keep-going = true;
-          log-lines = 30;
-          experimental-features = [
-            "flakes"
-            "nix-command"
-            "recursive-nix"
-            "ca-derivations"
-            "auto-allocate-uids"
-            "cgroups"
-            "pipe-operators"
-            "fetch-closure"
-            "dynamic-derivations"
-            "parse-toml-timestamps"
-          ];
-          warn-dirty = false;
-          http-connections = 50;
-          accept-flake-config = false;
-          allow-import-from-derivation = true;
-          keep-derivations = true;
-          keep-outputs = true;
-          use-xdg-base-directories = true;
-          use-cgroups = true;
-          substituters = [
-            "https://kidibox.cachix.org"
-            "https://nix-community.cachix.org"
-            "https://devenv.cachix.org"
-            "https://nix-gaming.cachix.org"
-          ];
-          trusted-public-keys = [
-            "kidibox.cachix.org-1:BN875x9JUW61souPxjf7eA5Uh2k3A1OSA1JIb/axGGE="
-            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-            "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-            "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-          ];
-        };
-      };
 
       programs = {
         zsh.enable = true;
