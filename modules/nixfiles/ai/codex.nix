@@ -7,6 +7,7 @@
           enable = true;
           enableMcpIntegration = true;
           package = pkgs.llm-agents.codex;
+          context = builtins.readFile ./agents.md;
           settings.tui.terminal_title = [
             "activity"
             "project"

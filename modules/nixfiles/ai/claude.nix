@@ -12,7 +12,7 @@
           enableMcpIntegration = true;
           package = pkgs.llm-agents.claude-code;
 
-          context = ./agents.md;
+          context = builtins.readFile ./agents.md;
 
           settings = {
             editorMode = "vim";
