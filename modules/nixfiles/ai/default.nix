@@ -16,7 +16,16 @@
 
     homeManager =
       { lib, pkgs, ... }:
+      let
+        lsp = {
+          typescript = lib.getExe pkgs.typescript-language-server;
+          go = lib.getExe pkgs.gopls;
+          nix = lib.getExe pkgs.nixd;
+        };
+      in
       {
+        imports = [ ./_omp.nix ];
+
         home = {
           packages =
             with pkgs.llm-agents;
@@ -27,12 +36,19 @@
         };
 
         programs = lib.mkMerge [
-          (lib.genAttrs [ "claude-code" "codex" ] (name: {
-            enable = true;
-            enableMcpIntegration = true;
-            package = pkgs.llm-agents.${name};
-            context = builtins.readFile ./agents.md;
-          }))
+          (lib.genAttrs
+            [
+              "claude-code"
+              "codex"
+              "omp"
+            ]
+            (name: {
+              enable = true;
+              enableMcpIntegration = true;
+              package = pkgs.llm-agents.${name};
+              context = builtins.readFile ./agents.md;
+            })
+          )
           {
             tmux.enable = true;
 
@@ -50,7 +66,7 @@
 
               lspServers = {
                 typescript = {
-                  command = lib.getExe pkgs.typescript-language-server;
+                  command = lsp.typescript;
                   args = [ "--stdio" ];
                   extensionToLanguage = {
                     ".ts" = "typescript";
@@ -65,7 +81,7 @@
                 };
 
                 go = {
-                  command = lib.getExe pkgs.gopls;
+                  command = lsp.go;
                   args = [ "serve" ];
                   extensionToLanguage = {
                     ".go" = "go";
@@ -73,7 +89,7 @@
                 };
 
                 nix = {
-                  command = lib.getExe pkgs.nixd;
+                  command = lsp.nix;
                   extensionToLanguage = {
                     ".nix" = "nix";
                   };
@@ -88,6 +104,12 @@
               "git-branch"
               "context-remaining"
             ];
+
+            omp.lspServers = {
+              typescript-language-server.command = lsp.typescript;
+              gopls.command = lsp.go;
+              nixd.command = lsp.nix;
+            };
           }
         ];
       };
