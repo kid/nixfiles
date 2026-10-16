@@ -105,10 +105,20 @@
               "context-remaining"
             ];
 
-            omp.lspServers = {
-              typescript-language-server.command = lsp.typescript;
-              gopls.command = lsp.go;
-              nixd.command = lsp.nix;
+            omp = {
+              settings = {
+                github.enabled = true;
+                theme = {
+                  dark = "dark-gruvbox";
+                  light = "light-gruvbox";
+                };
+              };
+
+              lspServers = {
+                typescript-language-server.command = lsp.typescript;
+                gopls.command = lsp.go;
+                nixd.command = lsp.nix;
+              };
             };
           }
         ];
