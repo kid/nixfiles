@@ -108,6 +108,8 @@
             omp = {
               settings = {
                 github.enabled = true;
+                memory.backend = "mnemopi";
+                mnemopi.scoping = "global";
                 theme = {
                   dark = "dark-gruvbox";
                   light = "light-gruvbox";

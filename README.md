@@ -109,6 +109,12 @@ Run flake checks:
 just check
 ```
 
+## AI memory
+
+The shared AI aspect enables OMP's Mnemopi backend with global scoping.
+All projects on the same machine share one local memory bank; memory is not synchronized between hosts.
+Apply the Home Manager configuration and restart OMP to activate the settings.
+
 ## Main dependencies
 
 - [flake-file](https://github.com/denful/flake-file) for generating `flake.nix` from typed module options
