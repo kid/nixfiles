@@ -9,10 +9,12 @@
         programs.ghostty = {
           enable = true;
           package = lib.mkIf isDarwin pkgs.ghostty-bin;
+
           settings = {
             auto-update = "off";
 
             macos-option-as-alt = true;
+            macos-titlebar-style = "tabs";
 
             keybind = [
               "ctrl+shift+h=goto_split:left"
@@ -21,6 +23,7 @@
               "ctrl+shift+l=goto_split:right"
             ];
           };
+
           systemd.enable = isLinux;
         };
       };
