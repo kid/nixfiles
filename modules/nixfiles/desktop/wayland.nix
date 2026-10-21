@@ -18,7 +18,6 @@
           };
 
           sessionVariables = {
-            KWIN_DRM_NO_AMS = "1";
             PROTON_ENABLE_WAYLAND = "1";
             SDL_VIDEODRIVER = "wayland";
           };
