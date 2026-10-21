@@ -1,11 +1,16 @@
+// Base config is inherited from kid/renovate-config, which also runs Renovate.
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: ["config:recommended"],
-  nix: {
-    enabled: true,
-  },
-  lockFileMaintenance: {
-    enabled: true,
-    extends: ["schedule:weekly"],
+  customDatasources: {
+    // Build list of the ksa-archive.net mirror that
+    // pkgs/by-name/kitten-space-agency fetches from. Only builds named
+    // ksa_linux_v<version>.tar.gz match the package's URL template; older
+    // Linux builds used other names.
+    "kitten-space-agency": {
+      defaultRegistryUrlTemplate: "https://ksa-archive.net/builds.json",
+      transformTemplates: [
+        '{"releases": $[$contains(linuxFile, /^ksa_linux_v[0-9.]+\\.tar\\.gz$/)].{"version": $match(linuxFile, /v([0-9.]+)\\.tar\\.gz$/).groups[0], "releaseTimestamp": date}}',
+      ],
+    },
   },
 }
