@@ -54,6 +54,7 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
     plasma-manager = {
       url = "github:nix-community/plasma-manager/trunk";
       inputs = {
