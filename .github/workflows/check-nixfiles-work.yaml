@@ -14,14 +14,14 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout nixfiles
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ github.ref_name }}
           path: nixfiles
           persist-credentials: false
           submodules: recursive
       - name: Checkout nixfiles-work
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           repository: kid/nixfiles-work
           ref: main
@@ -29,10 +29,10 @@ jobs:
           path: nixfiles-work
           persist-credentials: false
           submodules: recursive
-      - uses: cachix/install-nix-action@v31
+      - uses: cachix/install-nix-action@448cde739abec1eaf0646249e3d25bb8d9bc7702 # v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: cachix/cachix-action@v17
+      - uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
         with:
           name: kidibox
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
