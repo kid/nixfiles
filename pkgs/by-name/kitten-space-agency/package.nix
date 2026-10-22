@@ -11,6 +11,7 @@
 }:
 let
   pname = "kitten-space-agency";
+  # renovate: datasource=custom.kitten-space-agency depName=kitten-space-agency versioning=loose
   version = "2026.10.13.5602";
   build = lib.last (lib.splitString "." version);
 
@@ -31,7 +32,7 @@ let
 
     src = fetchurl {
       url = "https://files.ksa-archive.net/builds/${build}/ksa_linux_v${version}.tar.gz";
-      sha256 = "0514dbb74cae2664a4bc5c9c4e749e5c750cf9e5b83153f2d65fcd6bc810009a";
+      hash = "sha256-BRTbt0yuJmSkvFycTnSeXHUM+eW4MVPy1l/Na8gQAJo=";
     };
 
     dontUnpack = true;
@@ -65,6 +66,9 @@ let
 in
 buildFHSEnv {
   inherit pname version meta;
+
+  # refresh-nix-hash (nix-update) finds the tarball through `src`.
+  passthru.src = game.src;
 
   targetPkgs =
     pkgs: with pkgs; [
