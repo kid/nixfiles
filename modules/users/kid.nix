@@ -19,6 +19,7 @@
       nf.desktop.xremap
       nf.desktop.plasma
       nf.games.kitten-space-agency
+      nf.dev.arduino
     ]
     ++ (if host.name == "vulkan" then [ nf.games.helldivers2 ] else [ ]);
 
