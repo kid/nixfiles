@@ -96,7 +96,8 @@ buildFHSEnv {
   runScript = writeShellScript "${pname}-launch" ''
     mkdir -p "$HOME/Documents"
     cd ${game}/share/kitten-space-agency
-    exec ./KSA -force-x11 "$@"
+    # Native Wayland (early support since 5638); detached windows are disabled there.
+    exec ./KSA -wayland "$@"
   '';
 
   extraInstallCommands = ''
