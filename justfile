@@ -12,6 +12,9 @@ write:
 build host=hostname *args:
   nix run \#{{host}} build -- {{args}}
 
+test host=hostname *args:
+  nix run \#{{host}} test -- --ask {{args}}
+
 switch host=hostname *args:
   nix run \#{{host}} switch -- --ask {{args}}
 
