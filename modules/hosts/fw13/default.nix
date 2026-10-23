@@ -15,6 +15,7 @@
       den._.hostname
       nf.base
       nf.desktop.plasma
+      nf.desktop.gaming
       nf.stylix
       nf.dev.incus
       nf.storage.persistence
