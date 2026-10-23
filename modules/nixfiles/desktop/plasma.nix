@@ -64,7 +64,11 @@
               ];
             }
           ];
-          configFile.kwinrc.ModifierOnlyShortcuts.Meta = "";
+          configFile = {
+            kwinrc.ModifierOnlyShortcuts.Meta = "";
+            # kde-baloo.service's ExecCondition skips the indexer when this is false
+            baloofilerc."Basic Settings"."Indexing-Enabled" = false;
+          };
           session = {
             general.askForConfirmationOnLogout = false;
             sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
