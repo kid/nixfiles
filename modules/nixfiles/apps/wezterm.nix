@@ -26,7 +26,7 @@
               mux_enable_ssh_agent = false,
             }
 
-            smart_splits.apply_to_config(config)
+            smart_splits.apply_to_config(config, { at_edge = 'split' })
 
             return config
           '';
