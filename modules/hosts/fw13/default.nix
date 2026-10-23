@@ -178,9 +178,6 @@
           };
 
           udev.extraRules = ''
-            ACTION=="add|change", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
-            ACTION=="add|change", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
-            SUBSYSTEM=="ata_port", KERNEL=="ata*", ATTR{device/power/control}="auto"
             KERNEL=="cpu_dma_latency", GROUP="realtime"
           '';
 
