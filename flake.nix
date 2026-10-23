@@ -36,10 +36,7 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-flake = {
-      url = "github:kid/neovim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    neovim-flake.url = "github:kid/neovim";
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
