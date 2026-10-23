@@ -35,10 +35,12 @@
         inputs.lanzaboote.nixosModules.lanzaboote
       ];
 
+      users.mutableUsers = false;
+
       users.users.kid = {
         uid = lib.mkDefault 1000;
         isNormalUser = true;
-        initialPassword = lib.mkDefault "foo";
+        hashedPassword = "$y$j9T$Up29xeEcf8L7XlvGQCDZ7.$vpG02z/E4gdChCE5/GgWG1R43Wug/3OiDjLbM0CQ2U7";
         home = "/home/kid";
         shell = pkgs.zsh;
         extraGroups = [

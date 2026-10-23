@@ -1,11 +1,15 @@
+{ inputs, ... }:
 {
   nf.apps.wezterm = {
     homeManager =
-      { inputs', ... }:
+      { pkgs, ... }:
       let
         # WezTerm half of smart-splits.nvim's backend-wezterm, taken from the
         # same package the Neovim half comes from so both stay in lockstep.
-        smart-splits = inputs'.neovim-flake.packages.smart-splits-backend-wezterm;
+        # nixfiles' own `inputs`, not the `inputs'` module arg: that one belongs
+        # to whichever flake evaluates this aspect (e.g. nixfiles-work).
+        smart-splits =
+          inputs.neovim-flake.packages.${pkgs.stdenv.hostPlatform.system}.smart-splits-backend-wezterm;
       in
       {
         programs.wezterm = {
