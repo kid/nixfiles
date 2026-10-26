@@ -30,9 +30,6 @@
     lanzaboote.url = "github:nix-community/lanzaboote/v1.1.0";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
-    dagger.url = "github:dagger/nix";
-    dagger.inputs.nixpkgs.follows = "nixpkgs";
-
     llm-agents.url = "github:numtide/llm-agents.nix";
     llm-agents.inputs.nixpkgs.follows = "nixpkgs";
   };
