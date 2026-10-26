@@ -1,20 +1,12 @@
-{ inputs, nf, ... }:
+{ nf, ... }:
 {
   nf.dev.dagger = {
     includes = [ nf.dev.docker ];
 
-    os = {
-
-      nixpkgs.overlays = [ inputs.dagger.overlays.default ];
-    };
-
     homeManager =
-      { pkgs, ... }:
+      { self', ... }:
       {
-        home.packages = with pkgs; [
-          dagger
-          container-use
-        ];
+        home.packages = [ self'.packages.dagger ];
       };
   };
 }

@@ -4,10 +4,6 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
-    dagger = {
-      url = "github:dagger/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";

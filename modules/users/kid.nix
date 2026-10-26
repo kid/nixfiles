@@ -23,7 +23,12 @@
     ++ (if host.name == "vulkan" then [ nf.games.helldivers2 ] else [ ]);
 
     homeManager =
-      { pkgs, osConfig, ... }:
+      {
+        pkgs,
+        osConfig,
+        self',
+        ...
+      }:
       {
         imports = [ inputs.sops-nix.homeManagerModules.sops ];
 
@@ -38,14 +43,7 @@
             pkgs.kubectl
             pkgs.talosctl
             pkgs.flux
-            # Work around upstream dagger packages still using the deprecated
-            # `system` alias by passing the host platform system explicitly.
-            (pkgs.callPackage "${inputs.dagger}/pkgs/container-use/default.nix" {
-              inherit (pkgs.stdenv.hostPlatform) system;
-            })
-            (pkgs.callPackage "${inputs.dagger}/pkgs/dagger/default.nix" {
-              inherit (pkgs.stdenv.hostPlatform) system;
-            })
+            self'.packages.dagger
             pkgs.xclip
             pkgs.chromium
             pkgs.discord
