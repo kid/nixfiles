@@ -205,11 +205,7 @@
           "vm.dirty_writeback_centisecs" = 1500;
         };
 
-        initrd = {
-          systemd.enable = true;
-          verbose = true;
-          supportedFilesystems.btrfs = true;
-        };
+        initrd.supportedFilesystems.btrfs = true;
 
         supportedFilesystems.btrfs = true;
 
