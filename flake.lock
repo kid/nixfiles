@@ -148,7 +148,6 @@
         "type": "github"
       }
     },
-
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -658,11 +657,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1792760273,
-        "narHash": "sha256-4CkePsaeWJK0VxquyhS3PgZSn+hRIdWMLl5ykWSqrx0=",
+        "lastModified": 1793188965,
+        "narHash": "sha256-41BQf4BWPDdG4EVzSxuIHbtR6dDGOcz+DbcCbrQL99Y=",
         "owner": "kid",
         "repo": "neovim",
-        "rev": "b63d291a7d5bdd37058b66edbff4cd2f9815bfdb",
+        "rev": "1c7cb247c2275a38b39240bcfaf883b94391b037",
         "type": "github"
       },
       "original": {
