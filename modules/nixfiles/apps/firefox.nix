@@ -48,6 +48,7 @@
                 sidebery
                 onepassword-password-manager
                 proton-pass
+                french-dictionary
               ])
               ++ lib.optionals isNixOS (
                 with pkgs.nur.repos.rycee.firefox-addons;
@@ -168,6 +169,7 @@
               "browser.startup.page" = 3;
               "browser.tabs.groups.enable" = true;
               "browser.tabs.tabMinWidth" = 85;
+              "browser.translations.neverTranslateLanguages" = "fr";
               "browser.urlbar.openintab" = false;
               "signon.rememberSignons" = false;
               "widget.use-xdg-desktop-portal.file-picker" = 1;

@@ -19,6 +19,7 @@
       nf.desktop.xremap
       nf.desktop.plasma
       nf.games.kitten-space-agency
+      nf.dev.arduino
     ]
     ++ (if host.name == "vulkan" then [ nf.games.helldivers2 ] else [ ]);
 
@@ -34,26 +35,29 @@
 
         home = {
           inherit (osConfig.system) stateVersion;
-          packages = [
-            pkgs.winbox4
-            pkgs.pistol
-            pkgs.gnumake
-            pkgs.gopls
-            pkgs.devenv
-            pkgs.kubectl
-            pkgs.talosctl
-            pkgs.flux
-            self'.packages.dagger
-            pkgs.xclip
-            pkgs.chromium
-            pkgs.discord
-            pkgs.telegram-desktop
-            pkgs.nfs-utils
-            pkgs.pulsemixer
-            pkgs.freecad
-            pkgs.prusa-slicer
-            pkgs.proton-pass
-          ];
+          packages =
+            with pkgs;
+            [
+              winbox4
+              pistol
+              gnumake
+              gopls
+              devenv
+              kubectl
+              kubelogin-oidc
+              talosctl
+              flux
+              xclip
+              chromium
+              discord
+              telegram-desktop
+              nfs-utils
+              pulsemixer
+              freecad
+              prusa-slicer
+              proton-pass
+            ]
+            ++ [ self'.packages.dagger ];
         };
 
         systemd.user.startServices = lib.mkDefault "sd-switch";
