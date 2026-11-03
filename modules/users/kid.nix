@@ -109,15 +109,21 @@
           };
           output."eDP-1".scale = 1.5;
           output."DP-2" = {
-            mode = "3840x2160@138";
             vrr = "fullscreen";
-            hdr = "auto";
           };
         };
       };
 
       vulkan.homeManager = {
-        programs.umbriel.settings.layout.mode = "master";
+        # programs.umbriel.settings.layout.mode = "master";
+        programs.umbriel.settings = {
+          output."DP-3" = {
+            mode = "3840x2160@138";
+            hdr = "auto";
+            vrr = "fullscreen";
+            tearing = true;
+          };
+        };
 
         programs.plasma.powerdevil.AC = {
           autoSuspend.action = "nothing";
