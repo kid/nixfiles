@@ -28,6 +28,9 @@
               hide_tab_bar_if_only_one_tab = true,
               command_palette_font_size = 11,
               mux_enable_ssh_agent = false,
+              -- Wezterm only knows some X11 WMs as tiling; elsewhere it resizes the window on font
+              -- size changes, which leaves a gap in Umbriel's tiles.
+              adjust_window_size_when_changing_font_size = os.getenv('XDG_CURRENT_DESKTOP') ~= 'umbriel',
             }
 
             smart_splits.apply_to_config(config, { at_edge = 'split' })
