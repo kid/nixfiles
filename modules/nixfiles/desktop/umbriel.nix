@@ -99,6 +99,11 @@
                 urgent_text = base00;
               };
             };
+            # Named workspaces always come first: chat = Mod+1, games = Mod+2.
+            workspace = [
+              { name = "chat"; }
+              { name = "games"; }
+            ];
             window_rule = [
               {
                 blur = true;
@@ -111,6 +116,20 @@
                   width = 1020;
                   height = 900;
                 };
+              }
+              {
+                match.app_id = [
+                  "^org\\.telegram\\.desktop$"
+                  "^discord$"
+                ];
+                default_workspace = "chat";
+              }
+              {
+                match.app_id = [
+                  "^steam$"
+                  "^steam_app_"
+                ];
+                default_workspace = "games";
               }
             ];
             layer_rule = [
@@ -225,7 +244,7 @@
                 # Master layout
                 "Mod+I" = "layout-master-count-increase";
                 "Mod+D" = "layout-master-count-decrease";
-                "Mod+Alt+Space" = once "workspace-set-layout toggle scrolling master";
+                "Mod+Alt+Space" = once "workspace-set-layout toggle";
                 # Overview, pointer
                 "Mod+O" = once "overview-toggle";
                 "Mod+WheelUp" = "window-focus-left";
