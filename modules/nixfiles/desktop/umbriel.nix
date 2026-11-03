@@ -215,8 +215,8 @@
                 "Mod+Shift+P" = once "window-toggle-pinned";
                 "Mod+C" = "column-center";
                 # Columns / tabs
-                "Mod+Comma" = "window-consume-left";
-                "Mod+Period" = "window-consume-right";
+                "Mod+Comma" = "window-consume-or-expel-left";
+                "Mod+Period" = "window-consume-or-expel-right";
                 "Mod+Ctrl+Comma" = "window-consume-from-left";
                 "Mod+Ctrl+Period" = "window-consume-from-right";
                 "Mod+W" = once "column-toggle-tabbed";
