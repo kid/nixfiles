@@ -74,7 +74,7 @@
             sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
           };
           shortcuts.plasmashell."activate application launcher" = [ "Alt+F1" ];
-          krunner.shortcuts.launch = "Meta+P";
+          krunner.shortcuts.launch = "Meta+Space";
         };
 
         # TODO: should this be dependend on nf.desktop.plasma or even move there?

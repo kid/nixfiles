@@ -122,7 +122,7 @@
               }
             ];
             # Mirrors the neovim layout one layer up: C-hjkl focus, C-w hjkl swap, A-hjkl resize.
-            # No bare "Mod" bind: it would fire when xremap swallows Super+T/B.
+            # No bare "Mod" bind: it would fire when xremap swallows Super+Return/B.
             keybinds =
               let
                 noctalia = cmd: "spawn noctalia msg ${cmd}";
@@ -150,12 +150,10 @@
               ws
               // {
                 # Apps: same keys as xremap, fallback when xremap is not running
-                "Mod+T" = once "spawn wezterm";
                 "Mod+Return" = once "spawn wezterm";
                 "Mod+B" = once "spawn firefox";
                 "Mod+Shift+B" = once "spawn firefox --private-window";
                 # Shell
-                "Mod+P" = once (noctalia "panel-toggle launcher");
                 "Mod+Space" = once (noctalia "panel-toggle launcher");
                 "Mod+V" = once (noctalia "panel-toggle clipboard");
                 "Mod+N" = once (noctalia "panel-toggle control-center");
@@ -190,20 +188,12 @@
                 "Mod+J" = "window-focus-or-workspace-down";
                 "Mod+K" = "window-focus-or-workspace-up";
                 "Mod+L" = "window-focus-or-output-right";
-                "Mod+Left" = "window-focus-or-output-left";
-                "Mod+Down" = "window-focus-or-workspace-down";
-                "Mod+Up" = "window-focus-or-workspace-up";
-                "Mod+Right" = "window-focus-or-output-right";
                 "Mod+Tab" = "window-focus-last";
                 # Move
                 "Mod+Shift+H" = "window-move-or-output-left";
                 "Mod+Shift+J" = "window-move-or-workspace-down";
                 "Mod+Shift+K" = "window-move-or-workspace-up";
                 "Mod+Shift+L" = "window-move-or-output-right";
-                "Mod+Shift+Left" = "window-move-or-output-left";
-                "Mod+Shift+Down" = "window-move-or-workspace-down";
-                "Mod+Shift+Up" = "window-move-or-workspace-up";
-                "Mod+Shift+Right" = "window-move-or-output-right";
                 # Swap
                 "Mod+Ctrl+H" = "window-swap-left";
                 "Mod+Ctrl+J" = "window-swap-down";

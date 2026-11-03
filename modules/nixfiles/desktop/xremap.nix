@@ -45,7 +45,7 @@
                     "firefox"
                     "--private-window"
                   ];
-                  SUPER-T.launch = scoped [ "wezterm" ];
+                  SUPER-ENTER.launch = scoped [ "wezterm" ];
                 };
               }
             ];
