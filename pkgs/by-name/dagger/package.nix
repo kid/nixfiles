@@ -7,27 +7,27 @@
 }:
 let
   # renovate: datasource=github-tags depName=dagger/dagger versioning=semver
-  version = "1.0.0-beta.23";
+  version = "1.0.0-beta.24";
   sources = {
     x86_64-linux = {
       platform = "linux_amd64";
-      hash = "sha256-uiWIwuBETHI+Gf1DgSzW29hoxY/Gz6HDRuhnCLFkPVE=";
+      hash = "sha256-ZIpf/PfW1yRSbSCUIGb9AjzfK4KEIE0Mo+H89vB5P24=";
     };
     aarch64-linux = {
       platform = "linux_arm64";
-      hash = "sha256-ns9CF8pgfWhvVs9xrraiEkj6mHtnnfEav6pLLx13bNE=";
+      hash = "sha256-xv0dn6U6xIgKITc0EakjcgzWXmt6BaYXN5J4pSTuB40=";
     };
     armv7l-linux = {
       platform = "linux_armv7";
-      hash = "sha256-ue/piBcNRQGkF5rpfwmyuDDo/NyQmgwslp0isgSZQcY=";
+      hash = "sha256-Rq4+oXbPaAIwyA4iUhIGoBC1yCn853i3ivyZK1Wa8Xc=";
     };
     x86_64-darwin = {
       platform = "darwin_amd64";
-      hash = "sha256-ehVQSE39TRUiaRUijfINPurf+i68vRKmSYeCttT6ptU=";
+      hash = "sha256-Frh5oIO4ugvo24DVhwHicmZFrbzdkIgEF5kYE8UTMQI=";
     };
     aarch64-darwin = {
       platform = "darwin_arm64";
-      hash = "sha256-mk7AjZkny6PQdGlp37mlkZFIRq4Hm4pKN+P7cSDsTAk=";
+      hash = "sha256-8LW/4DL40kVjPuA8NQ/MStcIm/RqH4bbCo3d8wEcpfw=";
     };
   };
   source = sources.${stdenvNoCC.hostPlatform.system};
