@@ -208,8 +208,8 @@
                 "Mod+Shift+R" = "window-cycle-primary-extent-back";
                 # Window state
                 "Mod+F" = once "window-toggle-fullscreen";
-                "Mod+M" = once "window-toggle-maximize-to-edges";
-                "Mod+Ctrl+F" = once "window-toggle-maximize";
+                "Mod+M" = once "window-toggle-maximize";
+                "Mod+Ctrl+M" = once "window-toggle-maximize-to-edges";
                 "Mod+Shift+F" = once "window-toggle-floating";
                 "Mod+Alt+F" = once "window-focus-switch-floating";
                 "Mod+Shift+P" = once "window-toggle-pinned";
