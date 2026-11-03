@@ -18,6 +18,7 @@
       nf.desktop
       nf.desktop.xremap
       nf.desktop.plasma
+      nf.desktop.umbriel
       nf.games.kitten-space-agency
       nf.dev.arduino
     ]
@@ -97,9 +98,25 @@
             middleButtonEmulation = true;
           }
         ];
+
+        programs.umbriel.settings = {
+          input.touchpad = {
+            natural_scroll = true;
+            tap = false;
+            click_method = "clickfinger";
+          };
+          output."eDP-1".scale = 1.5;
+          output."DP-2" = {
+            mode = "3840x2160@138";
+            vrr = "fullscreen";
+            hdr = "auto";
+          };
+        };
       };
 
       vulkan.homeManager = {
+        programs.umbriel.settings.layout.mode = "master";
+
         programs.plasma.powerdevil.AC = {
           autoSuspend.action = "nothing";
           dimDisplay.enable = false;
