@@ -99,6 +99,8 @@
           }
         ];
 
+        stylix.fonts.sizes.terminal = 10;
+
         programs.umbriel.settings = {
           input.touchpad = {
             natural_scroll = true;
