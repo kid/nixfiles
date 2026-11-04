@@ -1,0 +1,31 @@
+name: Renovate nixfiles-work
+# Every merge to main moves the nixfiles rev that kid/nixfiles-work pins in
+# modules/den.nix, so ask kid/renovate-config's Renovate to open/update that
+# PR now instead of at its next 3-hourly run.
+on:
+  push:
+    branches: [main]
+permissions: {}
+jobs:
+  dispatch:
+    name: Request Renovate run on kid/nixfiles-work
+    runs-on: ubuntu-latest
+    steps:
+      # GITHUB_TOKEN cannot trigger workflows in another repo; the Renovate
+      # App token can, and repository_dispatch only needs contents:write.
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ secrets.RENOVATE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RENOVATE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: renovate-config
+          permission-contents: write
+      - name: Dispatch Renovate
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh api repos/kid/renovate-config/dispatches \
+            -f event_type=renovate \
+            -f 'client_payload[repository]=nixfiles-work'
