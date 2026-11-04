@@ -701,6 +701,7 @@
       "original": {
         "owner": "kid",
         "repo": "neovim",
+        "rev": "9812b6854c450f83ec5f1403c82614873d0ce23c",
         "type": "github"
       }
     },
