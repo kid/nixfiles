@@ -28,7 +28,33 @@
     };
 
     homeManager =
-      { config, lib, ... }:
+      {
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
+      let
+        layoutToggle = pkgs.writeShellApplication {
+          name = "umbriel-layout-toggle";
+          runtimeInputs = [
+            config.programs.umbriel.package
+            config.programs.noctalia.package
+            pkgs.jq
+          ];
+          text = ''
+            umbriel msg workspace-set-layout toggle
+            layout=$(umbriel workspaces --json | jq -r '.[] | select(.focused) | .layout')
+            case "$layout" in
+              scrolling) icon="layout-columns" ;;
+              dwindle) icon="layout-grid" ;;
+              master) icon="layout-sidebar" ;;
+              *) icon="stack-2" ;;
+            esac
+            noctalia msg osd-show "$icon" "$layout"
+          '';
+        };
+      in
       {
         imports = [
           inputs.umbriel.homeModules.default
@@ -46,7 +72,11 @@
           enable = true;
           settings = {
             include.optional.files = [ "~/.config/umbriel/local.toml" ];
-            general.autostart = [ "noctalia" ];
+            # Telegram opens hidden in the "chat" scratchpad through its window rule.
+            general.autostart = [
+              "noctalia"
+              "Telegram"
+            ];
             layout = {
               mode = lib.mkDefault "scrolling";
               extent_presets = [
@@ -252,7 +282,7 @@
                 # Master layout
                 "Mod+I" = "layout-master-count-increase";
                 "Mod+D" = "layout-master-count-decrease";
-                "Mod+Alt+Space" = once "workspace-set-layout toggle";
+                "Mod+Alt+Space" = once "spawn ${lib.getExe layoutToggle}";
                 # Overview, pointer
                 "Mod+O" = once "overview-toggle";
                 "Mod+WheelUp" = "window-focus-left";
