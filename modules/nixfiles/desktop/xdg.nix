@@ -39,7 +39,14 @@
           autostart = {
             enable = true;
             entries = [
-              "${pkgs._1password-gui}/share/applications/com.onepassword.OnePassword.desktop"
+              "${
+                pkgs.makeDesktopItem {
+                  name = "1password-silent";
+                  desktopName = "1Password";
+                  exec = "1password --silent";
+                  icon = "1password";
+                }
+              }/share/applications/1password-silent.desktop"
               "${pkgs.telegram-desktop}/share/applications/org.telegram.desktop.desktop"
             ];
           };

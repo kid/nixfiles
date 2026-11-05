@@ -76,8 +76,8 @@
           enable = true;
           settings = {
             include.optional.files = [ "~/.config/umbriel/local.toml" ];
-            # Telegram and 1Password start through XDG autostart (nf.desktop xdg) and land
-            # hidden in their scratchpads through the window rules below.
+            # Telegram starts through XDG autostart (nf.desktop xdg) and lands hidden in its
+            # scratchpad; 1Password autostarts --silent to the tray and floats when it shows a window.
             general.autostart = [
               "noctalia"
               # Hands the login password from pam_kwallet to ksecretd so kdewallet opens.
@@ -139,7 +139,6 @@
             scratchpad = [
               { name = "scratch"; }
               { name = "chat"; }
-              { name = "password"; }
             ];
             window_rule = [
               {
@@ -169,7 +168,11 @@
                   app_id = "^com\\.onepassword\\.OnePassword$";
                   title = "^(?!Quick Access)";
                 };
-                default_scratchpad = "password";
+                default_floating = true;
+                # Open/activation (e.g. an `op` authorization prompt) must surface the window,
+                # including above a fullscreen game; general.focus_on_activate defaults to false.
+                default_focused = true;
+                focus_on_activate = true;
                 default_floating_size = {
                   width = 0.8;
                   height = 0.8;
@@ -308,7 +311,7 @@
                 "Mod+Shift+Grave" = once "window-move-to-scratchpad scratch";
                 "Mod+Ctrl+Grave" = once "window-restore-from-scratchpad scratch";
                 "Mod+Shift+C" = once "scratchpad-toggle chat";
-                "Mod+P" = once "scratchpad-toggle password";
+                "Mod+P" = once "spawn 1password --toggle";
               };
           };
         };
