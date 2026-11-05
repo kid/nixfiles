@@ -7,7 +7,10 @@
   };
 
   nf.desktop.umbriel = {
-    includes = [ nf.desktop.wayland ];
+    includes = [
+      nf.desktop.wayland
+      nf.desktop.kwallet
+    ];
 
     nixos = {
       imports = [ inputs.umbriel.nixosModules.default ];
@@ -76,6 +79,8 @@
             general.autostart = [
               "noctalia"
               "Telegram"
+              # Hands the login password from pam_kwallet to ksecretd so kdewallet opens.
+              "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
             ];
             layout = {
               mode = lib.mkDefault "scrolling";

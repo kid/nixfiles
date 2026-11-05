@@ -17,8 +17,6 @@
     persist.directories = [ "/var/lib/sddm" ];
 
     nixos = {
-      security.pam.services.sddm.kwallet.enable = true;
-
       services = {
         displayManager.sddm = {
           enable = true;
