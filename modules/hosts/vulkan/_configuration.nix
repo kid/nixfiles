@@ -115,11 +115,6 @@
       DNSStubListener = true;
     };
 
-    displayManager.autoLogin = {
-      enable = true;
-      user = "kid";
-    };
-
     # udev.extraRules = lib.mkAfter ''
     #   ACTION=="add|change", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="on"
     #   ACTION=="add|change", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"

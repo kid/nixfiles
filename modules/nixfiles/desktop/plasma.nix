@@ -17,8 +17,6 @@
     persist.directories = [ "/var/lib/sddm" ];
 
     nixos = {
-      security.pam.services.sddm.kwallet.enable = true;
-
       services = {
         displayManager.sddm = {
           enable = true;
@@ -74,6 +72,7 @@
             sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
           };
           shortcuts.plasmashell."activate application launcher" = [ "Alt+F1" ];
+          krunner.shortcuts.launch = "Meta+Space";
         };
 
         # TODO: should this be dependend on nf.desktop.plasma or even move there?

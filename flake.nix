@@ -43,6 +43,7 @@
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -76,6 +77,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ucodenix.url = "github:e-tho/ucodenix";
+    umbriel.url = "github:noctalia-dev/umbriel/cachix";
     xremap = {
       url = "github:xremap/nix-flake";
       inputs = {

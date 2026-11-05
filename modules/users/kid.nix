@@ -5,6 +5,11 @@
   nf,
   ...
 }:
+let
+  # Fixed Umbriel workspaces: Mod+1..9 map to "1".."9", Mod+0 to "0" (games).
+  # Umbriel puts named workspaces first in dynamic mode, so a trailing one needs a fixed list.
+  umbrielWorkspaces = map toString (lib.range 1 9) ++ [ "0" ];
+in
 {
   den.aspects.kid = { host, ... }: {
     includes = [
@@ -18,6 +23,7 @@
       nf.desktop
       nf.desktop.xremap
       nf.desktop.plasma
+      nf.desktop.umbriel
       nf.games.kitten-space-agency
       nf.dev.arduino
     ]
@@ -97,9 +103,39 @@
             middleButtonEmulation = true;
           }
         ];
+
+        stylix.fonts.sizes.terminal = 10;
+
+        programs.umbriel.settings = {
+          input.touchpad = {
+            natural_scroll = true;
+            tap = false;
+            click_method = "clickfinger";
+          };
+          output."eDP-1" = {
+            scale = 1.5;
+            workspaces = umbrielWorkspaces;
+          };
+          output."DP-2" = {
+            vrr = "fullscreen";
+            workspaces = umbrielWorkspaces;
+          };
+        };
       };
 
       vulkan.homeManager = {
+        # programs.umbriel.settings.layout.mode = "master";
+        programs.umbriel.settings = {
+          output."DP-3" = {
+            mode = "3840x2160@138";
+            hdr = "on";
+            bit_depth = 10;
+            vrr = "fullscreen";
+            tearing = true;
+            workspaces = umbrielWorkspaces;
+          };
+        };
+
         programs.plasma.powerdevil.AC = {
           autoSuspend.action = "nothing";
           dimDisplay.enable = false;

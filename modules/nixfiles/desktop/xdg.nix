@@ -39,7 +39,7 @@
           autostart = {
             enable = true;
             entries = [
-              "${pkgs._1password-gui}/share/applications/1password.desktop"
+              "${pkgs._1password-gui}/share/applications/com.onepassword.OnePassword.desktop"
               "${pkgs.telegram-desktop}/share/applications/org.telegram.desktop.desktop"
             ];
           };

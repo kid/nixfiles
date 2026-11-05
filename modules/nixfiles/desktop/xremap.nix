@@ -31,6 +31,7 @@
         services.xremap = {
           enable = true;
           withKDE = user.hasAspect nf.desktop.plasma;
+          withWlroots = user.hasAspect nf.desktop.umbriel;
           config = {
             # Fix compatibility with Wayland applications (particularly games)
             keypress_delay_ms = 20;
@@ -44,8 +45,7 @@
                     "firefox"
                     "--private-window"
                   ];
-                  SUPER-T.launch = scoped [ "wezterm" ];
-                  SUPER-P.launch = scoped [ "krunner" ];
+                  SUPER-ENTER.launch = scoped [ "wezterm" ];
                 };
               }
             ];
