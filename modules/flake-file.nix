@@ -23,7 +23,7 @@
     nur.inputs.nixpkgs.follows = "nixpkgs";
 
     # Pinned by rev so Renovate bumps it in its own PR (.github/renovate.json5); kid/neovim's CI requests that run on every push to main.
-    neovim-flake.url = "github:kid/neovim/9812b6854c450f83ec5f1403c82614873d0ce23c";
+    neovim-flake.url = "github:kid/neovim/40cb2cb3563b7581543bcdf0bed4ef22bc7d70b8";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
