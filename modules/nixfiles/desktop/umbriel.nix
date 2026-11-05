@@ -129,9 +129,6 @@
                 urgent_text = base00;
               };
             };
-            # Named workspaces always take the first positions, so "games" is position 1
-            # and Mod+1..9 are offset by one to keep reaching the regular workspaces.
-            workspace = [ { name = "games"; } ];
             # Naming any scratchpad drops the implicit "default" one, hence "scratch".
             scratchpad = [
               { name = "scratch"; }
@@ -164,7 +161,8 @@
                   "^steam$"
                   "^steam_app_"
                 ];
-                default_workspace = "games";
+                # Workspace "0" is the last entry of the fixed per-output lists (modules/users/kid.nix).
+                default_workspace = "0";
               }
             ];
             layer_rule = [
@@ -193,19 +191,18 @@
                     n:
                     let
                       s = toString n;
-                      pos = toString (n + 1);
                     in
                     [
-                      (lib.nameValuePair "Mod+${s}" "workspace-switch ${pos}")
-                      (lib.nameValuePair "Mod+Shift+${s}" "window-move-to-workspace ${pos}")
+                      (lib.nameValuePair "Mod+${s}" "workspace-switch ${s}")
+                      (lib.nameValuePair "Mod+Shift+${s}" "window-move-to-workspace ${s}")
                     ]
                   ) (lib.range 1 9)
                 );
               in
               ws
               // {
-                "Mod+0" = "workspace-switch --name games";
-                "Mod+Shift+0" = "window-move-to-workspace --name games";
+                "Mod+0" = "workspace-switch --name 0";
+                "Mod+Shift+0" = "window-move-to-workspace --name 0";
                 # Apps: same keys as xremap, fallback when xremap is not running
                 "Mod+Return" = once "spawn wezterm";
                 "Mod+B" = once "spawn firefox";

@@ -5,6 +5,11 @@
   nf,
   ...
 }:
+let
+  # Fixed Umbriel workspaces: Mod+1..9 map to "1".."9", Mod+0 to "0" (games).
+  # Umbriel puts named workspaces first in dynamic mode, so a trailing one needs a fixed list.
+  umbrielWorkspaces = map toString (lib.range 1 9) ++ [ "0" ];
+in
 {
   den.aspects.kid = { host, ... }: {
     includes = [
@@ -107,9 +112,13 @@
             tap = false;
             click_method = "clickfinger";
           };
-          output."eDP-1".scale = 1.5;
+          output."eDP-1" = {
+            scale = 1.5;
+            workspaces = umbrielWorkspaces;
+          };
           output."DP-2" = {
             vrr = "fullscreen";
+            workspaces = umbrielWorkspaces;
           };
         };
       };
@@ -122,6 +131,7 @@
             hdr = "auto";
             vrr = "fullscreen";
             tearing = true;
+            workspaces = umbrielWorkspaces;
           };
         };
 
