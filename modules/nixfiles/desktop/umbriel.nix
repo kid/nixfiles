@@ -121,10 +121,7 @@
                 };
               }
               {
-                match.app_id = [
-                  "^org\\.telegram\\.desktop$"
-                  "^discord$"
-                ];
+                match.app_id = "^org\\.telegram\\.desktop$";
                 default_scratchpad = "chat";
               }
               {
