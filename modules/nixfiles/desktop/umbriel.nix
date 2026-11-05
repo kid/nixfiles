@@ -99,10 +99,13 @@
                 urgent_text = base00;
               };
             };
-            # Named workspaces always come first: chat = Mod+1, games = Mod+2.
-            workspace = [
+            # Named workspaces always take the first positions, so "games" is position 1
+            # and Mod+1..9 are offset by one to keep reaching the regular workspaces.
+            workspace = [ { name = "games"; } ];
+            # Naming any scratchpad drops the implicit "default" one, hence "scratch".
+            scratchpad = [
+              { name = "scratch"; }
               { name = "chat"; }
-              { name = "games"; }
             ];
             window_rule = [
               {
@@ -122,7 +125,7 @@
                   "^org\\.telegram\\.desktop$"
                   "^discord$"
                 ];
-                default_workspace = "chat";
+                default_scratchpad = "chat";
               }
               {
                 match.app_id = [
@@ -158,16 +161,19 @@
                     n:
                     let
                       s = toString n;
+                      pos = toString (n + 1);
                     in
                     [
-                      (lib.nameValuePair "Mod+${s}" "workspace-switch ${s}")
-                      (lib.nameValuePair "Mod+Shift+${s}" "window-move-to-workspace ${s}")
+                      (lib.nameValuePair "Mod+${s}" "workspace-switch ${pos}")
+                      (lib.nameValuePair "Mod+Shift+${s}" "window-move-to-workspace ${pos}")
                     ]
                   ) (lib.range 1 9)
                 );
               in
               ws
               // {
+                "Mod+0" = "workspace-switch --name games";
+                "Mod+Shift+0" = "window-move-to-workspace --name games";
                 # Apps: same keys as xremap, fallback when xremap is not running
                 "Mod+Return" = once "spawn wezterm";
                 "Mod+B" = once "spawn firefox";
@@ -250,9 +256,10 @@
                 "Mod+WheelUp" = "window-focus-left";
                 "Mod+WheelDown" = "window-focus-right";
                 # Scratchpad
-                "Mod+Grave" = once "scratchpad-toggle";
-                "Mod+Shift+Grave" = once "window-move-to-scratchpad";
-                "Mod+Ctrl+Grave" = once "window-restore-from-scratchpad";
+                "Mod+Grave" = once "scratchpad-toggle scratch";
+                "Mod+Shift+Grave" = once "window-move-to-scratchpad scratch";
+                "Mod+Ctrl+Grave" = once "window-restore-from-scratchpad scratch";
+                "Mod+Shift+C" = once "scratchpad-toggle chat";
               };
           };
         };
