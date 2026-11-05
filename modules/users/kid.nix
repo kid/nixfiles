@@ -128,7 +128,8 @@ in
         programs.umbriel.settings = {
           output."DP-3" = {
             mode = "3840x2160@138";
-            hdr = "auto";
+            hdr = "on";
+            bit_depth = 10;
             vrr = "fullscreen";
             tearing = true;
             workspaces = umbrielWorkspaces;
