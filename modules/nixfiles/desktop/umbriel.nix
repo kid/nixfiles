@@ -16,6 +16,7 @@
       imports = [ inputs.umbriel.nixosModules.default ];
 
       programs.umbriel.enable = true;
+      services.displayManager.defaultSession = "umbriel";
       services.upower.enable = true;
 
       nix.settings = {
@@ -75,10 +76,10 @@
           enable = true;
           settings = {
             include.optional.files = [ "~/.config/umbriel/local.toml" ];
-            # Telegram opens hidden in the "chat" scratchpad through its window rule.
+            # Telegram and 1Password start through XDG autostart (nf.desktop xdg) and land
+            # hidden in their scratchpads through the window rules below.
             general.autostart = [
               "noctalia"
-              "Telegram"
               # Hands the login password from pam_kwallet to ksecretd so kdewallet opens.
               "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
             ];
@@ -138,6 +139,7 @@
             scratchpad = [
               { name = "scratch"; }
               { name = "chat"; }
+              { name = "password"; }
             ];
             window_rule = [
               {
@@ -156,6 +158,18 @@
                 match.app_id = "^org\\.telegram\\.desktop$";
                 default_scratchpad = "chat";
                 # Centered by default; 80% leaves a ~10% margin on each side.
+                default_floating_size = {
+                  width = 0.8;
+                  height = 0.8;
+                };
+              }
+              {
+                # Quick Access shares the app id and must stay a normal popup.
+                match = {
+                  app_id = "^com\\.onepassword\\.OnePassword$";
+                  title = "^(?!Quick Access)";
+                };
+                default_scratchpad = "password";
                 default_floating_size = {
                   width = 0.8;
                   height = 0.8;
@@ -294,6 +308,7 @@
                 "Mod+Shift+Grave" = once "window-move-to-scratchpad scratch";
                 "Mod+Ctrl+Grave" = once "window-restore-from-scratchpad scratch";
                 "Mod+Shift+C" = once "scratchpad-toggle chat";
+                "Mod+P" = once "scratchpad-toggle password";
               };
           };
         };
