@@ -123,6 +123,11 @@
               {
                 match.app_id = "^org\\.telegram\\.desktop$";
                 default_scratchpad = "chat";
+                # Centered by default; 80% leaves a ~10% margin on each side.
+                default_floating_size = {
+                  width = 0.8;
+                  height = 0.8;
+                };
               }
               {
                 match.app_id = [
