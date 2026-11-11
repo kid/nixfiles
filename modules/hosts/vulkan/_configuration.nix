@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   lib,
   ...
 }:
@@ -133,13 +134,16 @@
   system.stateVersion = "22.11";
 
   boot = {
-    kernelParams = lib.mkAfter [
-      "boot.shell_on_fail"
-      "amdgpu.dcfeaturemask=0x402"
-      # "amdgpu.dcdebugmask=0x400"
-      "preempt=full"
-      "amd_pstate=active"
-    ];
+    kernelParams = lib.mkAfter (
+      [
+        "boot.shell_on_fail"
+        # "amdgpu.dcdebugmask=0x400"
+        "preempt=full"
+        "amd_pstate=active"
+      ]
+      # HDMI 2.1 FRL ships disabled before 7.4 (DC_FRL_MASK, 0x400); 7.4 defaults to 0x402.
+      ++ lib.optional (lib.versionOlder (lib.versions.majorMinor config.boot.kernelPackages.kernel.version) "7.4") "amdgpu.dcfeaturemask=0x402"
+    );
 
     initrd.systemd.services.rollback = {
       wantedBy = [ "initrd.target" ];
