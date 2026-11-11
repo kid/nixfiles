@@ -122,9 +122,9 @@
     #   ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTR{idVendor}=="cb10", ATTR{idProduct}=="1257", ATTR{power/control}="on"
     # '';
 
-    scx = {
+    scx-loader = {
       enable = true;
-      scheduler = "scx_lavd";
+      config.default_sched = "scx_lavd";
     };
 
     hardware.openrgb.enable = true;
