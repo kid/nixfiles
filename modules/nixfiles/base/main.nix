@@ -1,5 +1,10 @@
 { inputs, lib, ... }:
 {
+  flake-file.inputs.srvos = {
+    url = "github:nix-community/srvos";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   nf.base.persist.directories = [
     "/var/lib/bluetooth"
     "/var/lib/power-profiles-daemon"
@@ -24,7 +29,7 @@
   };
 
   nf.base.nixos =
-    { config, pkgs, ... }:
+    { pkgs, ... }:
     {
       imports = [
         inputs.home-manager.nixosModules.default
@@ -127,16 +132,12 @@
         sudo = {
           enable = true;
           wheelNeedsPassword = lib.mkDefault false;
-          execWheelOnly = true;
           extraConfig = ''
-            Defaults lecture = never
             Defaults pwfeedback
             Defaults env_keep += "EDITOR PATH DISPLAY"
             Defaults timestamp_timeout = 300
           '';
         };
-
-        rtkit.enable = true;
       };
 
       sops = {
@@ -167,11 +168,8 @@
         };
 
         pipewire = {
-          enable = true;
-          alsa.enable = true;
           audio.enable = true;
           jack.enable = true;
-          pulse.enable = true;
           wireplumber.enable = true;
         };
 
@@ -228,7 +226,6 @@
 
         tmp = {
           useTmpfs = lib.mkDefault false;
-          cleanOnBoot = lib.mkDefault (!config.boot.tmp.useTmpfs);
           tmpfsSize = lib.mkDefault "50%";
         };
       };

@@ -1099,6 +1099,7 @@
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
         "preservation": "preservation",
         "sops-nix": "sops-nix",
+        "srvos": "srvos",
         "stylix": "stylix",
         "treefmt-nix": "treefmt-nix_3",
         "ucodenix": "ucodenix",
@@ -1160,6 +1161,26 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "srvos": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793845714,
+        "narHash": "sha256-STpS/C2ODha5CCo1yqErj9ui1ExCabVORa416ZQBT+E=",
+        "owner": "nix-community",
+        "repo": "srvos",
+        "rev": "16463784a82d5af62d30f71da8334d9897f51505",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "srvos",
         "type": "github"
       }
     },

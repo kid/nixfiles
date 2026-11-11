@@ -125,4 +125,5 @@ Apply the Home Manager configuration and restart OMP to activate the settings.
 - [stylix](https://github.com/danth/stylix) for system-wide theming
 - [plasma-manager](https://github.com/nix-community/plasma-manager) for KDE configuration
 - [sops-nix](https://github.com/Mic92/sops-nix) for secrets
+- [srvos](https://github.com/nix-community/srvos) for the shared baseline (NixOS `desktop` profile plus Nix and boot mixins; darwin `desktop` profile only, since Macs run Determinate Nix)
 - [treefmt-nix](https://github.com/numtide/treefmt-nix) for formatting
