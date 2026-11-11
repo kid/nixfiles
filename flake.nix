@@ -28,10 +28,7 @@
       url = "github:nix-community/lanzaboote/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    llm-agents.url = "github:numtide/llm-agents.nix";
     neovim-flake.url = "github:kid/neovim/40cb2cb3563b7581543bcdf0bed4ef22bc7d70b8";
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
