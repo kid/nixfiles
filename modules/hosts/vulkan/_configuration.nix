@@ -159,10 +159,7 @@
 
     binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-    loader.systemd-boot = {
-      enable = true;
-      windows."11".efiDeviceHandle = "HD0b";
-    };
+    loader.systemd-boot.windows."11".efiDeviceHandle = "HD0b";
   };
 
   services.lact.enable = true;

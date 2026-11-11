@@ -1,23 +1,12 @@
-{ lib, ... }:
+{ inputs, ... }:
 {
-  nf.base.os = { pkgs, ... }: {
+  nf.base.os = {
+    # nh already prints a package diff on switch.
+    srvos.update-diff.enable = false;
+
     nix = {
-      channel.enable = lib.mkDefault false;
-      package = pkgs.nixVersions.latest;
-
-      # Fallback quickly if substituters are not available.
       settings = {
-        connect-timeout = lib.mkDefault 5;
-        fallback = true;
-        max-free = lib.mkDefault (3000 * 1024 * 1024);
-        min-free = lib.mkDefault (512 * 1024 * 1024);
-        builders-use-substitutes = true;
-
-        experimental-features = [
-          "flakes"
-          "nix-command"
-          "pipe-operators"
-        ];
+        experimental-features = [ "pipe-operators" ];
 
         substituters = [
           "https://kidibox.cachix.org"
@@ -36,29 +25,24 @@
     };
   };
 
+  # Macs run Determinate Nix (nix.enable = false), so srvos' Nix mixins would be no-ops there.
+  nf.base.darwin =
+    { config, lib, ... }:
+    {
+      imports = [ inputs.srvos.darwinModules.desktop ];
+
+      # srvos enables this unconditionally; nix-darwin asserts it needs nix.enable.
+      nix.optimise.automatic = lib.mkIf (!config.nix.enable) false;
+    };
+
   nf.base.nixos = {
-    nix = {
-      settings = {
-        allowed-users = [ "@wheel" ];
-        trusted-users = [ "@wheel" ];
-      };
+    imports = with inputs.srvos.nixosModules; [
+      desktop
+      mixins-nix-experimental
+      mixins-trusted-nix-caches
+      mixins-systemd-boot
+    ];
 
-      optimise.automatic = true;
-
-      daemonCPUSchedPolicy = lib.mkDefault "batch";
-      daemonIOSchedClass = lib.mkDefault "idle";
-      daemonIOSchedPriority = lib.mkDefault 7;
-    };
-
-    systemd.services.nix-gc.serviceConfig = {
-      CPUSchedulingPolicy = "batch";
-      IOSchedulingClass = "idle";
-      IOSchedulingPriority = 7;
-    };
-
-    # Make builds to be more likely killed than important services.
-    # 100 is the default for user slices and 500 is systemd-coredumpd@
-    # We rather want a build to be killed than our precious user sessions as builds can be easily restarted.
-    systemd.services.nix-daemon.serviceConfig.OOMScoreAdjust = lib.mkDefault 250;
+    nix.settings.allowed-users = [ "@wheel" ];
   };
 }
