@@ -189,12 +189,6 @@
         kernelParams = [
           "quiet"
           "splash"
-          # "vt.global_cursor_default=0"
-          # "udev.log_level=3"
-          # "rd.udev.log_level=3"
-          # "systemd.show_status=auto"
-          # "rd.systemd.show_status=auto"
-          # "fbcon=nodefer"
         ];
 
         kernel.sysctl = {
@@ -220,8 +214,6 @@
             '';
           };
         };
-
-        # plymouth.enable = true;
 
         tmp = {
           useTmpfs = lib.mkDefault false;
