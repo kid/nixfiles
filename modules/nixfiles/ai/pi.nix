@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   nf.ai.pi = {
     homeManager =
@@ -98,7 +99,7 @@
         };
       in
       {
-        home.packages = with pkgs.llm-agents; [
+        home.packages = with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
           pi
         ];
 

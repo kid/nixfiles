@@ -8,15 +8,12 @@
           "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         ];
       };
-
-      nixpkgs.overlays = [
-        inputs.llm-agents.overlays.shared-nixpkgs
-      ];
     };
 
     homeManager =
       { lib, pkgs, ... }:
       let
+        llmAgents = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
         lsp = {
           typescript = lib.getExe pkgs.typescript-language-server;
           go = lib.getExe pkgs.gopls;
@@ -28,7 +25,7 @@
 
         home = {
           packages =
-            with pkgs.llm-agents;
+            with llmAgents;
             [
               opencode
             ]
@@ -45,7 +42,7 @@
             (name: {
               enable = true;
               enableMcpIntegration = true;
-              package = pkgs.llm-agents.${name};
+              package = llmAgents.${name};
               context = builtins.readFile ./agents.md;
             })
           )

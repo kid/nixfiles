@@ -10,7 +10,6 @@ let
     mkEnableOption
     mkIf
     mkOption
-    mkPackageOption
     ;
 
   cfg = config.programs.omp;
@@ -53,7 +52,10 @@ in
   options.programs.omp = {
     enable = mkEnableOption "omp (oh-my-pi) coding agent";
 
-    package = mkPackageOption pkgs [ "llm-agents" "omp" ] { };
+    package = mkOption {
+      type = lib.types.package;
+      description = "The omp package to use.";
+    };
 
     enableMcpIntegration = mkEnableOption "" // {
       description = ''
