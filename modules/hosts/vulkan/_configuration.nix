@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   lib,
   ...
 }:
@@ -134,9 +133,9 @@
   system.stateVersion = "22.11";
 
   boot = {
-    extraModulePackages = with config.boot.kernelPackages; [ r8125 ];
     kernelParams = lib.mkAfter [
       "boot.shell_on_fail"
+      "amdgpu.dcfeaturemask=0x402"
       # "amdgpu.dcdebugmask=0x400"
       "preempt=full"
       "amd_pstate=active"
