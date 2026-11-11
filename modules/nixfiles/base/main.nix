@@ -188,7 +188,6 @@
         kernelPackages = pkgs.linuxPackages_latest;
         kernelParams = [
           "quiet"
-          "splash"
         ];
 
         kernel.sysctl = {
