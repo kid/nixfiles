@@ -69,7 +69,19 @@
         # so it does not show up inside Plasma.
         programs.noctalia = {
           enable = true;
-          settings.wallpaper.enabled = true;
+          settings = {
+            wallpaper.enabled = true;
+            idle.behavior = {
+              lock = {
+                timeout = 600;
+                action = "lock";
+              };
+              screen-off = {
+                timeout = 660;
+                action = "screen_off";
+              };
+            };
+          };
         };
 
         programs.umbriel = {
