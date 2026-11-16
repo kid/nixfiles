@@ -24,6 +24,13 @@
     persist.directories = [
       "/etc/NetworkManager/system-connections"
       "/var/lib/iwd"
+      # Synced wallpaper/palette and last session (sync.toml).
+      {
+        directory = "/var/lib/noctalia-greeter";
+        user = "greeter";
+        group = "greeter";
+        mode = "0750";
+      }
     ];
 
     nixos =
@@ -172,9 +179,19 @@
         };
 
         services = {
-          displayManager.autoLogin = {
-            enable = false;
-            user = "kid";
+          displayManager = {
+            autoLogin = {
+              enable = false;
+              user = "kid";
+            };
+            # Testing in place of the sddm that nf.desktop.plasma enables.
+            sddm.enable = lib.mkForce false;
+            noctalia-greeter = {
+              enable = true;
+              # Lets Noctalia's Settings → Security → Sync push appearance without a password prompt.
+              passwordlessSyncUsers = [ "kid" ];
+              settings.user.default = "kid";
+            };
           };
 
           udev.extraRules = ''
