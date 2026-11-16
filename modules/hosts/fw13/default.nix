@@ -15,6 +15,7 @@
       den._.hostname
       nf.base
       nf.desktop.plasma
+      nf.desktop.noctalia-greeter
       nf.desktop.gaming
       nf.stylix
       nf.dev.incus
@@ -172,9 +173,16 @@
         };
 
         services = {
-          displayManager.autoLogin = {
-            enable = false;
-            user = "kid";
+          displayManager = {
+            autoLogin = {
+              enable = false;
+              user = "kid";
+            };
+            noctalia-greeter = {
+              # Lets Noctalia's Settings → Security → Sync push appearance without a password prompt.
+              passwordlessSyncUsers = [ "kid" ];
+              settings.user.default = "kid";
+            };
           };
 
           udev.extraRules = ''

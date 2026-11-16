@@ -69,7 +69,19 @@
         # so it does not show up inside Plasma.
         programs.noctalia = {
           enable = true;
-          settings.wallpaper.enabled = true;
+          settings = {
+            wallpaper.enabled = true;
+            idle.behavior = {
+              lock = {
+                timeout = 600;
+                action = "lock";
+              };
+              screen-off = {
+                timeout = 660;
+                action = "screen_off";
+              };
+            };
+          };
         };
 
         programs.umbriel = {
@@ -83,6 +95,9 @@
               # Hands the login password from pam_kwallet to ksecretd so kdewallet opens.
               "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
             ];
+            # Notification clicks: Telegram and Firefox activate with their own seatless token,
+            # which Umbriel only marks urgent unless this is on.
+            general.focus_on_activate = true;
             layout = {
               mode = lib.mkDefault "scrolling";
               extent_presets = [
@@ -170,9 +185,8 @@
                 };
                 default_floating = true;
                 # Open/activation (e.g. an `op` authorization prompt) must surface the window,
-                # including above a fullscreen game; general.focus_on_activate defaults to false.
+                # including above a fullscreen game.
                 default_focused = true;
-                focus_on_activate = true;
                 default_floating_size = {
                   width = 0.8;
                   height = 0.8;

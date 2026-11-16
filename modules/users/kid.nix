@@ -106,6 +106,11 @@ in
 
         stylix.fonts.sizes.terminal = 10;
 
+        programs.noctalia.settings.idle.behavior.suspend = {
+          timeout = 900;
+          action = "lock_and_suspend";
+        };
+
         programs.umbriel.settings = {
           input.touchpad = {
             natural_scroll = true;
