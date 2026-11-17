@@ -9,6 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     den.url = "github:denful/den";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     disko = {
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
