@@ -38,7 +38,13 @@ in
         inputs.determinate.darwinModules.default
       ];
 
-      determinateNix.customSettings = lib.mapAttrs' (name: lib.nameValuePair "extra-${name}") settings;
+      determinateNix.customSettings = lib.mapAttrs' (name: lib.nameValuePair "extra-${name}") (
+        settings
+        // {
+          # srvos sets this via nix.settings, which is ignored here.
+          trusted-users = [ "@admin" ];
+        }
+      );
 
       # The installer's comment-only file (DetSys v0.33.0, v0.34.0); anything else aborts activation.
       environment.etc."nix/nix.custom.conf".knownSha256Hashes = [
