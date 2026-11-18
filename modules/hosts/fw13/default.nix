@@ -197,6 +197,11 @@
             pkiBundle = "/var/lib/sbctl";
           };
 
+          # Firmware drives eDP at the EDID base timing (60 Hz). Keeping fbdev on it lets amdgpu
+          # take over without a modeset (DC seamless boot checks the pixel clock); the greeter
+          # then switches to the preferred 120 Hz.
+          kernelParams = [ "video=eDP-1:2880x1920@60" ];
+
           loader.systemd-boot.enable = lib.mkForce false;
         };
 
