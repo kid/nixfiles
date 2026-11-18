@@ -186,9 +186,6 @@
       boot = {
         consoleLogLevel = 3;
         kernelPackages = pkgs.linuxPackages_latest;
-        kernelParams = [
-          "quiet"
-        ];
 
         kernel.sysctl = {
           "kernel.nmi_watchdog" = 0;
