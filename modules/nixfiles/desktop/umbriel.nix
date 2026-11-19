@@ -81,6 +81,12 @@
                 action = "screen_off";
               };
             };
+            # Telegram plays its own notification sound; skip Noctalia's freedesktop chime on top.
+            notification.filter.telegram = {
+              enabled = true;
+              match = "telegram";
+              play_sound = false;
+            };
           };
         };
 
