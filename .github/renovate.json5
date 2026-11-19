@@ -1,4 +1,4 @@
-// Base config is inherited from kid/renovate-config, which also runs Renovate.
+// Base config is inherited from kid/home-ops' .renovate/org-inherited-config.json5.
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   customDatasources: {
