@@ -25,6 +25,8 @@
       "/var/lib/systemd/coredump"
       "/var/lib/systemd/rfkill"
       "/var/lib/systemd/timers"
+      "/var/lib/docker"
+      "/var/lib/OpenRGB"
     ];
 
     nixos.imports = [

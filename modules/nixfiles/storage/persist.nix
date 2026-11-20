@@ -36,6 +36,16 @@
               how = "symlink";
               configureParent = true;
             }
+            {
+              file = "/etc/ssh/ssh_host_mldsa44_ed25519_key";
+              how = "symlink";
+              configureParent = true;
+            }
+            {
+              file = "/etc/ssh/ssh_host_mldsa44_ed25519_key.pub";
+              how = "symlink";
+              configureParent = true;
+            }
           ]
           ++ lib.concatMap (p: p.files or [ ]) persist;
 
