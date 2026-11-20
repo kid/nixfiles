@@ -61,13 +61,10 @@ jobs:
             echo
           done | tr ' ' '\n' | sort -u | tr '\n' ' ')
           echo "extra-substituters = $subs" >> ~/.config/nix/nix.conf
+      # Builds only, into k3s-prd-0's store: pushing to Cachix re-uploads
+      # every path the hosts' other caches already serve, over the home
+      # uplink (~3 MB/s, over an hour for the first fw13 build).
       - name: Build hosts
         run: |
-          nix build --no-link --print-out-paths \
-            $(for h in $hosts; do echo ".#nixosConfigurations.$h.config.system.build.toplevel"; done) \
-            > "$RUNNER_TEMP/built"
-      # So the hosts substitute what CI built instead of building it.
-      - name: Push to Cachix
-        env:
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        run: nix run nixpkgs#cachix -- push kidibox < "$RUNNER_TEMP/built"
+          nix build --no-link \
+            $(for h in $hosts; do echo ".#nixosConfigurations.$h.config.system.build.toplevel"; done)
