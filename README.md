@@ -62,6 +62,8 @@ Private modules must not declare `flake-file.inputs`, or `just write` would publ
 
 ## Common commands
 
+The recipes call `nh` (`nh darwin` on macOS), which the dev shell provides (`nix develop`, or direnv).
+
 List available recipes:
 
 ```bash
@@ -80,13 +82,13 @@ Switch a specific host:
 just switch fw13
 ```
 
-Build a host package:
+Build a host:
 
 ```bash
 just build fw13
 ```
 
-Build or switch with extra arguments forwarded to the runner:
+Build or switch with extra arguments forwarded to `nix build`:
 
 ```bash
 just build fw13 -- --dry-run
