@@ -30,7 +30,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     llm-agents.url = "github:numtide/llm-agents.nix";
-    neovim-flake.url = "github:kid/neovim/40cb2cb3563b7581543bcdf0bed4ef22bc7d70b8";
+    neovim-flake.url = "github:kid/neovim/cb1a66afc37aeb62a8157d57b8d3fc3bd9d90830";
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";

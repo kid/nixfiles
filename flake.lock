@@ -822,17 +822,17 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1793804924,
-        "narHash": "sha256-kwH9IJr8qKOEO+RupAPUcxRwhPzGWcnbOYs3yLT38N0=",
+        "lastModified": 1795163053,
+        "narHash": "sha256-oMK19e9kglAqHm43j5YMLp3QvnFg5aSr0WoL33Cp9zk=",
         "owner": "kid",
         "repo": "neovim",
-        "rev": "40cb2cb3563b7581543bcdf0bed4ef22bc7d70b8",
+        "rev": "cb1a66afc37aeb62a8157d57b8d3fc3bd9d90830",
         "type": "github"
       },
       "original": {
         "owner": "kid",
         "repo": "neovim",
-        "rev": "40cb2cb3563b7581543bcdf0bed4ef22bc7d70b8",
+        "rev": "cb1a66afc37aeb62a8157d57b8d3fc3bd9d90830",
         "type": "github"
       }
     },
