@@ -59,6 +59,8 @@ The work Mac (nix-darwin) is also built from this flake, but its host, user, and
 `modules/private.nix` imports `modules/` from the `private` input, which is the empty stub at `./private` unless overridden.
 The `just` recipes override it with `~/Code/kid/nixfiles-work` (or `$NIXFILES_PRIVATE`) when that checkout exists.
 Private modules must not declare `flake-file.inputs`, or `just write` would publish them in `flake.nix`.
+CI evaluates the Mac on every push with nixfiles-work's `main`, reporting only pass or fail since the logs are public.
+To pair a branch with a nixfiles-work branch, run the `check-nixfiles-work` workflow by hand with `work-ref`.
 
 ## Common commands
 

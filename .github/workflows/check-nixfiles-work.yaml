@@ -1,0 +1,55 @@
+name: nix flake check
+on:
+  push:
+    paths:
+      - "**.nix"
+      - "**.lock"
+      # Every required check must run for a PR to merge: a PR touching only
+      # .github would otherwise wait on checks that never start.
+      - ".github/**"
+  # Pairs this branch with a nixfiles-work branch, for changes that need both.
+  workflow_dispatch:
+    inputs:
+      work-ref:
+        description: nixfiles-work branch
+        default: main
+permissions:
+  contents: read
+jobs:
+  check-nixfiles-work:
+    name: nixfiles-work (aarch64-darwin)
+    # Evaluation only, so any system will do: a build took 45 minutes, as
+    # nothing of it can go to the public kidibox cache.
+    runs-on: ubuntu-latest
+    env:
+      # actions/checkout clones shallow, which Nix only reads with shallow=1.
+      PRIVATE: git+file://${{ github.workspace }}/nixfiles-work?shallow=1
+    steps:
+      - name: Checkout nixfiles
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.ref_name }}
+          path: nixfiles
+          persist-credentials: false
+      - name: Checkout nixfiles-work
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: kid/nixfiles-work
+          ref: ${{ inputs.work-ref || 'main' }}
+          token: ${{ secrets.NIXFILES_WORK_REPO_TOKEN }}
+          path: nixfiles-work
+          persist-credentials: false
+      - uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      # `nix flake check` doesn't evaluate darwinConfigurations: it passes with
+      # an undefined option in a host's config. Each toplevel's drvPath does.
+      # These logs are public and Nix's output can quote the work config, so
+      # the step only reports the result. Run `just build <host>` on a machine
+      # with nixfiles-work checked out for the error.
+      - name: Evaluate the darwin hosts
+        working-directory: nixfiles
+        run: |
+          nix eval --raw --override-input private "$PRIVATE" .#darwinConfigurations \
+            --apply 'cs: toString (map (c: c.config.system.build.toplevel.drvPath) (builtins.attrValues cs))' >/dev/null 2>&1 \
+            || { echo "::error::The darwin hosts failed to evaluate."; exit 1; }
