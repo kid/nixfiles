@@ -59,6 +59,8 @@
 
             search = {
               force = true;
+              default = "ddg";
+              privateDefault = "ddg";
               engines = {
                 youtube = {
                   name = "YouTube";
@@ -137,6 +139,26 @@
                     }
                   ];
                   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                };
+                home-manager-options = {
+                  name = "Home Manager Options";
+                  definedAliases = [ "@hm" ];
+                  urls = [
+                    {
+                      template = "https://home-manager-options.extranix.com/";
+                      params = [
+                        {
+                          name = "release";
+                          value = "master";
+                        }
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  iconMapObj."16" = "https://home-manager-options.extranix.com/images/favicon.png";
                 };
                 nixos-wiki = {
                   name = "NixOS Wiki";
