@@ -15,6 +15,7 @@
       nf.base
       nf.stylix
       nf.desktop.gaming
+      nf.desktop.noctalia-greeter
       nf.dev.incus
       nf.dev.libvirt
       nf.storage.preservation

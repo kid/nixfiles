@@ -14,15 +14,8 @@
   nf.desktop.plasma = {
     includes = [ nf.desktop.wayland ];
 
-    persist.directories = [ "/var/lib/sddm" ];
-
     nixos = {
       services = {
-        displayManager.sddm = {
-          enable = true;
-          settings.General.InputMethod = "";
-        };
-
         desktopManager.plasma6 = {
           enable = true;
           enableQt5Integration = false;

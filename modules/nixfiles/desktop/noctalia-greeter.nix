@@ -1,5 +1,4 @@
 {
-  # greetd + noctalia-greeter in place of the sddm that nf.desktop.plasma enables.
   nf.desktop.noctalia-greeter = {
     # Sync's wallpaper copies and the remembered session (sync.toml).
     persist.directories = [
@@ -12,11 +11,9 @@
     ];
 
     nixos =
-      { config, lib, ... }:
+      { config, ... }:
       {
         services.displayManager = {
-          sddm.enable = lib.mkForce false;
-
           noctalia-greeter = {
             enable = true;
             settings = {
