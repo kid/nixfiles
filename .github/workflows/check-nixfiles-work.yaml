@@ -4,8 +4,9 @@ on:
     paths:
       - "**.nix"
       - "**.lock"
-      - ".github/workflows/check.yaml"
-      - ".github/actions/**/*"
+      # Every required check must run for a PR to merge: a PR touching only
+      # .github would otherwise wait on checks that never start.
+      - ".github/**"
 permissions:
   contents: read
 jobs:
