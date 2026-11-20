@@ -24,8 +24,6 @@
         };
 
         programs.gamescope.args = lib.mkAfter [ "--expose-wayland" ];
-
-        services.displayManager.sddm.wayland.enable = true;
       };
   };
 }

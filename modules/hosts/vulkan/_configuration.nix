@@ -145,7 +145,10 @@
       ++ lib.optional (lib.versionOlder (lib.versions.majorMinor config.boot.kernelPackages.kernel.version) "7.4") "amdgpu.dcfeaturemask=0x402"
     );
 
+    # Root gets nested subvolumes (systemd-tmpfiles' srv, var/lib/{machines,portables},
+    # tmp, var/tmp, ...) that a plain delete refuses with ENOTEMPTY.
     initrd.systemd.services.rollback = {
+      description = "Recreate the root subvolume empty";
       wantedBy = [ "initrd.target" ];
       after = [ "initrd-root-device.target" ];
       before = [ "sysroot.mount" ];
@@ -154,7 +157,7 @@
       script = ''
         mkdir -p /mnt
         mount -o subvol="@" /dev/disk/by-id/nvme-WD_BLACK_SN8100_2000GB_25264U800487-part2 /mnt
-        btrfs subvolume delete /mnt/root
+        btrfs subvolume delete --recursive /mnt/root
         btrfs subvolume create /mnt/root
         umount /mnt
       '';

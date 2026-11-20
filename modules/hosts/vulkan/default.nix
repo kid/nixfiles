@@ -15,6 +15,7 @@
       nf.base
       nf.stylix
       nf.desktop.gaming
+      nf.desktop.noctalia-greeter
       nf.dev.incus
       nf.dev.libvirt
       nf.storage.preservation
@@ -25,6 +26,8 @@
       "/var/lib/systemd/coredump"
       "/var/lib/systemd/rfkill"
       "/var/lib/systemd/timers"
+      "/var/lib/docker"
+      "/var/lib/OpenRGB"
     ];
 
     nixos.imports = [
