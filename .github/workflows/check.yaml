@@ -36,3 +36,35 @@ jobs:
         run: |
           checks=$(nix eval --raw .#checks.x86_64-linux --apply 'cs: toString (map (n: ".#checks.x86_64-linux.${n}") (builtins.attrNames cs))')
           nix build --no-link --print-out-paths $checks | nix run nixpkgs#cachix -- push kidibox
+  build-hosts:
+    name: nixos hosts (x86_64-linux)
+    # After the checks: both run on the one nixfiles runner anyway.
+    needs: check-flake
+    runs-on: nixfiles
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.ref_name }}
+          persist-credentials: false
+          submodules: recursive
+      # The hosts' own caches: the daemon lets the runner use those listed in
+      # its trusted-substituters (kid/home-ops' k3s-prd-0), else they'd build.
+      - name: Configure Nix
+        run: |
+          mkdir -p ~/.config/nix
+          echo "access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}" >> ~/.config/nix/nix.conf
+          hosts=$(nix eval --raw .#nixosConfigurations --apply 'cs: toString (builtins.filter (n: cs.${n}.pkgs.stdenv.hostPlatform.system == "x86_64-linux") (builtins.attrNames cs))')
+          echo "hosts=$hosts" >> "$GITHUB_ENV"
+          subs=$(for h in $hosts; do
+            nix eval --raw ".#nixosConfigurations.$h.config.nix.settings" --apply 's: toString ((s.substituters or [ ]) ++ (s.extra-substituters or [ ]))'
+            echo
+          done | tr ' ' '\n' | sort -u | tr '\n' ' ')
+          echo "extra-substituters = $subs" >> ~/.config/nix/nix.conf
+      # Builds only, into k3s-prd-0's store: pushing to Cachix re-uploads
+      # every path the hosts' other caches already serve, over the home
+      # uplink (~3 MB/s, over an hour for the first fw13 build).
+      - name: Build hosts
+        run: |
+          nix build --no-link \
+            $(for h in $hosts; do echo ".#nixosConfigurations.$h.config.system.build.toplevel"; done)
