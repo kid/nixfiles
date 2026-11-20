@@ -70,6 +70,8 @@
         programs.noctalia = {
           enable = true;
           settings = {
+            # Umbriel has no polkit agent of its own; without one, 1Password system unlock fails instantly.
+            shell.polkit_agent = true;
             wallpaper.enabled = true;
             idle.behavior = {
               lock = {
