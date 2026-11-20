@@ -55,10 +55,16 @@ den.aspects.kid = {
 - `fw13` — Framework 13 laptop
 - `vulkan` — desktop/workstation
 
-At the moment this flake exports NixOS configurations for those hosts.
-The Den setup is still prepared for cross-platform use, and CI also evaluates `aarch64-darwin`.
+The work Mac (nix-darwin) is also built from this flake, but its host, user, and AI setup live in the private `kid/nixfiles-work` repo.
+`modules/private.nix` imports `modules/` from the `private` input, which is the empty stub at `./private` unless overridden.
+The `just` recipes override it with `~/Code/kid/nixfiles-work` (or `$NIXFILES_PRIVATE`) when that checkout exists.
+Private modules must not declare `flake-file.inputs`, or `just write` would publish them in `flake.nix`.
+CI evaluates the Mac on every push with nixfiles-work's `main`, reporting only pass or fail since the logs are public.
+To pair a branch with a nixfiles-work branch, run the `check-nixfiles-work` workflow by hand with `work-ref`.
 
 ## Common commands
+
+The recipes call `nh` (`nh darwin` on macOS), which the dev shell provides (`nix develop`, or direnv).
 
 List available recipes:
 
@@ -78,13 +84,13 @@ Switch a specific host:
 just switch fw13
 ```
 
-Build a host package:
+Build a host:
 
 ```bash
 just build fw13
 ```
 
-Build or switch with extra arguments forwarded to the runner:
+Build or switch with extra arguments forwarded to `nix build`:
 
 ```bash
 just build fw13 -- --dry-run

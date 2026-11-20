@@ -7,7 +7,7 @@
         # WezTerm half of smart-splits.nvim's backend-wezterm, taken from the
         # same package the Neovim half comes from so both stay in lockstep.
         # nixfiles' own `inputs`, not the `inputs'` module arg: that one belongs
-        # to whichever flake evaluates this aspect (e.g. nixfiles-work).
+        # to whichever flake evaluates this aspect.
         smart-splits =
           inputs.neovim-flake.packages.${pkgs.stdenv.hostPlatform.system}.smart-splits-backend-wezterm;
       in
