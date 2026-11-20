@@ -55,8 +55,10 @@ den.aspects.kid = {
 - `fw13` — Framework 13 laptop
 - `vulkan` — desktop/workstation
 
-At the moment this flake exports NixOS configurations for those hosts.
-The Den setup is still prepared for cross-platform use, and CI also evaluates `aarch64-darwin`.
+The work Mac (nix-darwin) is also built from this flake, but its host, user, and AI setup live in the private `kid/nixfiles-work` repo.
+`modules/private.nix` imports `modules/` from the `private` input, which is the empty stub at `./private` unless overridden.
+The `just` recipes override it with `~/Code/kid/nixfiles-work` (or `$NIXFILES_PRIVATE`) when that checkout exists.
+Private modules must not declare `flake-file.inputs`, or `just write` would publish them in `flake.nix`.
 
 ## Common commands
 
