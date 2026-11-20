@@ -7,19 +7,19 @@ jobs:
   lockfile:
     env:
       BRANCH: chore/update-flake-lock
-    runs-on: ubuntu-latest
+    # The in-cluster runner (kid/home-ops' actions-runner-controller): Nix is
+    # its node's daemon. Its image has no gh, which the steps below use.
+    runs-on: nixfiles
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           submodules: recursive
-      - uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31
-        with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
-        with:
-          name: kidibox
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - name: Configure Nix and gh
+        run: |
+          mkdir -p ~/.config/nix
+          echo "access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}" >> ~/.config/nix/nix.conf
+          echo "$(nix build --no-link --print-out-paths nixpkgs#gh)/bin" >> "$GITHUB_PATH"
       - name: Create or update branch
         run: |
           git checkout -b $BRANCH
