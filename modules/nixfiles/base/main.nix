@@ -156,10 +156,7 @@
           openFirewall = true;
         };
 
-        printing = {
-          enable = true;
-          drivers = [ pkgs.brlaser ];
-        };
+        printing.enable = true;
 
         avahi = {
           enable = true;
@@ -225,10 +222,13 @@
           ensureDefaultPrinter = "Brother_HL-2030_series";
           ensurePrinters = [
             {
+              # The HL-2030's shared queue on home-ops' k3s-prd-0 (Trusted VLAN
+              # only), which renders with brlaser. Raw: a driverless
+              # (`everywhere`) queue queries the server when created, and
+              # would fail cups' start on every boot away from home.
               name = "Brother_HL-2030_series";
-              deviceUri = "http://10.0.100.137:631/printers/Brother_HL-2030_series";
-              model = "drv:///brlaser.drv/brl2320d.ppd";
-              ppdOptions.PageSize = "A4";
+              deviceUri = "ipp://k3s-prd-0.k3s.home.kidibox.net/printers/HL-2030";
+              model = "raw";
             }
           ];
         };
