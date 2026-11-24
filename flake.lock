@@ -88,6 +88,23 @@
     "brew-src": {
       "flake": false,
       "locked": {
+        "lastModified": 1795425517,
+        "narHash": "sha256-TNAmwUyYRFQSgh5Tv8w8oXqiKj4glhSH+J8B9EOyo5E=",
+        "owner": "Homebrew",
+        "repo": "brew",
+        "rev": "7ef183d10e7d6e5620d7124b744b1dfbf69fc108",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Homebrew",
+        "ref": "7.0.16",
+        "repo": "brew",
+        "type": "github"
+      }
+    },
+    "brew-src_2": {
+      "flake": false,
+      "locked": {
         "lastModified": 1793000687,
         "narHash": "sha256-8mCor0DDjNhi+0e+FllfqiMABujBl+/RxYW+wgMpcto=",
         "owner": "Homebrew",
@@ -991,7 +1008,7 @@
     },
     "nix-homebrew": {
       "inputs": {
-        "brew-src": "brew-src"
+        "brew-src": "brew-src_2"
       },
       "locked": {
         "lastModified": 1793543863,
@@ -1385,6 +1402,7 @@
     },
     "root": {
       "inputs": {
+        "brew-src": "brew-src",
         "darwin": "darwin",
         "den": "den",
         "determinate": "determinate",

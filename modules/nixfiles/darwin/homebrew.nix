@@ -1,7 +1,14 @@
 { inputs, ... }:
+let
+  # nix-homebrew's bundled brew lags homebrew-core; formulae break when core uses newer DSL.
+  brewVersion = "7.0.16";
+in
 {
   flake-file.inputs = {
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+
+    brew-src.url = "github:Homebrew/brew/${brewVersion}";
+    brew-src.flake = false;
 
     homebrew-core.url = "github:homebrew/homebrew-core";
     homebrew-core.flake = false;
@@ -25,6 +32,10 @@
             enableRosetta = true;
             user = user.name;
             mutableTaps = false;
+            package = inputs.brew-src // {
+              name = "brew-${brewVersion}";
+              version = brewVersion;
+            };
 
             taps = {
               "homebrew/homebrew-core" = inputs.homebrew-core;
