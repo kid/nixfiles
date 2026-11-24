@@ -104,9 +104,15 @@
 
             omp = {
               settings = {
+                advisor.enabled = true;
                 github.enabled = true;
                 memory.backend = "mnemopi";
                 mnemopi.scoping = "global";
+                modelRoles = {
+                  default = "anthropic/claude-opus-5-5:medium";
+                  smol = lib.mkDefault "anthropic/claude-haiku-5-5";
+                  advisor = lib.mkDefault "anthropic/claude-sonnet-5-5:medium";
+                };
                 theme = {
                   dark = "dark-gruvbox";
                   light = "light-gruvbox";
