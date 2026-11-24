@@ -117,6 +117,7 @@
                   dark = "dark-gruvbox";
                   light = "light-gruvbox";
                 };
+                tui.vimMode = true;
               };
 
               lspServers = {
