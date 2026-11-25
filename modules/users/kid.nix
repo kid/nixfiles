@@ -33,7 +33,7 @@ in
       {
         pkgs,
         osConfig,
-        self',
+        inputs',
         ...
       }:
       {
@@ -63,7 +63,7 @@ in
               prusa-slicer
               proton-pass
             ]
-            ++ [ self'.packages.dagger ];
+            ++ [ inputs'.dagger.packages.dagger ];
         };
 
         systemd.user.startServices = lib.mkDefault "sd-switch";
