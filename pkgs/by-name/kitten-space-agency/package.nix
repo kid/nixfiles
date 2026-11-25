@@ -12,7 +12,7 @@
 let
   pname = "kitten-space-agency";
   # renovate: datasource=custom.kitten-space-agency depName=kitten-space-agency versioning=loose
-  version = "2026.11.16.5901";
+  version = "2026.11.25.5949";
   build = lib.last (lib.splitString "." version);
 
   meta = {
@@ -32,7 +32,7 @@ let
 
     src = fetchurl {
       url = "https://files.ksa-archive.net/builds/${build}/ksa_linux_v${version}.tar.gz";
-      hash = "sha256-SPs9r+jT4q2BQWxriYfzrJj6SZXCjPSRWDqIqQxzf0E=";
+      hash = "sha256-dG3YoquyGACM/2nh3khBcVQwQMxJSZyl2bH6kdAL41k=";
     };
 
     dontUnpack = true;
