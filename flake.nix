@@ -8,6 +8,10 @@
       url = "github:Homebrew/brew/7.0.16";
       flake = false;
     };
+    dagger = {
+      url = "github:dagger/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";

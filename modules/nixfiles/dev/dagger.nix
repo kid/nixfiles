@@ -1,12 +1,17 @@
 { nf, ... }:
 {
+  flake-file.inputs.dagger = {
+    url = "github:dagger/nix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   nf.dev.dagger = {
     includes = [ nf.dev.docker ];
 
     homeManager =
-      { self', ... }:
+      { inputs', ... }:
       {
-        home.packages = [ self'.packages.dagger ];
+        home.packages = [ inputs'.dagger.packages.dagger ];
       };
   };
 }
